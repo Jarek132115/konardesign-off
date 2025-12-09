@@ -18,14 +18,14 @@
 
 /* Pinned wrapper:
    - full viewport width
-   - 100vh tall on all sizes
+   - min 100vh on all sizes
    - use 100svh for safer mobile behaviour
 */
 .imagine__pin {
     position: relative;
     width: 100%;
-    height: 100vh;
-    height: 100svh;
+    min-height: 100vh;
+    min-height: 100svh;
     /* modern mobile viewport */
     padding: 40px;
     box-sizing: border-box;
