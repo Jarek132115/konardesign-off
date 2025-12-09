@@ -8,10 +8,11 @@
     background: var(--off-white);
 }
 
+/* main just constrains width; sections own their padding */
 .service-page__main {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 120px 120px;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -21,8 +22,8 @@
 
 .service-hero {
     position: relative;
-    max-width: 1600px;
-    margin: 0 auto 120px;
+    margin: 0 auto;
+    padding: 120px 120px 120px;
     text-align: center;
     z-index: 0;
 }
@@ -33,7 +34,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: -40px;
+    top: 80px;
     width: 900px;
     height: 260px;
     z-index: -1;
@@ -74,7 +75,7 @@
     white-space: nowrap;
 }
 
-/* deep indigo highlight (e.g. “Built To Convert”) */
+/* deep indigo highlight (“Built To Convert”) */
 .service-hero__title-highlight {
     color: var(--deep-indigo);
 }
@@ -112,9 +113,16 @@
 /* “WHAT'S INCLUDED” SECTION (CONVERSION-STYLE CARDS)        */
 /* --------------------------------------------------------- */
 
+/* outer section block – same idea as .conversion */
 .service-included {
-    max-width: 1600px;
-    margin: 0 auto 96px;
+    margin: 0 auto;
+    padding: 120px 120px;
+    box-sizing: border-box;
+    background-color: var(--white);
+}
+
+.service-included__inner {
+    margin: 0 auto;
 }
 
 /* Header */
@@ -158,7 +166,6 @@
 .service-included__card {
     position: relative;
     background-color: var(--white);
-    /* fallback */
     border-radius: 12px;
     border: 1px solid var(--light-grey);
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
@@ -240,10 +247,17 @@
 /* GALLERY SECTION                                           */
 /* --------------------------------------------------------- */
 
+/* outer block – same paddings as conversion */
 .service-gallery {
-    max-width: 1600px;
-    margin: 0 auto 96px;
+    margin: 0 auto;
+    padding: 120px 120px;
+    box-sizing: border-box;
+    background-color: var(--off-white);
     text-align: center;
+}
+
+.service-gallery__inner {
+    margin: 0 auto;
 }
 
 .service-gallery__header {
@@ -298,25 +312,30 @@
 /* --------------------------------------------------------- */
 
 @media (max-width: 1400px) {
-    .service-page__main {
+
+    .service-hero,
+    .service-included,
+    .service-gallery {
         padding: 120px 40px;
     }
 
     .service-hero::before {
         width: 750px;
         height: 230px;
-        top: -30px;
+        top: 70px;
     }
 }
 
 @media (max-width: 1024px) {
-    .service-page__main {
+
+    .service-hero,
+    .service-included,
+    .service-gallery {
         padding: 100px 40px;
     }
 
     .service-hero {
         text-align: left;
-        margin-bottom: 64px;
     }
 
     .service-hero__subtitle {
@@ -345,12 +364,11 @@
 }
 
 @media (max-width: 768px) {
-    .service-page__main {
-        padding: 60px 20px;
-    }
 
-    .service-hero {
-        margin-bottom: 56px;
+    .service-hero,
+    .service-included,
+    .service-gallery {
+        padding: 60px 20px;
     }
 
     .service-hero__title {
@@ -378,7 +396,7 @@
     .service-hero::before {
         width: 520px;
         height: 210px;
-        top: -20px;
+        top: 60px;
     }
 }
 
