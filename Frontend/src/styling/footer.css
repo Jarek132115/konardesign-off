@@ -1,10 +1,8 @@
-/* src/styling/footer.css */
 @import "./colours.css";
 
 .footer {
     width: 100%;
     padding: 40px;
-    /* 40px all around, no extra bottom */
     box-sizing: border-box;
     background: var(--off-white);
     display: flex;
@@ -54,6 +52,8 @@
     align-items: center;
     gap: 16px;
     margin-top: 8px;
+    flex-wrap: wrap;
+    /* ✅ allow wrapping on smaller screens */
 }
 
 .footer__tool {
@@ -82,7 +82,6 @@
     font-size: 18px;
     font-weight: 600;
     color: #ffffff;
-    /* was #f9fafb */
 }
 
 .footer__list {
@@ -92,19 +91,6 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-}
-
-.footer__link {
-    text-decoration: none;
-    color: #ffffff;
-    /* was #e5e7ff */
-    font-size: 14px;
-    transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-.footer__link:hover {
-    color: #ffffff;
-    opacity: 1;
 }
 
 /* DIVIDER --------------------------------------------------------------- */
@@ -132,7 +118,6 @@
     margin: 0;
     font-size: 13px;
     color: #ffffff;
-    /* was #e0e7ff */
 }
 
 .footer__bottom-links {
@@ -146,7 +131,6 @@
 @media (max-width: 1200px) {
     .footer {
         padding: 40px;
-        /* keep consistent 40px shell */
     }
 
     .footer__inner {
@@ -158,14 +142,19 @@
 
     .footer__col--brand {
         grid-column: 1 / -1;
+        /* brand spans full width */
         max-width: 640px;
+    }
+
+    .footer__tagline {
+        max-width: none;
+        /* ✅ tagline full width once stacked */
     }
 }
 
 @media (max-width: 900px) {
     .footer {
         padding: 32px;
-        /* slightly tighter on tablet */
     }
 
     .footer__inner {
@@ -189,21 +178,36 @@
 @media (max-width: 640px) {
     .footer {
         padding: 24px;
-        /* mobile shell */
     }
 
     .footer__inner {
         border-radius: 24px;
         padding: 32px 20px 24px;
-        grid-template-columns: 1fr;
+        /* ✅ brand full-width, then 3 link columns side-by-side */
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         row-gap: 28px;
+        column-gap: 16px;
+    }
+
+    .footer__col--brand {
+        grid-column: 1 / -1;
+        /* brand row across all 3 cols */
+    }
+
+    /* keep each link column occupying one of the 3 tracks */
+    .footer__col:not(.footer__col--brand) {
+        min-width: 0;
     }
 
     .footer__bottom {
+        grid-column: 1 / -1;
         flex-direction: column;
         align-items: flex-start;
     }
 }
+
+/* LINKS ------------------------------------------------------------ */
 
 .footer__inner a,
 .footer__link {
