@@ -113,17 +113,18 @@ const ProcessSection = () => {
     }, []);
 
     /* ---------------------------
-       SCROLL + LETTER ANIMATION
+       SCROLL + EYEBROW / LETTER ANIMATION
     ---------------------------- */
     useEffect(() => {
         const sectionEl = sectionRef.current;
         if (!sectionEl) return;
 
+        const eyebrowEl = sectionEl.querySelector(".process__eyebrow");
         const titleEl = sectionEl.querySelector(".process__title");
         const subtitleEl = sectionEl.querySelector(".process__subtitle");
         const headerRow = sectionEl.querySelector(".process__steps");
 
-        if (!titleEl || !subtitleEl) return;
+        if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
@@ -160,6 +161,7 @@ const ProcessSection = () => {
         });
 
         const charSpans = titleEl.querySelectorAll(".process__title-word span");
+
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
         if (headerRow) gsap.set(headerRow, { opacity: 0, y: 8 });
 
@@ -172,29 +174,49 @@ const ProcessSection = () => {
             defaults: { ease: "power2.out" },
         });
 
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.03,
-            duration: 0.4,
-        })
-            .to(
-                subtitleEl,
+        tl
+            // Eyebrow first
+            .fromTo(
+                eyebrowEl,
+                { opacity: 0, y: 8 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.45,
+                    duration: 0.25,
+                }
+            )
+            // Then title letters
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
                 },
                 ">-0.05"
             )
-            .to(
-                headerRow,
+            // Then subheading
+            .fromTo(
+                subtitleEl,
+                { opacity: 0, y: 8 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.4,
+                    duration: 0.28,
                 },
-                ">-0.1"
+                ">-0.08"
+            )
+            // Then pills row
+            .fromTo(
+                headerRow,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                },
+                ">-0.06"
             );
 
         return () => {

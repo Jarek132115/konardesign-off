@@ -102,7 +102,7 @@
     background-repeat: no-repeat;
 }
 
-/* 🖼 BACKGROUND VARIANTS */
+/* BACKGROUND VARIANTS */
 
 .process__card--bg1 {
     background-image:
@@ -276,17 +276,6 @@
 @media (max-width: 1200px) {
     .process {
         padding: 96px 40px 96px;
-    }
-}
-
-/* Only left-align on tablet & below */
-@media (max-width: 1024px) {
-    .process__header {
-        text-align: left;
-    }
-
-    .process__subtitle {
-        margin-left: 0;
     }
 }
 
