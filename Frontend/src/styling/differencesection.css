@@ -83,7 +83,6 @@
     white-space: nowrap;
     align-self: flex-start;
     color: #ffffff !important;
-    /* always white text */
     border: none;
     outline: none;
     cursor: default;
@@ -151,15 +150,7 @@
         padding: 100px 40px;
     }
 
-    .difference__header {
-        text-align: left;
-    }
-
-    .difference__subtitle {
-        margin: 0;
-        /* align with left heading like Conversion */
-    }
-
+    /* header stays centered on tablet/mobile */
     .difference__grid {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -169,11 +160,6 @@
 @media (max-width: 768px) {
     .difference {
         padding: 60px 20px;
-    }
-
-    .difference__title {
-        font-size: 32px;
-        line-height: 40px;
     }
 
     .difference__card {

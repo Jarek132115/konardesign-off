@@ -35,13 +35,14 @@ const DifferenceSection = () => {
         const sectionEl = sectionRef.current;
         if (!sectionEl) return;
 
+        const eyebrowEl = sectionEl.querySelector(".difference__eyebrow");
         const titleEl = sectionEl.querySelector(".difference__title");
         const subtitleEl = sectionEl.querySelector(".difference__subtitle");
         const cards = sectionEl.querySelectorAll(".difference__card");
 
-        if (!titleEl || !subtitleEl) return;
+        if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        // TITLE LETTER ANIMATION
+        // TITLE LETTER ANIMATION (word-safe)
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -94,22 +95,41 @@ const DifferenceSection = () => {
             defaults: { ease: "power2.out" },
         });
 
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.03,
-            duration: 0.4,
-        }).to(
-            subtitleEl,
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.4,
-            },
-            ">-0.05"
-        );
+        tl
+            // 1) Eyebrow
+            .fromTo(
+                eyebrowEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.25,
+                }
+            )
+            // 2) Letters
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                },
+                ">-0.05"
+            )
+            // 3) Subheading
+            .fromTo(
+                subtitleEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                },
+                ">-0.08"
+            );
 
-        // cards fade in
+        // cards fade in on scroll
         cards.forEach((card) => {
             gsap.fromTo(
                 card,

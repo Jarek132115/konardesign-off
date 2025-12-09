@@ -108,46 +108,67 @@ const Home = () => {
 
         const charSpans = titleEl.querySelectorAll(".hero__title-word span");
 
+        // initial states
         gsap.set(subheadingEl, { opacity: 0, y: 8 });
-        gsap.set([pillEl, buttonsEl], { opacity: 0, y: 8 });
+        gsap.set(buttonsEl, { opacity: 0, y: 8 });
         gsap.set(carouselEl, { opacity: 0, y: 16 });
 
         const introTl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
         introTl
-            .to(charSpans, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.024,
-                duration: 0.32,
-            })
-            .to(
-                subheadingEl,
+            // 1) pill first
+            .fromTo(
+                pillEl,
+                { opacity: 0, y: 8 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.35,
+                    duration: 0.25,
+                }
+            )
+            // 2) letters
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                },
+                ">-0.05"
+            )
+            // 3) subheading
+            .fromTo(
+                subheadingEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                },
+                ">-0.08"
+            )
+            // 4) buttons
+            .fromTo(
+                buttonsEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                },
+                ">-0.06"
+            )
+            // 5) carousel
+            .fromTo(
+                carouselEl,
+                { opacity: 0, y: 16 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
                 },
                 ">-0.04"
-            )
-            .to(
-                [pillEl, buttonsEl],
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.35,
-                    stagger: 0.04,
-                },
-                ">"
-            )
-            .to(
-                carouselEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.35,
-                },
-                ">-0.02"
             );
 
         /* -----------------------------
