@@ -20,6 +20,7 @@
 
 .blogsection__header {
     text-align: center;
+    /* keep centered on all sizes */
     margin-bottom: 48px;
 }
 
@@ -31,7 +32,13 @@
     margin-bottom: 12px;
 }
 
-.blogsection__title .highlight {
+/* word wrapper for animation */
+.blogsection__title-word {
+    white-space: nowrap;
+}
+
+/* highlighted words */
+.blogsection__title-highlight {
     color: var(--deep-indigo);
 }
 
@@ -57,7 +64,6 @@
     cursor: pointer;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     border: 1px solid var(--light-grey);
-
 }
 
 .blogsection__card:hover {
@@ -108,38 +114,22 @@
 /* RESPONSIVE                                                */
 /* --------------------------------------------------------- */
 
-/* Desktop → tablet padding */
 @media (max-width: 1400px) {
     .blogsection {
         padding: 120px 40px;
     }
 }
 
-/* Tablet: text left + 1-col grid */
 @media (max-width: 1024px) {
     .blogsection {
         padding: 100px 40px;
     }
 
-    .blogsection__header {
-        text-align: left;
-    }
-
-    .blogsection__subtitle {
-        margin-left: 0;
-    }
-
     .blogsection__grid {
         grid-template-columns: 1fr;
     }
-
-    .blogsection__cta {
-        margin-left: 0;
-        margin-right: 0;
-    }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
     .blogsection {
         padding: 60px 20px;

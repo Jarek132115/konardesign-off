@@ -1,14 +1,19 @@
-// src/components/BlogSection.jsx
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styling/blogsection.css";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import blogImg1 from "../assets/images/carousel5.jpg";
 import blogImg2 from "../assets/images/carousel6.jpg";
 import blogImg3 from "../assets/images/carousel7.jpg";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const BlogSection = () => {
     const navigate = useNavigate();
+    const sectionRef = useRef(null);
 
     const articles = [
         {
@@ -37,17 +42,147 @@ const BlogSection = () => {
         },
     ];
 
+    useEffect(() => {
+        const sectionEl = sectionRef.current;
+        if (!sectionEl) return;
+
+        const eyebrowEl = sectionEl.querySelector(".blogsection__eyebrow");
+        const titleEl = sectionEl.querySelector(".blogsection__title");
+        const subtitleEl = sectionEl.querySelector(".blogsection__subtitle");
+        const cards = sectionEl.querySelectorAll(".blogsection__card");
+
+        if (!eyebrowEl || !titleEl || !subtitleEl) return;
+
+        /* ------------ LETTER-BY-LETTER TITLE ------------ */
+
+        const originalText = titleEl.textContent;
+        titleEl.textContent = "";
+
+        const words = originalText.split(" ");
+
+        words.forEach((word, wordIndex) => {
+            const wordWrapper = document.createElement("span");
+            wordWrapper.classList.add("blogsection__title-word");
+            wordWrapper.style.display = "inline-block";
+
+            for (const ch of word) {
+                const charSpan = document.createElement("span");
+                charSpan.textContent = ch;
+                charSpan.style.display = "inline-block";
+                charSpan.style.opacity = "0";
+                charSpan.style.transform = "translateY(8px)";
+                wordWrapper.appendChild(charSpan);
+            }
+
+            titleEl.appendChild(wordWrapper);
+
+            if (wordIndex !== words.length - 1) {
+                titleEl.appendChild(document.createTextNode(" "));
+            }
+        });
+
+        // Highlight “Insights”
+        const wordSpans = titleEl.querySelectorAll(".blogsection__title-word");
+        const highlightSet = new Set(["Insights"]);
+
+        wordSpans.forEach((wordSpan) => {
+            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
+            if (highlightSet.has(cleaned)) {
+                wordSpan.classList.add("blogsection__title-highlight");
+            }
+        });
+
+        const charSpans = titleEl.querySelectorAll(".blogsection__title-word span");
+
+        gsap.set(subtitleEl, { opacity: 0, y: 8 });
+
+        const headingTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: sectionEl,
+                start: "top 75%",
+                toggleActions: "play none none none",
+            },
+            defaults: { ease: "power2.out" },
+        });
+
+        headingTl
+            // eyebrow
+            .fromTo(
+                eyebrowEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.25,
+                }
+            )
+            // letters
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                },
+                ">-0.05"
+            )
+            // subtitle
+            .fromTo(
+                subtitleEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                },
+                ">-0.08"
+            );
+
+        /* ------------ CARD FADE-IN ON SCROLL ------------ */
+
+        const cardAnims = [];
+
+        cards.forEach((card) => {
+            const anim = gsap.fromTo(
+                card,
+                { opacity: 0, y: 24 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.45,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
+            cardAnims.push(anim);
+        });
+
+        return () => {
+            if (headingTl.scrollTrigger) headingTl.scrollTrigger.kill();
+            headingTl.kill();
+            cardAnims.forEach((anim) => {
+                if (anim.scrollTrigger) anim.scrollTrigger.kill();
+                anim.kill();
+            });
+        };
+    }, []);
+
     return (
-        <section className="blogsection">
+        <section className="blogsection" ref={sectionRef}>
             <div className="blogsection__inner">
                 <header className="blogsection__header">
                     <p className="eyebrow blogsection__eyebrow">Blog</p>
                     <h2 className="heading2 blogsection__title">
-                        Growth-Driven <span className="highlight">Insights</span> For Modern Brands
+                        Growth-Driven Insights For Modern Brands
                     </h2>
                     <p className="subheading blogsection__subtitle">
-                        High-impact articles on UX, design, performance, and digital growth—written
-                        for brands ready to scale.
+                        High-impact articles on UX, design, performance, and digital growth—
+                        written for brands ready to scale.
                     </p>
                 </header>
 
