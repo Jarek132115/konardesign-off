@@ -173,79 +173,70 @@ const ImagineSection = () => {
                 ">-0.08"
             );
 
-        /* ---- PIN + CIRCLE → RECTANGLE + VIDEO REVEAL ---- */
+        /* ---- PIN + HEADER FADE, VIDEO AUTOPLAY ----
+           - Video is already full-bleed from the start.
+           - When the header hits the center and the pin starts,
+             we autoplay the video.
+        ---------------------------------------------------- */
 
+        // ensure backdrop fills the content from the start
         gsap.set(backdropEl, {
             xPercent: -50,
             yPercent: -50,
-            scale: 0,
-            width: "40vmin",
-            height: "40vmin",
-            borderRadius: "50%",
-            opacity: 1,
-            transformOrigin: "50% 50%",
+            width: "100%",
+            height: "100%",
+            borderRadius: 0,
         });
 
-        gsap.set(frameEl, { opacity: 0 });
+        gsap.set(frameEl, { opacity: 1 });
 
         const pinTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: headerEl,
                 start: "center center",
-                end: "+=160%",
+                end: "+=140%",
                 scrub: true,
                 pin: pinEl,
                 pinSpacing: true,
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
+                onEnter: () => {
+                    const video = videoRef.current;
+                    if (video) {
+                        video.currentTime = 0;
+                        video.play().catch(() => { });
+                        setIsPlaying(true);
+                    }
+                },
+                onEnterBack: () => {
+                    const video = videoRef.current;
+                    if (video) {
+                        video.play().catch(() => { });
+                        setIsPlaying(true);
+                    }
+                },
                 onLeave: () => {
-                    if (videoRef.current) {
-                        videoRef.current.pause();
+                    const video = videoRef.current;
+                    if (video) {
+                        video.pause();
+                        setIsPlaying(false);
+                    }
+                },
+                onLeaveBack: () => {
+                    const video = videoRef.current;
+                    if (video) {
+                        video.pause();
                         setIsPlaying(false);
                     }
                 },
             },
         });
 
-        pinTimeline
-            .to(
-                backdropEl,
-                {
-                    scale: 1,
-                    duration: 0.45,
-                    ease: "power2.out",
-                },
-                0.1
-            )
-            .to(
-                headerEl,
-                {
-                    opacity: 0,
-                    duration: 0.4,
-                    ease: "power2.out",
-                },
-                0.25
-            )
-            .to(
-                backdropEl,
-                {
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: "0px", // full-bleed rectangle
-                    duration: 0.7,
-                    ease: "power2.inOut",
-                },
-                0.4
-            )
-            .to(
-                frameEl,
-                {
-                    opacity: 1,
-                    duration: 0.6,
-                    ease: "power2.out",
-                },
-                0.7
-            );
+        pinTimeline.to(headerEl, {
+            opacity: 0,
+            duration: 0.5,
+            ease: "power2.out",
+        });
 
         const handleResize = () => ScrollTrigger.refresh();
         window.addEventListener("resize", handleResize);
