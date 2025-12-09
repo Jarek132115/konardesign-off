@@ -11,10 +11,14 @@
     z-index: 0;
     max-width: 2000px;
     margin: 0 auto;
+
+    /* LEFT/RIGHT = 40px on desktop */
     padding: 100px 40px 80px;
+
     box-sizing: border-box;
 }
 
+/* dotted halo behind hero content */
 .hero::before {
     content: "";
     position: absolute;
@@ -55,25 +59,30 @@
     text-align: center;
 }
 
+/* H1 */
 .hero__title {
     margin: 8px auto 16px;
     max-width: 1000px;
 }
 
+/* word wrapper for letter animation */
 .hero__title-word {
     white-space: nowrap;
 }
 
+/* SUBHEADING */
 .hero__subheading {
     margin: 16px auto 16px;
     max-width: 700px;
 }
 
+/* CTA BUTTONS LAYOUT */
 .hero__buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 16px;
+    margin-top: 0;
     margin-bottom: 40px;
 }
 
@@ -94,7 +103,13 @@
     will-change: transform;
     transform: translate3d(0, 0, 0);
     cursor: grab;
+
+    /* allow browser to handle vertical scrolling but give us horizontal pan */
     touch-action: pan-y;
+}
+
+.hero__carousel-track--dragging {
+    cursor: grabbing;
 }
 
 /* base card – 4 / 2.75 aspect ratio */
@@ -106,10 +121,6 @@
     overflow: hidden;
 }
 
-.hero__carousel-track--dragging {
-    cursor: grabbing;
-}
-
 .hero__image {
     width: 100%;
     height: 100%;
@@ -118,35 +129,56 @@
 }
 
 /* --------------------------------------------------------- */
-/* BIG TABLET (801–1200px)                                   */
+/* “BIG TABLET” (desktop-ish, 801–1200px)                    */
 /* --------------------------------------------------------- */
 
 @media (min-width: 801px) and (max-width: 1200px) {
+    .hero {
+        padding: 110px 40px 95px;
+    }
+
+    .hero__inner {
+        margin-bottom: 60px;
+    }
+
     .hero__title {
         font-size: clamp(48px, 4.6vw, 60px);
         line-height: 1.08;
     }
-}
 
-/* --------------------------------------------------------- */
-/* ✅ MOBILE LARGE (400–499px) → 40px H1, 280px wide cards    */
-/* --------------------------------------------------------- */
+    .hero__subheading {
+        max-width: 720px;
+        font-size: 17px;
+    }
 
-@media (min-width: 400px) and (max-width: 499px) {
-    .heading1.hero__title {
-        font-size: 40px !important;
-        line-height: 52px;
+    .hero__buttons {
+        margin-bottom: 50px;
     }
 
     .hero__card {
-        flex: 0 0 280px;
-        width: 280px;
-        /* height comes from aspect-ratio */
+        flex: 0 0 360px;
+        width: 360px;
+        /* height from aspect-ratio */
     }
 }
 
 /* --------------------------------------------------------- */
-/* ✅ MOBILE SMALL (≤399px) → 36px H1, 260px wide cards       */
+/* GENERIC MOBILE (up to 499px) – base hero spacing          */
+/* --------------------------------------------------------- */
+
+@media (max-width: 499px) {
+    .hero {
+        padding: 80px 20px 60px;
+    }
+
+    .hero::before {
+        top: 20px;
+        height: clamp(260px, 60vw, 360px);
+    }
+}
+
+/* --------------------------------------------------------- */
+/* MOBILE SMALL (≤399px) → 36px H1, 260px cards              */
 /* --------------------------------------------------------- */
 
 @media (max-width: 399px) {
@@ -158,17 +190,67 @@
     .hero__card {
         flex: 0 0 260px;
         width: 260px;
-        /* height comes from aspect-ratio */
-    }
-
-    .hero::before {
-        top: 20px;
-        height: clamp(240px, 60vw, 320px);
+        /* height from aspect-ratio */
     }
 }
 
 /* --------------------------------------------------------- */
-/* ✅ MID TABLET SMALL (500–599px) → 48px H1, 340px cards     */
+/* MOBILE LARGE (400–499px) → 40px H1, 280px cards           */
+/* --------------------------------------------------------- */
+
+@media (min-width: 400px) and (max-width: 499px) {
+    .heading1.hero__title {
+        font-size: 40px !important;
+        line-height: 52px;
+    }
+
+    .hero__card {
+        flex: 0 0 280px;
+        width: 280px;
+        /* height from aspect-ratio */
+    }
+}
+
+/* --------------------------------------------------------- */
+/* MID TABLET (500–800px) – restore tall hero                */
+/* --------------------------------------------------------- */
+
+@media (min-width: 500px) and (max-width: 800px) {
+    .hero {
+        /* more vertical breathing room so Intro doesn’t show
+           without fixing an exact height */
+        padding: 120px 40px 110px;
+    }
+
+    .hero__inner {
+        margin-bottom: 72px;
+    }
+
+    /* base clamp, overridden by specific ranges below */
+    .hero__title {
+        font-size: clamp(44px, 5vw, 54px);
+        line-height: 1.1;
+        max-width: 900px;
+    }
+
+    .hero__subheading {
+        max-width: 720px;
+        font-size: 16px;
+    }
+
+    .hero__buttons {
+        margin-bottom: 56px;
+    }
+
+    .hero__card {
+        flex: 0 0 340px;
+        width: 340px;
+        /* height from aspect-ratio */
+    }
+}
+
+/* --------------------------------------------------------- */
+/* MID TABLET SMALL (500–599px) → 48px H1                    */
 /* --------------------------------------------------------- */
 
 @media (min-width: 500px) and (max-width: 599px) {
@@ -180,12 +262,12 @@
     .hero__card {
         flex: 0 0 340px;
         width: 340px;
-        /* height comes from aspect-ratio */
+        /* height from aspect-ratio */
     }
 }
 
 /* --------------------------------------------------------- */
-/* ✅ MID TABLET LARGE (600–800px) → 56px H1                  */
+/* MID TABLET LARGE (600–800px) → 56px H1                    */
 /* --------------------------------------------------------- */
 
 @media (min-width: 600px) and (max-width: 800px) {
@@ -196,14 +278,14 @@
 }
 
 /* --------------------------------------------------------- */
-/* ✅ LARGE TABLET IMAGE UPGRADE (650–800px) → 440px cards    */
+/* LARGE TABLET IMAGE UPGRADE (650–800px) → 440px cards      */
 /* --------------------------------------------------------- */
 
 @media (min-width: 650px) and (max-width: 800px) {
     .hero__card {
         flex: 0 0 440px;
         width: 440px;
-        /* height comes from aspect-ratio */
+        /* height from aspect-ratio */
     }
 }
 
