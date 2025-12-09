@@ -1,4 +1,3 @@
-/* src/styling/booking.css */
 @import "./colours.css";
 
 /* --------------------------------------------------------- */
@@ -22,7 +21,12 @@
 
 .booking__header {
     text-align: center;
+    /* always centered */
     margin-bottom: 40px;
+}
+
+.booking__eyebrow {
+    margin-bottom: 8px;
 }
 
 .booking__title {
@@ -74,25 +78,15 @@
 /* RESPONSIVE                                                */
 /* --------------------------------------------------------- */
 
-/* Desktop → tablet padding */
 @media (max-width: 1400px) {
     .booking {
         padding: 120px 40px 80px;
     }
 }
 
-/* Tablet: text left */
 @media (max-width: 1024px) {
     .booking {
         padding: 100px 40px 72px;
-    }
-
-    .booking__header {
-        text-align: left;
-    }
-
-    .booking__subtitle {
-        margin-left: 0;
     }
 
     .booking__title {
@@ -100,7 +94,6 @@
     }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
     .booking {
         padding: 60px 20px 60px;

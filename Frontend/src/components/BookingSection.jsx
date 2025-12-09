@@ -1,4 +1,3 @@
-// src/components/BookingSection.jsx
 import React, { useEffect, useRef } from "react";
 import Cal, { getCalApi } from "@calcom/embed-react";
 import "../styling/booking.css";
@@ -22,11 +21,8 @@ const BookingSection = () => {
                 hideEventTypeDetails: false,
                 cssVarsPerTheme: {
                     light: {
-                        // brand colour
                         "cal-brand": "#4F46E5",
-                        // main text to match the site
                         "cal-text": "#0F172A",
-                        // transparent background so your page colour shows through
                         "cal-background": "transparent",
                     },
                     dark: {
@@ -37,15 +33,16 @@ const BookingSection = () => {
         })();
     }, []);
 
-    // Title + subtitle animation (same logic as Projects section)
+    // Heading animation – matches other sections (eyebrow → letters → subtitle)
     useEffect(() => {
         const sectionEl = sectionRef.current;
         if (!sectionEl) return;
 
+        const eyebrowEl = sectionEl.querySelector(".booking__eyebrow");
         const titleEl = sectionEl.querySelector(".booking__title");
         const subtitleEl = sectionEl.querySelector(".booking__subtitle");
 
-        if (!titleEl || !subtitleEl) return;
+        if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
         // --- LETTER BY LETTER TITLE ANIMATION ---
         const originalText = titleEl.textContent;
@@ -74,12 +71,12 @@ const BookingSection = () => {
             }
         });
 
-        // Highlight a couple of key words (similar to Built/Helped in projects)
+        // Highlight “time” and “you”
         const wordSpans = titleEl.querySelectorAll(".booking__title-word");
         const highlightSet = new Set(["time", "you"]);
 
         wordSpans.forEach((wordSpan) => {
-            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
+            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "").toLowerCase();
             if (highlightSet.has(cleaned)) {
                 wordSpan.classList.add("booking__title-highlight");
             }
@@ -98,28 +95,43 @@ const BookingSection = () => {
             defaults: { ease: "power2.out" },
         });
 
-        // 1) Title letters
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.03,
-            duration: 0.4,
-        });
-
-        // 2) Subtitle
-        tl.to(
-            subtitleEl,
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.45,
-            },
-            ">-0.05"
-        );
+        tl
+            // 1) Eyebrow
+            .fromTo(
+                eyebrowEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.25,
+                }
+            )
+            // 2) Letters
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                },
+                ">-0.05"
+            )
+            // 3) Subheading
+            .fromTo(
+                subtitleEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                },
+                ">-0.08"
+            );
 
         return () => {
+            if (tl.scrollTrigger) tl.scrollTrigger.kill();
             tl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
         };
     }, []);
 
@@ -127,7 +139,7 @@ const BookingSection = () => {
         <section className="booking" ref={sectionRef}>
             <div className="booking__inner">
                 <header className="booking__header">
-                    <p className="eyebrow">Book a discovery call</p>
+                    <p className="eyebrow booking__eyebrow">Book a discovery call</p>
                     <h2 className="heading2 booking__title">
                         Choose a time that works best for you.
                     </h2>
@@ -145,7 +157,6 @@ const BookingSection = () => {
                         calLink="konardesign/30min"
                         style={{
                             width: "100%",
-                            // let Cal decide height so we don't create extra white space
                         }}
                         config={{
                             layout: "month_view",
