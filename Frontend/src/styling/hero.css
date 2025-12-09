@@ -11,14 +11,10 @@
     z-index: 0;
     max-width: 2000px;
     margin: 0 auto;
-
-    /* LEFT/RIGHT = 40px on desktop */
     padding: 100px 40px 80px;
-
     box-sizing: border-box;
 }
 
-/* dotted halo behind hero content */
 .hero::before {
     content: "";
     position: absolute;
@@ -65,7 +61,6 @@
     max-width: 1000px;
 }
 
-/* word wrapper for letter animation */
 .hero__title-word {
     white-space: nowrap;
 }
@@ -76,13 +71,12 @@
     max-width: 700px;
 }
 
-/* CTA BUTTONS LAYOUT */
+/* CTA BUTTONS */
 .hero__buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 16px;
-    margin-top: 0;
     margin-bottom: 40px;
 }
 
@@ -103,8 +97,6 @@
     will-change: transform;
     transform: translate3d(0, 0, 0);
     cursor: grab;
-
-    /* allow browser to handle vertical scrolling but give us horizontal pan */
     touch-action: pan-y;
 }
 
@@ -125,11 +117,10 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    backface-visibility: hidden;
 }
 
 /* --------------------------------------------------------- */
-/* “BIG TABLET” (desktop-ish, 801–1200px)                    */
+/* BIG TABLET (801–1200px)                                   */
 /* --------------------------------------------------------- */
 
 @media (min-width: 801px) and (max-width: 1200px) {
@@ -163,7 +154,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* MOBILE (up to 499px wide)                                */
+/* MOBILE (up to 499px) — UNCHANGED                          */
 /* --------------------------------------------------------- */
 
 @media (max-width: 499px) {
@@ -189,13 +180,26 @@
 }
 
 /* --------------------------------------------------------- */
-/* MID TABLET (500–800px) – MAKE HERO “TALLER”               */
+/* MID TABLET (500–599px) → NOW 48px                          */
 /* --------------------------------------------------------- */
 
-@media (min-width: 500px) and (max-width: 800px) {
+@media (min-width: 500px) and (max-width: 599px) {
     .hero {
-        /* more vertical breathing room so Intro doesn’t show
-           without fixing an exact height */
+        padding: 120px 32px 110px;
+    }
+
+    .hero__title {
+        font-size: 48px;
+        line-height: 1.1;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* MID TABLET (600–800px) → NOW 52px                          */
+/* --------------------------------------------------------- */
+
+@media (min-width: 600px) and (max-width: 800px) {
+    .hero {
         padding: 120px 40px 110px;
     }
 
@@ -204,7 +208,7 @@
     }
 
     .hero__title {
-        font-size: clamp(44px, 5vw, 54px);
+        font-size: 52px;
         line-height: 1.1;
         max-width: 900px;
     }
