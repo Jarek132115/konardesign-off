@@ -58,12 +58,14 @@ const Conversion = () => {
         const sectionEl = sectionRef.current;
         if (!sectionEl) return;
 
+        const eyebrowEl = sectionEl.querySelector(".conversion__eyebrow");
         const titleEl = sectionEl.querySelector(".conversion__title");
         const subtitleEl = sectionEl.querySelector(".conversion__subtitle");
         const cards = sectionEl.querySelectorAll(".conversion__card");
 
-        if (!titleEl || !subtitleEl) return;
+        if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
+        // Split title into word wrappers + chars
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -90,6 +92,7 @@ const Conversion = () => {
             }
         });
 
+        // Highlight "Conversion" and "Engineered"
         const wordSpans = titleEl.querySelectorAll(".conversion__title-word");
         const highlightSet = new Set(["Conversion", "Engineered"]);
 
@@ -102,6 +105,7 @@ const Conversion = () => {
 
         const charSpans = titleEl.querySelectorAll(".conversion__title-word span");
 
+        // Eyebrow + letters + subheading (fast, like Intro)
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
 
         const tl = gsap.timeline({
@@ -113,23 +117,37 @@ const Conversion = () => {
             defaults: { ease: "power2.out" },
         });
 
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.03,
-            duration: 0.4,
-        });
-
-        tl.to(
-            subtitleEl,
+        tl.fromTo(
+            eyebrowEl,
+            { opacity: 0, y: 8 },
             {
                 opacity: 1,
                 y: 0,
-                duration: 0.45,
-            },
-            ">-0.05"
-        );
+                duration: 0.25,
+            }
+        )
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                },
+                ">-0.05"
+            )
+            .fromTo(
+                subtitleEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                },
+                ">-0.08"
+            );
 
+        // Cards fade-in
         cards.forEach((card, index) => {
             gsap.fromTo(
                 card,

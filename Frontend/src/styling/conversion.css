@@ -21,6 +21,7 @@
 
 .conversion__header {
     text-align: center;
+    /* always centered */
     margin-bottom: 48px;
 }
 
@@ -151,14 +152,6 @@
         padding: 100px 40px;
     }
 
-    .conversion__header {
-        text-align: left;
-    }
-
-    .conversion__subtitle {
-        margin: 0;
-    }
-
     .conversion__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -167,8 +160,7 @@
         grid-column: span 1 !important;
     }
 
-    /* ✅ If there's a single card in the last row,
-       make it stretch full width (odd number of cards). */
+    /* If there's a single card in the last row, stretch full width */
     .conversion__card:last-child:nth-child(odd) {
         grid-column: 1 / -1 !important;
     }
