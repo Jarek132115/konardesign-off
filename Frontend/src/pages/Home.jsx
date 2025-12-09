@@ -247,6 +247,11 @@ const Home = () => {
         const onPointerDown = (e) => {
             if (!distance) return;
 
+            // Desktop: only left mouse button should start drag
+            if (e.button !== undefined && e.button !== 0) {
+                return;
+            }
+
             isPointerDown = true;
             isDragging = false; // we only set true once direction is decided
             dragStartX = getClientX(e);
@@ -306,6 +311,13 @@ const Home = () => {
             carouselTrackEl.classList.remove("hero__carousel-track--dragging");
         };
 
+        // Prevent native image drag / ghost image on desktop
+        const onNativeDragStart = (e) => {
+            e.preventDefault();
+        };
+
+        carouselTrackEl.addEventListener("dragstart", onNativeDragStart);
+
         carouselEl.addEventListener("mousedown", onPointerDown);
         window.addEventListener("mousemove", onPointerMove);
         window.addEventListener("mouseup", endDrag);
@@ -331,6 +343,8 @@ const Home = () => {
                 img.removeEventListener("load", handleImageLoaded);
                 img.removeEventListener("error", handleImageLoaded);
             });
+
+            carouselTrackEl.removeEventListener("dragstart", onNativeDragStart);
 
             carouselEl.removeEventListener("mousedown", onPointerDown);
             window.removeEventListener("mousemove", onPointerMove);
@@ -387,6 +401,7 @@ const Home = () => {
                                     src={src}
                                     alt={`Carousel ${index + 1}`}
                                     className="hero__image"
+                                    draggable="false"
                                 />
                             </div>
                         ))}
