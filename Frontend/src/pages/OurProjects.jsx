@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 import "../styling/buttons.css";
 import "../styling/ourprojects.css";
-import "../styling/projects.css"; // reuse the same card styles as home
+import "../styling/projects.css"; // reuse card styles only
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -145,9 +145,8 @@ const OurProjects = () => {
         <div className="our-projects-page">
             <Navbar />
 
-            {/* NOTE: add `projects` so this page uses the same
-                width + padding shell as the home Projects section */}
-            <main className="our-projects projects" ref={pageRef}>
+            {/* Own container class: width/padding controlled in ourprojects.css */}
+            <main className="our-projects" ref={pageRef}>
                 {/* HERO-STYLE HEADER */}
                 <header className="our-projects__header">
                     <p className="eyebrow">Our Work</p>
@@ -167,7 +166,7 @@ const OurProjects = () => {
                 <div className="our-projects__list">
                     {projects.map((project) => (
                         <article key={project.id} className="projects__project">
-                            {/* TEXT SIDE – identical structure to home section */}
+                            {/* TEXT SIDE – same structure as home */}
                             <div className="projects__project-content">
                                 <div className="projects__project-header">
                                     <h2 className="heading3 projects__project-title">
