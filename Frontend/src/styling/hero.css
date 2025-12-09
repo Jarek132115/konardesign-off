@@ -1,5 +1,7 @@
 /* src/styling/hero.css */
 
+@import "./colours.css";
+
 /* --------------------------------------------------------- */
 /* HERO WRAPPER                                              */
 /* --------------------------------------------------------- */
@@ -40,7 +42,6 @@
             rgba(0, 0, 0, 0.6) 60%,
             rgba(0, 0, 0, 0.25) 70%,
             transparent 85%);
-
     mask-image: radial-gradient(ellipse at center,
             rgba(0, 0, 0, 1) 0%,
             rgba(0, 0, 0, 0.9) 45%,
@@ -128,7 +129,39 @@
 }
 
 /* --------------------------------------------------------- */
-/* RESPONSIVE                                                */
+/* TABLET (KEEP HERO TALL, BIGGER H1 + IMAGES)               */
+/* --------------------------------------------------------- */
+
+@media (min-width: 769px) and (max-width: 1200px) {
+    .hero {
+        /* keep side padding; ensure hero nearly fills viewport
+           so Intro section doesn’t show on first load */
+        padding: 100px 40px 80px;
+        min-height: calc(100vh - 80px);
+    }
+
+    .hero__title {
+        /* make closer to desktop size on tablet */
+        font-size: clamp(48px, 5vw, 64px);
+        line-height: 1.08;
+        max-width: 900px;
+    }
+
+    .hero__subheading {
+        max-width: 640px;
+        font-size: 17px;
+    }
+
+    .hero__card {
+        /* slightly larger carousel cards on tablet */
+        flex: 0 0 340px;
+        width: 340px;
+        height: 230px;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* MOBILE                                                    */
 /* --------------------------------------------------------- */
 
 /* MOBILE: LEFT/RIGHT = 20px */
