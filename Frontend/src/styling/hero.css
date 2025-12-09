@@ -129,43 +129,44 @@
 }
 
 /* --------------------------------------------------------- */
-/* TABLET (KEEP HERO TALL, BIGGER H1 + IMAGES)               */
+/* “BIG TABLET” (desktop-ish, 801–1200px)                    */
 /* --------------------------------------------------------- */
 
-@media (min-width: 769px) and (max-width: 1200px) {
+@media (min-width: 801px) and (max-width: 1200px) {
     .hero {
-        /* keep side padding; ensure hero nearly fills viewport
-           so Intro section doesn’t show on first load */
-        padding: 100px 40px 80px;
-        min-height: calc(100vh - 80px);
+        padding: 110px 40px 95px;
+    }
+
+    .hero__inner {
+        margin-bottom: 60px;
     }
 
     .hero__title {
-        /* make closer to desktop size on tablet */
-        font-size: clamp(48px, 5vw, 64px);
+        font-size: clamp(48px, 4.6vw, 60px);
         line-height: 1.08;
-        max-width: 900px;
     }
 
     .hero__subheading {
-        max-width: 640px;
+        max-width: 720px;
         font-size: 17px;
     }
 
+    .hero__buttons {
+        margin-bottom: 50px;
+    }
+
     .hero__card {
-        /* slightly larger carousel cards on tablet */
-        flex: 0 0 340px;
-        width: 340px;
-        height: 230px;
+        flex: 0 0 360px;
+        width: 360px;
+        height: 240px;
     }
 }
 
 /* --------------------------------------------------------- */
-/* MOBILE                                                    */
+/* MOBILE (up to 499px wide)                                */
 /* --------------------------------------------------------- */
 
-/* MOBILE: LEFT/RIGHT = 20px */
-@media (max-width: 768px) {
+@media (max-width: 499px) {
     .hero {
         padding: 80px 20px 60px;
     }
@@ -184,5 +185,42 @@
     .hero::before {
         top: 20px;
         height: clamp(260px, 60vw, 360px);
+    }
+}
+
+/* --------------------------------------------------------- */
+/* MID TABLET (500–800px) – MAKE HERO “TALLER”               */
+/* --------------------------------------------------------- */
+
+@media (min-width: 500px) and (max-width: 800px) {
+    .hero {
+        /* more vertical breathing room so Intro doesn’t show
+           without fixing an exact height */
+        padding: 120px 40px 110px;
+    }
+
+    .hero__inner {
+        margin-bottom: 72px;
+    }
+
+    .hero__title {
+        font-size: clamp(44px, 5vw, 54px);
+        line-height: 1.1;
+        max-width: 900px;
+    }
+
+    .hero__subheading {
+        max-width: 720px;
+        font-size: 16px;
+    }
+
+    .hero__buttons {
+        margin-bottom: 56px;
+    }
+
+    .hero__card {
+        flex: 0 0 340px;
+        width: 340px;
+        height: 230px;
     }
 }
