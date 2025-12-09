@@ -62,7 +62,7 @@
 
     background-image:
         linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
-        url("../assets/images/Background1.jpg");
+        url("../assets/images/Background3.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -96,7 +96,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* CARD CONTENT (✅ 24px INNER PADDING ADDED)                */
+/* CARD CONTENT                                              */
 /* --------------------------------------------------------- */
 
 .services__card-content {
@@ -104,7 +104,7 @@
     flex-direction: column;
     height: 100%;
     padding: 12px 24px 24px;
-    /* ✅ REQUIRED INNER SPACING */
+    /* desktop/tablet 2-column inner spacing */
 }
 
 .services__card-title {
@@ -160,7 +160,7 @@
 
 .services__card-button {
     margin-top: 64px;
-    /* ✅ MUCH BIGGER GAP FROM LAST PILL */
+    /* bigger gap on desktop */
     align-self: flex-start;
     background: none;
     border: none;
@@ -220,7 +220,12 @@
         grid-template-columns: 1fr;
     }
 
-    /* ✅ Tablet & mobile keep strong CTA separation */
+    /* stacked layout: remove inner content padding like projects */
+    .services__card-content {
+        padding: 0;
+    }
+
+    /* smaller gap above link on stacked layout */
     .services__card-button {
         margin-top: 24px;
     }
