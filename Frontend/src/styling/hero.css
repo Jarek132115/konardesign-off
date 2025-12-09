@@ -102,6 +102,9 @@
     will-change: transform;
     transform: translate3d(0, 0, 0);
     cursor: grab;
+
+    /* allow browser to handle vertical scrolling but give us horizontal pan */
+    touch-action: pan-y;
 }
 
 .hero__carousel-track--dragging {

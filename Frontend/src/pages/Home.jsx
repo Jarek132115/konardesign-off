@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -156,8 +155,11 @@ const Home = () => {
         let distance = 0; // width of a single unique sequence
         let offset = 0; // current offset within that sequence
         const speed = 150; // px per second
-        let isDragging = false;
+
+        let isDragging = false; // pauses ticker when true
+        let isPointerDown = false; // finger/mouse is down
         let dragStartX = 0;
+        let dragStartY = 0;
         let dragStartOffset = 0;
         let tickerFn = null;
 
@@ -171,13 +173,12 @@ const Home = () => {
             let lastTime = gsap.ticker.time; // seconds
 
             tickerFn = (time) => {
-                const dt = time - lastTime; // time is already in seconds
+                const dt = time - lastTime;
                 lastTime = time;
 
                 if (!isDragging) {
                     offset += speed * dt;
 
-                    // keep offset within [0, distance) for seamless loop
                     if (distance > 0) {
                         offset = offset % distance;
                     }
@@ -226,29 +227,63 @@ const Home = () => {
 
         /* -----------------------------
            DRAG (mouse + touch)
+           - Horizontal-only drag
+           - Vertical swipe scrolls page
         ----------------------------- */
 
         const getClientX = (e) =>
             e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
 
+        const getClientY = (e) =>
+            e.touches && e.touches.length ? e.touches[0].clientY : e.clientY;
+
+        const HORIZONTAL_THRESHOLD = 8; // px before we decide direction
+
         const onPointerDown = (e) => {
             if (!distance) return;
 
-            isDragging = true;
+            isPointerDown = true;
+            isDragging = false; // we only set true once direction is decided
             dragStartX = getClientX(e);
+            dragStartY = getClientY(e);
             dragStartOffset = offset;
-            carouselTrackEl.classList.add("hero__carousel-track--dragging");
 
-            if (e.cancelable) e.preventDefault();
+            // don't preventDefault here so vertical scrolling still works
         };
 
         const onPointerMove = (e) => {
-            if (!isDragging || !distance) return;
+            if (!isPointerDown || !distance) return;
 
             const currentX = getClientX(e);
+            const currentY = getClientY(e);
             const deltaX = currentX - dragStartX;
+            const deltaY = currentY - dragStartY;
 
-            // dragging left => deltaX negative => offset increases
+            // we haven't decided direction yet
+            if (!isDragging) {
+                if (
+                    Math.abs(deltaX) < HORIZONTAL_THRESHOLD &&
+                    Math.abs(deltaY) < HORIZONTAL_THRESHOLD
+                ) {
+                    // tiny movement – ignore
+                    return;
+                }
+
+                if (Math.abs(deltaX) > Math.abs(deltaY)) {
+                    // horizontal gesture → start carousel drag
+                    isDragging = true;
+                    carouselTrackEl.classList.add(
+                        "hero__carousel-track--dragging"
+                    );
+                } else {
+                    // vertical gesture → let the page scroll
+                    isPointerDown = false;
+                    isDragging = false;
+                    return;
+                }
+            }
+
+            // actual drag logic (horizontal)
             offset = dragStartOffset - deltaX;
 
             // wrap offset into [0, distance)
@@ -260,7 +295,8 @@ const Home = () => {
         };
 
         const endDrag = () => {
-            if (!isDragging) return;
+            if (!isPointerDown && !isDragging) return;
+            isPointerDown = false;
             isDragging = false;
             carouselTrackEl.classList.remove("hero__carousel-track--dragging");
         };
@@ -315,12 +351,14 @@ const Home = () => {
                         </div>
 
                         <h1 className="heading1 hero__title">
-                            Custom Websites Engineered for Speed, Scalability &amp; Growth
+                            Custom Websites Engineered for Speed, Scalability &amp;
+                            Growth
                         </h1>
 
                         <p className="hero__subheading subheading">
                             Fully Custom Websites Built From Scratch—Designed To Convert,
-                            Built For Performance, And Crafted To Scale With Your Business.
+                            Built For Performance, And Crafted To Scale With Your
+                            Business.
                         </p>
 
                         <div className="hero__buttons">
