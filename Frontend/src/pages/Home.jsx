@@ -155,17 +155,21 @@ const Home = () => {
            - Uses duplicated sequence
            - offset is kept in [0, distance)
            - Auto-scrolls unless dragging
+           - Direction follows last drag direction
         ----------------------------- */
 
         let distance = 0; // width of a single unique sequence
         let offset = 0; // current offset within that sequence
-        const speed = 150; // px per second
+
+        const baseSpeed = 150; // px per second
+        let direction = 1; // 1 = move left, -1 = move right
 
         let isDragging = false; // pauses ticker when true
         let isPointerDown = false; // finger/mouse is down
         let dragStartX = 0;
         let dragStartY = 0;
         let dragStartOffset = 0;
+        let lastDragDeltaX = 0; // track last horizontal drag direction
         let tickerFn = null;
 
         const applyTransform = () => {
@@ -182,7 +186,7 @@ const Home = () => {
                 lastTime = time;
 
                 if (!isDragging) {
-                    offset += speed * dt;
+                    offset += direction * baseSpeed * dt;
 
                     if (distance > 0) {
                         offset = offset % distance;
@@ -234,6 +238,7 @@ const Home = () => {
            DRAG (mouse + touch)
            - Horizontal-only drag
            - Vertical swipe scrolls page
+           - Last drag direction controls autoplay direction
         ----------------------------- */
 
         const getClientX = (e) =>
@@ -243,6 +248,7 @@ const Home = () => {
             e.touches && e.touches.length ? e.touches[0].clientY : e.clientY;
 
         const HORIZONTAL_THRESHOLD = 8; // px before we decide direction
+        const MIN_DIRECTION_DELTA = 4; // px to consider drag meaningful for direction
 
         const onPointerDown = (e) => {
             if (!distance) return;
@@ -257,8 +263,7 @@ const Home = () => {
             dragStartX = getClientX(e);
             dragStartY = getClientY(e);
             dragStartOffset = offset;
-
-            // don't preventDefault here so vertical scrolling still works
+            lastDragDeltaX = 0;
         };
 
         const onPointerMove = (e) => {
@@ -296,6 +301,9 @@ const Home = () => {
             // actual drag logic (horizontal)
             offset = dragStartOffset - deltaX;
 
+            // track last horizontal movement for direction
+            lastDragDeltaX = deltaX;
+
             // wrap offset into [0, distance)
             offset = ((offset % distance) + distance) % distance;
 
@@ -306,9 +314,19 @@ const Home = () => {
 
         const endDrag = () => {
             if (!isPointerDown && !isDragging) return;
+
             isPointerDown = false;
             isDragging = false;
             carouselTrackEl.classList.remove("hero__carousel-track--dragging");
+
+            // Use last drag direction to set autoplay direction
+            if (Math.abs(lastDragDeltaX) > MIN_DIRECTION_DELTA) {
+                // dragged to the right → deltaX > 0 → move carousel to the right (direction = -1)
+                // dragged to the left  → deltaX < 0 → move carousel to the left  (direction = 1)
+                direction = lastDragDeltaX > 0 ? -1 : 1;
+            }
+
+            lastDragDeltaX = 0;
         };
 
         // Prevent native image drag / ghost image on desktop
