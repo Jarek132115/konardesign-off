@@ -13,32 +13,49 @@
 }
 
 /* ====================================================== */
-/* ROOT: FLUID TYPOGRAPHY SCALE                          */
+/* ROOT: FLUID TYPOGRAPHY SCALE                           */
 /* ====================================================== */
 
-/* Base scale driver (Subheading) */
+/* Base driver for subheadings + eyebrow */
 :root {
-    --subheading-size: clamp(14px, 1vw + 0.3rem, 16px);
+    /* Subheading / eyebrow size: slightly larger than body on all screens */
+    --subheading-size: clamp(14px, 1vw + 0.25rem, 17px);
+    /* Body size token */
+    --body-size: clamp(13px, 0.8vw + 0.25rem, 15px);
 }
 
 /* ====================================================== */
-/* HEADING 1                                              */
+/* HEADING 1 – PAGE / HERO                                */
 /* ====================================================== */
 
 .heading1 {
     font-size: clamp(32px, 4vw + 1rem, 64px);
     font-weight: 400;
     letter-spacing: -0.02em;
-    line-height: clamp(42px, 4vw + 1rem, 83px);
+    line-height: clamp(42px, 4vw + 1rem, 80px);
     color: var(--black);
 }
 
 /* ====================================================== */
-/* ✅ HEADING 2 — ALWAYS 2× SUBHEADING SIZE                */
+/* HEADING 2 – SECTION TITLES                             */
 /* ====================================================== */
 
 .heading2 {
-    font-size: calc(var(--subheading-size) * 1.5);
+    /* Clearly larger than subheading at all sizes */
+    font-size: clamp(26px, 2.2vw + 0.6rem, 40px);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.2;
+    color: var(--black);
+}
+
+/* ====================================================== */
+/* HEADING 3 – CARD / BLOCK TITLES                        */
+/* ====================================================== */
+
+.heading3 {
+    /* Between H2 and subheading */
+    font-size: clamp(18px, 1.4vw + 0.45rem, 24px);
     font-weight: 400;
     letter-spacing: -0.01em;
     line-height: 1.3;
@@ -46,18 +63,7 @@
 }
 
 /* ====================================================== */
-/* HEADING 3                                              */
-/* ====================================================== */
-
-.heading3 {
-    font-size: clamp(16px, 1.5vw + 0.4rem, 24px);
-    font-weight: 400;
-    letter-spacing: -0.01em;
-    color: var(--black);
-}
-
-/* ====================================================== */
-/* SUBHEADING                                             */
+/* SUBHEADING – UNDER H2                                  */
 /* ====================================================== */
 
 .subheading {
@@ -70,13 +76,13 @@
 }
 
 /* ====================================================== */
-/* BODY                                                   */
+/* BODY – REGULAR PARAGRAPH COPY                          */
 /* ====================================================== */
 
 .body {
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
-    font-size: clamp(12px, 0.8vw + 0.3rem, 14px);
+    font-size: var(--body-size);
     line-height: 1.5;
     font-weight: 400;
     color: var(--cool-grey);
@@ -88,7 +94,10 @@
 
 .eyebrow {
     margin: 0 0 8px;
-    font-size: 16px;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    /* Same size as subheading, but styled differently */
+    font-size: var(--subheading-size);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     line-height: 1.4;
