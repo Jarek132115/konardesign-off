@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 import "../styling/buttons.css";
 import "../styling/ourprojects.css";
-import "../styling/projects.css"; // ✅ reuse the same card styles as home
+import "../styling/projects.css"; // reuse the same card styles as home
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -145,7 +145,9 @@ const OurProjects = () => {
         <div className="our-projects-page">
             <Navbar />
 
-            <main className="our-projects" ref={pageRef}>
+            {/* NOTE: add `projects` so this page uses the same
+                width + padding shell as the home Projects section */}
+            <main className="our-projects projects" ref={pageRef}>
                 {/* HERO-STYLE HEADER */}
                 <header className="our-projects__header">
                     <p className="eyebrow">Our Work</p>
@@ -155,8 +157,9 @@ const OurProjects = () => {
                     </h1>
 
                     <p className="subheading our-projects__subtitle">
-                        Explore real-world websites we’ve designed and built — each crafted
-                        to solve business problems, drive conversions, and scale with growth.
+                        Explore real-world websites we’ve designed and built — each
+                        crafted to solve business problems, drive conversions, and
+                        scale with growth.
                     </p>
                 </header>
 
@@ -183,7 +186,7 @@ const OurProjects = () => {
                                     {project.metrics.map((metric) => (
                                         <span
                                             key={metric}
-                                            className="body projects__pill"
+                                            className="body projects__pill projects__pill--metric"
                                         >
                                             {metric}
                                         </span>
@@ -194,7 +197,7 @@ const OurProjects = () => {
                                     {project.tags.map((tag) => (
                                         <span
                                             key={tag}
-                                            className="body projects__pill"
+                                            className="body projects__pill projects__pill--tag"
                                         >
                                             {tag}
                                         </span>
