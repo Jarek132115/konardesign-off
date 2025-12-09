@@ -4,8 +4,8 @@
 .intro {
     max-width: 1600px;
     margin: 0 auto;
-    /* more bottom padding so right column scrolls longer */
-    padding: 120px 120px 220px;
+    /* extra bottom padding so right column scrolls longer */
+    padding: 120px 120px 320px;
     box-sizing: border-box;
     background-color: var(--white);
 }
@@ -99,21 +99,24 @@
     font-size: 20px;
     font-weight: 400;
     color: var(--black);
-    margin: 0;
+    margin-top: 8px;
+    /* big bottom margin so this line can reach near center
+       before the sticky column is released */
+    margin-bottom: 220px;
 }
 
 /* --------------------------------------------------------- */
 /* RESPONSIVE                                                */
 /* --------------------------------------------------------- */
 
-/* ✅ Desktop → 40px sides, keep extra bottom padding */
+/* Desktop → 40px sides, keep extra bottom padding */
 @media (max-width: 1400px) {
     .intro {
-        padding: 120px 40px 220px;
+        padding: 120px 40px 320px;
     }
 }
 
-/* ✅ Tablet Layout */
+/* Tablet Layout */
 @media (max-width: 1024px) {
     .intro__container {
         grid-template-columns: 1fr;
@@ -126,9 +129,13 @@
     }
 }
 
-/* ✅ Mobile Final – a bit more bottom space too */
+/* Mobile */
 @media (max-width: 768px) {
     .intro {
-        padding: 60px 20px 120px;
+        padding: 60px 20px 140px;
+    }
+
+    .intro__bottom-text {
+        margin-bottom: 140px;
     }
 }

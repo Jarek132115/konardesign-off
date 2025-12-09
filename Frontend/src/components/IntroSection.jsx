@@ -26,11 +26,12 @@ const IntroSection = () => {
         if (!sectionEl || !leftEl) return;
 
         /* -------------------------------
-           LEFT: WORD-SAFE LETTER ANIMATION
+           LEFT: EYEBROW + LETTER ANIMATION
            ------------------------------- */
+        const eyebrowEl = leftEl.querySelector(".intro__eyebrow");
         const headline = leftEl.querySelector(".intro__headline");
         const subheadingEl = leftEl.querySelector(".intro__subheading");
-        if (!headline || !subheadingEl) return;
+        if (!eyebrowEl || !headline || !subheadingEl) return;
 
         const originalText = headline.textContent;
         headline.textContent = "";
@@ -73,7 +74,8 @@ const IntroSection = () => {
 
         const charSpans = headline.querySelectorAll(".intro__headline-word span");
 
-        // Faster intro animation for left side
+        // Faster intro animation, in order:
+        // 1) eyebrow, 2) letters, 3) subheading
         const leftTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
@@ -82,25 +84,42 @@ const IntroSection = () => {
             },
         });
 
-        leftTl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.018,     // faster stagger
-            duration: 0.26,     // shorter duration
-            ease: "power2.out",
-        });
-
-        leftTl.fromTo(
-            subheadingEl,
-            { opacity: 0, y: 8 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.28,  // a bit shorter
-                ease: "power2.out",
-            },
-            ">-0.10"            // overlaps more so it appears sooner
-        );
+        leftTl
+            // Eyebrow first
+            .fromTo(
+                eyebrowEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.25,
+                    ease: "power2.out",
+                }
+            )
+            // Then headline letters
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                    ease: "power2.out",
+                },
+                ">-0.05"
+            )
+            // Then subheading
+            .fromTo(
+                subheadingEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                    ease: "power2.out",
+                },
+                ">-0.08"
+            );
 
         /* -------------------------------
            RIGHT: EACH ITEM FADES IN ONCE
