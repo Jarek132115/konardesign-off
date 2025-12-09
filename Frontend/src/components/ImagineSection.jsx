@@ -93,15 +93,11 @@ const ImagineSection = () => {
 
         if (!sectionEl || !pinEl || !headerEl || !backdropEl || !frameEl) return;
 
+        const eyebrowEl = sectionEl.querySelector(".imagine__eyebrow");
         const titleEl = sectionEl.querySelector(".imagine__title");
         const subtitleEl = sectionEl.querySelector(".imagine__subtitle");
 
-        if (!titleEl || !subtitleEl) return;
-
-        const isSmallScreen =
-            typeof window !== "undefined" &&
-            window.matchMedia &&
-            window.matchMedia("(max-width: 900px)").matches;
+        if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
         /* ---- LETTER-BY-LETTER TITLE ---- */
         const originalText = titleEl.textContent;
@@ -143,77 +139,51 @@ const ImagineSection = () => {
 
         const charSpans = titleEl.querySelectorAll(".imagine__title-word span");
 
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-
-        let headingTl;
-        let pinTimeline;
-        let leaveTrigger;
-
-        // ---- SMALL SCREENS: NO PIN, SIMPLE FADE ----
-        if (isSmallScreen) {
-            headingTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: sectionEl,
-                    start: "top 80%",
-                    toggleActions: "play none none none",
-                },
-                defaults: { ease: "power2.out" },
-            });
-
-            headingTl
-                .to(charSpans, {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.02,
-                    duration: 0.3,
-                })
-                .to(
-                    subtitleEl,
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.3,
-                    },
-                    ">-0.04"
-                );
-
-            // ensure video frame is just visible (no morph)
-            gsap.set(frameEl, { opacity: 1 });
-
-            return () => {
-                if (headingTl) headingTl.kill();
-            };
-        }
-
-        // ---- DESKTOP: FULL PIN + CIRCLE → RECTANGLE ----
-
-        headingTl = gsap.timeline({
+        // Heading animation: eyebrow → letters → subheading (fast, like Intro)
+        const headingTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
                 start: "top 75%",
                 toggleActions: "play none none none",
             },
-            defaults: { ease: "power2.out" },
         });
 
         headingTl
-            .to(charSpans, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.03,
-                duration: 0.4,
-            })
-            .to(
-                subtitleEl,
+            .fromTo(
+                eyebrowEl,
+                { opacity: 0, y: 8 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.45,
+                    duration: 0.25,
+                    ease: "power2.out",
+                }
+            )
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                    ease: "power2.out",
                 },
                 ">-0.05"
+            )
+            .fromTo(
+                subtitleEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                    ease: "power2.out",
+                },
+                ">-0.08"
             );
 
-        // initial state for morphing backdrop
+        /* ---- PIN + CIRCLE → RECTANGLE + VIDEO REVEAL ---- */
+
         gsap.set(backdropEl, {
             xPercent: -50,
             yPercent: -50,
@@ -227,7 +197,7 @@ const ImagineSection = () => {
 
         gsap.set(frameEl, { opacity: 0 });
 
-        pinTimeline = gsap.timeline({
+        const pinTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: pinEl,
                 start: "top top",
@@ -235,6 +205,13 @@ const ImagineSection = () => {
                 scrub: true,
                 pin: true,
                 anticipatePin: 1,
+                invalidateOnRefresh: true,
+                onLeave: () => {
+                    if (videoRef.current) {
+                        videoRef.current.pause();
+                        setIsPlaying(false);
+                    }
+                },
             },
         });
 
@@ -278,23 +255,9 @@ const ImagineSection = () => {
                 0.7
             );
 
-        // pause video when leaving pinned section
-        leaveTrigger = ScrollTrigger.create({
-            trigger: pinEl,
-            start: "top top",
-            end: "+=160%",
-            onLeave: () => {
-                if (videoRef.current) {
-                    videoRef.current.pause();
-                    setIsPlaying(false);
-                }
-            },
-        });
-
         return () => {
-            if (headingTl) headingTl.kill();
-            if (pinTimeline) pinTimeline.kill();
-            if (leaveTrigger) leaveTrigger.kill();
+            headingTl.kill();
+            pinTimeline.kill();
         };
     }, []);
 
