@@ -1,0 +1,183 @@
+@import "./colours.css";
+
+/* --------------------------------------------------------- */
+/* SECTION WRAPPER                                           */
+/* --------------------------------------------------------- */
+
+.difference {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 120px 120px;
+    box-sizing: border-box;
+    background: var(--off-white);
+}
+
+.difference__inner {
+    max-width: 2000px;
+    margin: 0 auto;
+}
+
+/* --------------------------------------------------------- */
+/* HEADER                                                     */
+/* --------------------------------------------------------- */
+
+.difference__header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.difference__eyebrow {
+    margin-bottom: 8px;
+}
+
+.difference__title {
+    margin: 0 0 12px;
+}
+
+.difference__title-word {
+    white-space: nowrap;
+}
+
+.difference__title-highlight,
+.difference__title-highlight span {
+    color: var(--deep-indigo) !important;
+}
+
+.difference__subtitle {
+    max-width: 760px;
+    margin: 0 auto;
+    color: var(--cool-grey);
+}
+
+/* --------------------------------------------------------- */
+/* GRID + CARDS                                              */
+/* --------------------------------------------------------- */
+
+.difference__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 32px;
+}
+
+.difference__card {
+    position: relative;
+    background: var(--white);
+    border-radius: 24px;
+    border: 1px solid var(--light-grey);
+    padding: 32px 32px 28px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    display: flex;
+    flex-direction: column;
+}
+
+/* top pill */
+.difference__badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 22px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    white-space: nowrap;
+    align-self: flex-start;
+    color: #ffffff !important;
+    /* always white text */
+    border: none;
+    outline: none;
+    cursor: default;
+}
+
+.difference__badge--pro {
+    background: var(--deep-indigo);
+}
+
+.difference__badge--cheap {
+    background: #050816;
+}
+
+.difference__card-title {
+    margin: 0 0 4px;
+}
+
+.difference__card-subtitle {
+    margin: 0 0 24px;
+    color: var(--cool-grey);
+}
+
+.difference__label {
+    margin: 0 0 16px;
+    font-weight: 500;
+    color: var(--cool-grey);
+}
+
+/* --------------------------------------------------------- */
+/* CHIPS                                                     */
+/* --------------------------------------------------------- */
+
+.difference__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.difference__chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: var(--white);
+    border: 1px solid var(--light-grey);
+    color: var(--cool-grey);
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .difference {
+        padding: 120px 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .difference {
+        padding: 100px 40px;
+    }
+
+    .difference__header {
+        text-align: left;
+    }
+
+    .difference__subtitle {
+        margin: 0;
+        /* align with left heading like Conversion */
+    }
+
+    .difference__grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .difference {
+        padding: 60px 20px;
+    }
+
+    .difference__title {
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .difference__card {
+        border-radius: 18px;
+        padding: 24px;
+    }
+}

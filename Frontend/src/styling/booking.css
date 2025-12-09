@@ -1,0 +1,112 @@
+/* src/styling/booking.css */
+@import "./colours.css";
+
+/* --------------------------------------------------------- */
+/* BOOKING SECTION                                           */
+/* --------------------------------------------------------- */
+
+.booking {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 120px 120px 80px;
+    box-sizing: border-box;
+}
+
+.booking__inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+/* HEADER --------------------------------------------------- */
+
+.booking__header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.booking__title {
+    margin: 0 0 12px;
+    font-size: 40px;
+    line-height: 1.15;
+    font-weight: 700;
+}
+
+/* word wrapper for letter animation */
+.booking__title-word {
+    white-space: nowrap;
+}
+
+/* highlighted words */
+.booking__title-highlight {
+    color: var(--deep-indigo);
+}
+
+.booking__subtitle {
+    margin: 0 auto;
+    max-width: 720px;
+    color: rgba(15, 23, 42, 0.75);
+    font-size: 15px;
+}
+
+/* EMBED WRAPPER ------------------------------------------- */
+
+.booking__embed {
+    margin-top: 48px;
+}
+
+.booking__embed>div {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* strip random inline spacing Cal might inject */
+.booking__embed [style*="margin-top"] {
+    margin-top: 0 !important;
+}
+
+.booking__embed [style*="padding-top"] {
+    padding-top: 0 !important;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+/* Desktop → tablet padding */
+@media (max-width: 1400px) {
+    .booking {
+        padding: 120px 40px 80px;
+    }
+}
+
+/* Tablet: text left */
+@media (max-width: 1024px) {
+    .booking {
+        padding: 100px 40px 72px;
+    }
+
+    .booking__header {
+        text-align: left;
+    }
+
+    .booking__subtitle {
+        margin-left: 0;
+    }
+
+    .booking__title {
+        font-size: 32px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .booking {
+        padding: 60px 20px 60px;
+    }
+
+    .booking__title {
+        font-size: 28px;
+    }
+}

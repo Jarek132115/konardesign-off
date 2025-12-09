@@ -1,0 +1,16 @@
+/* src/styling/bookacall.css */
+@import "./colours.css";
+@import "./booking.css";
+
+/* Overall page background + basic layout */
+.bookacall-page {
+    background: var(--off-white);
+}
+
+.bookacall-main {
+    max-width: 1600px;
+    margin: 0 auto;
+    /* booking section already has vertical padding */
+    padding: 0 0 40px;
+    box-sizing: border-box;
+}

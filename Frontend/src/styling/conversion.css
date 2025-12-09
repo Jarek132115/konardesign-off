@@ -1,0 +1,216 @@
+/* src/styling/conversion.css */
+@import "./colours.css";
+
+/* --------------------------------------------------------- */
+/* CONVERSION SECTION                                        */
+/* --------------------------------------------------------- */
+
+.conversion {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 120px 120px;
+    box-sizing: border-box;
+    background-color: var(--white);
+}
+
+.conversion__inner {
+    margin: 0 auto;
+}
+
+/* HEADER */
+
+.conversion__header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.conversion__title {
+    margin-bottom: 16px;
+}
+
+.conversion__title-highlight {
+    color: var(--deep-indigo);
+}
+
+.conversion__subtitle {
+    max-width: 700px;
+    margin: 0 auto;
+    font-weight: 500;
+}
+
+/* GRID LAYOUT */
+
+.conversion__grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.conversion__card:nth-child(1),
+.conversion__card:nth-child(2) {
+    grid-column: span 6;
+}
+
+.conversion__card:nth-child(n + 3) {
+    grid-column: span 4;
+}
+
+/* CARD STYLES */
+
+.conversion__card {
+    position: relative;
+    background-color: var(--white);
+    /* fallback */
+    border-radius: 12px;
+    border: 1px solid var(--light-grey);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    padding: 24px 24px 26px;
+    display: flex;
+    flex-direction: column;
+
+    /* ensure background image behaves nicely */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* 🖼 Background variants with white overlay at 90% */
+
+.conversion__card--bg1 {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        url("../assets/images/Background1.jpg");
+}
+
+.conversion__card--bg2 {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        url("../assets/images/Background2.jpg");
+}
+
+.conversion__card--bg3 {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        url("../assets/images/Background3.jpg");
+}
+
+.conversion__card--bg4 {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        url("../assets/images/Background4.jpg");
+}
+
+.conversion__card--bg5 {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        url("../assets/images/Background5.jpg");
+}
+
+/* ICON */
+
+.conversion__icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.conversion__icon img {
+    width: 32px;
+    height: 32px;
+    display: block;
+}
+
+.conversion__card-title {
+    margin-bottom: 8px;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .conversion {
+        padding: 120px 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .conversion {
+        padding: 100px 40px;
+    }
+
+    .conversion__header {
+        text-align: left;
+    }
+
+    .conversion__subtitle {
+        margin: 0;
+    }
+
+    .conversion__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .conversion__card {
+        grid-column: span 1 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .conversion {
+        padding: 60px 20px;
+    }
+
+    .conversion__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .conversion__card {
+        grid-column: auto;
+    }
+
+    .conversion__icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .conversion__icon img {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* ✅ GLASS ICON EFFECT (FIGMA MATCH) */
+.conversion__icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+
+    /* glass background */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* soft glass shadow */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+/* icon size inside */
+.conversion__icon img {
+    width: 28px;
+    height: 28px;
+    display: block;
+}

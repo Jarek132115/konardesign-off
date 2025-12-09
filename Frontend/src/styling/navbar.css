@@ -1,0 +1,197 @@
+/* src/styling/navbar.css */
+@import "./colours.css";
+
+/* ------------------------------------------------ */
+/* NAVBAR WRAPPER – STICKY + FADE-IN               */
+/* ------------------------------------------------ */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  /* ✅ MATCH HERO BEHAVIOR */
+  padding: 40px 40px 20px;
+
+  background: transparent;
+  backdrop-filter: none;
+
+  opacity: 0;
+  transform: translateY(-16px);
+  animation: navbar-fade-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+@keyframes navbar-fade-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------ */
+/* INNER WRAPPER                                   */
+/* ------------------------------------------------ */
+
+.navbar__inner {
+  max-width: 1700px;
+  margin: 0 auto;
+
+  /* ✅ SIDE PADDING HANDLED BY .navbar NOW */
+  padding: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__logo-img {
+  height: 40px;
+  width: auto;
+}
+
+/* ------------------------------------------------ */
+/* ACTIONS (right side)                            */
+/* ------------------------------------------------ */
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  position: relative;
+}
+
+/* ------------------------------------------------ */
+/* HAMBURGER BUTTON                                */
+/* ------------------------------------------------ */
+
+.navbar__icon-button {
+  height: clamp(44px, 3vw, 52px);
+  width: clamp(44px, 3vw, 52px);
+
+  min-height: 40px;
+  min-width: 40px;
+
+  border-radius: clamp(10px, 1vw, 14px);
+  background: var(--deep-indigo);
+  border: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  box-shadow:
+    0 clamp(10px, 1.2vw, 18px) clamp(24px, 2.3vw, 40px) rgba(79, 70, 229, 0.28),
+    0 0 40px rgba(79, 70, 229, 0.2);
+
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.navbar__icon-button:hover {
+  transform: translateY(-1px);
+}
+
+/* icon container */
+.navbar__icon-inner {
+  width: 22px;
+  height: 22px;
+  position: relative;
+}
+
+/* lines */
+.navbar__icon-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 999px;
+  transform-origin: center center;
+  transition: transform 0.22s ease, opacity 0.22s ease;
+}
+
+.navbar__icon-line:nth-child(1) {
+  transform: translate(-50%, -6px);
+}
+
+.navbar__icon-line:nth-child(2) {
+  transform: translate(-50%, 0);
+}
+
+.navbar__icon-line:nth-child(3) {
+  transform: translate(-50%, 6px);
+}
+
+/* X (open) state */
+.navbar__icon-button--open .navbar__icon-line:nth-child(1) {
+  transform: translate(-50%, 0) rotate(45deg);
+}
+
+.navbar__icon-button--open .navbar__icon-line:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar__icon-button--open .navbar__icon-line:nth-child(3) {
+  transform: translate(-50%, 0) rotate(-45deg);
+}
+
+/* ------------------------------------------------ */
+/* MENU DROPDOWN                                   */
+/* ------------------------------------------------ */
+
+.navbar__menu-dropdown {
+  position: absolute;
+  top: calc(100% + 16px);
+  right: 0;
+
+  padding: 24px 40px;
+  border-radius: 12px;
+  background: var(--deep-indigo);
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  z-index: 120;
+
+  white-space: nowrap;
+  width: auto;
+  min-width: max-content;
+}
+
+.navbar__menu-item {
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-align: left;
+
+  font-family: "Cal Sans", system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--white);
+
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+
+  white-space: nowrap;
+}
+
+.navbar__menu-item:hover {
+  opacity: 0.9;
+  transform: translateX(2px);
+}
+
+/* ------------------------------------------------ */
+/* RESPONSIVE                                      */
+/* ------------------------------------------------ */
+
+/* ✅ MOBILE: 20px ON ALL SIDES */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 20px 20px 16px;
+  }
+}

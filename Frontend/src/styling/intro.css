@@ -1,0 +1,133 @@
+@import "./colours.css";
+
+/* OUTER WRAPPER */
+.intro {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 120px;
+    box-sizing: border-box;
+    background-color: var(--white);
+}
+
+/* GRID CONTAINER */
+.intro__container {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    column-gap: 120px;
+    align-items: flex-start;
+}
+
+/* LEFT COLUMN – sticks in vertical center while scrolling */
+.intro__left {
+    position: sticky;
+    top: 50%;
+    transform: translateY(-50%);
+    align-self: flex-start;
+}
+
+/* Headline */
+.intro__headline {
+    margin: 0 0 16px;
+    word-break: keep-all;
+    overflow-wrap: normal;
+}
+
+/* Each word wrapper */
+.intro__headline-word {
+    white-space: nowrap;
+}
+
+/* highlight */
+.intro__headline-highlight {
+    color: var(--deep-indigo);
+}
+
+/* Subheading */
+.intro__subheading {
+    margin: 0;
+}
+
+/* RIGHT COLUMN */
+.intro__right {
+    align-self: flex-start;
+}
+
+/* EACH ITEM */
+.intro__item {
+    margin-bottom: 80px;
+}
+
+/* Right headings */
+.intro__item-title {
+    margin: 0;
+}
+
+/* Right body */
+.intro__item-text {
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
+/* ICONS ROW */
+.intro__icons-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.intro__icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--white);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.intro__icon img {
+    width: 32px;
+    height: 32px;
+    display: block;
+}
+
+/* BOTTOM STATEMENT */
+.intro__bottom-text {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--black);
+    margin: 0;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+/* ✅ Desktop → 40px sides */
+@media (max-width: 1400px) {
+    .intro {
+        padding: 120px 40px;
+    }
+}
+
+/* ✅ Tablet Layout */
+@media (max-width: 1024px) {
+    .intro__container {
+        grid-template-columns: 1fr;
+        row-gap: 48px;
+    }
+
+    .intro__left {
+        position: static;
+        transform: none;
+    }
+}
+
+/* ✅ Mobile Final */
+@media (max-width: 768px) {
+    .intro {
+        padding: 60px 20px;
+    }
+}

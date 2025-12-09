@@ -1,0 +1,147 @@
+@import "./colours.css";
+
+/* --------------------------------------------------------- */
+/* BLOG SECTION                                              */
+/* --------------------------------------------------------- */
+
+.blogsection {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 120px 120px;
+    box-sizing: border-box;
+}
+
+.blogsection__inner {
+    max-width: 2000px;
+    margin: 0 auto;
+}
+
+/* HEADER */
+
+.blogsection__header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.blogsection__eyebrow {
+    margin-bottom: 8px;
+}
+
+.blogsection__title {
+    margin-bottom: 12px;
+}
+
+.blogsection__title .highlight {
+    color: var(--deep-indigo);
+}
+
+.blogsection__subtitle {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* GRID */
+
+.blogsection__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+/* CARD */
+
+.blogsection__card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--light-grey);
+
+}
+
+.blogsection__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+}
+
+.blogsection__card-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.blogsection__card-content {
+    padding: 20px 20px 22px;
+}
+
+.blogsection__category {
+    font-size: 14px;
+    color: var(--deep-indigo);
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: inline-block;
+}
+
+.blogsection__card-title {
+    margin: 8px 0 12px;
+}
+
+.blogsection__meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.75;
+}
+
+/* CTA */
+
+.blogsection__cta {
+    display: block;
+    margin: 40px auto 0;
+    padding: 14px 32px;
+    border-radius: 999px;
+    font-size: 16px;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+/* Desktop → tablet padding */
+@media (max-width: 1400px) {
+    .blogsection {
+        padding: 120px 40px;
+    }
+}
+
+/* Tablet: text left + 1-col grid */
+@media (max-width: 1024px) {
+    .blogsection {
+        padding: 100px 40px;
+    }
+
+    .blogsection__header {
+        text-align: left;
+    }
+
+    .blogsection__subtitle {
+        margin-left: 0;
+    }
+
+    .blogsection__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .blogsection__cta {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .blogsection {
+        padding: 60px 20px;
+    }
+}
