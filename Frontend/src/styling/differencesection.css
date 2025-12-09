@@ -9,7 +9,7 @@
     margin: 0 auto;
     padding: 120px 120px;
     box-sizing: border-box;
-    background: var(--off-white);
+    background: var(--white);
 }
 
 .difference__inner {
