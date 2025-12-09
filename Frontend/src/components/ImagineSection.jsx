@@ -199,13 +199,14 @@ const ImagineSection = () => {
 
         const pinTimeline = gsap.timeline({
             scrollTrigger: {
-                trigger: headerEl, // start when the header reaches the centre
+                trigger: headerEl,        // start when header hits middle
                 start: "center center",
                 end: "+=160%",
                 scrub: true,
-                pin: pinEl,
+                pin: pinEl,               // pin the wrapper (full 100vh block)
                 pinSpacing: true,
                 anticipatePin: 1,
+                invalidateOnRefresh: true,
                 onLeave: () => {
                     if (videoRef.current) {
                         videoRef.current.pause();
@@ -255,18 +256,16 @@ const ImagineSection = () => {
                 0.7
             );
 
-        // ✅ CLEANUP: only kill what we created
+        // Make sure ScrollTrigger recalculates when mobile browser UI changes
+        const handleResize = () => ScrollTrigger.refresh();
+        window.addEventListener("resize", handleResize);
+
         return () => {
-            if (headingTl) {
-                headingTl.kill();
-                headingTl.scrollTrigger && headingTl.scrollTrigger.kill();
-            }
-            if (pinTimeline) {
-                pinTimeline.kill();
-                pinTimeline.scrollTrigger && pinTimeline.scrollTrigger.kill();
-            }
+            headingTl.kill();
+            pinTimeline.kill();
+            window.removeEventListener("resize", handleResize);
         };
-    }, []); // <— IMPORTANT: no isPlaying dependency
+    }, []); // ✅ run once, not on play/pause
 
     const progressRatio =
         duration && !Number.isNaN(duration) ? currentTime / duration : 0;
