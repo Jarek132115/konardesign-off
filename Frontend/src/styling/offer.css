@@ -66,6 +66,7 @@
 .offer__card-inner {
     display: flex;
     flex-direction: column;
+    text-align: left;
 }
 
 /* ICON */
@@ -139,7 +140,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* PRICE BAR – redesigned                                    */
+/* PRICE BAR                                                 */
 /* --------------------------------------------------------- */
 
 .offer__price-bar {
@@ -215,6 +216,11 @@
         grid-template-columns: 1fr;
         align-items: stretch;
     }
+
+    /* keep cards nicely spaced on stacked layout */
+    .offer__card-inner {
+        text-align: left;
+    }
 }
 
 @media (max-width: 768px) {
@@ -223,30 +229,7 @@
     }
 }
 
-/* ✅ Force black text on side-card include pills */
+/* Force black text on non-featured include pills */
 .offer__card:not(.offer__card--featured) .offer__pill {
     color: var(--black);
-}
-
-/* ✅ Tablet: switch header + content to left alignment */
-@media (max-width: 1024px) {
-    .offer__header {
-        text-align: left;
-    }
-
-    .offer__subtitle {
-        margin-left: 0;
-    }
-
-    .offer__card {
-        text-align: left;
-    }
-
-    .offer__includes-label {
-        text-align: left;
-    }
-
-    .offer__price {
-        justify-content: flex-start;
-    }
 }
