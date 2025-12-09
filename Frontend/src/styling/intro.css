@@ -1,16 +1,22 @@
 @import "./colours.css";
 
-/* OUTER WRAPPER */
+/* ========================================================= */
+/* OUTER WRAPPER                                             */
+/* ========================================================= */
+
 .intro {
     max-width: 1600px;
     margin: 0 auto;
-    /* extra bottom padding so right column scrolls longer */
-    padding: 120px 120px 320px;
+    /* Balanced bottom padding (no massive gap) */
+    padding: 120px 120px 140px;
     box-sizing: border-box;
     background-color: var(--white);
 }
 
-/* GRID CONTAINER */
+/* ========================================================= */
+/* GRID CONTAINER                                            */
+/* ========================================================= */
+
 .intro__container {
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
@@ -18,7 +24,10 @@
     align-items: flex-start;
 }
 
-/* LEFT COLUMN – sticks in vertical center while scrolling */
+/* ========================================================= */
+/* LEFT COLUMN – STICKY CENTER                               */
+/* ========================================================= */
+
 .intro__left {
     position: sticky;
     top: 50%;
@@ -48,7 +57,10 @@
     margin: 0;
 }
 
-/* RIGHT COLUMN */
+/* ========================================================= */
+/* RIGHT COLUMN                                              */
+/* ========================================================= */
+
 .intro__right {
     align-self: flex-start;
 }
@@ -94,25 +106,27 @@
     display: block;
 }
 
-/* BOTTOM STATEMENT */
+/* ========================================================= */
+/* BOTTOM STATEMENT                                          */
+/* ========================================================= */
+
 .intro__bottom-text {
     font-size: 20px;
     font-weight: 400;
     color: var(--black);
     margin-top: 8px;
-    /* big bottom margin so this line can reach near center
-       before the sticky column is released */
-    margin-bottom: 220px;
+    /* Tight, controlled exit spacing */
+    margin-bottom: 60px;
 }
 
-/* --------------------------------------------------------- */
+/* ========================================================= */
 /* RESPONSIVE                                                */
-/* --------------------------------------------------------- */
+/* ========================================================= */
 
-/* Desktop → 40px sides, keep extra bottom padding */
+/* Desktop → 40px sides */
 @media (max-width: 1400px) {
     .intro {
-        padding: 120px 40px 320px;
+        padding: 120px 40px 140px;
     }
 }
 
@@ -132,10 +146,10 @@
 /* Mobile */
 @media (max-width: 768px) {
     .intro {
-        padding: 60px 20px 140px;
+        padding: 60px 20px 80px;
     }
 
     .intro__bottom-text {
-        margin-bottom: 140px;
+        margin-bottom: 40px;
     }
 }
