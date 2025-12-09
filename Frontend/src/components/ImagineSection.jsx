@@ -24,7 +24,7 @@ const ImagineSection = () => {
     const [playbackRate, setPlaybackRate] = useState(1);
 
     /* -----------------------------
-       VIDEO CONTROLS
+       VIDEO CONTROL HANDLERS
     ------------------------------ */
 
     const togglePlay = () => {
@@ -99,10 +99,7 @@ const ImagineSection = () => {
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        /* -----------------------------
-           HEADING: EYEBROW → LETTERS → SUB
-        ------------------------------ */
-
+        /* ---- LETTER-BY-LETTER TITLE ---- */
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -142,6 +139,7 @@ const ImagineSection = () => {
 
         const charSpans = titleEl.querySelectorAll(".imagine__title-word span");
 
+        // Eyebrow → letters → subheading (same feel as other sections)
         const headingTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
@@ -184,10 +182,10 @@ const ImagineSection = () => {
                 ">-0.08"
             );
 
-        /* -----------------------------
-           PIN + SCRUB (DESKTOP BEHAVIOUR) ON ALL SIZES
-           CIRCLE → RECTANGLE + VIDEO
-        ------------------------------ */
+        /* ---- PIN + CIRCLE → RECTANGLE + VIDEO REVEAL ----
+           Triggered when the header reaches the center of the viewport.
+           Pinning uses pinEl so it behaves the same on all sizes.
+        ---------------------------------------------------- */
 
         gsap.set(backdropEl, {
             xPercent: -50,
@@ -202,16 +200,21 @@ const ImagineSection = () => {
 
         gsap.set(frameEl, { opacity: 0 });
 
-        // dynamic end distance so mobile behaves correctly
         const pinTimeline = gsap.timeline({
             scrollTrigger: {
-                trigger: pinEl,
-                start: "top top",
-                end: () => "+=" + pinEl.offsetHeight * 1.6,
+                trigger: headerEl,    // 🔑 wait until the header hits center
+                start: "center center",
+                end: "+=160%",
                 scrub: true,
-                pin: true,
+                pin: pinEl,           // explicitly pin the wrapper
+                pinSpacing: true,
                 anticipatePin: 1,
-                invalidateOnRefresh: true,
+                onLeave: () => {
+                    if (videoRef.current) {
+                        videoRef.current.pause();
+                        setIsPlaying(false);
+                    }
+                },
             },
         });
 
@@ -255,34 +258,12 @@ const ImagineSection = () => {
                 0.7
             );
 
-        // Pause video when the pinned sequence is finished
-        const leaveTrigger = ScrollTrigger.create({
-            trigger: pinEl,
-            start: "top top",
-            end: () => "+=" + pinEl.offsetHeight * 1.6,
-            onLeave: () => {
-                if (videoRef.current) {
-                    videoRef.current.pause();
-                    setIsPlaying(false);
-                }
-            },
-            onLeaveBack: () => {
-                if (videoRef.current) {
-                    videoRef.current.pause();
-                    setIsPlaying(false);
-                }
-            },
-        });
-
-        // Make sure everything recalculates correctly on resize/orientation
-        ScrollTrigger.refresh();
-
         return () => {
             headingTl.kill();
             pinTimeline.kill();
-            leaveTrigger.kill();
+            ScrollTrigger.getAll().forEach((st) => st.kill());
         };
-    }, []);
+    }, [isPlaying]);
 
     const progressRatio =
         duration && !Number.isNaN(duration) ? currentTime / duration : 0;
@@ -300,8 +281,7 @@ const ImagineSection = () => {
                             If You Can Imagine It – We Can Build It
                         </h2>
                         <p className="subheading imagine__subtitle">
-                            Every Pixel Built With Purpose. Every Site Designed To
-                            Win.
+                            Every Pixel Built With Purpose. Every Site Designed To Win.
                         </p>
                     </header>
 
@@ -328,8 +308,7 @@ const ImagineSection = () => {
                                         </button>
 
                                         <div className="imagine__time body">
-                                            {formatTime(currentTime)} /{" "}
-                                            {formatTime(duration)}
+                                            {formatTime(currentTime)} / {formatTime(duration)}
                                         </div>
                                     </div>
 
@@ -340,16 +319,12 @@ const ImagineSection = () => {
                                     >
                                         <div
                                             className="imagine__progress-fill"
-                                            style={{
-                                                width: `${progressRatio * 100}%`,
-                                            }}
+                                            style={{ width: `${progressRatio * 100}%` }}
                                         />
                                     </div>
 
                                     <div className="imagine__speed-controls body">
-                                        <span className="imagine__speed-label">
-                                            Speed
-                                        </span>
+                                        <span className="imagine__speed-label">Speed</span>
                                         {[1, 1.5, 2].map((rate) => (
                                             <button
                                                 key={rate}
@@ -358,9 +333,7 @@ const ImagineSection = () => {
                                                         ? "imagine__speed-btn--active"
                                                         : ""
                                                     }`}
-                                                onClick={() =>
-                                                    handleSpeedChange(rate)
-                                                }
+                                                onClick={() => handleSpeedChange(rate)}
                                             >
                                                 {rate}x
                                             </button>
