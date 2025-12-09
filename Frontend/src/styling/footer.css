@@ -221,3 +221,36 @@
 .footer__link:hover {
     opacity: 0.75;
 }
+
+@media (max-width: 640px) {
+    .footer {
+        padding: 24px;
+    }
+
+    .footer__inner {
+        border-radius: 24px;
+        padding: 32px 20px 24px;
+
+        /* ✅ CHANGE: allow wrapping instead of forced 3 columns */
+        display: flex;
+        flex-wrap: wrap;
+        gap: 28px;
+    }
+
+    .footer__col--brand {
+        width: 100%;
+    }
+
+    /* ✅ Each link column can wrap naturally */
+    .footer__col:not(.footer__col--brand) {
+        flex: 1 1 140px;
+        /* wraps when too tight */
+        min-width: 140px;
+    }
+
+    .footer__bottom {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
