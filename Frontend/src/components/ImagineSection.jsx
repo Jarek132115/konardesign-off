@@ -1,4 +1,3 @@
-// src/components/ImagineSection.jsx
 import React, { useEffect, useRef, useState } from "react";
 import "../styling/imagine.css";
 
@@ -21,7 +20,6 @@ const ImagineSection = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [duration, setDuration] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
-    const [playbackRate, setPlaybackRate] = useState(1);
 
     /* -----------------------------
        VIDEO CONTROL HANDLERS
@@ -62,13 +60,6 @@ const ImagineSection = () => {
         const ratio = Math.min(Math.max(clickX / rect.width, 0), 1);
         video.currentTime = ratio * duration;
         setCurrentTime(video.currentTime);
-    };
-
-    const handleSpeedChange = (newRate) => {
-        const video = videoRef.current;
-        if (!video) return;
-        video.playbackRate = newRate;
-        setPlaybackRate(newRate);
     };
 
     const formatTime = (time) => {
@@ -199,11 +190,11 @@ const ImagineSection = () => {
 
         const pinTimeline = gsap.timeline({
             scrollTrigger: {
-                trigger: headerEl,        // start when header hits middle
+                trigger: headerEl,
                 start: "center center",
                 end: "+=160%",
                 scrub: true,
-                pin: pinEl,               // pin the wrapper (full 100vh block)
+                pin: pinEl,
                 pinSpacing: true,
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
@@ -240,7 +231,7 @@ const ImagineSection = () => {
                 {
                     width: "100%",
                     height: "100%",
-                    borderRadius: "24px",
+                    borderRadius: "0px", // full-bleed rectangle
                     duration: 0.7,
                     ease: "power2.inOut",
                 },
@@ -256,7 +247,6 @@ const ImagineSection = () => {
                 0.7
             );
 
-        // Make sure ScrollTrigger recalculates when mobile browser UI changes
         const handleResize = () => ScrollTrigger.refresh();
         window.addEventListener("resize", handleResize);
 
@@ -265,7 +255,7 @@ const ImagineSection = () => {
             pinTimeline.kill();
             window.removeEventListener("resize", handleResize);
         };
-    }, []); // ✅ run once, not on play/pause
+    }, []);
 
     const progressRatio =
         duration && !Number.isNaN(duration) ? currentTime / duration : 0;
@@ -323,23 +313,6 @@ const ImagineSection = () => {
                                             className="imagine__progress-fill"
                                             style={{ width: `${progressRatio * 100}%` }}
                                         />
-                                    </div>
-
-                                    <div className="imagine__speed-controls body">
-                                        <span className="imagine__speed-label">Speed</span>
-                                        {[1, 1.5, 2].map((rate) => (
-                                            <button
-                                                key={rate}
-                                                type="button"
-                                                className={`imagine__speed-btn ${playbackRate === rate
-                                                        ? "imagine__speed-btn--active"
-                                                        : ""
-                                                    }`}
-                                                onClick={() => handleSpeedChange(rate)}
-                                            >
-                                                {rate}x
-                                            </button>
-                                        ))}
                                     </div>
                                 </div>
                             </div>
