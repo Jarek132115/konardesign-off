@@ -14,24 +14,25 @@ const Navbar = () => {
 
   const goTo = (path) => {
     navigate(path);
-    setIsMenuOpen(false); // close menu after navigation
+    setIsMenuOpen(false);
   };
 
   return (
     <header className="navbar">
       <div className="navbar__inner">
-        {/* LOGO — CLICK → HOME */}
+
+        {/* LOGO */}
         <div className="navbar__logo" onClick={() => goTo("/")}>
           <img
             src={Logo}
             alt="Konar Logo"
             className="navbar__logo-img"
-            style={{ cursor: "pointer" }}
           />
         </div>
 
-        {/* RIGHT SIDE – ONLY MENU ICON NOW */}
+        {/* ACTIONS */}
         <div className="navbar__actions">
+
           {/* HAMBURGER BUTTON */}
           <button
             className={`navbar__icon-button ${isMenuOpen ? "navbar__icon-button--open" : ""
@@ -49,6 +50,7 @@ const Navbar = () => {
           {/* DROPDOWN MENU */}
           {isMenuOpen && (
             <div className="navbar__menu-dropdown">
+
               <button className="navbar__menu-item" onClick={() => goTo("/")}>
                 Home
               </button>
@@ -81,12 +83,14 @@ const Navbar = () => {
                 Blog
               </button>
 
+              {/* ✅ MOVED HERE */}
               <button
                 className="navbar__menu-item"
                 onClick={() => goTo("/book-a-call")}
               >
                 Book A Call
               </button>
+
             </div>
           )}
         </div>

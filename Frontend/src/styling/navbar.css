@@ -1,18 +1,16 @@
 @import "./colours.css";
 
 /* ------------------------------------------------ */
-/* NAVBAR WRAPPER – STICKY + FADE-IN               */
+/* NAVBAR WRAPPER                                   */
 /* ------------------------------------------------ */
 
 .navbar {
   position: sticky;
   top: 0;
   z-index: 100;
-
   width: 100%;
   box-sizing: border-box;
 
-  /* ✅ MATCH HERO BEHAVIOR */
   padding: 40px 40px 20px;
 
   background: transparent;
@@ -38,17 +36,27 @@
   max-width: 1700px;
   margin: 0 auto;
 
-  /* ✅ SIDE PADDING HANDLED BY .navbar NOW */
-  padding: 0;
-
   display: flex;
   align-items: center;
+  /* ✅ PERFECT VERTICAL CENTERING */
   justify-content: space-between;
+}
+
+/* ------------------------------------------------ */
+/* LOGO                                             */
+/* ------------------------------------------------ */
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  /* ✅ FIXES THE MISALIGNMENT */
+  cursor: pointer;
 }
 
 .navbar__logo-img {
   height: 40px;
   width: auto;
+  display: block;
 }
 
 /* ------------------------------------------------ */
@@ -58,6 +66,7 @@
 .navbar__actions {
   display: flex;
   align-items: center;
+  /* ✅ PERFECTLY CENTERED */
   gap: 14px;
   position: relative;
 }
@@ -67,13 +76,10 @@
 /* ------------------------------------------------ */
 
 .navbar__icon-button {
-  height: clamp(44px, 3vw, 52px);
-  width: clamp(44px, 3vw, 52px);
+  height: 44px;
+  width: 44px;
 
-  min-height: 40px;
-  min-width: 40px;
-
-  border-radius: clamp(10px, 1vw, 14px);
+  border-radius: 12px;
   background: var(--deep-indigo);
   border: none;
 
@@ -83,7 +89,7 @@
   cursor: pointer;
 
   box-shadow:
-    0 clamp(10px, 1.2vw, 18px) clamp(24px, 2.3vw, 40px) rgba(79, 70, 229, 0.28),
+    0 10px 24px rgba(79, 70, 229, 0.28),
     0 0 40px rgba(79, 70, 229, 0.2);
 
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -158,8 +164,6 @@
   z-index: 120;
 
   white-space: nowrap;
-  width: auto;
-  min-width: max-content;
 }
 
 .navbar__menu-item {
@@ -175,8 +179,6 @@
 
   cursor: pointer;
   transition: opacity 0.15s ease, transform 0.15s ease;
-
-  white-space: nowrap;
 }
 
 .navbar__menu-item:hover {
@@ -188,7 +190,6 @@
 /* RESPONSIVE                                      */
 /* ------------------------------------------------ */
 
-/* ✅ MOBILE: 20px ON ALL SIDES */
 @media (max-width: 768px) {
   .navbar {
     padding: 20px 20px 16px;
