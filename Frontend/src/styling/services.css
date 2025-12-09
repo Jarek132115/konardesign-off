@@ -208,13 +208,7 @@
         padding: 100px 40px;
     }
 
-    .services__header {
-        text-align: left;
-    }
-
-    .services__subtitle {
-        margin-left: 0;
-    }
+    /* Header stays centered on tablet/mobile, so no override here */
 
     .services__grid {
         grid-template-columns: 1fr;

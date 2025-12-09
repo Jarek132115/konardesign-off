@@ -57,10 +57,16 @@ const ServicesSection = () => {
         const sectionEl = sectionRef.current;
         if (!sectionEl) return;
 
+        const eyebrowEl = sectionEl.querySelector(".services__eyebrow");
         const titleEl = sectionEl.querySelector(".services__title");
         const subtitleEl = sectionEl.querySelector(".services__subtitle");
         const cards = sectionEl.querySelectorAll(".services__card");
 
+        if (!eyebrowEl || !titleEl || !subtitleEl) return;
+
+        // -----------------------------
+        // Eyebrow + letter animation
+        // -----------------------------
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -74,6 +80,7 @@ const ServicesSection = () => {
             [...word].forEach((ch) => {
                 const span = document.createElement("span");
                 span.textContent = ch;
+                span.style.display = "inline-block";
                 span.style.opacity = "0";
                 span.style.transform = "translateY(8px)";
                 wrapper.appendChild(span);
@@ -95,29 +102,54 @@ const ServicesSection = () => {
         });
 
         const charSpans = titleEl.querySelectorAll(".services__title-word span");
+
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
 
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
                 start: "top 75%",
+                toggleActions: "play none none none",
             },
+            defaults: { ease: "power2.out" },
         });
 
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.03,
-            duration: 0.4,
-            ease: "power2.out",
-        });
+        // Eyebrow first
+        tl.fromTo(
+            eyebrowEl,
+            { opacity: 0, y: 8 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.25,
+            }
+        )
+            // Then headline letters
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                },
+                ">-0.05"
+            )
+            // Then subheading
+            .fromTo(
+                subtitleEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                },
+                ">-0.08"
+            );
 
-        tl.to(subtitleEl, {
-            opacity: 1,
-            y: 0,
-            duration: 0.4,
-        });
-
+        // -----------------------------
+        // Cards fade in on scroll
+        // -----------------------------
         cards.forEach((card) => {
             gsap.fromTo(
                 card,
@@ -126,13 +158,20 @@ const ServicesSection = () => {
                     opacity: 1,
                     y: 0,
                     duration: 0.4,
+                    ease: "power2.out",
                     scrollTrigger: {
                         trigger: card,
                         start: "top 85%",
+                        toggleActions: "play none none none",
                     },
                 }
             );
         });
+
+        return () => {
+            tl.kill();
+            ScrollTrigger.getAll().forEach((st) => st.kill());
+        };
     }, []);
 
     return (
