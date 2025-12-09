@@ -139,7 +139,7 @@ const ImagineSection = () => {
 
         const charSpans = titleEl.querySelectorAll(".imagine__title-word span");
 
-        // Eyebrow → letters → subheading (same feel as other sections)
+        // Eyebrow → letters → subheading
         const headingTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
@@ -182,10 +182,7 @@ const ImagineSection = () => {
                 ">-0.08"
             );
 
-        /* ---- PIN + CIRCLE → RECTANGLE + VIDEO REVEAL ----
-           Triggered when the header reaches the center of the viewport.
-           Pinning uses pinEl so it behaves the same on all sizes.
-        ---------------------------------------------------- */
+        /* ---- PIN + CIRCLE → RECTANGLE + VIDEO REVEAL ---- */
 
         gsap.set(backdropEl, {
             xPercent: -50,
@@ -202,11 +199,11 @@ const ImagineSection = () => {
 
         const pinTimeline = gsap.timeline({
             scrollTrigger: {
-                trigger: headerEl,    // 🔑 wait until the header hits center
+                trigger: headerEl, // start when the header reaches the centre
                 start: "center center",
                 end: "+=160%",
                 scrub: true,
-                pin: pinEl,           // explicitly pin the wrapper
+                pin: pinEl,
                 pinSpacing: true,
                 anticipatePin: 1,
                 onLeave: () => {
@@ -258,12 +255,18 @@ const ImagineSection = () => {
                 0.7
             );
 
+        // ✅ CLEANUP: only kill what we created
         return () => {
-            headingTl.kill();
-            pinTimeline.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
+            if (headingTl) {
+                headingTl.kill();
+                headingTl.scrollTrigger && headingTl.scrollTrigger.kill();
+            }
+            if (pinTimeline) {
+                pinTimeline.kill();
+                pinTimeline.scrollTrigger && pinTimeline.scrollTrigger.kill();
+            }
         };
-    }, [isPlaying]);
+    }, []); // <— IMPORTANT: no isPlaying dependency
 
     const progressRatio =
         duration && !Number.isNaN(duration) ? currentTime / duration : 0;
