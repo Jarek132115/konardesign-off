@@ -99,7 +99,10 @@ const ImagineSection = () => {
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        /* ---- LETTER-BY-LETTER TITLE ---- */
+        /* -----------------------------
+           HEADING: EYEBROW → LETTERS → SUB
+        ------------------------------ */
+
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -139,7 +142,6 @@ const ImagineSection = () => {
 
         const charSpans = titleEl.querySelectorAll(".imagine__title-word span");
 
-        // Heading animation: eyebrow → letters → subheading
         const headingTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
@@ -182,7 +184,10 @@ const ImagineSection = () => {
                 ">-0.08"
             );
 
-        /* ---- CIRCLE → FULL FRAME WHEN HEADER HITS CENTER ---- */
+        /* -----------------------------
+           PIN + SCRUB (DESKTOP BEHAVIOUR) ON ALL SIZES
+           CIRCLE → RECTANGLE + VIDEO
+        ------------------------------ */
 
         gsap.set(backdropEl, {
             xPercent: -50,
@@ -197,15 +202,20 @@ const ImagineSection = () => {
 
         gsap.set(frameEl, { opacity: 0 });
 
-        const morphTl = gsap.timeline({
+        // dynamic end distance so mobile behaves correctly
+        const pinTimeline = gsap.timeline({
             scrollTrigger: {
-                trigger: headerEl,
-                start: "center center", // when the header is in the middle of viewport
-                toggleActions: "play none none none",
+                trigger: pinEl,
+                start: "top top",
+                end: () => "+=" + pinEl.offsetHeight * 1.6,
+                scrub: true,
+                pin: true,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
             },
         });
 
-        morphTl
+        pinTimeline
             .to(
                 backdropEl,
                 {
@@ -213,7 +223,7 @@ const ImagineSection = () => {
                     duration: 0.45,
                     ease: "power2.out",
                 },
-                0
+                0.1
             )
             .to(
                 headerEl,
@@ -222,7 +232,7 @@ const ImagineSection = () => {
                     duration: 0.4,
                     ease: "power2.out",
                 },
-                0.12
+                0.25
             )
             .to(
                 backdropEl,
@@ -233,7 +243,7 @@ const ImagineSection = () => {
                     duration: 0.7,
                     ease: "power2.inOut",
                 },
-                0.25
+                0.4
             )
             .to(
                 frameEl,
@@ -242,14 +252,14 @@ const ImagineSection = () => {
                     duration: 0.6,
                     ease: "power2.out",
                 },
-                0.55
+                0.7
             );
 
-        // Pause video when section fully leaves viewport (up or down)
-        const videoSt = ScrollTrigger.create({
-            trigger: sectionEl,
-            start: "top bottom",
-            end: "bottom top",
+        // Pause video when the pinned sequence is finished
+        const leaveTrigger = ScrollTrigger.create({
+            trigger: pinEl,
+            start: "top top",
+            end: () => "+=" + pinEl.offsetHeight * 1.6,
             onLeave: () => {
                 if (videoRef.current) {
                     videoRef.current.pause();
@@ -264,10 +274,13 @@ const ImagineSection = () => {
             },
         });
 
+        // Make sure everything recalculates correctly on resize/orientation
+        ScrollTrigger.refresh();
+
         return () => {
             headingTl.kill();
-            morphTl.kill();
-            videoSt.kill();
+            pinTimeline.kill();
+            leaveTrigger.kill();
         };
     }, []);
 
