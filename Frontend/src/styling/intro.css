@@ -130,7 +130,7 @@
     }
 }
 
-/* Tablet Layout */
+/* Tablet Layout – stack + center everything */
 @media (max-width: 1024px) {
     .intro__container {
         grid-template-columns: 1fr;
@@ -140,6 +140,33 @@
     .intro__left {
         position: static;
         transform: none;
+        text-align: center;
+    }
+
+    .intro__headline,
+    .intro__subheading {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .intro__right {
+        align-self: center;
+        text-align: center;
+    }
+
+    .intro__item {
+        max-width: 520px;
+        margin: 0 auto 48px;
+    }
+
+    .intro__bottom-text {
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .intro__icons-row {
+        justify-content: center;
     }
 }
 
