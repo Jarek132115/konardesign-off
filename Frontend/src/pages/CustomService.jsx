@@ -213,9 +213,18 @@ const CustomService = () => {
                 {/* INCLUDED FEATURES */}
                 <section className="service-included">
                     <header className="service-included__header">
+                        <p className="eyebrow service-included__eyebrow">
+                            WHAT’S INCLUDED
+                        </p>
+
                         <h2 className="heading2 service-included__title">
-                            What’s Included In Your Custom Website Package
+                            What’s Included In Your{" "}
+                            <span className="service-included__title-highlight">
+                                Custom Website
+                            </span>{" "}
+                            Package
                         </h2>
+
                         <p className="subheading service-included__subtitle">
                             Everything you need to launch a high-performing website that’s
                             built to grow your business.
@@ -245,9 +254,18 @@ const CustomService = () => {
                 {/* GALLERY */}
                 <section className="service-gallery">
                     <header className="service-gallery__header">
+                        <p className="eyebrow service-gallery__eyebrow">
+                            PROJECT SHOWCASE
+                        </p>
+
                         <h2 className="heading2 service-gallery__title">
-                            A Few Examples Of What We’ve Built
+                            A Few{" "}
+                            <span className="service-gallery__title-highlight">
+                                Examples
+                            </span>{" "}
+                            Of What We’ve Built
                         </h2>
+
                         <p className="subheading service-gallery__subtitle">
                             Clean, modern and conversion-driven layouts designed to
                             elevate your brand.
