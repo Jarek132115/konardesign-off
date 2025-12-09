@@ -63,7 +63,6 @@
     column-gap: 48px;
     align-items: stretch;
 
-    /* 🖼 background image + 90% white overlay */
     background-image:
         linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
         url("../assets/images/Background4.jpg");
@@ -144,6 +143,7 @@
 
     white-space: nowrap;
 }
+
 /* CTA LINK BUTTON */
 
 /* base: 36px gap from pills (used on ≤1024px) */
@@ -169,9 +169,7 @@
 @media (min-width: 1025px) {
     .projects__link-button {
         margin-top: auto;
-        /* push to bottom */
         align-self: flex-start;
-        /* left, not right */
     }
 }
 
@@ -274,17 +272,13 @@
 
     .projects__project-content {
         order: 0;
+        /* ⬇ remove inner padding when stacked (image top, content bottom) */
+        padding: 0;
     }
 
-    .projects__cta-inner {
-        text-align: left;
-        margin-left: 0;
-    }
-
-    /* keep 36px gap + left-align CTA on tablet */
-    .projects__link-button {
-        align-self: flex-start;
-        margin-top: 36px;
+    /* CTA card: reduce padding to 24px and keep centered content */
+    .projects__cta {
+        padding: 24px;
     }
 }
 
@@ -295,7 +289,7 @@
     }
 
     .projects__cta {
-        padding: 28px 20px;
+        padding: 24px;
         border-radius: 28px;
     }
 }
