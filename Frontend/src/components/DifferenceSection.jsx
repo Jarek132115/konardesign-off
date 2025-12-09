@@ -7,28 +7,26 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const proChips = [
-    "Strategy-first UX design",
-    "Custom UI, no templates",
-    "Fast, SEO-ready builds",
-    "Conversion-focused layout",
-    "Scalable CMS system",
-    "Clean, modular code",
-    "Analytics built in",
+    "Strategy-led UX built around goals",
+    "Custom UI systems (not templates)",
+    "Fast, SEO-ready builds (Web Vitals + Schema)",
+    "Clear messaging & conversion-first CTAs",
+    "Scalable CMS; easy to update",
+    "Clean code & structured components",
+    "Analytics & tracking built in",
     "Future-proof development",
 ];
 
-
 const cheapChips = [
-    "Reused generic templates",
-    "No real UX strategy",
-    "Slow performance",
-    "No SEO structure",
-    "Brittle hard-coded layouts",
-    "No analytics tracking",
-    "Hard to scale or update",
-    "Requires full rebuild later",
+    "Generic templates recycled for other clients",
+    "Pretty UI but no UX strategy",
+    "Slow load times & bad performance",
+    "No SEO structure or content strategy",
+    "Hard-coded layouts that break easily",
+    "No tracking or analytics",
+    "Difficult to scale or update",
+    "Ends up needing a full rebuild",
 ];
-
 
 const DifferenceSection = () => {
     const sectionRef = useRef(null);
