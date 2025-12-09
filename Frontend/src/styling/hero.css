@@ -224,3 +224,7 @@
         height: 230px;
     }
 }
+
+.hero__title-word--indigo span {
+    color: var(--deep-indigo);
+}

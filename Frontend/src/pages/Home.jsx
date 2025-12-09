@@ -85,6 +85,11 @@ const Home = () => {
             wordWrapper.classList.add("hero__title-word");
             wordWrapper.style.display = "inline-block";
 
+            // Make only the word "Websites" indigo in the hero title
+            if (word.toLowerCase() === "websites") {
+                wordWrapper.classList.add("hero__title-word--indigo");
+            }
+
             for (const ch of word) {
                 const charSpan = document.createElement("span");
                 charSpan.textContent = ch;
