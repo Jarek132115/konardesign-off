@@ -19,7 +19,8 @@ const BlogSection = () => {
         {
             id: 1,
             category: "Web Design",
-            title: "Why Most Websites Look Good But Don’t Convert (And How To Fix It)",
+            title:
+                "Why Most Websites Look Good But Don’t Convert (And How To Fix It)",
             readTime: "1 Min Read",
             img: blogImg1,
             link: "/blog",
@@ -35,7 +36,8 @@ const BlogSection = () => {
         {
             id: 3,
             category: "SEO",
-            title: "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
+            title:
+                "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
             readTime: "1 Min Read",
             img: blogImg3,
             link: "/blog",
@@ -53,7 +55,9 @@ const BlogSection = () => {
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        /* ------------ LETTER-BY-LETTER TITLE ------------ */
+        /* ------------------------------
+           LETTER-BY-LETTER TITLE
+        ------------------------------ */
 
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
@@ -81,7 +85,7 @@ const BlogSection = () => {
             }
         });
 
-        // Highlight “Insights”
+        // highlight "Insights"
         const wordSpans = titleEl.querySelectorAll(".blogsection__title-word");
         const highlightSet = new Set(["Insights"]);
 
@@ -92,11 +96,13 @@ const BlogSection = () => {
             }
         });
 
-        const charSpans = titleEl.querySelectorAll(".blogsection__title-word span");
+        const charSpans = titleEl.querySelectorAll(
+            ".blogsection__title-word span"
+        );
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
 
-        const headingTl = gsap.timeline({
+        const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
                 start: "top 75%",
@@ -105,18 +111,15 @@ const BlogSection = () => {
             defaults: { ease: "power2.out" },
         });
 
-        headingTl
-            // eyebrow
-            .fromTo(
-                eyebrowEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.25,
-                }
-            )
-            // letters
+        tl.fromTo(
+            eyebrowEl,
+            { opacity: 0, y: 8 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.25,
+            }
+        )
             .to(
                 charSpans,
                 {
@@ -127,7 +130,6 @@ const BlogSection = () => {
                 },
                 ">-0.05"
             )
-            // subtitle
             .fromTo(
                 subtitleEl,
                 { opacity: 0, y: 8 },
@@ -139,36 +141,32 @@ const BlogSection = () => {
                 ">-0.08"
             );
 
-        /* ------------ CARD FADE-IN ON SCROLL ------------ */
+        /* ------------------------------
+           CARD FADE-IN ON SCROLL
+        ------------------------------ */
 
-        const cardAnims = [];
-
-        cards.forEach((card) => {
-            const anim = gsap.fromTo(
+        cards.forEach((card, index) => {
+            gsap.fromTo(
                 card,
                 { opacity: 0, y: 24 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.45,
+                    duration: 0.4,
                     ease: "power2.out",
+                    delay: index * 0.05,
                     scrollTrigger: {
                         trigger: card,
-                        start: "top 85%",
+                        start: "top 80%",
                         toggleActions: "play none none none",
                     },
                 }
             );
-            cardAnims.push(anim);
         });
 
         return () => {
-            if (headingTl.scrollTrigger) headingTl.scrollTrigger.kill();
-            headingTl.kill();
-            cardAnims.forEach((anim) => {
-                if (anim.scrollTrigger) anim.scrollTrigger.kill();
-                anim.kill();
-            });
+            tl.kill();
+            ScrollTrigger.getAll().forEach((st) => st.kill());
         };
     }, []);
 
@@ -181,8 +179,8 @@ const BlogSection = () => {
                         Growth-Driven Insights For Modern Brands
                     </h2>
                     <p className="subheading blogsection__subtitle">
-                        High-impact articles on UX, design, performance, and digital growth—
-                        written for brands ready to scale.
+                        High-impact articles on UX, design, performance, and digital
+                        growth—written for brands ready to scale.
                     </p>
                 </header>
 

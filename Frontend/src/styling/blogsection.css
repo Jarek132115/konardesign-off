@@ -20,7 +20,6 @@
 
 .blogsection__header {
     text-align: center;
-    /* keep centered on all sizes */
     margin-bottom: 48px;
 }
 
@@ -32,7 +31,7 @@
     margin-bottom: 12px;
 }
 
-/* word wrapper for animation */
+/* word wrapper for letter animation */
 .blogsection__title-word {
     white-space: nowrap;
 }
