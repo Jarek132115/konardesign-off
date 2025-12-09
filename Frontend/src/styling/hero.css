@@ -127,12 +127,12 @@
 }
 
 /* --------------------------------------------------------- */
-/* MOBILE (up to 499px) ✅ UNCHANGED                          */
+/* ✅ MOBILE LARGE (400–499px) → 40px                         */
 /* --------------------------------------------------------- */
 
-@media (max-width: 499px) {
-    .hero__title {
-        font-size: 40px;
+@media (min-width: 400px) and (max-width: 499px) {
+    .heading1.hero__title {
+        font-size: 40px !important;
         line-height: 52px;
     }
 
@@ -140,6 +140,28 @@
         flex: 0 0 280px;
         width: 280px;
         height: 190px;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* ✅ MOBILE SMALL (≤399px) → 36px                            */
+/* --------------------------------------------------------- */
+
+@media (max-width: 399px) {
+    .heading1.hero__title {
+        font-size: 36px !important;
+        line-height: 48px;
+    }
+
+    .hero__card {
+        flex: 0 0 260px;
+        width: 260px;
+        height: 180px;
+    }
+
+    .hero::before {
+        top: 20px;
+        height: clamp(240px, 60vw, 320px);
     }
 }
 
