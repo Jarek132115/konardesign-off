@@ -73,7 +73,7 @@ const IntroSection = () => {
 
         const charSpans = headline.querySelectorAll(".intro__headline-word span");
 
-        // Intro animation for left side, triggered when section scrolls in
+        // Faster intro animation for left side
         const leftTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
@@ -85,22 +85,21 @@ const IntroSection = () => {
         leftTl.to(charSpans, {
             opacity: 1,
             y: 0,
-            stagger: 0.03,
-            duration: 0.4,
+            stagger: 0.018,     // faster stagger
+            duration: 0.26,     // shorter duration
             ease: "power2.out",
         });
 
-        // Subheading comes in right after the headline is done, full opacity
         leftTl.fromTo(
             subheadingEl,
             { opacity: 0, y: 8 },
             {
                 opacity: 1,
                 y: 0,
-                duration: 0.4,
+                duration: 0.28,  // a bit shorter
                 ease: "power2.out",
             },
-            ">-0.05"
+            ">-0.10"            // overlaps more so it appears sooner
         );
 
         /* -------------------------------

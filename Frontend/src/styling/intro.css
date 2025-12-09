@@ -4,7 +4,8 @@
 .intro {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 120px;
+    /* more bottom padding so right column scrolls longer */
+    padding: 120px 120px 220px;
     box-sizing: border-box;
     background-color: var(--white);
 }
@@ -105,10 +106,10 @@
 /* RESPONSIVE                                                */
 /* --------------------------------------------------------- */
 
-/* ✅ Desktop → 40px sides */
+/* ✅ Desktop → 40px sides, keep extra bottom padding */
 @media (max-width: 1400px) {
     .intro {
-        padding: 120px 40px;
+        padding: 120px 40px 220px;
     }
 }
 
@@ -125,9 +126,9 @@
     }
 }
 
-/* ✅ Mobile Final */
+/* ✅ Mobile Final – a bit more bottom space too */
 @media (max-width: 768px) {
     .intro {
-        padding: 60px 20px;
+        padding: 60px 20px 120px;
     }
 }
