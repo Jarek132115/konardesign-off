@@ -252,14 +252,7 @@
         padding: 100px 40px;
     }
 
-    .projects__header {
-        text-align: left;
-    }
-
-    .projects__subtitle {
-        margin-left: 0;
-    }
-
+    /* keep header centered on tablet */
     .projects__project {
         grid-template-columns: 1fr;
         row-gap: 24px;
@@ -272,13 +265,13 @@
 
     .projects__project-content {
         order: 0;
-        /* ⬇ remove inner padding when stacked (image top, content bottom) */
         padding: 0;
+        /* remove inner padding when stacked */
     }
 
-    /* CTA card: reduce padding to 24px and keep centered content */
     .projects__cta {
-        padding: 12px;
+        padding: 24px;
+        /* 48 → 24px on smaller screens */
     }
 }
 

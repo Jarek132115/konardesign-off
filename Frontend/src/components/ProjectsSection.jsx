@@ -30,13 +30,17 @@ const ProjectsSection = () => {
         const sectionEl = sectionRef.current;
         if (!sectionEl) return;
 
+        const eyebrowEl = sectionEl.querySelector(".projects__eyebrow");
         const titleEl = sectionEl.querySelector(".projects__title");
         const subtitleEl = sectionEl.querySelector(".projects__subtitle");
         const cards = sectionEl.querySelectorAll(".projects__project");
         const ctaEl = sectionEl.querySelector(".projects__cta");
 
-        if (!titleEl || !subtitleEl) return;
+        if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
+        /* -----------------------------
+           EYEBROW + LETTER ANIMATION
+        ------------------------------ */
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -86,23 +90,42 @@ const ProjectsSection = () => {
             defaults: { ease: "power2.out" },
         });
 
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.03,
-            duration: 0.4,
-        });
-
-        tl.to(
-            subtitleEl,
+        // Eyebrow first
+        tl.fromTo(
+            eyebrowEl,
+            { opacity: 0, y: 8 },
             {
                 opacity: 1,
                 y: 0,
-                duration: 0.45,
-            },
-            ">-0.05"
-        );
+                duration: 0.25,
+            }
+        )
+            // Then headline letters
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                },
+                ">-0.05"
+            )
+            // Then subheading
+            .fromTo(
+                subtitleEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                },
+                ">-0.08"
+            );
 
+        /* -----------------------------
+           CARDS + CTA FADE-IN
+        ------------------------------ */
         cards.forEach((card, index) => {
             gsap.fromTo(
                 card,
@@ -154,7 +177,7 @@ const ProjectsSection = () => {
         <section className="projects" ref={sectionRef}>
             <div className="projects__inner">
                 <header className="projects__header">
-                    <p className="eyebrow services__eyebrow">OUR WORK</p>
+                    <p className="eyebrow projects__eyebrow">OUR WORK</p>
                     <h2 className="heading2 projects__title">
                         What We’ve Built. Who We’ve Helped.
                     </h2>
