@@ -278,7 +278,7 @@
 
     /* CTA card: reduce padding to 24px and keep centered content */
     .projects__cta {
-        padding: 24px;
+        padding: 12px;
     }
 }
 
@@ -290,6 +290,6 @@
 
     .projects__cta {
         padding: 24px;
-        border-radius: 28px;
+        border-radius: 12px;
     }
 }
