@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -21,7 +20,6 @@ const Navbar = () => {
   return (
     <header className="navbar">
       <div className="navbar__inner">
-
         {/* LOGO — CLICK → HOME */}
         <div className="navbar__logo" onClick={() => goTo("/")}>
           <img
@@ -32,15 +30,8 @@ const Navbar = () => {
           />
         </div>
 
-        {/* RIGHT SIDE BUTTONS */}
+        {/* RIGHT SIDE – ONLY MENU ICON NOW */}
         <div className="navbar__actions">
-          <button
-            className="btn btn--indigo"
-            onClick={() => goTo("/book-a-call")}
-          >
-            Book A Call
-          </button>
-
           {/* HAMBURGER BUTTON */}
           <button
             className={`navbar__icon-button ${isMenuOpen ? "navbar__icon-button--open" : ""
@@ -83,8 +74,6 @@ const Navbar = () => {
                 E-Commerce Website
               </button>
 
-
-
               <button
                 className="navbar__menu-item"
                 onClick={() => goTo("/blog")}
@@ -92,6 +81,12 @@ const Navbar = () => {
                 Blog
               </button>
 
+              <button
+                className="navbar__menu-item"
+                onClick={() => goTo("/book-a-call")}
+              >
+                Book A Call
+              </button>
             </div>
           )}
         </div>
