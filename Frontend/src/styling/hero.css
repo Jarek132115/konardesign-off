@@ -144,7 +144,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* ✅ MID TABLET SMALL (500–599px) → FORCE 48px               */
+/* ✅ MID TABLET SMALL (500–599px) → 48px + 340px cards       */
 /* --------------------------------------------------------- */
 
 @media (min-width: 500px) and (max-width: 599px) {
@@ -161,24 +161,24 @@
 }
 
 /* --------------------------------------------------------- */
-/* ✅ MID TABLET LARGE (600–800px) → FORCE 52px ✅             */
+/* ✅ MID TABLET LARGE (600–800px) → 56px                     */
 /* --------------------------------------------------------- */
 
 @media (min-width: 600px) and (max-width: 800px) {
     .heading1.hero__title {
-        font-size: 52px !important;
+        font-size: 56px !important;
         line-height: 1.1;
     }
 }
 
 /* --------------------------------------------------------- */
-/* ✅ LARGE TABLET IMAGE UPGRADE (650–800px) → 400px          */
+/* ✅ LARGE TABLET IMAGE UPGRADE (650–800px) → 440px          */
 /* --------------------------------------------------------- */
 
 @media (min-width: 650px) and (max-width: 800px) {
     .hero__card {
-        flex: 0 0 400px;
-        width: 400px;
+        flex: 0 0 440px;
+        width: 440px;
         height: 275px;
     }
 }
