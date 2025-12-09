@@ -11,14 +11,10 @@
     z-index: 0;
     max-width: 2000px;
     margin: 0 auto;
-
-    /* LEFT/RIGHT = 40px on desktop */
     padding: 100px 40px 80px;
-
     box-sizing: border-box;
 }
 
-/* dotted halo behind hero content */
 .hero::before {
     content: "";
     position: absolute;
@@ -59,30 +55,25 @@
     text-align: center;
 }
 
-/* H1 */
 .hero__title {
     margin: 8px auto 16px;
     max-width: 1000px;
 }
 
-/* word wrapper for letter animation */
 .hero__title-word {
     white-space: nowrap;
 }
 
-/* SUBHEADING */
 .hero__subheading {
     margin: 16px auto 16px;
     max-width: 700px;
 }
 
-/* CTA BUTTONS LAYOUT */
 .hero__buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 16px;
-    margin-top: 0;
     margin-bottom: 40px;
 }
 
@@ -103,8 +94,6 @@
     will-change: transform;
     transform: translate3d(0, 0, 0);
     cursor: grab;
-
-    /* allow browser to handle vertical scrolling but give us horizontal pan */
     touch-action: pan-y;
 }
 
@@ -125,11 +114,10 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    backface-visibility: hidden;
 }
 
 /* --------------------------------------------------------- */
-/* “BIG TABLET” (desktop-ish, 801–1200px)                    */
+/* BIG TABLET (801–1200px)                                   */
 /* --------------------------------------------------------- */
 
 @media (min-width: 801px) and (max-width: 1200px) {
@@ -156,14 +144,14 @@
     }
 
     .hero__card {
-        flex: 0 0 360px;
-        width: 360px;
-        height: 240px;
+        flex: 0 0 400px;
+        width: 400px;
+        height: 275px;
     }
 }
 
 /* --------------------------------------------------------- */
-/* MOBILE (up to 499px wide)                                */
+/* MOBILE (up to 499px)                                      */
 /* --------------------------------------------------------- */
 
 @media (max-width: 499px) {
@@ -189,13 +177,11 @@
 }
 
 /* --------------------------------------------------------- */
-/* MID TABLET (500–800px) – BASE STYLES                      */
+/* MID TABLET SMALL (500–649px) → 340px cards                */
 /* --------------------------------------------------------- */
 
-@media (min-width: 500px) and (max-width: 800px) {
+@media (min-width: 500px) and (max-width: 649px) {
     .hero {
-        /* more vertical breathing room so Intro doesn’t show
-           without fixing an exact height */
         padding: 120px 40px 110px;
     }
 
@@ -204,7 +190,7 @@
     }
 
     .hero__title {
-        font-size: clamp(44px, 5vw, 54px);
+        font-size: 48px;
         line-height: 1.1;
         max-width: 900px;
     }
@@ -226,22 +212,14 @@
 }
 
 /* --------------------------------------------------------- */
-/* TABLET H1 OVERRIDES (HIGHER SPECIFICITY)                  */
+/* MID TABLET LARGE (650–800px) → 400px cards ✅              */
 /* --------------------------------------------------------- */
 
-/* 500–599px: force 48px (so at 600-ish breakpoint jump) */
-@media (min-width: 500px) and (max-width: 599px) {
-    .heading1.hero__title {
-        font-size: 48px;
-        line-height: 1.1;
-    }
-}
-
-/* 600–800px: force 52px (e.g. 600px, 770px) */
-@media (min-width: 600px) and (max-width: 800px) {
-    .heading1.hero__title {
-        font-size: 52px;
-        line-height: 1.1;
+@media (min-width: 650px) and (max-width: 800px) {
+    .hero__card {
+        flex: 0 0 400px;
+        width: 400px;
+        height: 275px;
     }
 }
 
