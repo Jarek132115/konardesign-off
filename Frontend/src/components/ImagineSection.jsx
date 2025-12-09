@@ -98,6 +98,11 @@ const ImagineSection = () => {
 
         if (!titleEl || !subtitleEl) return;
 
+        const isSmallScreen =
+            typeof window !== "undefined" &&
+            window.matchMedia &&
+            window.matchMedia("(max-width: 900px)").matches;
+
         /* ---- LETTER-BY-LETTER TITLE ---- */
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
@@ -140,7 +145,49 @@ const ImagineSection = () => {
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
 
-        const headingTl = gsap.timeline({
+        let headingTl;
+        let pinTimeline;
+        let leaveTrigger;
+
+        // ---- SMALL SCREENS: NO PIN, SIMPLE FADE ----
+        if (isSmallScreen) {
+            headingTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: sectionEl,
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                },
+                defaults: { ease: "power2.out" },
+            });
+
+            headingTl
+                .to(charSpans, {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.02,
+                    duration: 0.3,
+                })
+                .to(
+                    subtitleEl,
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.3,
+                    },
+                    ">-0.04"
+                );
+
+            // ensure video frame is just visible (no morph)
+            gsap.set(frameEl, { opacity: 1 });
+
+            return () => {
+                if (headingTl) headingTl.kill();
+            };
+        }
+
+        // ---- DESKTOP: FULL PIN + CIRCLE → RECTANGLE ----
+
+        headingTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
                 start: "top 75%",
@@ -166,8 +213,7 @@ const ImagineSection = () => {
                 ">-0.05"
             );
 
-        /* ---- PIN + CIRCLE → RECTANGLE + VIDEO REVEAL ---- */
-
+        // initial state for morphing backdrop
         gsap.set(backdropEl, {
             xPercent: -50,
             yPercent: -50,
@@ -181,7 +227,7 @@ const ImagineSection = () => {
 
         gsap.set(frameEl, { opacity: 0 });
 
-        const pinTimeline = gsap.timeline({
+        pinTimeline = gsap.timeline({
             scrollTrigger: {
                 trigger: pinEl,
                 start: "top top",
@@ -232,7 +278,8 @@ const ImagineSection = () => {
                 0.7
             );
 
-        ScrollTrigger.create({
+        // pause video when leaving pinned section
+        leaveTrigger = ScrollTrigger.create({
             trigger: pinEl,
             start: "top top",
             end: "+=160%",
@@ -245,9 +292,9 @@ const ImagineSection = () => {
         });
 
         return () => {
-            headingTl.kill();
-            pinTimeline.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
+            if (headingTl) headingTl.kill();
+            if (pinTimeline) pinTimeline.kill();
+            if (leaveTrigger) leaveTrigger.kill();
         };
     }, []);
 
@@ -259,7 +306,6 @@ const ImagineSection = () => {
             <div className="imagine__pin" ref={pinRef}>
                 <div className="imagine__content">
                     <header className="imagine__header" ref={headerRef}>
-                        {/* New eyebrow */}
                         <p className="eyebrow imagine__eyebrow">
                             SIGNATURE SHOWREEL
                         </p>
