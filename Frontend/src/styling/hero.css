@@ -97,21 +97,23 @@
     touch-action: pan-y;
 }
 
-.hero__carousel-track--dragging {
-    cursor: grabbing;
-}
-
+/* base card – 4 / 2.75 aspect ratio */
 .hero__card {
     flex: 0 0 400px;
     width: 400px;
-    height: 275px;
+    aspect-ratio: 4 / 2.75;
     border-radius: 12px;
     overflow: hidden;
+}
+
+.hero__carousel-track--dragging {
+    cursor: grabbing;
 }
 
 .hero__image {
     width: 100%;
     height: 100%;
+    display: block;
     object-fit: cover;
 }
 
@@ -127,7 +129,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* ✅ MOBILE LARGE (400–499px) → 40px                         */
+/* ✅ MOBILE LARGE (400–499px) → 40px H1, 280px wide cards    */
 /* --------------------------------------------------------- */
 
 @media (min-width: 400px) and (max-width: 499px) {
@@ -139,12 +141,12 @@
     .hero__card {
         flex: 0 0 280px;
         width: 280px;
-        height: 190px;
+        /* height comes from aspect-ratio */
     }
 }
 
 /* --------------------------------------------------------- */
-/* ✅ MOBILE SMALL (≤399px) → 36px                            */
+/* ✅ MOBILE SMALL (≤399px) → 36px H1, 260px wide cards       */
 /* --------------------------------------------------------- */
 
 @media (max-width: 399px) {
@@ -156,7 +158,7 @@
     .hero__card {
         flex: 0 0 260px;
         width: 260px;
-        height: 180px;
+        /* height comes from aspect-ratio */
     }
 
     .hero::before {
@@ -166,7 +168,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* ✅ MID TABLET SMALL (500–599px) → 48px + 340px cards       */
+/* ✅ MID TABLET SMALL (500–599px) → 48px H1, 340px cards     */
 /* --------------------------------------------------------- */
 
 @media (min-width: 500px) and (max-width: 599px) {
@@ -178,12 +180,12 @@
     .hero__card {
         flex: 0 0 340px;
         width: 340px;
-        height: 230px;
+        /* height comes from aspect-ratio */
     }
 }
 
 /* --------------------------------------------------------- */
-/* ✅ MID TABLET LARGE (600–800px) → 56px                     */
+/* ✅ MID TABLET LARGE (600–800px) → 56px H1                  */
 /* --------------------------------------------------------- */
 
 @media (min-width: 600px) and (max-width: 800px) {
@@ -194,14 +196,14 @@
 }
 
 /* --------------------------------------------------------- */
-/* ✅ LARGE TABLET IMAGE UPGRADE (650–800px) → 440px          */
+/* ✅ LARGE TABLET IMAGE UPGRADE (650–800px) → 440px cards    */
 /* --------------------------------------------------------- */
 
 @media (min-width: 650px) and (max-width: 800px) {
     .hero__card {
         flex: 0 0 440px;
         width: 440px;
-        height: 275px;
+        /* height comes from aspect-ratio */
     }
 }
 
