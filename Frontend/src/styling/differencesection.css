@@ -1,7 +1,7 @@
 @import "./colours.css";
 
 /* --------------------------------------------------------- */
-/* SECTION WRAPPER                                           */
+/* SECTION WRAPPER (match .conversion)                       */
 /* --------------------------------------------------------- */
 
 .difference {
@@ -13,17 +13,17 @@
 }
 
 .difference__inner {
-    max-width: 2000px;
     margin: 0 auto;
 }
 
 /* --------------------------------------------------------- */
-/* HEADER                                                     */
+/* HEADER (match conversion spacing)                         */
 /* --------------------------------------------------------- */
 
 .difference__header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
+    /* was 40px */
 }
 
 .difference__eyebrow {
@@ -31,7 +31,8 @@
 }
 
 .difference__title {
-    margin: 0 0 12px;
+    margin: 0 0 16px;
+    /* match conversion title spacing */
 }
 
 .difference__title-word {
@@ -44,30 +45,39 @@
 }
 
 .difference__subtitle {
-    max-width: 760px;
+    max-width: 700px;
+    /* match conversion subtitle width */
     margin: 0 auto;
     color: var(--cool-grey);
+    font-weight: 500;
+    /* same weight feel as conversion */
 }
 
 /* --------------------------------------------------------- */
-/* GRID + CARDS                                              */
+/* GRID + CARDS (match conversion card style)                */
 /* --------------------------------------------------------- */
 
 .difference__grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 32px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    /* match .conversion__grid gap */
 }
 
 .difference__card {
     position: relative;
     background: var(--white);
-    border-radius: 24px;
+    border-radius: 12px;
+    /* match conversion */
     border: 1px solid var(--light-grey);
-    padding: 32px 32px 28px;
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.12);
+    padding: 24px 24px 26px;
+    /* match conversion card padding */
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    /* match conversion shadow */
     display: flex;
     flex-direction: column;
+
+    /* keep it flat like conversion (no extra bg image for now) */
 }
 
 /* top pill */
@@ -75,7 +85,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 22px;
+    padding: 8px 16px;
     border-radius: 999px;
     font-size: 13px;
     font-weight: 600;
@@ -97,22 +107,23 @@
 }
 
 .difference__card-title {
-    margin: 0 0 4px;
+    margin: 0 0 8px;
+    /* match conversion card title spacing */
 }
 
 .difference__card-subtitle {
-    margin: 0 0 24px;
+    margin: 0 0 16px;
     color: var(--cool-grey);
 }
 
 .difference__label {
-    margin: 0 0 16px;
+    margin: 0 0 12px;
     font-weight: 500;
     color: var(--cool-grey);
 }
 
 /* --------------------------------------------------------- */
-/* CHIPS                                                     */
+/* CHIPS (keep, but align visually with other pills)         */
 /* --------------------------------------------------------- */
 
 .difference__chips {
@@ -136,7 +147,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* RESPONSIVE                                                */
+/* RESPONSIVE (mirror conversion breakpoints)                */
 /* --------------------------------------------------------- */
 
 @media (max-width: 1400px) {
@@ -150,10 +161,10 @@
         padding: 100px 40px;
     }
 
-    /* header stays centered on tablet/mobile */
     .difference__grid {
         grid-template-columns: 1fr;
-        gap: 24px;
+        gap: 12px;
+        /* same gap as desktop & conversion */
     }
 }
 
@@ -163,7 +174,18 @@
     }
 
     .difference__card {
-        border-radius: 18px;
-        padding: 24px;
+        border-radius: 12px;
+        /* same as conversion cards on mobile */
+        padding: 24px 24px 26px;
     }
 }
+
+/* Optional: tiny tweak like conversion @480 if you want */
+/* 
+@media (max-width: 480px) {
+    .difference__card {
+        border-radius: 14px;
+        padding: 20px;
+    }
+}
+*/

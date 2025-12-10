@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -23,6 +24,7 @@ const posts = [
             "The design mistakes that quietly kill conversions — and how to turn your site into a performance asset instead of a pretty brochure.",
         readTime: "1 Min Read",
         image: cardImage1,
+        link: "/blog/growth-insights", // BlogPage1
     },
     {
         id: "metrics-that-matter",
@@ -32,20 +34,24 @@ const posts = [
             "Forget vanity metrics. Here are the numbers that actually tell you if your website is pulling its weight for the business.",
         readTime: "1 Min Read",
         image: cardImage2,
+        link: "/blog/conversion-playbooks", // BlogPage2
     },
     {
         id: "technical-vs-onpage-seo",
         category: "SEO",
-        title: "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
+        title:
+            "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
         description:
             "A simple breakdown of where to focus first if you want organic traffic that turns into pipeline — not just impressions.",
         readTime: "1 Min Read",
         image: cardImage3,
+        link: "/blog/technical-foundations", // BlogPage3
     },
 ];
 
 const Blog = () => {
     const pageRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const pageEl = pageRef.current;
@@ -59,9 +65,7 @@ const Blog = () => {
 
         const timelines = [];
 
-        // -----------------------------
         // LETTER-BY-LETTER MAIN TITLE
-        // -----------------------------
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -130,9 +134,7 @@ const Blog = () => {
 
         timelines.push(heroTl);
 
-        // -----------------------------
         // CARD FADE-INS
-        // -----------------------------
         cards.forEach((card, index) => {
             const tl = gsap.fromTo(
                 card,
@@ -171,15 +173,19 @@ const Blog = () => {
                             Growth-Driven Insights For Modern Brands
                         </h1>
                         <p className="subheading blog__subtitle">
-                            High-impact articles on UX, design, performance, and digital
-                            growth—written for brands ready to scale.
+                            High-impact articles on UX, design, performance, and
+                            digital growth—written for brands ready to scale.
                         </p>
                     </header>
 
                     {/* POSTS */}
                     <div className="blog__grid">
                         {posts.map((post) => (
-                            <article key={post.id} className="blog-card">
+                            <article
+                                key={post.id}
+                                className="blog-card"
+                                onClick={() => navigate(post.link)}
+                            >
                                 <div className="blog-card__media">
                                     <img
                                         src={post.image}
@@ -190,11 +196,15 @@ const Blog = () => {
 
                                 <div className="blog-card__body">
                                     <div className="blog-card__meta-top">
-                                        <span className="blog-card__category">{post.category}</span>
+                                        <span className="blog-card__category">
+                                            {post.category}
+                                        </span>
                                         <span className="blog-card__external">↗</span>
                                     </div>
 
-                                    <h3 className="heading3 blog-card__title">{post.title}</h3>
+                                    <h3 className="heading3 blog-card__title">
+                                        {post.title}
+                                    </h3>
 
                                     <p className="body blog-card__description">
                                         {post.description}

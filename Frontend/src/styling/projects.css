@@ -1,4 +1,3 @@
-/* src/styling/projects.css */
 @import "./colours.css";
 
 /* --------------------------------------------------------- */
@@ -59,7 +58,9 @@
     border: 1px solid var(--light-grey);
     padding: 24px;
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+
+    /* ✅ 40% text / 60% video on desktop */
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
     column-gap: 48px;
     align-items: stretch;
 
@@ -185,6 +186,11 @@
 
 /* MEDIA SIDE */
 
+.projects__project-media {
+    display: flex;
+    align-items: stretch;
+}
+
 .projects__project-media-inner {
     position: relative;
     width: 100%;
@@ -207,10 +213,20 @@
 /* --------------------------------------------------------- */
 
 .projects__cta {
-    background: var(--deep-indigo);
+    background-color: var(--deep-indigo);
+    /* base color */
     border-radius: 12px;
     padding: 48px;
     color: var(--white);
+
+    /* ✅ same style of textured background as cards */
+    background-image:
+        linear-gradient(rgba(79, 70, 229, 0.94),
+            rgba(79, 70, 229, 0.98)),
+        url("../assets/images/Background4.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .projects__cta-inner {
@@ -252,7 +268,6 @@
         padding: 100px 40px;
     }
 
-    /* keep header centered on tablet */
     .projects__project {
         grid-template-columns: 1fr;
         row-gap: 24px;
@@ -266,12 +281,10 @@
     .projects__project-content {
         order: 0;
         padding: 0;
-        /* remove inner padding when stacked */
     }
 
     .projects__cta {
         padding: 24px;
-        /* 48 → 24px on smaller screens */
     }
 }
 

@@ -23,7 +23,7 @@ const BlogSection = () => {
                 "Why Most Websites Look Good But Don’t Convert (And How To Fix It)",
             readTime: "1 Min Read",
             img: blogImg1,
-            link: "/blog",
+            link: "/blog/growth-insights", // BlogPage1
         },
         {
             id: 2,
@@ -31,7 +31,7 @@ const BlogSection = () => {
             title: "The 5 Metrics That Actually Matter For Website ROI",
             readTime: "1 Min Read",
             img: blogImg2,
-            link: "/blog",
+            link: "/blog/conversion-playbooks", // BlogPage2
         },
         {
             id: 3,
@@ -40,7 +40,7 @@ const BlogSection = () => {
                 "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
             readTime: "1 Min Read",
             img: blogImg3,
-            link: "/blog",
+            link: "/blog/technical-foundations", // BlogPage3
         },
     ];
 
@@ -55,10 +55,7 @@ const BlogSection = () => {
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        /* ------------------------------
-           LETTER-BY-LETTER TITLE
-        ------------------------------ */
-
+        /* LETTER-BY-LETTER TITLE */
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -141,10 +138,7 @@ const BlogSection = () => {
                 ">-0.08"
             );
 
-        /* ------------------------------
-           CARD FADE-IN ON SCROLL
-        ------------------------------ */
-
+        /* CARD FADE-IN ON SCROLL */
         cards.forEach((card, index) => {
             gsap.fromTo(
                 card,
@@ -179,8 +173,8 @@ const BlogSection = () => {
                         Growth-Driven Insights For Modern Brands
                     </h2>
                     <p className="subheading blogsection__subtitle">
-                        High-impact articles on UX, design, performance, and digital
-                        growth—written for brands ready to scale.
+                        High-impact articles on UX, design, performance, and
+                        digital growth—written for brands ready to scale.
                     </p>
                 </header>
 

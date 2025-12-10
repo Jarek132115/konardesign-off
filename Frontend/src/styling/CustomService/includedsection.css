@@ -1,0 +1,173 @@
+@import "../colours.css";
+
+/* --------------------------------------------------------- */
+/* “WHAT'S INCLUDED” SECTION                                 */
+/* --------------------------------------------------------- */
+
+.service-included {
+    margin: 0 auto;
+    padding: 120px 120px;
+    box-sizing: border-box;
+    background-color: var(--white);
+}
+
+.service-included__inner {
+    margin: 0 auto;
+}
+
+/* Header */
+.service-included__header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.service-included__eyebrow {
+    margin-bottom: 8px;
+}
+
+.service-included__title {
+    margin: 0 0 10px;
+}
+
+/* word wrapper (letter animation) */
+.service-included__title-word {
+    white-space: nowrap;
+}
+
+.service-included__title-word--highlight,
+.service-included__title-highlight {
+    color: var(--deep-indigo);
+}
+
+.service-included__subtitle {
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--cool-grey);
+}
+
+/* Grid: 3 x 3 on desktop */
+.service-included__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+/* Card */
+.service-included__card {
+    position: relative;
+    background-color: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--light-grey);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    padding: 24px 24px 26px;
+    display: flex;
+    flex-direction: column;
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Background variants with white overlay at ~90% */
+.service-included__card--bg1 {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        url("../../assets/images/Background1.jpg");
+}
+
+.service-included__card--bg2 {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        url("../../assets/images/Background2.jpg");
+}
+
+.service-included__card--bg3 {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        url("../../assets/images/Background3.jpg");
+}
+
+.service-included__card--bg4 {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        url("../../assets/images/Background4.jpg");
+}
+
+.service-included__card--bg5 {
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        url("../../assets/images/Background5.jpg");
+}
+
+/* Glass icon like conversion__icon */
+.service-included__icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.service-included__icon img {
+    width: 28px;
+    height: 28px;
+    display: block;
+}
+
+.service-included__card-title {
+    margin: 0 0 8px;
+}
+
+.service-included__card-text {
+    margin: 0;
+    color: var(--cool-grey);
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE BREAKPOINTS – INCLUDED SECTION ONLY            */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .service-included {
+        padding: 120px 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .service-included {
+        padding: 100px 40px;
+    }
+
+    .service-included__header {
+        text-align: left;
+    }
+
+    .service-included__subtitle {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .service-included__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .service-included {
+        padding: 60px 20px;
+    }
+
+    .service-included__grid {
+        grid-template-columns: 1fr;
+    }
+}

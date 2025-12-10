@@ -71,7 +71,7 @@
     white-space: nowrap;
 }
 
-/* highlight word (here: “Recent”) in deep indigo */
+/* highlight word (e.g. “Recent”) */
 .our-projects__title-highlight {
     color: var(--deep-indigo);
 }

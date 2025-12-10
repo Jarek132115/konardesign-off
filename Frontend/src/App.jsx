@@ -11,7 +11,11 @@ import CustomService from "./pages/CustomService";
 import EcommerceService from "./pages/EcommerceService";
 
 import Blog from "./pages/Blog";
-import BookACall from "./pages/BookACall"; // <-- NEW PAGE
+import BlogPage1 from "./pages/BlogPage1";
+import BlogPage2 from "./pages/BlogPage2";
+import BlogPage3 from "./pages/BlogPage3";
+
+import BookACall from "./pages/BookACall";
 
 import SmoothScrollProvider from "./components/SmoothScrollProvider";
 import ScrollToTop from "./components/ScrollToTop";
@@ -36,11 +40,17 @@ function App() {
           <Route path="/services/custom" element={<CustomService />} />
           <Route path="/services/ecommerce" element={<EcommerceService />} />
 
-          {/* Blog */}
+          {/* Blog overview + category/group pages */}
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/growth-insights" element={<BlogPage1 />} />
+          <Route path="/blog/conversion-playbooks" element={<BlogPage2 />} />
+          <Route
+            path="/blog/technical-foundations"
+            element={<BlogPage3 />}
+          />
 
           {/* Book a Call */}
-          <Route path="/book-a-call" element={<BookACall />} />  {/* <-- ADDED */}
+          <Route path="/book-a-call" element={<BookACall />} />
         </Routes>
       </SmoothScrollProvider>
     </Router>
