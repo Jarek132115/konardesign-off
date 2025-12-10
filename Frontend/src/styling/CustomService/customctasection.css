@@ -1,0 +1,78 @@
+@import "../colours.css";
+
+/* --------------------------------------------------------- */
+/* CTA SECTION                                               */
+/* --------------------------------------------------------- */
+
+.service-cta {
+    margin: 0 auto;
+    padding: 96px 120px 120px;
+    box-sizing: border-box;
+    /* no coloured background; inherit page background */
+    background-color: transparent;
+}
+
+.service-cta__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--black);
+}
+
+.service-cta__eyebrow {
+    margin-bottom: 8px;
+}
+
+.service-cta__title {
+    margin: 0 0 12px;
+    color: var(--black);
+}
+
+.service-cta__title-word {
+    white-space: nowrap;
+}
+
+.service-cta__title-word--highlight,
+.service-cta__title-highlight {
+    color: var(--deep-indigo);
+}
+
+.service-cta__subtitle {
+    margin: 0 0 24px;
+    color: var(--cool-grey);
+}
+
+.service-cta__button {
+    margin-top: 4px;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE BREAKPOINTS                                    */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .service-cta {
+        padding: 120px 40px;
+    }
+
+    .service-cta__inner {
+        text-align: left;
+    }
+
+    .service-cta__subtitle {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 1024px) {
+    .service-cta {
+        padding: 100px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-cta {
+        padding: 60px 20px;
+    }
+}

@@ -1,0 +1,143 @@
+@import "../colours.css";
+
+/* --------------------------------------------------------- */
+/* TECH / QUALITY SECTION                                    */
+/* --------------------------------------------------------- */
+
+.service-tech {
+    margin: 0 auto;
+    padding: 120px 120px;
+    box-sizing: border-box;
+    background-color: var(--off-white);
+}
+
+.service-tech__inner {
+    margin: 0 auto;
+}
+
+.service-tech__header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.service-tech__eyebrow {
+    margin-bottom: 8px;
+}
+
+.service-tech__title {
+    margin: 0 0 10px;
+}
+
+.service-tech__title-word {
+    white-space: nowrap;
+}
+
+.service-tech__title-word--highlight,
+.service-tech__title-highlight {
+    color: var(--deep-indigo);
+}
+
+.service-tech__subtitle {
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--cool-grey);
+}
+
+.service-tech__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.service-tech__column--left {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.service-tech__badge-row {
+    margin-bottom: 4px;
+}
+
+.service-tech__badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid rgba(79, 70, 229, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cool-grey);
+}
+
+.service-tech__description {
+    margin: 0;
+    color: var(--cool-grey);
+}
+
+.service-tech__column--right {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.service-tech__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.service-tech__point {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: var(--cool-grey);
+}
+
+.service-tech__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    margin-top: 6px;
+    background: var(--deep-indigo);
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .service-tech {
+        padding: 120px 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .service-tech {
+        padding: 100px 40px;
+    }
+
+    .service-tech__header {
+        text-align: left;
+    }
+
+    .service-tech__subtitle {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .service-tech__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-tech {
+        padding: 60px 20px;
+    }
+}

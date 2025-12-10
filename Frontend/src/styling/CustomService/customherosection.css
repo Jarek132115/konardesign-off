@@ -1,0 +1,263 @@
+@import "../colours.css";
+
+/* --------------------------------------------------------- */
+/* HERO SECTION + DOTTED HALO                                */
+/* --------------------------------------------------------- */
+
+.service-hero {
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 120px 120px 120px;
+    box-sizing: border-box;
+    z-index: 0;
+    overflow-x: hidden;
+    /* kill tiny side scroll from halo / tracks */
+}
+
+.service-hero__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1.1fr);
+    column-gap: 64px;
+    align-items: center;
+}
+
+/* dotted halo behind hero heading area */
+.service-hero::before {
+    content: "";
+    position: absolute;
+    left: 25%;
+    transform: translateX(-50%);
+    top: 60px;
+    width: 760px;
+    height: 260px;
+    z-index: -1;
+    pointer-events: none;
+
+    background-image: radial-gradient(circle,
+            rgba(148, 163, 184, 0.35) 1px,
+            transparent 1px);
+    background-size: 6px 6px;
+
+    -webkit-mask-image: radial-gradient(ellipse at center,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.9) 45%,
+            rgba(0, 0, 0, 0.5) 65%,
+            transparent 85%);
+    mask-image: radial-gradient(ellipse at center,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.9) 45%,
+            rgba(0, 0, 0, 0.5) 65%,
+            transparent 85%);
+}
+
+.service-hero__content {
+    text-align: left;
+}
+
+.service-hero__eyebrow {
+    margin-bottom: 8px;
+}
+
+.service-hero__title {
+    margin: 0 0 12px;
+}
+
+.service-hero__title-word {
+    white-space: nowrap;
+}
+
+.service-hero__title-highlight {
+    color: var(--deep-indigo);
+}
+
+.service-hero__subtitle {
+    margin: 0 0 20px;
+    color: var(--cool-grey);
+}
+
+/* metrics list under copy */
+
+.service-hero__metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.service-hero__metrics-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    color: var(--cool-grey);
+}
+
+.service-hero__metrics-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    margin-top: 6px;
+    background: var(--deep-indigo);
+}
+
+/* --------------------------------------------------------- */
+/* HERO MEDIA – DUAL VERTICAL CAROUSEL                       */
+/* --------------------------------------------------------- */
+
+.service-hero__media {
+    width: 100%;
+}
+
+.service-hero__media-inner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 2.75;
+    overflow: hidden;
+    border-radius: 24px;
+    /* no background, no white frame */
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* two columns of vertical tiles */
+
+.service-hero__carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.service-hero__column {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    display: flex;
+}
+
+/* track that moves vertically */
+
+.service-hero__track {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    will-change: transform;
+    cursor: grab;
+    touch-action: pan-x;
+    width: 100%;
+}
+
+.service-hero__carousel--dragging .service-hero__track {
+    cursor: grabbing;
+}
+
+/* each tile fills its column; image covers entire tile */
+
+.service-hero__tile {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    flex: 0 0 260px;
+}
+
+.service-hero__tile-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE – HERO                                         */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .service-hero {
+        padding: 120px 40px;
+    }
+
+    .service-hero::before {
+        width: 640px;
+        height: 230px;
+        top: 60px;
+    }
+}
+
+/* stack to column, carousel full width underneath text */
+@media (max-width: 1024px) {
+    .service-hero {
+        padding: 80px 16px 64px;
+    }
+
+    .service-hero__grid {
+        grid-template-columns: 1fr;
+        row-gap: 40px;
+    }
+
+    .service-hero__media-inner {
+        aspect-ratio: 16 / 11;
+        max-width: 100%;
+        margin: 0 auto;
+        border-radius: 20px;
+    }
+
+    .service-hero::before {
+        left: 50%;
+    }
+
+    .service-hero__subtitle {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-hero {
+        padding: 60px 16px 56px;
+    }
+
+    .service-hero__title {
+        font-size: 32px;
+        line-height: 40px;
+    }
+
+    .service-hero__subtitle {
+        font-size: 16px;
+    }
+
+    .service-hero__media-inner {
+        border-radius: 18px;
+    }
+
+    .service-hero::before {
+        width: 420px;
+        height: 190px;
+        top: 40px;
+        left: 50%;
+    }
+
+    .service-hero__tile {
+        flex-basis: 220px;
+    }
+}
+
+/* tighten halo + ensure no horizontal gap on very small screens */
+@media (max-width: 500px) {
+    .service-hero::before {
+        width: 320px;
+        height: 170px;
+        left: 50%;
+    }
+}
+
+@media (max-width: 1024px) {
+    /* existing rules... */
+
+    /* no drag cursor on tablet / mobile */
+    .service-hero__track {
+        cursor: default;
+        touch-action: pan-y;
+    }
+}

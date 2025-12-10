@@ -1,0 +1,129 @@
+@import "../colours.css";
+
+/* --------------------------------------------------------- */
+/* FIT SECTION                                               */
+/* --------------------------------------------------------- */
+
+.service-fit {
+    margin: 0 auto;
+    padding: 120px 120px;
+    box-sizing: border-box;
+    background-color: var(--white);
+}
+
+.service-fit__inner {
+    margin: 0 auto;
+}
+
+.service-fit__header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.service-fit__eyebrow {
+    margin-bottom: 8px;
+}
+
+.service-fit__title {
+    margin: 0 0 10px;
+}
+
+.service-fit__title-word {
+    white-space: nowrap;
+}
+
+.service-fit__title-word--highlight,
+.service-fit__title-highlight {
+    color: var(--deep-indigo);
+}
+
+.service-fit__subtitle {
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--cool-grey);
+}
+
+.service-fit__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.service-fit__column {
+    border-radius: 18px;
+    border: 1px solid var(--light-grey);
+    padding: 24px 24px 26px;
+}
+
+.service-fit__column--good {
+    background: var(--off-white);
+}
+
+.service-fit__column--bad {
+    background: var(--white);
+}
+
+.service-fit__column-title {
+    margin: 0 0 12px;
+}
+
+.service-fit__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.service-fit__item {
+    position: relative;
+    padding-left: 18px;
+    margin-bottom: 8px;
+    color: var(--cool-grey);
+}
+
+.service-fit__item::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--deep-indigo);
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE BREAKPOINTS                                    */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .service-fit {
+        padding: 120px 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .service-fit {
+        padding: 100px 40px;
+    }
+
+    .service-fit__header {
+        text-align: left;
+    }
+
+    .service-fit__subtitle {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .service-fit__grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-fit {
+        padding: 60px 20px;
+    }
+
+    .service-fit__column {
+        border-radius: 18px;
+        padding: 20px;
+    }
+}
