@@ -1,0 +1,150 @@
+@import "../colours.css";
+
+/* --------------------------------------------------------- */
+/* WHY THIS WORKS – MATCH HOME PAGE LAYOUT                   */
+/* --------------------------------------------------------- */
+
+.service-why {
+    margin: 0 auto;
+    padding: 120px 120px;
+    box-sizing: border-box;
+    background-color: var(--white);
+}
+
+.service-why__inner {
+    margin: 0 auto;
+}
+
+/* header */
+
+.service-why__header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.service-why__eyebrow {
+    margin-bottom: 8px;
+}
+
+.service-why__title {
+    margin: 0 0 10px;
+}
+
+.service-why__title-word {
+    white-space: nowrap;
+}
+
+.service-why__title-word--highlight,
+.service-why__title-highlight {
+    color: var(--deep-indigo);
+}
+
+.service-why__subtitle {
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--cool-grey);
+}
+
+/* cards row – 3 across */
+
+.service-why__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+/* card */
+
+.service-why__card {
+    position: relative;
+    padding: 28px 28px 30px;
+    border-radius: 24px;
+    border: 1px solid var(--light-grey);
+    background: var(--off-white);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+
+/* icon – glassy block like other sections */
+
+.service-why__icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+
+.service-why__icon img {
+    width: 30px;
+    height: 30px;
+    display: block;
+}
+
+.service-why__card-title {
+    margin: 0 0 10px;
+}
+
+.service-why__card-body {
+    margin: 0;
+    color: var(--cool-grey);
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE BREAKPOINTS                                    */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .service-why {
+        padding: 120px 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .service-why {
+        padding: 100px 40px;
+    }
+
+    .service-why__header {
+        text-align: left;
+    }
+
+    .service-why__subtitle {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .service-why__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .service-why {
+        padding: 60px 20px;
+    }
+
+    .service-why__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-why__card {
+        border-radius: 18px;
+        padding: 24px 22px;
+    }
+
+    .service-why__icon {
+        margin-bottom: 14px;
+    }
+}

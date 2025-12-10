@@ -7,6 +7,7 @@ import Footer from "../components/Footer";
 
 import IncludedSection from "../components/CustomService/IncludedSection";
 import CustomProcess from "../components/CustomService/CustomProcess";
+import CustomWhyWorksSection from "../components/CustomService/CustomWhyWorksSection";
 
 import "../styling/buttons.css";
 import "../styling/servicepage.css";
@@ -31,21 +32,6 @@ const gallery = [gallery1, gallery2, gallery3, gallery4];
 /* hero carousel uses only carousel5–9, duplicated for seamless loop */
 const heroCarouselBase = [carousel5, carousel6, carousel7, carousel8, carousel9];
 const heroCarouselImages = [...heroCarouselBase, ...heroCarouselBase];
-
-const whyPoints = [
-    {
-        title: "No Guesswork Layouts",
-        body: "Every section on the page has a job — educate, reassure, or convert. Nothing is decorative for the sake of it.",
-    },
-    {
-        title: "Fast, Focused Collaboration",
-        body: "Weekly check-ins, async Loom walkthroughs, and clear decision points keep momentum without eating your calendar.",
-    },
-    {
-        title: "Built As A Long-Term Asset",
-        body: "Clean structure, reusable components, and a CMS you can actually use mean you’re not rebuilding again in 12 months.",
-    },
-];
 
 const techPoints = [
     "Modern React-based front-end, optimised for speed and stability.",
@@ -238,6 +224,15 @@ const CustomService = () => {
         });
 
         animateSectionHeading({
+            sectionSelector: ".process",
+            eyebrowSelector: ".process__eyebrow",
+            titleSelector: ".process__title",
+            subtitleSelector: ".process__subtitle",
+            wordClass: "process__title-word",
+            highlightWords: ["Process."],
+        });
+
+        animateSectionHeading({
             sectionSelector: ".service-why",
             eyebrowSelector: ".service-why__eyebrow",
             titleSelector: ".service-why__title",
@@ -284,29 +279,10 @@ const CustomService = () => {
         });
 
         /* -----------------------------
-           FADE-UPS
+           FADE-UPS (non-why sections)
         ------------------------------ */
 
         page.querySelectorAll(".service-included__card").forEach((card, i) => {
-            gsap.fromTo(
-                card,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.4,
-                    delay: i * 0.05,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 85%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-
-        page.querySelectorAll(".service-why__card").forEach((card, i) => {
             gsap.fromTo(
                 card,
                 { opacity: 0, y: 24 },
@@ -741,14 +717,6 @@ const CustomService = () => {
                                     </div>
                                 </div>
 
-                                <div className="service-hero__badge">
-                                    <span className="service-hero__badge-label body">
-                                        Signature Build
-                                    </span>
-                                    <span className="service-hero__badge-text body">
-                                        Crafted for clarity, speed & conversion.
-                                    </span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -757,47 +725,11 @@ const CustomService = () => {
                 {/* INCLUDED */}
                 <IncludedSection />
 
-                {/* PROCESS – custom version matching home design */}
+                {/* PROCESS – custom version */}
                 <CustomProcess />
 
-                {/* WHY THIS WORKS */}
-                <section className="service-why">
-                    <div className="service-why__inner">
-                        <header className="service-why__header">
-                            <p className="eyebrow service-why__eyebrow">
-                                WHY THIS APPROACH WORKS
-                            </p>
-                            <h2 className="heading2 service-why__title">
-                                Why This System{" "}
-                                <span className="service-why__title-highlight">
-                                    Works
-                                </span>{" "}
-                                So Well
-                            </h2>
-                            <p className="subheading service-why__subtitle">
-                                The structure isn’t there to slow things down — it’s
-                                there to remove guesswork, keep decisions simple, and
-                                protect the quality of the outcome.
-                            </p>
-                        </header>
-
-                        <div className="service-why__grid">
-                            {whyPoints.map((item) => (
-                                <article
-                                    key={item.title}
-                                    className="service-why__card"
-                                >
-                                    <h3 className="heading3 service-why__card-title">
-                                        {item.title}
-                                    </h3>
-                                    <p className="body service-why__card-body">
-                                        {item.body}
-                                    </p>
-                                </article>
-                            ))}
-                        </div>
-                    </div>
-                </section>
+                {/* WHY THIS APPROACH WORKS – custom component with icons */}
+                <CustomWhyWorksSection />
 
                 {/* TECH & QUALITY */}
                 <section className="service-tech">
