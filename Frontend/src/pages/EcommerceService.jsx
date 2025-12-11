@@ -1,291 +1,275 @@
 // src/pages/EcommerceService.jsx
 import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+import EcommerceHeroSection from "../components/EcommerceService/EcommerceHeroSection";
+import EcommerceIncludedSection from "../components/EcommerceService/EcommerceIncludedSection";
+import EcommerceProcess from "../components/EcommerceService/EcommerceProcess";
+import EcommerceWhyWorksSection from "../components/EcommerceService/EcommerceWhyWorksSection";
+import EcommerceProductionReadySection from "../components/EcommerceService/EcommerceProductionReadySection";
+import EcommerceGreatFitSection from "../components/EcommerceService/EcommerceGreatFitSection";
+import EcommerceCTASection from "../components/EcommerceService/EcommerceCTASection";
+
 import "../styling/buttons.css";
-import "../styling/servicepage.css"; 
-
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-import ecommerceVideo from "../assets/videos/ECommerce1.mp4";
-
-import uxFocusedIcon from "../assets/icons/uxfocuseddesign.svg";
-import responsiveIcon from "../assets/icons/responsive.svg";
-import speedIcon from "../assets/icons/speed.svg";
-import dataIcon from "../assets/icons/data.svg";
-import conversionDrivenIcon from "../assets/icons/conversiondriven.svg";
-import shopifyIcon from "../assets/icons/shopify.svg";
-import seoReadyIcon from "../assets/icons/seoready.svg";
-import analyticsIcon from "../assets/icons/analyticstrackingsetup.svg";
-import customCmsIcon from "../assets/icons/customcms.svg";
-
-import carousel1 from "../assets/images/carousel1.jpg";
-import carousel2 from "../assets/images/carousel2.jpg";
-import carousel3 from "../assets/images/carousel3.jpg";
-import carousel4 from "../assets/images/carousel4.jpg";
+import "../styling/servicepage.css";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const ecommerceFeatures = [
-    {
-        id: "storefront",
-        title: "Custom Storefront Design",
-        description:
-            "A unique, branded storefront designed to reflect your products, story, and positioning—engineered to convert visitors into buyers.",
-        icon: uxFocusedIcon,
-    },
-    {
-        id: "checkout",
-        title: "Mobile-Optimised Checkout",
-        description:
-            "Seamless checkout experience across phones, tablets, and desktops so customers can buy quickly without friction.",
-        icon: responsiveIcon,
-    },
-    {
-        id: "speed-conversion",
-        title: "Built For Speed & Conversion",
-        description:
-            "High-performing pages with optimised layouts, focused CTAs, and fast load times to reduce bounce and increase sales.",
-        icon: speedIcon,
-    },
-    {
-        id: "product-setup",
-        title: "Product & Category Setup",
-        description:
-            "We structure, upload, and organise your product listings and collections for intuitive browsing and better discovery.",
-        icon: dataIcon,
-    },
-    {
-        id: "copywriting",
-        title: "Conversion Copywriting",
-        description:
-            "Conversion-focused product copy that highlights benefits, reduces objections, and nudges visitors to checkout.",
-        icon: conversionDrivenIcon,
-    },
-    {
-        id: "payments-shipping",
-        title: "Payment & Shipping Integration",
-        description:
-            "Stripe, PayPal, Klarna, delivery zones, and tracking—all configured and tested so payments just work.",
-        icon: shopifyIcon,
-    },
-    {
-        id: "seo-ready",
-        title: "Fully SEO-Ready",
-        description:
-            "Technical SEO foundations, clean code, and metadata so your store is ready to be indexed and ranked by search engines.",
-        icon: seoReadyIcon,
-    },
-    {
-        id: "analytics",
-        title: "Analytics, Tracking & Pixel Setup",
-        description:
-            "Google Analytics, Meta Pixel, and key conversion events configured so you can measure and scale what works.",
-        icon: analyticsIcon,
-    },
-    {
-        id: "cms-shopify",
-        title: "Custom CMS Or Shopify Setup",
-        description:
-            "Whether it’s a custom CMS or Shopify, we hand over a store that’s easy to update, manage, and grow in-house.",
-        icon: customCmsIcon,
-    },
-];
-
-const ecommerceGallery = [carousel1, carousel2, carousel3, carousel4];
 
 const EcommerceService = () => {
     const pageRef = useRef(null);
 
     useEffect(() => {
-        const pageEl = pageRef.current;
-        if (!pageEl) return;
-
-        const heroTitleEl = pageEl.querySelector(".service-hero__title");
-        const heroSubtitleEl = pageEl.querySelector(".service-hero__subtitle");
-        const featureCards = pageEl.querySelectorAll(".service-included__card");
-        const galleryTitleEl = pageEl.querySelector(".service-gallery__title");
-        const gallerySubtitleEl = pageEl.querySelector(".service-gallery__subtitle");
+        const page = pageRef.current;
+        if (!page) return;
 
         const timelines = [];
 
-        /* ---------------------------------------
-           HERO HEADING — LETTER BY LETTER
-        ---------------------------------------- */
-        if (heroTitleEl && heroSubtitleEl) {
-            const originalText = heroTitleEl.textContent;
-            heroTitleEl.textContent = "";
+        /* ---------------------------------
+           Helper: animate section heading
+        ---------------------------------- */
+        const animateSectionHeading = ({
+            sectionSelector,
+            eyebrowSelector,
+            titleSelector,
+            subtitleSelector,
+            wordClass,
+            highlightWords = [],
+            triggerStart = "top 75%",
+        }) => {
+            const section = page.querySelector(sectionSelector);
+            if (!section) return;
 
-            const words = originalText.split(" ");
+            const eyebrow = section.querySelector(eyebrowSelector);
+            const title = section.querySelector(titleSelector);
+            const subtitle = subtitleSelector
+                ? section.querySelector(subtitleSelector)
+                : null;
 
-            words.forEach((word, wordIndex) => {
-                const wrapper = document.createElement("span");
-                wrapper.classList.add("service-hero__title-word");
-                wrapper.style.display = "inline-block";
+            if (!eyebrow || !title) return;
+
+            const originalText = title.textContent;
+            title.textContent = "";
+
+            const highlightSet = new Set(highlightWords);
+
+            originalText.split(" ").forEach((word, idx, arr) => {
+                const span = document.createElement("span");
+                span.className = wordClass;
+                span.style.display = "inline-block";
+
+                const cleaned = word.replace(/[^\w]/g, "");
+                if (highlightSet.has(cleaned)) {
+                    span.classList.add(`${wordClass}--highlight`);
+                }
 
                 [...word].forEach((ch) => {
-                    const span = document.createElement("span");
-                    span.textContent = ch;
-                    span.style.display = "inline-block";
-                    span.style.opacity = "0";
-                    span.style.transform = "translateY(8px)";
-                    wrapper.appendChild(span);
+                    const char = document.createElement("span");
+                    char.textContent = ch;
+                    char.style.display = "inline-block";
+                    char.style.opacity = "0";
+                    char.style.transform = "translateY(8px)";
+                    span.appendChild(char);
                 });
 
-                heroTitleEl.appendChild(wrapper);
-                if (wordIndex !== words.length - 1) {
-                    heroTitleEl.appendChild(document.createTextNode(" "));
+                title.appendChild(span);
+                if (idx < arr.length - 1) {
+                    title.append(" ");
                 }
             });
 
-            // highlight “Built” + “Sell.”
-            const highlightWords = new Set(["Built", "Sell."]);
-            const wordSpans = heroTitleEl.querySelectorAll(
-                ".service-hero__title-word"
-            );
+            const chars = title.querySelectorAll(`.${wordClass} span`);
+            if (subtitle) gsap.set(subtitle, { opacity: 0, y: 8 });
 
-            wordSpans.forEach((w) => {
-                const cleaned = w.textContent.replace(/[^\w.]/g, "");
-                if (highlightWords.has(cleaned)) {
-                    w.classList.add("service-hero__title-highlight");
-                }
-            });
-
-            const charSpans = heroTitleEl.querySelectorAll(
-                ".service-hero__title-word span"
-            );
-
-            gsap.set(heroSubtitleEl, { opacity: 0, y: 8 });
-
-            const heroTl = gsap.timeline({
+            const tl = gsap.timeline({
                 scrollTrigger: {
-                    trigger: pageEl,
-                    start: "top 75%",
+                    trigger: section,
+                    start: triggerStart,
                     toggleActions: "play none none none",
                 },
                 defaults: { ease: "power2.out" },
             });
 
-            heroTl
-                .to(charSpans, {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.03,
-                    duration: 0.4,
-                })
+            tl.fromTo(
+                eyebrow,
+                { opacity: 0, y: 8 },
+                { opacity: 1, y: 0, duration: 0.25 }
+            )
                 .to(
-                    heroSubtitleEl,
+                    chars,
                     {
                         opacity: 1,
                         y: 0,
-                        duration: 0.45,
+                        stagger: 0.02,
+                        duration: 0.28,
                     },
                     ">-0.05"
+                )
+                .fromTo(
+                    subtitle || {},
+                    { opacity: 0, y: 8 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.3,
+                    },
+                    subtitle ? ">-0.08" : 0
                 );
 
-            timelines.push(heroTl);
-        }
+            timelines.push(tl);
+        };
 
-        /* ---------------------------------------
-           “INCLUDED” SECTION CARDS FADE-IN
-        ---------------------------------------- */
-        featureCards.forEach((card, index) => {
-            const tl = gsap.fromTo(
+        /* -----------------------------
+           SECTION HEADERS
+        ------------------------------ */
+
+        // INCLUDED
+        animateSectionHeading({
+            sectionSelector: ".service-included",
+            eyebrowSelector: ".service-included__eyebrow",
+            titleSelector: ".service-included__title",
+            subtitleSelector: ".service-included__subtitle",
+            wordClass: "service-included__title-word",
+            // "E-Commerce" becomes "ECommerce" after cleaning
+            highlightWords: ["ECommerce"],
+        });
+
+        // PROCESS
+        animateSectionHeading({
+            sectionSelector: ".process",
+            eyebrowSelector: ".process__eyebrow",
+            titleSelector: ".process__title",
+            subtitleSelector: ".process__subtitle",
+            wordClass: "process__title-word",
+            highlightWords: ["Process."],
+        });
+
+        // WHY THIS APPROACH WORKS
+        animateSectionHeading({
+            sectionSelector: ".service-why",
+            eyebrowSelector: ".service-why__eyebrow",
+            titleSelector: ".service-why__title",
+            subtitleSelector: ".service-why__subtitle",
+            wordClass: "service-why__title-word",
+            highlightWords: ["Works"],
+        });
+
+        // PRODUCTION READY
+        animateSectionHeading({
+            sectionSelector: ".service-tech",
+            eyebrowSelector: ".service-tech__eyebrow",
+            titleSelector: ".service-tech__title",
+            subtitleSelector: ".service-tech__subtitle",
+            wordClass: "service-tech__title-word",
+            highlightWords: ["Release"],
+        });
+
+        // GREAT FIT
+        animateSectionHeading({
+            sectionSelector: ".service-fit",
+            eyebrowSelector: ".service-fit__eyebrow",
+            titleSelector: ".service-fit__title",
+            subtitleSelector: ".service-fit__subtitle",
+            wordClass: "service-fit__title-word",
+            highlightWords: ["Fit"],
+        });
+
+        // CTA
+        animateSectionHeading({
+            sectionSelector: ".service-cta",
+            eyebrowSelector: ".service-cta__eyebrow",
+            titleSelector: ".service-cta__title",
+            subtitleSelector: ".service-cta__subtitle",
+            wordClass: "service-cta__title-word",
+            highlightWords: ["Plan"],
+            triggerStart: "top 80%",
+        });
+
+        /* -----------------------------
+           FADE-UPS
+        ------------------------------ */
+
+        // Included feature cards
+        page.querySelectorAll(".service-included__card").forEach((card, i) => {
+            gsap.fromTo(
                 card,
                 { opacity: 0, y: 24 },
                 {
                     opacity: 1,
                     y: 0,
                     duration: 0.4,
-                    delay: index * 0.05,
+                    delay: i * 0.05,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: card,
+                        start: "top 85%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
+        });
+
+        // Production-ready pillar cards (new design)
+        page.querySelectorAll(".service-tech__pillar").forEach((card, i) => {
+            gsap.fromTo(
+                card,
+                { opacity: 0, y: 16 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.35,
+                    delay: i * 0.04,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 90%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
+        });
+
+        // Great-fit columns
+        page.querySelectorAll(".service-fit__column").forEach((col, i) => {
+            gsap.fromTo(
+                col,
+                { opacity: 0, y: 20 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4,
+                    delay: i * 0.05,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: col,
+                        start: "top 85%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
+        });
+
+        // CTA button
+        const ctaButton = page.querySelector(".service-cta__button");
+        if (ctaButton) {
+            gsap.fromTo(
+                ctaButton,
+                { opacity: 0, y: 16 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: ".service-cta",
                         start: "top 80%",
                         toggleActions: "play none none none",
                     },
                 }
             );
-            timelines.push(tl);
-        });
-
-        /* ---------------------------------------
-           BOTTOM GALLERY HEADING ANIMATION
-        ---------------------------------------- */
-        if (galleryTitleEl && gallerySubtitleEl) {
-            const original = galleryTitleEl.textContent;
-            galleryTitleEl.textContent = "";
-
-            const words = original.split(" ");
-
-            words.forEach((word, wordIndex) => {
-                const wrapper = document.createElement("span");
-                wrapper.classList.add("service-gallery__title-word");
-                wrapper.style.display = "inline-block";
-
-                [...word].forEach((ch) => {
-                    const span = document.createElement("span");
-                    span.textContent = ch;
-                    span.style.display = "inline-block";
-                    span.style.opacity = "0";
-                    span.style.transform = "translateY(8px)";
-                    wrapper.appendChild(span);
-                });
-
-                galleryTitleEl.appendChild(wrapper);
-                if (wordIndex !== words.length - 1) {
-                    galleryTitleEl.appendChild(document.createTextNode(" "));
-                }
-            });
-
-            const highlightWords = new Set(["Sell", "Built"]);
-            const wordSpans = galleryTitleEl.querySelectorAll(
-                ".service-gallery__title-word"
-            );
-
-            wordSpans.forEach((w) => {
-                const cleaned = w.textContent.replace(/[^\w]/g, "");
-                if (highlightWords.has(cleaned)) {
-                    w.classList.add("service-gallery__title-highlight");
-                }
-            });
-
-            const charSpans = galleryTitleEl.querySelectorAll(
-                ".service-gallery__title-word span"
-            );
-
-            gsap.set(gallerySubtitleEl, { opacity: 0, y: 8 });
-
-            const bottomTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: galleryTitleEl,
-                    start: "top 80%",
-                    toggleActions: "play none none none",
-                },
-                defaults: { ease: "power2.out" },
-            });
-
-            bottomTl
-                .to(charSpans, {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.03,
-                    duration: 0.4,
-                })
-                .to(
-                    gallerySubtitleEl,
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.45,
-                    },
-                    ">-0.05"
-                );
-
-            timelines.push(bottomTl);
         }
 
         return () => {
@@ -299,67 +283,13 @@ const EcommerceService = () => {
             <Navbar />
 
             <main className="service-page__main" ref={pageRef}>
-                {/* HERO */}
-                <section className="service-hero">
-                    <div className="service-hero__top">
-                        <div className="service-hero__content">
-                            <h1 className="heading1 service-hero__title">
-                                E-Commerce Websites Built To Sell. Not Just Look Pretty.
-                            </h1>
-
-                            <p className="subheading service-hero__subtitle">
-                                No templates. No guesswork. Just high-converting stores engineered
-                                to maximise sales — all for one fixed weekly rate.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="service-hero__media">
-                        <div className="service-hero__media-inner">
-                            <video
-                                src={ecommerceVideo}
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                className="service-hero__media-video"
-                            />
-                        </div>
-                    </div>
-                </section>
-
-                {/* WHAT'S INCLUDED */}
-                <section className="service-included">
-                    <header className="service-included__header">
-                        <h2 className="heading2 service-included__title">
-                            What’s Included In Your E-Commerce Package
-                        </h2>
-                        <p className="subheading service-included__subtitle">
-                            Design, development, setup, and strategy — everything you need to
-                            start selling online confidently.
-                        </p>
-                    </header>
-
-                    <div className="service-included__grid">
-                        {ecommerceFeatures.map((feature) => (
-                            <article
-                                key={feature.id}
-                                className="service-included__card"
-                            >
-                                <div className="service-included__icon" aria-hidden="true">
-                                    <img src={feature.icon} alt={feature.title} />
-                                </div>
-
-                                <h3 className="heading3 service-included__card-title">
-                                    {feature.title}
-                                </h3>
-                                <p className="body service-included__card-text">
-                                    {feature.description}
-                                </p>
-                            </article>
-                        ))}
-                    </div>
-                </section>
+                <EcommerceHeroSection />
+                <EcommerceIncludedSection />
+                <EcommerceProcess />
+                <EcommerceWhyWorksSection />
+                <EcommerceProductionReadySection />
+                <EcommerceGreatFitSection />
+                <EcommerceCTASection />
             </main>
 
             <Footer />

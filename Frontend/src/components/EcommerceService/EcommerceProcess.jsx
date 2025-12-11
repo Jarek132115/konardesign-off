@@ -9,79 +9,79 @@ gsap.registerPlugin(ScrollTrigger);
 const steps = [
     {
         id: "discovery",
-        label: "Discovery & Strategy",
-        title: "Understanding Your Business Before We Build.",
+        label: "Store Strategy & Positioning",
+        title: "Understanding Your Store Before We Touch A Pixel.",
         description:
-            "We start by getting clear on your offers, audience, and goals so the website is built around what actually drives revenue — not just what looks good.",
+            "We start by getting clear on your products, margins, and customers so the store is built around what actually drives sales — not just what looks nice.",
         bullets: [
-            "Current site + funnel review (if you have one)",
-            "Audience, offer and conversion goals clarified",
-            "Competitive and positioning overview",
-            "Technical requirements and constraints mapped",
-            "Project scope, milestones and success metrics agreed",
+            "Current store and performance review (if you have one)",
+            "Target audience, AOV and revenue goals clarified",
+            "Product mix, hero offers and bundles mapped",
+            "Competitive and positioning overview for your niche",
+            "Success metrics, timelines and scope agreed",
         ],
     },
     {
         id: "structure",
-        label: "Structure & Content Plan",
-        title: "Mapping A Conversion-Ready Website.",
+        label: "Structure & Funnel Map",
+        title: "Designing A Conversion-Focused Store Architecture.",
         description:
-            "We design the information architecture and page structure so each screen has a clear job — educate, reassure, or convert.",
+            "We map out how shoppers move from first visit to checkout — making sure every page has a clear job in the buying journey.",
         bullets: [
-            "Page-level sitemap and user flows",
-            "Section-by-section breakdown for key pages",
-            "Conversion-focused content outline and CTAs",
-            "SEO and landing-page strategy baked into the plan",
-            "Sign-off on structure before any pixels are pushed",
+            "Store sitemap covering key collections, product and content pages",
+            "Collection structures, filters and navigation agreed",
+            "Upsell, cross-sell and bundle opportunities identified",
+            "Landing pages and offer funnels planned for campaigns",
+            "Sign-off on structure before design begins",
         ],
     },
     {
         id: "design",
         label: "Design & Figma Access",
-        title: "Designing Your Custom Experience — Together.",
+        title: "Designing Your Storefront — Collaboratively.",
         description:
-            "We design every page from scratch in a shared Figma file so you can see progress in real time, comment directly on the work, and stay involved without extra meetings.",
+            "We design every key template in Figma so you can see how the store will look on desktop and mobile, and leave comments directly on the work.",
         bullets: [
             "Shared Figma file with full comment access",
-            "High-fidelity designs for desktop, tablet and mobile",
-            "Design system for components, typography and colour",
-            "You choose your update rhythm: daily, weekly or monthly",
-            "Live review calls for key milestones and refinements",
+            "High-fidelity designs for home, collection, product and key flows",
+            "Design system for buttons, cards, typography and colour",
+            "Checkout and cart UX patterns tailored to your audience",
+            "Regular updates and review calls at agreed checkpoints",
         ],
     },
     {
         id: "develop",
-        label: "Build & Test",
-        title: "Engineering A Fast, Stable Build.",
+        label: "Build, Integrations & Testing",
+        title: "Engineering A Fast, Stable Ecommerce Build.",
         description:
-            "Once designs are locked, we translate everything into a performant React build with clean structure, analytics and SEO foundations wired in.",
+            "Once designs are approved, we turn everything into a performant store – wiring in payments, shipping, tracking and SEO foundations.",
         bullets: [
-            "Pixel-accurate React front-end implementation",
-            "CMS or content setup based on your stack",
-            "Performance and accessibility optimisations",
-            "Analytics and tracking integrated from day one",
+            "Pixel-accurate front-end build in your chosen platform",
+            "Payment gateways and shipping rules configured and tested",
+            "Performance, accessibility and SEO best practices applied",
+            "Analytics, pixels and key conversion events integrated",
             "Cross-browser and device testing before launch",
         ],
     },
     {
         id: "launch",
-        label: "Launch, Training & Support",
-        title: "Going Live With Confidence.",
+        label: "Launch, Training & Optimisation",
+        title: "Launching With Confidence — And A Plan To Optimise.",
         description:
-            "We don’t just push deploy and disappear. We launch carefully, train your team, and stay close as you start sending real traffic through the site.",
+            "We don’t just flip the switch and leave. We help you launch smoothly, hand over the store, and set you up to keep improving results.",
         bullets: [
-            "Staging review and final pre-launch checklist",
-            "Domain, hosting and deployment handled end-to-end",
-            "Training session on the CMS and key flows",
-            "Documentation for future updates and experiments",
-            "Optional retainers for ongoing optimisation and tests",
+            "Staging review and final QA checklist before go-live",
+            "Domain, DNS and deployment handled end-to-end",
+            "Training session on product management, orders and content",
+            "Documentation for future updates, promos and experiments",
+            "Optional retainers for ongoing CRO and feature improvements",
         ],
     },
 ];
 
 const MOBILE_STACK_BREAKPOINT = 850;
 
-const CustomProcess = () => {
+const EcommerceProcess = () => {
     const sectionRef = useRef(null);
     const cardRef = useRef(null);
 
@@ -196,7 +196,7 @@ const CustomProcess = () => {
             <div className="process__inner">
                 <header className="process__header">
                     <p className="eyebrow process__eyebrow">
-                        CUSTOM WEBSITE PROCESS
+                        E-COMMERCE WEBSITE PROCESS
                     </p>
 
                     <h2 className="heading2 process__title">
@@ -204,13 +204,13 @@ const CustomProcess = () => {
                         <span className="process__title-highlight">
                             Stress-Free
                         </span>{" "}
-                        Custom Website Process.
+                        E-Commerce Build Process.
                     </h2>
 
                     <p className="subheading process__subtitle">
-                        From first strategy call to launch, you’ll see every
-                        step, have access to the live design file, and know
-                        exactly what we’re working on each week.
+                        From first strategy call to launch, you’ll see every step,
+                        have access to the live design file, and know exactly what
+                        we’re working on as your store moves toward launch.
                     </p>
                 </header>
 
@@ -341,4 +341,4 @@ const CustomProcess = () => {
     );
 };
 
-export default CustomProcess;
+export default EcommerceProcess;

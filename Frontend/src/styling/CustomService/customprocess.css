@@ -21,7 +21,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* TYPOGRAPHY – FORCE WHITE IN THIS SECTION ONLY             */
+/* TYPOGRAPHY – WHITE FOR SECTION HEADER ONLY                */
 /* --------------------------------------------------------- */
 
 .process .heading2,
@@ -73,7 +73,7 @@
     justify-content: center;
     align-items: center;
     flex-wrap: nowrap;
-    /* ❗ never wrap – always one row */
+    /* stay on one row */
     gap: 16px;
     margin-bottom: 32px;
 }
@@ -81,20 +81,22 @@
 /* step pill + connector dots */
 .process__step-pill {
     position: relative;
-    /* for connector line */
-    padding: 10px 18px;
+    padding: 10px 20px;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(15, 23, 42, 0.55);
-    color: #fff;
+
+    border: 1px solid rgba(148, 163, 184, 0.45);
+    /* slate border */
+    background: #ffffff;
+    /* default: white pill */
+    color: var(--deep-indigo);
     cursor: pointer;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.35);
     transition: all 0.2s ease;
     white-space: nowrap;
 }
 
 .process__step-pill.body {
-    color: #fff !important;
+    color: var(--deep-indigo) !important;
 }
 
 /* dotted connector between pills */
@@ -104,9 +106,8 @@
     top: 50%;
     transform: translateY(-50%);
     right: -22px;
-    /* sits in the gap between pills */
     width: 26px;
-    border-bottom: 2px dotted rgba(255, 255, 255, 0.35);
+    border-bottom: 2px dotted rgba(255, 255, 255, 0.6);
     pointer-events: none;
 }
 
@@ -115,14 +116,24 @@
     display: none;
 }
 
+/* hover – only for non-active pills */
+.process__step-pill:not(.process__step-pill--active):hover {
+    background: #f5f3ff;
+    border-color: var(--soft-indigo);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.45);
+    transform: translateY(-1px);
+}
+
+/* active pill – dark indigo like before */
 .process__step-pill--active {
-    background: linear-gradient(135deg, var(--soft-indigo), var(--deep-indigo));
+    background: linear-gradient(135deg, #1e1b4b, #312e81);
     border-color: transparent;
-    box-shadow: 0 18px 40px rgba(79, 70, 229, 0.7);
+    color: #ffffff;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
 }
 
 .process__step-pill--active.body {
-    color: #fff !important;
+    color: #ffffff !important;
 }
 
 /* --------------------------------------------------------- */
@@ -144,52 +155,31 @@
     /* border drawn via ::before */
     padding: 48px;
     margin: 0 68px;
-    background-color: transparent;
+
+    background-color: #ffffff;
+    /* clean white card */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-/* solid continuous outline over the background/pattern */
+/* solid continuous outline */
 .process__card::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
-    border: 1px solid rgba(255, 255, 255, 0.28);
+    border: 1px solid rgba(15, 23, 42, 0.06);
     pointer-events: none;
 }
 
-/* BACKGROUND VARIANTS – dotted images under a dark overlay */
-
-.process__card--bg1 {
-    background-image:
-        linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96)),
-        url("../../assets/images/Background1.jpg");
-}
-
-.process__card--bg2 {
-    background-image:
-        linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96)),
-        url("../../assets/images/Background2.jpg");
-}
-
-.process__card--bg3 {
-    background-image:
-        linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96)),
-        url("../../assets/images/Background3.jpg");
-}
-
-.process__card--bg4 {
-    background-image:
-        linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96)),
-        url("../../assets/images/Background4.jpg");
-}
-
+/* remove background images for all variants (kept classes for future use) */
+.process__card--bg1,
+.process__card--bg2,
+.process__card--bg3,
+.process__card--bg4,
 .process__card--bg5 {
-    background-image:
-        linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96)),
-        url("../../assets/images/Background5.jpg");
+    background-image: none;
 }
 
 .process__card-inner {
@@ -212,6 +202,26 @@
 }
 
 /* --------------------------------------------------------- */
+/* OVERRIDES – DARK TEXT INSIDE WHITE CARD                   */
+/* --------------------------------------------------------- */
+
+.process__card .heading3,
+.process__card .process__card-title {
+    color: var(--black);
+}
+
+.process__card .body,
+.process__card-description,
+.process__card .process__card-description {
+    color: var(--cool-grey) !important;
+}
+
+.process__card .process__list-item,
+.process__card .process__list-item span:not(.process__list-icon) {
+    color: var(--cool-grey) !important;
+}
+
+/* --------------------------------------------------------- */
 /* STEP NUMBER                                               */
 /* --------------------------------------------------------- */
 
@@ -225,15 +235,15 @@
     margin-bottom: 14px;
 
     border-radius: 12px;
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.15);
 
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
     font-size: 18px;
     font-weight: 700;
-    color: #fff;
+    color: var(--black);
 }
 
 .process__stack-number--desktop {
@@ -241,7 +251,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* LIST (WHITE TEXT, 2px DOTS)                               */
+/* LIST (DARK TEXT, INDIGO DOTS)                             */
 /* --------------------------------------------------------- */
 
 .process__card-right {
@@ -270,16 +280,15 @@
     font-size: clamp(14px, 1vw + 0.3rem, 16px);
     line-height: 1.6;
     font-weight: 400;
-    color: #fff !important;
 }
 
 .process__list-icon {
-    width: 4px;
-    height: 4px;
-    min-width: 2px;
-    margin-top: 10px;
+    width: 6px;
+    height: 6px;
+    min-width: 6px;
+    margin-top: 9px;
     border-radius: 999px;
-    background: #fff;
+    background: var(--soft-indigo);
     font-size: 0 !important;
 }
 
@@ -294,15 +303,18 @@
     width: 44px;
     height: 44px;
     border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background: rgba(15, 23, 42, 0.9);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(15, 23, 42, 0.15);
+    background: #ffffff;
+    /* white background */
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    color: #fff;
+    color: var(--deep-indigo);
+    /* indigo arrow */
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .process__nav--prev {
@@ -311,6 +323,11 @@
 
 .process__nav--next {
     right: 0;
+}
+
+.process__nav:hover {
+    background: var(--soft-indigo);
+    color: #ffffff;
 }
 
 /* --------------------------------------------------------- */
@@ -340,7 +357,6 @@
 @media (max-width: 1200px) {
     .process {
         padding: 96px 40px 96px;
-        border-radius: 32px;
     }
 }
 
@@ -366,7 +382,6 @@
 @media (max-width: 768px) {
     .process {
         padding: 72px 24px 80px;
-        border-radius: 24px;
     }
 
     .process__stack {

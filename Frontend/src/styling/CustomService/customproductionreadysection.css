@@ -1,7 +1,7 @@
 @import "../colours.css";
 
 /* --------------------------------------------------------- */
-/* TECH / QUALITY SECTION                                    */
+/* SECTION WRAPPER                                           */
 /* --------------------------------------------------------- */
 
 .service-tech {
@@ -12,8 +12,35 @@
 }
 
 .service-tech__inner {
+    max-width: 1200px;
     margin: 0 auto;
 }
+
+.service-tech__card {
+    border-radius: 32px;
+    background: var(--white);
+    box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12);
+    padding: 48px 48px 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-tech__card::after {
+    content: "";
+    position: absolute;
+    bottom: -80px;
+    right: -80px;
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle,
+            rgba(99, 102, 241, 0.18),
+            transparent 65%);
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------- */
+/* HEADER                                                     */
+/* --------------------------------------------------------- */
 
 .service-tech__header {
     text-align: center;
@@ -22,17 +49,13 @@
 
 .service-tech__eyebrow {
     margin-bottom: 8px;
+    color: var(--cool-grey);
 }
 
 .service-tech__title {
     margin: 0 0 10px;
 }
 
-.service-tech__title-word {
-    white-space: nowrap;
-}
-
-.service-tech__title-word--highlight,
 .service-tech__title-highlight {
     color: var(--deep-indigo);
 }
@@ -43,32 +66,39 @@
     color: var(--cool-grey);
 }
 
-.service-tech__grid {
+/* --------------------------------------------------------- */
+/* LAYOUT                                                     */
+/* --------------------------------------------------------- */
+
+/* NEW: left column narrower so pillars have room */
+.service-tech__layout {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr);
+    grid-template-columns: 1fr 2.2fr;
     gap: 40px;
     align-items: flex-start;
 }
 
-.service-tech__column--left {
+/* LEFT COLUMN – OVERVIEW ---------------------------------- */
+
+.service-tech__overview {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: 18px;
 }
 
-.service-tech__badge-row {
+.service-tech__badge-block {
     margin-bottom: 4px;
 }
 
 .service-tech__badge {
     display: inline-flex;
     align-items: center;
-    padding: 6px 14px;
+    padding: 8px 18px;
     border-radius: 999px;
-    border: 1px solid rgba(79, 70, 229, 0.2);
-    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    background: rgba(248, 250, 252, 0.95);
     font-size: 12px;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--cool-grey);
 }
@@ -78,37 +108,67 @@
     color: var(--cool-grey);
 }
 
-.service-tech__column--right {
-    display: flex;
-    justify-content: flex-start;
+/* --------------------------------------------------------- */
+/* RIGHT COLUMN – PILLARS                                    */
+/* --------------------------------------------------------- */
+
+.service-tech__pillars {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
 }
 
-.service-tech__list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.service-tech__pillar {
+    border-radius: 20px;
+    background: #f9fafb;
+    border: 1px solid rgba(148, 163, 184, 0.35);
+    padding: 18px 18px 16px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.service-tech__point {
+.service-tech__pillar-header {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
-    color: var(--cool-grey);
 }
 
-.service-tech__dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 999px;
-    margin-top: 6px;
-    background: var(--deep-indigo);
+.service-tech__pillar-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(99, 102, 241, 0.08);
+    color: var(--deep-indigo);
+    font-size: 18px;
+}
+
+.service-tech__pillar-title {
+    margin: 0;
+    font-size: 16px;
+}
+
+.service-tech__pillar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.service-tech__pillar-item {
+    margin: 0;
+    color: var(--cool-grey);
+    font-size: 14px;
+    line-height: 1.6;
 }
 
 /* --------------------------------------------------------- */
-/* RESPONSIVE                                                */
+/* RESPONSIVE BREAKPOINTS                                    */
 /* --------------------------------------------------------- */
 
 @media (max-width: 1400px) {
@@ -122,22 +182,31 @@
         padding: 100px 40px;
     }
 
-    .service-tech__header {
-        text-align: left;
+    .service-tech__card {
+        padding: 40px 28px 32px;
     }
 
-    .service-tech__subtitle {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
-    .service-tech__grid {
+    .service-tech__layout {
         grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .service-tech__pillars {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
 @media (max-width: 768px) {
     .service-tech {
         padding: 60px 20px;
+    }
+
+    .service-tech__card {
+        padding: 32px 20px 28px;
+        border-radius: 24px;
+    }
+
+    .service-tech__pillars {
+        grid-template-columns: 1fr;
     }
 }
