@@ -113,7 +113,8 @@ const CustomProcess = () => {
     }, []);
 
     /* ---------------------------
-       SCROLL + EYEBROW / LETTER ANIMATION
+       SCROLL HEADER ANIMATION
+       (simple fade/slide)
     ---------------------------- */
     useEffect(() => {
         const sectionEl = sectionRef.current;
@@ -126,44 +127,11 @@ const CustomProcess = () => {
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("process__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            [...word].forEach((ch) => {
-                const span = document.createElement("span");
-                span.textContent = ch;
-                span.style.display = "inline-block";
-                span.style.opacity = "0";
-                span.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(span);
-            });
-
-            titleEl.appendChild(wordWrapper);
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const wordSpans = titleEl.querySelectorAll(".process__title-word");
-        const highlightWords = new Set(["Process."]);
-        wordSpans.forEach((w) => {
-            const cleaned = w.textContent.replace(/[^\w.]/g, "");
-            if (highlightWords.has(cleaned)) {
-                w.classList.add("process__title-highlight");
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(".process__title-word span");
-
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-        if (headerRow) gsap.set(headerRow, { opacity: 0, y: 8 });
+        if (headerRow) {
+            gsap.set([titleEl, subtitleEl, headerRow], { opacity: 0, y: 8 });
+        } else {
+            gsap.set([titleEl, subtitleEl], { opacity: 0, y: 8 });
+        }
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -174,46 +142,32 @@ const CustomProcess = () => {
             defaults: { ease: "power2.out" },
         });
 
-        tl
+        tl.fromTo(
+            eyebrowEl,
+            { opacity: 0, y: 8 },
+            { opacity: 1, y: 0, duration: 0.25 }
+        )
             .fromTo(
-                eyebrowEl,
+                titleEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.25,
-                }
-            )
-            .to(
-                charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
-                },
+                { opacity: 1, y: 0, duration: 0.3 },
                 ">-0.05"
             )
             .fromTo(
                 subtitleEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.08"
-            )
-            .fromTo(
+            );
+
+        if (headerRow) {
+            tl.fromTo(
                 headerRow,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.06"
             );
+        }
 
         return () => {
             tl.kill();
@@ -222,7 +176,7 @@ const CustomProcess = () => {
     }, []);
 
     /* ---------------------------
-       CARD ANIMATION ON CHANGE (slider only)
+       CARD ANIMATION (slider only)
     ---------------------------- */
     useEffect(() => {
         if (isMobileStack) return;
@@ -231,12 +185,7 @@ const CustomProcess = () => {
         gsap.fromTo(
             cardRef.current,
             { opacity: 0, y: 16 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.35,
-                ease: "power2.out",
-            }
+            { opacity: 1, y: 0, duration: 0.35 }
         );
     }, [activeIndex, isMobileStack]);
 
@@ -247,13 +196,19 @@ const CustomProcess = () => {
                     <p className="eyebrow process__eyebrow">
                         CUSTOM WEBSITE PROCESS
                     </p>
+
                     <h2 className="heading2 process__title">
-                        A Clear, Stress-Free Custom Website Process.
+                        A Clear,{" "}
+                        <span className="process__title-highlight">
+                            Stress-Free
+                        </span>{" "}
+                        Custom Website Process.
                     </h2>
+
                     <p className="subheading process__subtitle">
-                        From first strategy call to launch, you’ll see every step,
-                        have access to the live design file, and know exactly what
-                        we’re working on each week.
+                        From first strategy call to launch, you’ll see every
+                        step, have access to the live design file, and know
+                        exactly what we’re working on each week.
                     </p>
                 </header>
 
@@ -293,6 +248,11 @@ const CustomProcess = () => {
                             >
                                 <div className="process__card-inner">
                                     <div className="process__card-left">
+                                        {/* desktop step number above heading */}
+                                        <div className="process__stack-number process__stack-number--desktop">
+                                            {activeIndex + 1}
+                                        </div>
+
                                         <h3 className="heading3 process__card-title">
                                             {activeStep.title}
                                         </h3>
@@ -331,7 +291,7 @@ const CustomProcess = () => {
                     </>
                 )}
 
-                {/* MOBILE STACKED VERSION (<= 850px) */}
+                {/* MOBILE STACKED VERSION */}
                 {isMobileStack && (
                     <div className="process__stack">
                         {steps.map((step, index) => (

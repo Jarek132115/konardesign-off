@@ -1,7 +1,7 @@
 @import "../colours.css";
 
 /* --------------------------------------------------------- */
-/* PROCESS SECTION                                           */
+/* PROCESS SECTION – INDIGO PANEL                            */
 /* --------------------------------------------------------- */
 
 .process {
@@ -9,6 +9,10 @@
     margin: 0 auto;
     padding: 120px;
     box-sizing: border-box;
+
+    background: var(--deep-indigo);
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.5);
+    color: #fff;
 }
 
 .process__inner {
@@ -16,7 +20,27 @@
     margin: 0 auto;
 }
 
-/* HEADER */
+/* --------------------------------------------------------- */
+/* TYPOGRAPHY – FORCE WHITE IN THIS SECTION ONLY             */
+/* --------------------------------------------------------- */
+
+.process .heading2,
+.process .heading3 {
+    color: #ffffff;
+}
+
+.process .subheading,
+.process .body {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.process .eyebrow {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* --------------------------------------------------------- */
+/* HEADER                                                     */
+/* --------------------------------------------------------- */
 
 .process__header {
     text-align: center;
@@ -32,7 +56,7 @@
 }
 
 .process__title-highlight {
-    color: var(--deep-indigo);
+    color: var(--soft-indigo);
 }
 
 .process__subtitle {
@@ -48,34 +72,57 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    /* ❗ never wrap – always one row */
     gap: 16px;
     margin-bottom: 32px;
 }
 
+/* step pill + connector dots */
 .process__step-pill {
+    position: relative;
+    /* for connector line */
     padding: 10px 18px;
-    border-radius: 8px;
-    border: 1px solid var(--light-grey);
-    background: var(--white);
-    color: var(--black);
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: rgba(15, 23, 42, 0.55);
+    color: #fff;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
     transition: all 0.2s ease;
+    white-space: nowrap;
 }
 
 .process__step-pill.body {
-    color: var(--black) !important;
+    color: #fff !important;
+}
+
+/* dotted connector between pills */
+.process__step-pill::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: -22px;
+    /* sits in the gap between pills */
+    width: 26px;
+    border-bottom: 2px dotted rgba(255, 255, 255, 0.35);
+    pointer-events: none;
+}
+
+/* no connector after the final pill */
+.process__step-pill:last-child::after {
+    display: none;
 }
 
 .process__step-pill--active {
-    background: var(--deep-indigo);
+    background: linear-gradient(135deg, var(--soft-indigo), var(--deep-indigo));
     border-color: transparent;
-    box-shadow: 0 14px 30px rgba(79, 70, 229, 0.55);
+    box-shadow: 0 18px 40px rgba(79, 70, 229, 0.7);
 }
 
 .process__step-pill--active.body {
-    color: var(--white) !important;
+    color: #fff !important;
 }
 
 /* --------------------------------------------------------- */
@@ -90,47 +137,58 @@
 }
 
 .process__card {
+    position: relative;
     width: 100%;
-    background-color: var(--white);
     border-radius: 24px;
-    border: 1px solid var(--light-grey);
+    border: 1px solid transparent;
+    /* border drawn via ::before */
     padding: 48px;
     margin: 0 68px;
-
+    background-color: transparent;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-/* BACKGROUND VARIANTS */
+/* solid continuous outline over the background/pattern */
+.process__card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    pointer-events: none;
+}
+
+/* BACKGROUND VARIANTS – dotted images under a dark overlay */
 
 .process__card--bg1 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+        linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96)),
         url("../../assets/images/Background1.jpg");
 }
 
 .process__card--bg2 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+        linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96)),
         url("../../assets/images/Background2.jpg");
 }
 
 .process__card--bg3 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+        linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96)),
         url("../../assets/images/Background3.jpg");
 }
 
 .process__card--bg4 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+        linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96)),
         url("../../assets/images/Background4.jpg");
 }
 
 .process__card--bg5 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+        linear-gradient(rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.96)),
         url("../../assets/images/Background5.jpg");
 }
 
@@ -151,11 +209,39 @@
 
 .process__card-description {
     margin: 0;
-    color: var(--cool-grey);
 }
 
 /* --------------------------------------------------------- */
-/* LIST (SUBHEADING STYLE, BLACK, 2px DOTS)                  */
+/* STEP NUMBER                                               */
+/* --------------------------------------------------------- */
+
+.process__stack-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+    margin-bottom: 14px;
+
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.6);
+
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.process__stack-number--desktop {
+    margin-bottom: 18px;
+}
+
+/* --------------------------------------------------------- */
+/* LIST (WHITE TEXT, 2px DOTS)                               */
 /* --------------------------------------------------------- */
 
 .process__card-right {
@@ -177,7 +263,6 @@
     gap: 10px;
 }
 
-/* text exactly like .subheading but black */
 .process__list-item,
 .process__list-item span:not(.process__list-icon) {
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
@@ -185,17 +270,16 @@
     font-size: clamp(14px, 1vw + 0.3rem, 16px);
     line-height: 1.6;
     font-weight: 400;
-    color: var(--black) !important;
+    color: #fff !important;
 }
 
-/* tiny centered dot */
 .process__list-icon {
     width: 4px;
     height: 4px;
     min-width: 2px;
     margin-top: 10px;
     border-radius: 999px;
-    background: var(--black);
+    background: #fff;
     font-size: 0 !important;
 }
 
@@ -210,13 +294,14 @@
     width: 44px;
     height: 44px;
     border-radius: 999px;
-    border: 1px solid var(--light-grey);
-    background: var(--white);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(15, 23, 42, 0.9);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.7);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-size: 18px;
+    color: #fff;
     cursor: pointer;
 }
 
@@ -248,27 +333,6 @@
     column-gap: 32px;
 }
 
-.process__stack-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 44px;
-    height: 44px;
-    margin-bottom: 14px;
-
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid var(--light-grey);
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
-
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--black);
-}
-
 /* --------------------------------------------------------- */
 /* RESPONSIVE                                                */
 /* --------------------------------------------------------- */
@@ -276,10 +340,10 @@
 @media (max-width: 1200px) {
     .process {
         padding: 96px 40px 96px;
+        border-radius: 32px;
     }
 }
 
-/* <= 850px: hide slider UI + enable stacked layout */
 @media (max-width: 850px) {
     .process__steps {
         display: none;
@@ -302,6 +366,7 @@
 @media (max-width: 768px) {
     .process {
         padding: 72px 24px 80px;
+        border-radius: 24px;
     }
 
     .process__stack {

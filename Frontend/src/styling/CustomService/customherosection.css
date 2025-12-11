@@ -13,7 +13,6 @@
     box-sizing: border-box;
     z-index: 0;
     overflow-x: hidden;
-    /* kill tiny side scroll from halo / tracks */
 }
 
 .service-hero__grid {
@@ -82,7 +81,7 @@
 .service-hero__metrics {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
 }
 
 .service-hero__metrics-item {
@@ -106,20 +105,17 @@
 
 .service-hero__media {
     width: 100%;
+    height: 100%;
 }
 
 .service-hero__media-inner {
     position: relative;
     width: 100%;
-    aspect-ratio: 4 / 2.75;
+    height: 520px;
+    max-height: 520px;
     overflow: hidden;
     border-radius: 24px;
-    /* no background, no white frame */
-    padding: 0;
-    box-sizing: border-box;
 }
-
-/* two columns of vertical tiles */
 
 .service-hero__carousel {
     position: relative;
@@ -135,31 +131,22 @@
     overflow: hidden;
     border-radius: 18px;
     display: flex;
+    height: 100%;
 }
-
-/* track that moves vertically */
 
 .service-hero__track {
     display: flex;
     flex-direction: column;
     gap: 14px;
     will-change: transform;
-    cursor: grab;
-    touch-action: pan-x;
     width: 100%;
 }
-
-.service-hero__carousel--dragging .service-hero__track {
-    cursor: grabbing;
-}
-
-/* each tile fills its column; image covers entire tile */
 
 .service-hero__tile {
     position: relative;
     border-radius: 18px;
     overflow: hidden;
-    flex: 0 0 260px;
+    flex: 0 0 230px;
 }
 
 .service-hero__tile-image {
@@ -185,18 +172,34 @@
     }
 }
 
-/* stack to column, carousel full width underneath text */
+/* ✅ STACK + CENTER EVERYTHING UNDER 1024px */
 @media (max-width: 1024px) {
     .service-hero {
         padding: 80px 16px 64px;
+        text-align: center;
     }
 
     .service-hero__grid {
         grid-template-columns: 1fr;
         row-gap: 40px;
+        align-items: stretch;
+    }
+
+    .service-hero__content {
+        text-align: center;
+    }
+
+    .service-hero__metrics {
+        align-items: center;
+    }
+
+    .service-hero__metrics-item {
+        justify-content: center;
+        text-align: center;
     }
 
     .service-hero__media-inner {
+        height: auto;
         aspect-ratio: 16 / 11;
         max-width: 100%;
         margin: 0 auto;
@@ -205,11 +208,6 @@
 
     .service-hero::before {
         left: 50%;
-    }
-
-    .service-hero__subtitle {
-        margin-left: 0;
-        margin-right: 0;
     }
 }
 
@@ -227,8 +225,8 @@
         font-size: 16px;
     }
 
-    .service-hero__media-inner {
-        border-radius: 18px;
+    .service-hero__tile {
+        flex-basis: 220px;
     }
 
     .service-hero::before {
@@ -237,27 +235,12 @@
         top: 40px;
         left: 50%;
     }
-
-    .service-hero__tile {
-        flex-basis: 220px;
-    }
 }
 
-/* tighten halo + ensure no horizontal gap on very small screens */
 @media (max-width: 500px) {
     .service-hero::before {
         width: 320px;
         height: 170px;
         left: 50%;
-    }
-}
-
-@media (max-width: 1024px) {
-    /* existing rules... */
-
-    /* no drag cursor on tablet / mobile */
-    .service-hero__track {
-        cursor: default;
-        touch-action: pan-y;
     }
 }

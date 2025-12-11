@@ -15,10 +15,12 @@
     margin: 0 auto;
 }
 
-/* Header */
+/* HEADER – always centered */
+
 .service-included__header {
     text-align: center;
     margin-bottom: 40px;
+    width: 100%;
 }
 
 .service-included__eyebrow {
@@ -29,7 +31,6 @@
     margin: 0 0 10px;
 }
 
-/* word wrapper (letter animation) */
 .service-included__title-word {
     white-space: nowrap;
 }
@@ -45,87 +46,102 @@
     color: var(--cool-grey);
 }
 
-/* Grid: 3 x 3 on desktop */
+/* --------------------------------------------------------- */
+/* GRID                                                      */
+/* --------------------------------------------------------- */
+
 .service-included__grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 12px;
+    gap: 24px;
 }
 
-/* Card */
+/* --------------------------------------------------------- */
+/* CARD – MATCH WHY SECTION BUT WITH 5 BACKGROUND VARIANTS   */
+/* --------------------------------------------------------- */
+
 .service-included__card {
     position: relative;
-    background-color: var(--white);
-    border-radius: 12px;
+    padding: 28px 28px 30px;
+    border-radius: 24px;
     border: 1px solid var(--light-grey);
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-    padding: 24px 24px 26px;
-    display: flex;
-    flex-direction: column;
 
+    background-color: var(--off-white);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
 }
 
-/* Background variants with white overlay at ~90% */
+/* ---- 5 different dotted backgrounds, same overlay look ---- */
+
 .service-included__card--bg1 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
         url("../../assets/images/Background1.jpg");
 }
 
 .service-included__card--bg2 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
         url("../../assets/images/Background2.jpg");
 }
 
 .service-included__card--bg3 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
         url("../../assets/images/Background3.jpg");
 }
 
 .service-included__card--bg4 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
         url("../../assets/images/Background4.jpg");
 }
 
 .service-included__card--bg5 {
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
+        linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)),
         url("../../assets/images/Background5.jpg");
 }
 
-/* Glass icon like conversion__icon */
+/* --------------------------------------------------------- */
+/* ICON — raw icon only, no padding, no box                  */
+/* --------------------------------------------------------- */
+
 .service-included__icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
-
-    background: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    overflow: hidden;
+    justify-content: flex-start;
+
+    width: auto;
+    height: auto;
+
+    margin-bottom: 18px;
+
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+
+    overflow: visible;
 }
 
 .service-included__icon img {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     display: block;
 }
 
+/* text */
+
 .service-included__card-title {
-    margin: 0 0 8px;
+    margin: 0 0 10px;
 }
 
 .service-included__card-text {
@@ -134,7 +150,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* RESPONSIVE BREAKPOINTS – INCLUDED SECTION ONLY            */
+/* RESPONSIVE                                                */
 /* --------------------------------------------------------- */
 
 @media (max-width: 1400px) {
@@ -148,17 +164,13 @@
         padding: 100px 40px;
     }
 
-    .service-included__header {
-        text-align: left;
-    }
-
-    .service-included__subtitle {
-        margin-left: 0;
-        margin-right: 0;
-    }
-
     .service-included__grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* last odd card spans full width */
+    .service-included__grid>.service-included__card:nth-child(odd):last-child {
+        grid-column: 1 / -1;
     }
 }
 
@@ -169,5 +181,14 @@
 
     .service-included__grid {
         grid-template-columns: 1fr;
+    }
+
+    .service-included__card {
+        border-radius: 18px;
+        padding: 24px 22px;
+    }
+
+    .service-included__icon {
+        margin-bottom: 14px;
     }
 }

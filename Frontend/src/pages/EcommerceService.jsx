@@ -360,31 +360,6 @@ const EcommerceService = () => {
                         ))}
                     </div>
                 </section>
-
-                {/* GALLERY / RESULTS */}
-                <section className="service-gallery">
-                    <header className="service-gallery__header">
-                        <h2 className="heading2 service-gallery__title">
-                            If You Sell Online — This Is Built For You
-                        </h2>
-                        <p className="subheading service-gallery__subtitle">
-                            We help product-based brands launch faster, convert more, and scale
-                            smarter with high-performing ecommerce experiences.
-                        </p>
-                    </header>
-
-                    <div className="service-gallery__grid">
-                        {ecommerceGallery.map((src, index) => (
-                            <article key={index} className="service-gallery__item">
-                                <img
-                                    src={src}
-                                    alt={`E-commerce project mockup ${index + 1}`}
-                                    className="service-gallery__image"
-                                />
-                            </article>
-                        ))}
-                    </div>
-                </section>
             </main>
 
             <Footer />
