@@ -6,12 +6,14 @@ import Footer from "../components/Footer";
 
 import "../styling/buttons.css";
 import "../styling/ourprojects.css";
-import "../styling/projects.css"; // reuse card styles only
+import "../styling/projects.css"; // reuse pill styles
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import konarVideo from "../assets/videos/KonarCard1.mp4";
+import ecommerceVideo from "../assets/videos/ECommerce1.mp4";
+import konarVideo1 from "../assets/videos/KonarCard1.mp4";
+import konarVideo2 from "../assets/videos/Custom1.mp4";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,10 +22,34 @@ const projects = [
         id: "konarcard",
         title: "KonarCard (E-Commerce)",
         year: "2025",
+        headline: "Project details will be added soon.",
         description:
-            "A tailored e-commerce experience for a next-gen digital business card startup — optimized for speed, clarity, and conversions.",
-        metrics: ["27% Increase In Conversion", "10k Traffic Each Month"],
-        tags: ["Custom Web Design", "Custom Web Development"],
+            "A full case study for this build is on the way. Check back soon for a deeper breakdown.",
+        metrics: ["Case Study Coming Soon"],
+        tags: ["More Info Soon"],
+        media: konarVideo1,
+    },
+    {
+        id: "comingsoon1",
+        title: "Custom Website",
+        year: "Coming Soon",
+        headline: "Project details will be added soon.",
+        description:
+            "We’ll share more about this custom website once the case study and results are ready.",
+        metrics: ["Case Study Coming Soon"],
+        tags: ["More Info Soon"],
+        media: ecommerceVideo,
+    },
+    {
+        id: "comingsoon2",
+        title: "E-Commerce Website",
+        year: "Coming Soon",
+        headline: "Project details will be added soon.",
+        description:
+            "A full overview of this e-commerce project will be published here soon.",
+        metrics: ["Case Study Coming Soon"],
+        tags: ["More Info Soon"],
+        media: konarVideo2,
     },
 ];
 
@@ -37,7 +63,7 @@ const OurProjects = () => {
 
         const titleEl = pageEl.querySelector(".our-projects__title");
         const subtitleEl = pageEl.querySelector(".our-projects__subtitle");
-        const cards = pageEl.querySelectorAll(".projects__project");
+        const cards = pageEl.querySelectorAll(".our-projects__card");
 
         if (!titleEl || !subtitleEl) return;
 
@@ -145,7 +171,6 @@ const OurProjects = () => {
         <div className="our-projects-page">
             <Navbar />
 
-            {/* Own container class: width/padding controlled in ourprojects.css */}
             <main className="our-projects" ref={pageRef}>
                 {/* HERO-STYLE HEADER */}
                 <header className="our-projects__header">
@@ -156,74 +181,81 @@ const OurProjects = () => {
                     </h1>
 
                     <p className="subheading our-projects__subtitle">
-                        Explore real-world websites we’ve designed and built — each
-                        crafted to solve business problems, drive conversions, and
-                        scale with growth.
+                        Explore real-world websites we’ve designed and built —
+                        each crafted to solve business problems, drive
+                        conversions, and scale with growth.
                     </p>
                 </header>
 
-                {/* PROJECT CARDS */}
-                <div className="our-projects__list">
+                {/* PROJECT GRID */}
+                <div className="our-projects__grid">
                     {projects.map((project) => (
-                        <article key={project.id} className="projects__project">
-                            {/* TEXT SIDE – same structure as home */}
-                            <div className="projects__project-content">
-                                <div className="projects__project-header">
-                                    <h2 className="heading3 projects__project-title">
-                                        {project.title}
-                                    </h2>
-                                    <span className="heading3 projects__project-year">
-                                        {project.year}
-                                    </span>
-                                </div>
+                        <article
+                            key={project.id}
+                            className="our-projects__card"
+                            onClick={() =>
+                                project.id === "konarcard" &&
+                                handleViewDetails(project.id)
+                            }
+                        >
+                            {/* Header row (white) */}
+                            <header className="our-projects__card-header">
+                                <h2 className="heading3 our-projects__card-title">
+                                    {project.title}
+                                </h2>
+                                <span className="heading3 our-projects__card-year">
+                                    {project.year}
+                                </span>
+                            </header>
 
-                                <p className="body projects__project-description">
-                                    {project.description}
-                                </p>
+                            {/* Media with overlay */}
+                            <div className="our-projects__card-media">
+                                <video
+                                    src={project.media}
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    className="our-projects__card-video"
+                                />
 
-                                <div className="projects__project-metrics">
-                                    {project.metrics.map((metric) => (
-                                        <span
-                                            key={metric}
-                                            className="body projects__pill projects__pill--metric"
-                                        >
-                                            {metric}
-                                        </span>
-                                    ))}
-                                </div>
+                                <div className="our-projects__card-overlay">
+                                    <p className="our-projects__card-headline">
+                                        {project.headline}
+                                    </p>
 
-                                <div className="projects__project-tags">
-                                    {project.tags.map((tag) => (
-                                        <span
-                                            key={tag}
-                                            className="body projects__pill projects__pill--tag"
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
+                                    <p className="body our-projects__card-description">
+                                        {project.description}
+                                    </p>
 
-                                <button
-                                    className="projects__link-button"
-                                    onClick={() => handleViewDetails(project.id)}
-                                >
-                                    <span className="projects__link-label">
-                                        View Project Details
-                                    </span>
-                                </button>
-                            </div>
+                                    <div className="our-projects__card-meta">
+                                        {project.metrics &&
+                                            project.metrics.length > 0 && (
+                                                <div className="our-projects__card-metrics">
+                                                    {project.metrics.map(
+                                                        (metric) => (
+                                                            <span
+                                                                key={metric}
+                                                                className="body projects__pill projects__pill--metric"
+                                                            >
+                                                                {metric}
+                                                            </span>
+                                                        )
+                                                    )}
+                                                </div>
+                                            )}
 
-                            {/* MEDIA SIDE – same as home section */}
-                            <div className="projects__project-media">
-                                <div className="projects__project-media-inner">
-                                    <video
-                                        src={konarVideo}
-                                        autoPlay
-                                        muted
-                                        loop
-                                        playsInline
-                                        className="projects__project-video"
-                                    />
+                                        <div className="our-projects__card-tags">
+                                            {project.tags.map((tag) => (
+                                                <span
+                                                    key={tag}
+                                                    className="body projects__pill projects__pill--tag"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </article>
