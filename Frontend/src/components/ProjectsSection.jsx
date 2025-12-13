@@ -7,6 +7,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import konarVideo from "../assets/videos/KonarCard1.mp4";
+import ecommerceVideo from "../assets/videos/ECommerce1.mp4";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,10 +16,23 @@ const projects = [
         id: "konarcard",
         title: "KonarCard (E-Commerce)",
         year: "2025",
+        headline: "Project details will be added soon.",
         description:
-            "A tailored e-commerce experience for a next-gen digital business card startup — optimized for speed, clarity, and conversions.",
-        metrics: ["27% Increase In Conversion", "10k Traffic Each Month"],
-        tags: ["Custom Web Design", "Custom Web Development"],
+            "A full case study for this build is on the way. Check back soon for a deeper breakdown.",
+        metrics: ["Case Study Coming Soon"],
+        tags: ["More Info Soon"],
+        media: konarVideo,
+    },
+    {
+        id: "custom-website",
+        title: "Custom Website",
+        year: "Coming Soon",
+        headline: "Project details will be added soon.",
+        description:
+            "We’ll share more about this custom website once the case study and results are ready.",
+        metrics: ["Case Study Coming Soon"],
+        tags: ["More Info Soon"],
+        media: ecommerceVideo,
     },
 ];
 
@@ -33,14 +47,12 @@ const ProjectsSection = () => {
         const eyebrowEl = sectionEl.querySelector(".projects__eyebrow");
         const titleEl = sectionEl.querySelector(".projects__title");
         const subtitleEl = sectionEl.querySelector(".projects__subtitle");
-        const cards = sectionEl.querySelectorAll(".projects__project");
+        const cards = sectionEl.querySelectorAll(".projects__card");
         const ctaEl = sectionEl.querySelector(".projects__cta");
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        /* -----------------------------
-           EYEBROW + LETTER ANIMATION
-        ------------------------------ */
+        // ----- TITLE LETTER ANIMATION -----
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -90,17 +102,11 @@ const ProjectsSection = () => {
             defaults: { ease: "power2.out" },
         });
 
-        // Eyebrow first
         tl.fromTo(
             eyebrowEl,
             { opacity: 0, y: 8 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.25,
-            }
+            { opacity: 1, y: 0, duration: 0.25 }
         )
-            // Then headline letters
             .to(
                 charSpans,
                 {
@@ -111,21 +117,14 @@ const ProjectsSection = () => {
                 },
                 ">-0.05"
             )
-            // Then subheading
             .fromTo(
                 subtitleEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.08"
             );
 
-        /* -----------------------------
-           CARDS + CTA FADE-IN
-        ------------------------------ */
+        // ----- CARD FADE-UPS -----
         cards.forEach((card, index) => {
             gsap.fromTo(
                 card,
@@ -145,6 +144,7 @@ const ProjectsSection = () => {
             );
         });
 
+        // CTA fade
         if (ctaEl) {
             gsap.fromTo(
                 ctaEl,
@@ -169,8 +169,12 @@ const ProjectsSection = () => {
         };
     }, []);
 
-    const handleViewDetails = () => {
-        navigate("/projects/konarcard");
+    const handleViewDetails = (projectId) => {
+        if (projectId === "konarcard") {
+            navigate("/projects/konarcard");
+        } else {
+            navigate("/projects"); // generic for “Custom Website”
+        }
     };
 
     return (
@@ -182,73 +186,74 @@ const ProjectsSection = () => {
                         What We’ve Built. Who We’ve Helped.
                     </h2>
                     <p className="subheading projects__subtitle">
-                        Each project is built with purpose — engineered for clarity,
-                        conversion, and lasting client success.
+                        A quick look at a couple of projects — full case studies
+                        and more work will be added soon.
                     </p>
                 </header>
 
-                <div className="projects__list">
+                <div className="projects__grid">
                     {projects.map((project) => (
-                        <article key={project.id} className="projects__project">
-                            {/* TEXT SIDE (left on desktop) */}
-                            <div className="projects__project-content">
-                                <div className="projects__project-header">
-                                    <h3 className="heading3 projects__project-title">
-                                        {project.title}
-                                    </h3>
-                                    <span className="heading3">
-                                        {project.year}
-                                    </span>
-                                </div>
+                        <article
+                            key={project.id}
+                            className="projects__card"
+                            onClick={() => handleViewDetails(project.id)}
+                        >
+                            <header className="projects__card-header">
+                                <h3 className="heading3 projects__card-title">
+                                    {project.title}
+                                </h3>
+                                <span className="heading3 projects__card-year">
+                                    {project.year}
+                                </span>
+                            </header>
 
-                                <p className="body projects__project-description">
-                                    {project.description}
-                                </p>
+                            <div className="projects__card-media">
+                                <video
+                                    src={project.media}
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    className="projects__card-video"
+                                />
 
-                                <div className="projects__project-metrics">
-                                    {project.metrics.map((metric) => (
-                                        <span
-                                            key={metric}
-                                            className="body projects__pill projects__pill--metric"
-                                        >
-                                            {metric}
-                                        </span>
-                                    ))}
-                                </div>
+                                <div className="projects__card-overlay">
+                                    <p className="projects__card-headline">
+                                        {project.headline}
+                                    </p>
 
-                                <div className="projects__project-tags">
-                                    {project.tags.map((tag) => (
-                                        <span
-                                            key={tag}
-                                            className="body projects__pill projects__pill--tag"
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
-                                </div>
+                                    <p className="body projects__card-description">
+                                        {project.description}
+                                    </p>
 
-                                {/* CTA – bottom-left on desktop, 36px below pills on tablet/mobile */}
-                                <button
-                                    className="projects__link-button"
-                                    onClick={handleViewDetails}
-                                >
-                                    <span className="projects__link-label">
-                                        View Project Details
-                                    </span>
-                                </button>
-                            </div>
+                                    <div className="projects__card-meta">
+                                        {project.metrics &&
+                                            project.metrics.length > 0 && (
+                                                <div className="projects__card-metrics">
+                                                    {project.metrics.map(
+                                                        (metric) => (
+                                                            <span
+                                                                key={metric}
+                                                                className="body projects__pill projects__pill--metric"
+                                                            >
+                                                                {metric}
+                                                            </span>
+                                                        )
+                                                    )}
+                                                </div>
+                                            )}
 
-                            {/* MEDIA SIDE (right on desktop, top on ≤1024px) */}
-                            <div className="projects__project-media">
-                                <div className="projects__project-media-inner">
-                                    <video
-                                        src={konarVideo}
-                                        autoPlay
-                                        muted
-                                        loop
-                                        playsInline
-                                        className="projects__project-video"
-                                    />
+                                        <div className="projects__card-tags">
+                                            {project.tags.map((tag) => (
+                                                <span
+                                                    key={tag}
+                                                    className="body projects__pill projects__pill--tag"
+                                                >
+                                                    {tag}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </article>
@@ -259,12 +264,12 @@ const ProjectsSection = () => {
                 <div className="projects__cta">
                     <div className="projects__cta-inner">
                         <h3 className="heading2 projects__cta-title">
-                            Explore All The Projects We Worked On
+                            Explore More Of Our Client Work
                         </h3>
                         <p className="subheading projects__cta-subtitle">
-                            Custom websites designed to convert, engineered for performance,
-                            and built to scale — across Webflow, Framer, Shopify, and
-                            fully-coded platforms.
+                            We’re gradually adding full case studies as projects
+                            wrap and results roll in. See the current line-up on
+                            the projects page.
                         </p>
                         <button
                             className="btn btn--white projects__cta-button"

@@ -1,29 +1,34 @@
 @import "./colours.css";
 
+/* --------------------------------------------------------- */
+/* PAGE-LEVEL FOOTER WRAPPER                                 */
+/* --------------------------------------------------------- */
+
 .footer {
     width: 100%;
-    padding: 40px;
+    background: #ffffff;
     box-sizing: border-box;
-    background: var(--off-white);
     display: flex;
     justify-content: center;
+    padding: 80px 120px 40px;
 }
 
+/* Main content grid (no background card now) */
 .footer__inner {
     width: 100%;
     max-width: 1600px;
-    background: var(--deep-indigo);
-    border-radius: 40px;
-    padding: 64px 72px 40px;
     box-sizing: border-box;
-    color: var(--white);
+
     display: grid;
     grid-template-columns: minmax(0, 1.7fr) repeat(3, minmax(0, 1fr));
     column-gap: 80px;
     row-gap: 40px;
+    color: #0f172a;
 }
 
-/* BRAND COLUMN ---------------------------------------------------------- */
+/* --------------------------------------------------------- */
+/* BRAND COLUMN                                              */
+/* --------------------------------------------------------- */
 
 .footer__col--brand {
     display: flex;
@@ -37,15 +42,18 @@
     font-size: 28px;
     font-weight: 600;
     letter-spacing: 0.02em;
+    color: var(--deep-indigo);
 }
 
 .footer__tagline {
     margin: 0;
     max-width: 520px;
-    color: #ffffff !important;
+    color: #0f172a;
 }
 
-/* TOOL ICONS ------------------------------------------------------------ */
+/* --------------------------------------------------------- */
+/* TOOL ICONS                                                */
+/* --------------------------------------------------------- */
 
 .footer__tools {
     display: flex;
@@ -53,14 +61,13 @@
     gap: 16px;
     margin-top: 8px;
     flex-wrap: wrap;
-    /* ✅ allow wrapping on smaller screens */
 }
 
 .footer__tool {
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    background: rgba(15, 23, 42, 0.22);
+    background: #f3f4f6;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -71,7 +78,9 @@
     height: 28px;
 }
 
-/* LIST COLUMNS ---------------------------------------------------------- */
+/* --------------------------------------------------------- */
+/* LIST COLUMNS                                              */
+/* --------------------------------------------------------- */
 
 .footer__col {
     align-self: flex-start;
@@ -81,7 +90,8 @@
     margin: 0 0 16px;
     font-size: 18px;
     font-weight: 600;
-    color: #ffffff;
+    color: var(--deep-indigo);
+    /* headings stay indigo */
 }
 
 .footer__list {
@@ -93,16 +103,16 @@
     gap: 8px;
 }
 
-/* DIVIDER --------------------------------------------------------------- */
+/* --------------------------------------------------------- */
+/* DIVIDER + BOTTOM ROW                                      */
+/* --------------------------------------------------------- */
 
 .footer__divider {
     grid-column: 1 / -1;
     height: 1px;
-    background: rgba(226, 232, 240, 0.4);
+    background: rgba(148, 163, 184, 0.5);
     margin-top: 12px;
 }
-
-/* BOTTOM ROW ------------------------------------------------------------ */
 
 .footer__bottom {
     grid-column: 1 / -1;
@@ -117,7 +127,7 @@
 .footer__copyright {
     margin: 0;
     font-size: 13px;
-    color: #ffffff;
+    color: #4b5563;
 }
 
 .footer__bottom-links {
@@ -126,40 +136,53 @@
     gap: 16px;
 }
 
-/* RESPONSIVE ------------------------------------------------------------ */
+/* --------------------------------------------------------- */
+/* LINKS                                                     */
+/* --------------------------------------------------------- */
+
+.footer__inner a,
+.footer__link {
+    color: #0f172a;
+    text-decoration: none;
+    font-size: 14px;
+    transition: opacity 0.2s ease;
+}
+
+.footer__inner a:hover,
+.footer__link:hover {
+    opacity: 0.7;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE BREAKPOINTS                                    */
+/* --------------------------------------------------------- */
 
 @media (max-width: 1200px) {
     .footer {
-        padding: 40px;
+        padding: 60px 40px 32px;
     }
 
     .footer__inner {
-        border-radius: 32px;
-        padding: 48px 40px 32px;
         grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, 1fr);
         column-gap: 48px;
     }
 
     .footer__col--brand {
         grid-column: 1 / -1;
-        /* brand spans full width */
         max-width: 640px;
     }
 
     .footer__tagline {
         max-width: none;
-        /* ✅ tagline full width once stacked */
     }
 }
 
 @media (max-width: 900px) {
     .footer {
-        padding: 32px;
+        padding: 48px 32px 32px;
     }
 
     .footer__inner {
-        border-radius: 28px;
-        padding: 40px 28px 28px;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         row-gap: 32px;
         column-gap: 32px;
@@ -177,61 +200,10 @@
 
 @media (max-width: 640px) {
     .footer {
-        padding: 24px;
+        padding: 40px 20px 28px;
     }
 
     .footer__inner {
-        border-radius: 24px;
-        padding: 32px 20px 24px;
-        /* ✅ brand full-width, then 3 link columns side-by-side */
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        row-gap: 28px;
-        column-gap: 16px;
-    }
-
-    .footer__col--brand {
-        grid-column: 1 / -1;
-        /* brand row across all 3 cols */
-    }
-
-    /* keep each link column occupying one of the 3 tracks */
-    .footer__col:not(.footer__col--brand) {
-        min-width: 0;
-    }
-
-    .footer__bottom {
-        grid-column: 1 / -1;
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
-
-/* LINKS ------------------------------------------------------------ */
-
-.footer__inner a,
-.footer__link {
-    color: #ffffff !important;
-    text-decoration: none;
-    font-size: 14px;
-    transition: opacity 0.2s ease;
-}
-
-.footer__inner a:hover,
-.footer__link:hover {
-    opacity: 0.75;
-}
-
-@media (max-width: 640px) {
-    .footer {
-        padding: 24px;
-    }
-
-    .footer__inner {
-        border-radius: 24px;
-        padding: 32px 20px 24px;
-
-        /* ✅ CHANGE: allow wrapping instead of forced 3 columns */
         display: flex;
         flex-wrap: wrap;
         gap: 28px;
@@ -241,10 +213,8 @@
         width: 100%;
     }
 
-    /* ✅ Each link column can wrap naturally */
     .footer__col:not(.footer__col--brand) {
         flex: 1 1 140px;
-        /* wraps when too tight */
         min-width: 140px;
     }
 

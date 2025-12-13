@@ -168,17 +168,21 @@ const Blog = () => {
             <main className="blog-page__main" ref={pageRef}>
                 {/* HERO SECTION */}
                 <section className="blog-hero">
-                    <header className="blog-hero__header">
-                        <h1 className="heading1 blog__title">
-                            Growth-Driven Insights For Modern Brands
-                        </h1>
-                        <p className="subheading blog__subtitle">
-                            High-impact articles on UX, design, performance, and
-                            digital growth—written for brands ready to scale.
-                        </p>
-                    </header>
+                    <div className="blog-hero__inner">
+                        <header className="blog-hero__header">
+                            <p className="eyebrow blog__eyebrow">BLOG</p>
+                            <h1 className="heading1 blog__title">
+                                Growth-Driven Insights For Modern Brands
+                            </h1>
+                            <p className="subheading blog__subtitle">
+                                High-impact articles on UX, design, performance,
+                                and digital growth — written for brands ready to
+                                scale.
+                            </p>
+                        </header>
+                    </div>
 
-                    {/* POSTS */}
+                    {/* POSTS GRID */}
                     <div className="blog__grid">
                         {posts.map((post) => (
                             <article
@@ -192,16 +196,12 @@ const Blog = () => {
                                         alt={post.title}
                                         className="blog-card__image"
                                     />
+                                    <span className="blog-card__pill">
+                                        {post.category}
+                                    </span>
                                 </div>
 
                                 <div className="blog-card__body">
-                                    <div className="blog-card__meta-top">
-                                        <span className="blog-card__category">
-                                            {post.category}
-                                        </span>
-                                        <span className="blog-card__external">↗</span>
-                                    </div>
-
                                     <h3 className="heading3 blog-card__title">
                                         {post.title}
                                     </h3>
@@ -210,11 +210,19 @@ const Blog = () => {
                                         {post.description}
                                     </p>
 
-                                    <div className="blog-card__meta-bottom">
-                                        <span className="blog-card__time-dot" />
-                                        <span className="body blog-card__time">
-                                            {post.readTime}
-                                        </span>
+                                    <div className="blog-card__footer">
+                                        <div className="blog-card__meta-bottom">
+                                            <span className="blog-card__time-dot" />
+                                            <span className="body blog-card__time">
+                                                {post.readTime}
+                                            </span>
+                                        </div>
+                                        <button
+                                            type="button"
+                                            className="blog-card__link-button"
+                                        >
+                                            Read Article
+                                        </button>
                                     </div>
                                 </div>
                             </article>

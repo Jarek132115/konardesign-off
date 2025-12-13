@@ -17,7 +17,9 @@ const BlogPage3 = () => {
         const page = pageRef.current;
         if (!page) return;
 
-        /* HERO ANIMATION */
+        /* -----------------------------
+           HERO ANIMATION
+        ------------------------------ */
         const heroSection = page.querySelector(".blog-hero");
         const heroEyebrow = heroSection?.querySelector(".blog-hero__eyebrow");
         const heroTitle = heroSection?.querySelector(".blog-hero__title");
@@ -90,7 +92,9 @@ const BlogPage3 = () => {
                 );
         }
 
-        /* ARTICLE BLOCKS */
+        /* -----------------------------
+           ARTICLE BLOCKS FADE-UP
+        ------------------------------ */
         const blocks = page.querySelectorAll(".blog-article__block");
         blocks.forEach((block, index) => {
             gsap.fromTo(
@@ -227,8 +231,10 @@ const BlogPage3 = () => {
                             </p>
                             <p className="body blog-article__body">
                                 The goal isn’t “perfect SEO”. The goal is{" "}
-                                <strong>getting the right people to the right pages, and
-                                    helping them take the next step.</strong>
+                                <strong>
+                                    getting the right people to the right pages, and
+                                    helping them take the next step.
+                                </strong>
                             </p>
                         </div>
                     </div>

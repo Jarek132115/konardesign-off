@@ -1,7 +1,7 @@
 @import "./colours.css";
 
 /* --------------------------------------------------------- */
-/* PROJECTS SECTION                                          */
+/* HOME PROJECTS SECTION                                     */
 /* --------------------------------------------------------- */
 
 .projects {
@@ -20,7 +20,7 @@
 
 .projects__header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 56px;
 }
 
 .projects__title {
@@ -39,173 +39,158 @@
 .projects__subtitle {
     max-width: 720px;
     margin: 0 auto;
+    color: var(--cool-grey);
 }
 
-/* PROJECT LIST */
+/* --------------------------------------------------------- */
+/* GRID LAYOUT (2 CARDS)                                     */
+/* --------------------------------------------------------- */
 
-.projects__list {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    margin-bottom: 24px;
-}
-
-/* PROJECT CARD */
-
-.projects__project {
-    position: relative;
-    border-radius: 12px;
-    border: 1px solid var(--light-grey);
-    padding: 24px;
+.projects__grid {
     display: grid;
-
-    /* ✅ 40% text / 60% video on desktop */
-    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
-    column-gap: 48px;
-    align-items: stretch;
-
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
-        url("../assets/images/Background4.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 32px;
+    margin-bottom: 40px;
 }
 
-/* TEXT SIDE */
+/* --------------------------------------------------------- */
+/* PROJECT CARD (MATCHES OUR PROJECTS PAGE STYLE)            */
+/* --------------------------------------------------------- */
 
-.projects__project-content {
+.projects__card {
+    position: relative;
+    border-radius: 24px;
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
-    padding: 12px 24px 24px;
-    height: 100%;
 }
 
-.projects__project-header {
+/* Header row (title + year) on white */
+
+.projects__card-header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    align-items: baseline;
     gap: 16px;
-    margin-bottom: 16px;
+    padding: 18px 24px 14px;
+    background: #ffffff;
+    color: #0f172a;
+    z-index: 1;
 }
 
-.projects__project-title {
+.projects__card-title {
     margin: 0;
+    font-size: 18px;
 }
 
-.projects__project-year {
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
+.projects__card-year {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--cool-grey);
 }
 
-.projects__project-description {
-    margin: 0;
-    color: var(--cool-grey);
-}
+/* MEDIA AREA – full-bleed video under header */
 
-/* METRICS + TAGS */
-
-.projects__project-metrics {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 24px;
-}
-
-.projects__project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 12px;
-}
-
-/* Pill style */
-
-.projects__pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 8px 14px;
-    border-radius: 999px;
-
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    font-size: 13px;
-    line-height: 1.4;
-    font-weight: 500;
-
-    background: var(--white);
-    border: 1px solid var(--light-grey);
-    color: var(--cool-grey);
-
-    white-space: nowrap;
-}
-
-/* CTA LINK BUTTON */
-
-/* base: 36px gap from pills (used on ≤1024px) */
-.projects__link-button {
-    margin-top: 36px;
-    background: none;
-    border: none;
-    padding: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--black);
-    text-decoration: none;
-}
-
-/* desktop: push to bottom-left */
-@media (min-width: 1025px) {
-    .projects__link-button {
-        margin-top: auto;
-        align-self: flex-start;
-    }
-}
-
-.projects__link-button::after {
-    content: "→";
-    display: inline-block;
-    transition: transform 0.18s ease-out;
-}
-
-.projects__link-button:hover::after {
-    transform: translateX(4px);
-}
-
-/* MEDIA SIDE */
-
-.projects__project-media {
-    display: flex;
-    align-items: stretch;
-}
-
-.projects__project-media-inner {
+.projects__card-media {
     position: relative;
     width: 100%;
     aspect-ratio: 4 / 2.75;
-    border-radius: 12px;
     overflow: hidden;
-    background: #000;
+    background: #000000;
+    border-radius:24px;
 }
 
-.projects__project-video {
+.projects__card-video {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 0.5s ease;
+}
+
+/* OVERLAY (on hover) */
+
+.projects__card-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px 28px 24px;
+    background: linear-gradient(to top,
+            rgba(15, 23, 42, 0.95),
+            rgba(15, 23, 42, 0.35),
+            rgba(15, 23, 42, 0));
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    color: #f9fafb;
+}
+
+.projects__card-headline {
+    margin: 0 0 10px;
+    font-size: 22px;
+    line-height: 1.25;
+}
+
+.projects__card-description {
+    margin: 0 0 18px;
+    color: rgba(226, 232, 240, 0.9);
+}
+
+.projects__card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.projects__card-metrics,
+.projects__card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* Pills on dark overlay */
+
+.projects__pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 500;
+    background: rgba(15, 23, 42, 0.82);
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    color: rgba(241, 245, 249, 0.95);
+    white-space: nowrap;
+}
+
+/* HOVER STATES */
+
+.projects__card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 28px 90px rgba(15, 23, 42, 0.18);
+}
+
+.projects__card:hover .projects__card-video {
+    transform: scale(1.06);
+}
+
+.projects__card:hover .projects__card-overlay {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* --------------------------------------------------------- */
@@ -214,19 +199,9 @@
 
 .projects__cta {
     background-color: var(--deep-indigo);
-    /* base color */
-    border-radius: 12px;
-    padding: 48px;
+    border-radius: 24px;
+    padding: 40px 32px;
     color: var(--white);
-
-    /* ✅ same style of textured background as cards */
-    background-image:
-        linear-gradient(rgba(79, 70, 229, 0.94),
-            rgba(79, 70, 229, 0.98)),
-        url("../assets/images/Background4.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
 .projects__cta-inner {
@@ -252,50 +227,41 @@
 }
 
 /* --------------------------------------------------------- */
-/* RESPONSIVE                                                */
+/* RESPONSIVE BREAKPOINTS                                    */
 /* --------------------------------------------------------- */
 
-/* Desktop → tablet */
 @media (max-width: 1400px) {
     .projects {
         padding: 120px 40px;
     }
 }
 
-/* Tablet + small laptop */
 @media (max-width: 1024px) {
     .projects {
         padding: 100px 40px;
     }
 
-    .projects__project {
+    .projects__grid {
         grid-template-columns: 1fr;
-        row-gap: 24px;
-    }
-
-    /* video on top when stacked */
-    .projects__project-media {
-        order: -1;
-    }
-
-    .projects__project-content {
-        order: 0;
-        padding: 0;
+        gap: 24px;
     }
 
     .projects__cta {
-        padding: 24px;
+        padding: 32px 24px;
     }
 }
 
-/* Mobile */
 @media (max-width: 768px) {
     .projects {
-        padding: 60px 20px;
+        padding: 72px 20px;
     }
 
     .projects__cta {
-        padding: 24px;
-        border-radius: 12px;
+        padding: 24px 20px;
+        border-radius: 16px;
+    }
+
+    .projects__card-headline {
+        font-size: 20px;
     }
 }

@@ -17,7 +17,9 @@ const BlogPage2 = () => {
         const page = pageRef.current;
         if (!page) return;
 
-        /* HERO ANIMATION */
+        /* -----------------------------
+           HERO ANIMATION
+        ------------------------------ */
         const heroSection = page.querySelector(".blog-hero");
         const heroEyebrow = heroSection?.querySelector(".blog-hero__eyebrow");
         const heroTitle = heroSection?.querySelector(".blog-hero__title");
@@ -90,7 +92,9 @@ const BlogPage2 = () => {
                 );
         }
 
-        /* ARTICLE BLOCKS */
+        /* -----------------------------
+           ARTICLE BLOCKS FADE-UP
+        ------------------------------ */
         const blocks = page.querySelectorAll(".blog-article__block");
         blocks.forEach((block, index) => {
             gsap.fromTo(
