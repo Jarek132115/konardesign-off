@@ -1,0 +1,66 @@
+@import "./colours.css";
+
+/* --------------------------------------------------------- */
+/* BOOKING CTA (NO EMBED)                                    */
+/* --------------------------------------------------------- */
+
+.booking-cta {
+    margin: 0 auto;
+    padding: 96px 120px 120px;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+
+.booking-cta__inner {
+    max-width: 820px;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--black);
+}
+
+.booking-cta__eyebrow {
+    margin-bottom: 8px;
+}
+
+.booking-cta__title {
+    margin: 0 0 12px;
+    color: var(--black);
+}
+
+.booking-cta__title-highlight {
+    color: var(--deep-indigo);
+}
+
+.booking-cta__subtitle {
+    margin: 0 0 24px;
+    color: var(--cool-grey);
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.booking-cta__button {
+    margin-top: 4px;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .booking-cta {
+        padding: 120px 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .booking-cta {
+        padding: 100px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    .booking-cta {
+        padding: 60px 20px;
+    }
+}

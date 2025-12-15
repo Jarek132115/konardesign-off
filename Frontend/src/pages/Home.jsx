@@ -10,7 +10,7 @@ import OfferSection from "../components/OfferSection";
 import ProcessSection from "../components/ProcessSection";
 import ImagineSection from "../components/ImagineSection";
 import Footer from "../components/Footer";
-import BookingSection from "../components/BookingSection";
+import BookCTASection from "../components/BookCTASection";
 import BlogSection from "../components/BlogSection";
 import DifferenceSection from "../components/DifferenceSection";
 
@@ -456,8 +456,8 @@ const Home = () => {
             <ProcessSection />
             <DifferenceSection />
             {/* <ImagineSection /> */}
-            <BookingSection />
             <BlogSection />
+            <BookCTASection />
             <Footer />
         </div>
     );
