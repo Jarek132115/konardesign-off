@@ -17,8 +17,7 @@ const projects = [
         title: "KonarCard (E-Commerce)",
         year: "2025",
         headline: "Project details will be added soon.",
-        description:
-            "A full case study for this build is on the way. Check back soon for a deeper breakdown.",
+        description: "More info will be shown soon.",
         metrics: ["Case Study Coming Soon"],
         tags: ["More Info Soon"],
         media: konarVideo,
@@ -28,8 +27,7 @@ const projects = [
         title: "Custom Website",
         year: "Coming Soon",
         headline: "Project details will be added soon.",
-        description:
-            "We’ll share more about this custom website once the case study and results are ready.",
+        description: "More info will be shown soon.",
         metrics: ["Case Study Coming Soon"],
         tags: ["More Info Soon"],
         media: ecommerceVideo,
@@ -137,7 +135,7 @@ const ProjectsSection = () => {
                     delay: index * 0.05,
                     scrollTrigger: {
                         trigger: card,
-                        start: "top 80%",
+                        start: "top 85%",
                         toggleActions: "play none none none",
                     },
                 }
@@ -156,7 +154,7 @@ const ProjectsSection = () => {
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: ctaEl,
-                        start: "top 85%",
+                        start: "top 90%",
                         toggleActions: "play none none none",
                     },
                 }
@@ -173,7 +171,7 @@ const ProjectsSection = () => {
         if (projectId === "konarcard") {
             navigate("/projects/konarcard");
         } else {
-            navigate("/projects"); // generic for “Custom Website”
+            navigate("/projects");
         }
     };
 
@@ -196,7 +194,14 @@ const ProjectsSection = () => {
                         <article
                             key={project.id}
                             className="projects__card"
+                            role="button"
+                            tabIndex={0}
                             onClick={() => handleViewDetails(project.id)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    handleViewDetails(project.id);
+                                }
+                            }}
                         >
                             <header className="projects__card-header">
                                 <h3 className="heading3 projects__card-title">
@@ -227,21 +232,18 @@ const ProjectsSection = () => {
                                     </p>
 
                                     <div className="projects__card-meta">
-                                        {project.metrics &&
-                                            project.metrics.length > 0 && (
-                                                <div className="projects__card-metrics">
-                                                    {project.metrics.map(
-                                                        (metric) => (
-                                                            <span
-                                                                key={metric}
-                                                                className="body projects__pill projects__pill--metric"
-                                                            >
-                                                                {metric}
-                                                            </span>
-                                                        )
-                                                    )}
-                                                </div>
-                                            )}
+                                        {project.metrics?.length > 0 && (
+                                            <div className="projects__card-metrics">
+                                                {project.metrics.map((metric) => (
+                                                    <span
+                                                        key={metric}
+                                                        className="body projects__pill projects__pill--metric"
+                                                    >
+                                                        {metric}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        )}
 
                                         <div className="projects__card-tags">
                                             {project.tags.map((tag) => (
@@ -260,7 +262,6 @@ const ProjectsSection = () => {
                     ))}
                 </div>
 
-                {/* BOTTOM CTA STRIP */}
                 <div className="projects__cta">
                     <div className="projects__cta-inner">
                         <h3 className="heading2 projects__cta-title">
