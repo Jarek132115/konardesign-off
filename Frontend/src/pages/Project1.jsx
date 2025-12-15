@@ -7,7 +7,6 @@ import Footer from "../components/Footer";
 
 import "../styling/buttons.css";
 import "../styling/projectpage.css";
-import "../styling/projects.css";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
