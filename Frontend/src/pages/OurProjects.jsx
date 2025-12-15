@@ -6,7 +6,7 @@ import Footer from "../components/Footer";
 
 import "../styling/buttons.css";
 import "../styling/ourprojects.css";
-import "../styling/projects.css"; // reuse pill styles
+import "../styling/projectssection.css"; // reuse pill styles
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
