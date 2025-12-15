@@ -9,15 +9,12 @@ gsap.registerPlugin(ScrollTrigger);
 /**
  * SmoothScrollProvider
  *
- * Provides gentle, inertia-style smooth scroll that stays in sync
- * with GSAP + ScrollTrigger.
+ * Proper Lenis + GSAP ScrollTrigger integration using scrollerProxy.
+ * This reduces forced reflow / layout thrash and keeps ScrollTrigger accurate.
  */
 const SmoothScrollProvider = ({ children }) => {
     useEffect(() => {
-        // Lighter, more natural configuration
         const lenis = new Lenis({
-            // lerp controls how much of the distance is traveled per frame.
-            // 0.1 = smooth but still responsive, 0.0 = instant, 1.0 = very sluggish.
             lerp: 0.1,
             smoothWheel: true,
             smoothTouch: false,
@@ -25,25 +22,54 @@ const SmoothScrollProvider = ({ children }) => {
             gestureDirection: "vertical",
         });
 
-        // Keep ScrollTrigger in sync with Lenis
-        lenis.on("scroll", () => {
-            ScrollTrigger.update();
+        // Tell ScrollTrigger to use the document as the scroller, but proxy the scroll values via Lenis
+        ScrollTrigger.scrollerProxy(document.body, {
+            scrollTop(value) {
+                if (arguments.length) {
+                    // set scroll
+                    lenis.scrollTo(value, { immediate: true });
+                }
+                // get scroll
+                return lenis.scroll;
+            },
+            getBoundingClientRect() {
+                return {
+                    top: 0,
+                    left: 0,
+                    width: window.innerWidth,
+                    height: window.innerHeight,
+                };
+            },
+            // pinType helps avoid jitter on some setups
+            pinType: document.body.style.transform ? "transform" : "fixed",
         });
 
-        let animationFrameId;
-
-        const raf = (time) => {
-            lenis.raf(time);
-            animationFrameId = requestAnimationFrame(raf);
+        // Update ScrollTrigger only when Lenis updates (not constantly via separate loops)
+        const onLenisScroll = () => {
+            ScrollTrigger.update();
         };
 
-        animationFrameId = requestAnimationFrame(raf);
+        lenis.on("scroll", onLenisScroll);
 
+        let rafId;
+        const raf = (time) => {
+            lenis.raf(time);
+            rafId = requestAnimationFrame(raf);
+        };
+        rafId = requestAnimationFrame(raf);
+
+        // Refresh after everything is wired
+        ScrollTrigger.addEventListener("refresh", () => lenis.resize());
         ScrollTrigger.refresh();
 
         return () => {
-            cancelAnimationFrame(animationFrameId);
+            ScrollTrigger.removeEventListener("refresh", () => lenis.resize());
+            cancelAnimationFrame(rafId);
+            lenis.off("scroll", onLenisScroll);
             lenis.destroy();
+
+            // clean proxy so it doesn't leak between hot reloads
+            ScrollTrigger.scrollerProxy(document.body, null);
         };
     }, []);
 
