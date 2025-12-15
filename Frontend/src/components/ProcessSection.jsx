@@ -1,3 +1,4 @@
+// ProcessSection.jsx
 import React, { useEffect, useRef, useState } from "react";
 import "../styling/process.css";
 
@@ -114,6 +115,7 @@ const ProcessSection = () => {
 
     /* ---------------------------
        SCROLL + EYEBROW / LETTER ANIMATION
+       (NO HIGHLIGHT WORDS — ALL WHITE)
     ---------------------------- */
     useEffect(() => {
         const sectionEl = sectionRef.current;
@@ -151,15 +153,7 @@ const ProcessSection = () => {
             }
         });
 
-        const wordSpans = titleEl.querySelectorAll(".process__title-word");
-        const highlightWords = new Set(["Goals."]);
-        wordSpans.forEach((w) => {
-            const cleaned = w.textContent.replace(/[^\w.]/g, "");
-            if (highlightWords.has(cleaned)) {
-                w.classList.add("process__title-highlight");
-            }
-        });
-
+        // NO highlight logic — keep heading fully white
         const charSpans = titleEl.querySelectorAll(".process__title-word span");
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
@@ -174,50 +168,31 @@ const ProcessSection = () => {
             defaults: { ease: "power2.out" },
         });
 
-        tl
-            // Eyebrow first
-            .fromTo(
-                eyebrowEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.25,
-                }
-            )
-            // Then title letters
+        tl.fromTo(
+            eyebrowEl,
+            { opacity: 0, y: 8 },
+            { opacity: 1, y: 0, duration: 0.25 }
+        )
             .to(
                 charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
-                },
+                { opacity: 1, y: 0, stagger: 0.018, duration: 0.26 },
                 ">-0.05"
             )
-            // Then subheading
             .fromTo(
                 subtitleEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.08"
-            )
-            // Then pills row
-            .fromTo(
+            );
+
+        if (headerRow) {
+            tl.fromTo(
                 headerRow,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.06"
             );
+        }
 
         return () => {
             tl.kill();
@@ -235,12 +210,7 @@ const ProcessSection = () => {
         gsap.fromTo(
             cardRef.current,
             { opacity: 0, y: 16 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.35,
-                ease: "power2.out",
-            }
+            { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }
         );
     }, [activeIndex, isMobileStack]);
 
@@ -266,9 +236,7 @@ const ProcessSection = () => {
                                 <button
                                     key={step.id}
                                     type="button"
-                                    className={`process__step-pill body ${index === activeIndex
-                                            ? "process__step-pill--active"
-                                            : ""
+                                    className={`process__step-pill body ${index === activeIndex ? "process__step-pill--active" : ""
                                         }`}
                                     onClick={() => setActiveIndex(index)}
                                 >
@@ -288,12 +256,16 @@ const ProcessSection = () => {
                             </button>
 
                             <article
-                                className={`process__card process__card--bg${activeIndex + 1
-                                    }`}
+                                className={`process__card process__card--bg${activeIndex + 1}`}
                                 ref={cardRef}
                             >
                                 <div className="process__card-inner">
                                     <div className="process__card-left">
+                                        {/* desktop step number above heading */}
+                                        <div className="process__stack-number process__stack-number--desktop">
+                                            {activeIndex + 1}
+                                        </div>
+
                                         <h3 className="heading3 process__card-title">
                                             {activeStep.title}
                                         </h3>
@@ -305,13 +277,8 @@ const ProcessSection = () => {
                                     <div className="process__card-right">
                                         <ul className="process__list">
                                             {activeStep.bullets.map((item) => (
-                                                <li
-                                                    key={item}
-                                                    className="process__list-item body"
-                                                >
-                                                    <span className="process__list-icon">
-                                                        ●
-                                                    </span>
+                                                <li key={item} className="process__list-item body">
+                                                    <span className="process__list-icon">●</span>
                                                     <span>{item}</span>
                                                 </li>
                                             ))}
@@ -341,15 +308,11 @@ const ProcessSection = () => {
                                 className={`process__card process__card--stack process__card--bg${index + 1
                                     }`}
                             >
-                                <div className="process__stack-number">
-                                    {index + 1}
-                                </div>
+                                <div className="process__stack-number">{index + 1}</div>
 
                                 <div className="process__card-inner process__card-inner--stack">
                                     <div className="process__card-left">
-                                        <h3 className="heading3 process__card-title">
-                                            {step.title}
-                                        </h3>
+                                        <h3 className="heading3 process__card-title">{step.title}</h3>
                                         <p className="body process__card-description">
                                             {step.description}
                                         </p>
@@ -358,13 +321,8 @@ const ProcessSection = () => {
                                     <div className="process__card-right">
                                         <ul className="process__list">
                                             {step.bullets.map((item) => (
-                                                <li
-                                                    key={item}
-                                                    className="process__list-item body"
-                                                >
-                                                    <span className="process__list-icon">
-                                                        ●
-                                                    </span>
+                                                <li key={item} className="process__list-item body">
+                                                    <span className="process__list-icon">●</span>
                                                     <span>{item}</span>
                                                 </li>
                                             ))}

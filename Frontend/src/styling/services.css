@@ -9,85 +9,51 @@
     margin: 0 auto;
     padding: 120px 120px;
     box-sizing: border-box;
-    background-color: var(--white);
 }
-
-.services__inner {
-    max-width: 2000px;
-    margin: 0 auto;
-}
-
-/* HEADER */
 
 .services__header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 72px;
 }
 
-.services__title {
-    margin: 0 0 12px;
-}
-
-.services__title-word {
-    white-space: nowrap;
-}
-
-.services__title-highlight {
+.services__highlight {
     color: var(--deep-indigo);
 }
 
-.services__subtitle {
-    max-width: 720px;
-    margin: 0 auto;
-}
+/* --------------------------------------------------------- */
+/* GRID (SIDE BY SIDE)                                       */
+/* --------------------------------------------------------- */
 
-/* GRID */
-
-.services__grid {
+.services__stack {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
+    gap: 40px;
 }
 
-/* CARD */
+/* --------------------------------------------------------- */
+/* SERVICE CARD                                              */
+/* --------------------------------------------------------- */
 
-.services__card {
-    position: relative;
-    border-radius: 12px;
-    border: 1px solid var(--light-grey);
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-    padding: 24px;
+.services-card {
     display: flex;
     flex-direction: column;
-
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
-        url("../assets/images/Background3.jpg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
 }
 
-/* second card background */
-.services__card:nth-child(2) {
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 1)),
-        url("../assets/images/Background2.jpg");
-}
+/* --------------------------------------------------------- */
+/* MEDIA (VIDEO TOP)                                         */
+/* --------------------------------------------------------- */
 
-/* MEDIA AREA */
-
-.services__media-inner {
+.services-card__media {
     position: relative;
     width: 100%;
-    padding-top: 68.75%;
-    border-radius: 12px;
+    aspect-ratio: 4 / 1.5;
     overflow: hidden;
+    border-radius: 24px 24px 0 0;
     background: #000;
-    margin-bottom: 20px;
+    z-index: 0;
 }
 
-.services__video {
+.services-card__media video {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -96,137 +62,98 @@
 }
 
 /* --------------------------------------------------------- */
-/* CARD CONTENT                                              */
+/* CONTENT (WHITE CARD)                                      */
 /* --------------------------------------------------------- */
 
-.services__card-content {
+.services-card__content {
+    position: relative;
+    z-index: 2;
+    margin-top: -28px;
+
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 32px 32px 36px;
+
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+
     display: flex;
     flex-direction: column;
-    height: 100%;
-    padding: 12px 24px 24px;
-    /* desktop/tablet 2-column inner spacing */
 }
 
-.services__card-title {
+.services-card__title {
     margin: 0 0 8px;
 }
 
-.services__card-description {
+.services-card__desc {
     margin: 0 0 20px;
     color: var(--cool-grey);
 }
 
-/* GROUPS (Includes / Pricing) */
+/* --------------------------------------------------------- */
+/* PILLS                                                     */
+/* --------------------------------------------------------- */
 
-.services__group {
-    margin-bottom: 16px;
-}
-
-.services__label {
-    margin: 0 0 8px;
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--black);
-}
-
-/* PILLS */
-
-.services__pills {
+.services-card__pills {
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
+    margin-bottom: 28px;
 }
 
-.services__pill {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 14px;
+.services-pill {
+    padding: 6px 12px;
     border-radius: 999px;
-    background: var(--white);
-    border: 1px solid var(--light-grey);
-    color: var(--cool-grey);
-    font-size: 13px;
-    line-height: 1.4;
+    font-size: 12px;
     font-weight: 500;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: #334155;
     white-space: nowrap;
 }
 
+.services-pill--price {
+    background: rgba(79, 70, 229, 0.08);
+    border-color: rgba(79, 70, 229, 0.25);
+    color: var(--deep-indigo);
+}
+
 /* --------------------------------------------------------- */
-/* TEXT-ONLY LINK BUTTON (PROJECT STYLE)                     */
+/* BUTTON (FIT CONTENT)                                      */
 /* --------------------------------------------------------- */
 
-.services__card-button {
-    margin-top: 64px;
-    /* bigger gap on desktop */
+.services-card__button {
+    width: fit-content;
+    /* ✅ content width only */
     align-self: flex-start;
-    background: none;
-    border: none;
-    padding: 0;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--black);
-    text-decoration: none;
-}
-
-.services__card-button::after {
-    content: "→";
-    display: inline-block;
-    transition: transform 0.18s ease-out;
-}
-
-.services__card-button:hover::after {
-    transform: translateX(4px);
-}
-
-.services__card-button:focus-visible {
-    outline: none;
-    text-decoration: underline;
+    /* ✅ centered (change to flex-start if needed) */
+    justify-content: center;
+    margin-top: auto;
+    padding-left: 28px;
+    padding-right: 28px;
 }
 
 /* --------------------------------------------------------- */
 /* RESPONSIVE                                                */
 /* --------------------------------------------------------- */
 
-@media (max-width: 1400px) {
-    .services {
-        padding: 120px 40px;
-    }
-}
-
 @media (max-width: 1024px) {
     .services {
         padding: 100px 40px;
     }
 
-    /* Header stays centered on tablet/mobile, so no override here */
-
-    .services__grid {
+    .services__stack {
         grid-template-columns: 1fr;
-    }
-
-    /* stacked layout: remove inner content padding like projects */
-    .services__card-content {
-        padding: 0;
-    }
-
-    /* smaller gap above link on stacked layout */
-    .services__card-button {
-        margin-top: 24px;
+        gap: 48px;
     }
 }
 
 @media (max-width: 768px) {
     .services {
         padding: 60px 20px;
+    }
+
+    .services-card__content {
+        padding: 24px 20px 28px;
     }
 }

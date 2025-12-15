@@ -19,28 +19,32 @@ const BlogSection = () => {
         {
             id: 1,
             category: "Web Design",
-            title:
-                "Why Most Websites Look Good But Don’t Convert (And How To Fix It)",
+            title: "Why Most Websites Look Good But Don’t Convert (And How To Fix It)",
+            description:
+                "The design mistakes that quietly kill conversions — and how to turn your site into a performance asset instead of a pretty brochure.",
             readTime: "1 Min Read",
             img: blogImg1,
-            link: "/blog/growth-insights", // BlogPage1
+            link: "/blog/growth-insights",
         },
         {
             id: 2,
             category: "Performance",
             title: "The 5 Metrics That Actually Matter For Website ROI",
+            description:
+                "Forget vanity metrics. Here are the numbers that actually tell you if your website is pulling its weight for the business.",
             readTime: "1 Min Read",
             img: blogImg2,
-            link: "/blog/conversion-playbooks", // BlogPage2
+            link: "/blog/conversion-playbooks",
         },
         {
             id: 3,
             category: "SEO",
-            title:
-                "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
+            title: "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
+            description:
+                "A simple breakdown of where to focus first if you want organic traffic that turns into pipeline — not just impressions.",
             readTime: "1 Min Read",
             img: blogImg3,
-            link: "/blog/technical-foundations", // BlogPage3
+            link: "/blog/technical-foundations",
         },
     ];
 
@@ -93,9 +97,7 @@ const BlogSection = () => {
             }
         });
 
-        const charSpans = titleEl.querySelectorAll(
-            ".blogsection__title-word span"
-        );
+        const charSpans = titleEl.querySelectorAll(".blogsection__title-word span");
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
 
@@ -111,30 +113,17 @@ const BlogSection = () => {
         tl.fromTo(
             eyebrowEl,
             { opacity: 0, y: 8 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.25,
-            }
+            { opacity: 1, y: 0, duration: 0.25 }
         )
             .to(
                 charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
-                },
+                { opacity: 1, y: 0, stagger: 0.018, duration: 0.26 },
                 ">-0.05"
             )
             .fromTo(
                 subtitleEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.08"
             );
 
@@ -173,8 +162,8 @@ const BlogSection = () => {
                         Growth-Driven Insights For Modern Brands
                     </h2>
                     <p className="subheading blogsection__subtitle">
-                        High-impact articles on UX, design, performance, and
-                        digital growth—written for brands ready to scale.
+                        High-impact articles on UX, design, performance, and digital
+                        growth—written for brands ready to scale.
                     </p>
                 </header>
 
@@ -185,24 +174,35 @@ const BlogSection = () => {
                             className="blogsection__card"
                             onClick={() => navigate(article.link)}
                         >
-                            <img
-                                src={article.img}
-                                alt={article.title}
-                                className="blogsection__card-img"
-                            />
+                            <div className="blogsection__media">
+                                <img
+                                    src={article.img}
+                                    alt={article.title}
+                                    className="blogsection__card-img"
+                                />
+                                <span className="blogsection__pill">{article.category}</span>
+                            </div>
 
                             <div className="blogsection__card-content">
-                                <span className="blogsection__category">
-                                    {article.category}
-                                </span>
                                 <h3 className="heading3 blogsection__card-title">
                                     {article.title}
                                 </h3>
 
-                                <div className="blogsection__meta">
-                                    <span className="body blogsection__readtime">
-                                        {article.readTime}
-                                    </span>
+                                <p className="body blogsection__card-description">
+                                    {article.description}
+                                </p>
+
+                                <div className="blogsection__footer">
+                                    <div className="blogsection__meta">
+                                        <span className="blogsection__time-dot" />
+                                        <span className="body blogsection__readtime">
+                                            {article.readTime}
+                                        </span>
+                                    </div>
+
+                                    <button type="button" className="blogsection__link-button">
+                                        Read Article
+                                    </button>
                                 </div>
                             </div>
                         </article>

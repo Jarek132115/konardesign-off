@@ -24,7 +24,7 @@ const posts = [
             "The design mistakes that quietly kill conversions — and how to turn your site into a performance asset instead of a pretty brochure.",
         readTime: "1 Min Read",
         image: cardImage1,
-        link: "/blog/growth-insights", // BlogPage1
+        link: "/blog/growth-insights",
     },
     {
         id: "metrics-that-matter",
@@ -34,18 +34,17 @@ const posts = [
             "Forget vanity metrics. Here are the numbers that actually tell you if your website is pulling its weight for the business.",
         readTime: "1 Min Read",
         image: cardImage2,
-        link: "/blog/conversion-playbooks", // BlogPage2
+        link: "/blog/conversion-playbooks",
     },
     {
         id: "technical-vs-onpage-seo",
         category: "SEO",
-        title:
-            "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
+        title: "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
         description:
             "A simple breakdown of where to focus first if you want organic traffic that turns into pipeline — not just impressions.",
         readTime: "1 Min Read",
         image: cardImage3,
-        link: "/blog/technical-foundations", // BlogPage3
+        link: "/blog/technical-foundations",
     },
 ];
 
@@ -166,7 +165,6 @@ const Blog = () => {
             <Navbar />
 
             <main className="blog-page__main" ref={pageRef}>
-                {/* HERO SECTION */}
                 <section className="blog-hero">
                     <div className="blog-hero__inner">
                         <header className="blog-hero__header">
@@ -175,14 +173,12 @@ const Blog = () => {
                                 Growth-Driven Insights For Modern Brands
                             </h1>
                             <p className="subheading blog__subtitle">
-                                High-impact articles on UX, design, performance,
-                                and digital growth — written for brands ready to
-                                scale.
+                                High-impact articles on UX, design, performance, and digital
+                                growth — written for brands ready to scale.
                             </p>
                         </header>
                     </div>
 
-                    {/* POSTS GRID */}
                     <div className="blog__grid">
                         {posts.map((post) => (
                             <article
@@ -196,15 +192,11 @@ const Blog = () => {
                                         alt={post.title}
                                         className="blog-card__image"
                                     />
-                                    <span className="blog-card__pill">
-                                        {post.category}
-                                    </span>
+                                    <span className="blog-card__pill">{post.category}</span>
                                 </div>
 
                                 <div className="blog-card__body">
-                                    <h3 className="heading3 blog-card__title">
-                                        {post.title}
-                                    </h3>
+                                    <h3 className="heading3 blog-card__title">{post.title}</h3>
 
                                     <p className="body blog-card__description">
                                         {post.description}
@@ -213,14 +205,10 @@ const Blog = () => {
                                     <div className="blog-card__footer">
                                         <div className="blog-card__meta-bottom">
                                             <span className="blog-card__time-dot" />
-                                            <span className="body blog-card__time">
-                                                {post.readTime}
-                                            </span>
+                                            <span className="body blog-card__time">{post.readTime}</span>
                                         </div>
-                                        <button
-                                            type="button"
-                                            className="blog-card__link-button"
-                                        >
+
+                                        <button type="button" className="blog-card__link-button">
                                             Read Article
                                         </button>
                                     </div>

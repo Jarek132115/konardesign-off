@@ -1,3 +1,4 @@
+/* process.css */
 @import "./colours.css";
 
 /* --------------------------------------------------------- */
@@ -16,7 +17,9 @@
     margin: 0 auto;
 }
 
-/* HEADER */
+/* --------------------------------------------------------- */
+/* HEADER (FORCE WHITE HEADING — NO INDIGO)                  */
+/* --------------------------------------------------------- */
 
 .process__header {
     text-align: center;
@@ -27,12 +30,27 @@
     margin: 0 0 12px;
 }
 
+/* if you still use the letter-wrap animation */
 .process__title-word {
     white-space: nowrap;
 }
 
+/* safety: never show indigo highlight */
 .process__title-highlight {
-    color: var(--deep-indigo);
+    color: #fff;
+}
+
+/* ensure header text stays white (matches indigo panel) */
+.process .heading2 {
+    color: #fff;
+}
+
+.process .subheading {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.process .eyebrow {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .process__subtitle {
@@ -105,32 +123,27 @@
 /* BACKGROUND VARIANTS */
 
 .process__card--bg1 {
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
         url("../assets/images/Background1.jpg");
 }
 
 .process__card--bg2 {
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
         url("../assets/images/Background2.jpg");
 }
 
 .process__card--bg3 {
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
         url("../assets/images/Background3.jpg");
 }
 
 .process__card--bg4 {
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
         url("../assets/images/Background4.jpg");
 }
 
 .process__card--bg5 {
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
         url("../assets/images/Background5.jpg");
 }
 
@@ -152,6 +165,34 @@
 .process__card-description {
     margin: 0;
     color: var(--cool-grey);
+}
+
+/* --------------------------------------------------------- */
+/* STEP NUMBER (DESKTOP + MOBILE)                            */
+/* --------------------------------------------------------- */
+
+.process__stack-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+    margin-bottom: 14px;
+
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.1);
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.15);
+
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--black);
+}
+
+.process__stack-number--desktop {
+    margin-bottom: 18px;
 }
 
 /* --------------------------------------------------------- */
@@ -180,8 +221,7 @@
 /* text exactly like .subheading but black */
 .process__list-item,
 .process__list-item span:not(.process__list-icon) {
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     font-size: clamp(14px, 1vw + 0.3rem, 16px);
     line-height: 1.6;
     font-weight: 400;
@@ -246,27 +286,6 @@
 
 .process__card-inner--stack {
     column-gap: 32px;
-}
-
-.process__stack-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 44px;
-    height: 44px;
-    margin-bottom: 14px;
-
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid var(--light-grey);
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.25);
-
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--black);
 }
 
 /* --------------------------------------------------------- */

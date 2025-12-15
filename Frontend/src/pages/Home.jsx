@@ -455,7 +455,7 @@ const Home = () => {
             <OfferSection />
             <ProcessSection />
             <DifferenceSection />
-            <ImagineSection />
+            {/* <ImagineSection /> */}
             <BookingSection />
             <BlogSection />
             <Footer />
