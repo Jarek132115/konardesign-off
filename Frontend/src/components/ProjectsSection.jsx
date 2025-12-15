@@ -2,7 +2,7 @@ import React, { useLayoutEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "../styling/projects.css";
+import "../styling/projectssection.css";
 
 import konarVideo from "../assets/videos/KonarCard1.mp4";
 
@@ -25,6 +25,9 @@ const ProjectsSection = () => {
     const sectionRef = useRef(null);
     const navigate = useNavigate();
 
+    /* ------------------------------
+       SCROLL ANIMATIONS
+    ------------------------------- */
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
             const rows = sectionRef.current?.querySelectorAll(".projects-row");
@@ -50,9 +53,12 @@ const ProjectsSection = () => {
         return () => ctx.revert();
     }, []);
 
-    // Plays/pauses the video only when user clicks
+    /* ------------------------------
+       VIDEO TOGGLE (CLICK)
+    ------------------------------- */
     const toggleVideo = useCallback((videoEl) => {
         if (!videoEl) return;
+
         if (videoEl.paused) {
             videoEl.play().catch(() => { });
         } else {
@@ -64,10 +70,13 @@ const ProjectsSection = () => {
         <section className="projects" ref={sectionRef}>
             <header className="projects__header">
                 <p className="eyebrow">OUR WORK</p>
+
                 <h2 className="heading2">
-                    Selected <span className="projects__highlight">Projects</span> & Case
+                    Selected{" "}
+                    <span className="projects__highlight">Projects</span> & Case
                     Studies
                 </h2>
+
                 <p className="subheading projects__subtitle">
                     A curated look at recent work — full case studies coming soon.
                 </p>
@@ -78,26 +87,29 @@ const ProjectsSection = () => {
                     <article
                         key={project.id}
                         className="projects-row"
+                        role="button"
+                        tabIndex={0}
                         onClick={() => navigate(project.route)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter" || e.key === " ") {
                                 navigate(project.route);
                             }
                         }}
-                        role="button"
-                        tabIndex={0}
                     >
+                        {/* VIDEO */}
                         <video
                             className="projects-row__media"
                             src={project.media}
+                            autoPlay
                             muted
                             loop
                             playsInline
-                            preload="metadata"
-                            // IMPORTANT: removing autoPlay improves Lighthouse performance a lot
-                            // autoPlay
+                            preload="auto"
+                            onCanPlay={(e) => {
+                                // Safari/iOS autoplay nudge
+                                e.currentTarget.play().catch(() => { });
+                            }}
                             onClick={(e) => {
-                                // prevent card navigation when user interacts with video
                                 e.stopPropagation();
                                 toggleVideo(e.currentTarget);
                             }}
@@ -106,15 +118,24 @@ const ProjectsSection = () => {
                         <div className="projects-row__overlay" />
 
                         <div className="projects-row__content">
-                            <span className="projects-row__year">{project.year}</span>
+                            <span className="projects-row__year">
+                                {project.year}
+                            </span>
 
-                            <h3 className="projects-row__title">{project.title}</h3>
+                            <h3 className="projects-row__title">
+                                {project.title}
+                            </h3>
 
-                            <p className="projects-row__description">{project.description}</p>
+                            <p className="projects-row__description">
+                                {project.description}
+                            </p>
 
                             <div className="projects-row__tags">
                                 {project.tags.map((tag) => (
-                                    <span key={tag} className="projects-row__pill">
+                                    <span
+                                        key={tag}
+                                        className="projects-row__pill"
+                                    >
                                         {tag}
                                     </span>
                                 ))}
