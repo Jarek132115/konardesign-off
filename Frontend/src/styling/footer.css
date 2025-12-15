@@ -224,3 +224,11 @@
         align-items: flex-start;
     }
 }
+
+.footer__heading {
+    margin: 0 0 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--deep-indigo);
+    line-height: 1.2;
+}

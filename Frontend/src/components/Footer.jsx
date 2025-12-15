@@ -10,19 +10,19 @@ import googleIcon from "../assets/icons/google.svg";
 
 const Footer = () => {
     return (
-        <footer className="footer">
+        <footer className="footer" aria-label="Site footer">
             <div className="footer__inner">
                 {/* LEFT COLUMN */}
                 <div className="footer__col footer__col--brand">
                     <div className="footer__logo">KonarDesign</div>
 
                     <p className="footer__tagline subheading">
-                        Websites Engineered For Clarity, Conversion, And Long-Term
-                        Growth—Built With Custom Design, Performance-Focused
-                        Development, And Data-Driven Strategy.
+                        Websites Engineered For Clarity, Conversion, And Long-Term Growth—Built
+                        With Custom Design, Performance-Focused Development, And Data-Driven
+                        Strategy.
                     </p>
 
-                    <div className="footer__tools">
+                    <div className="footer__tools" aria-label="Tools used">
                         <span className="footer__tool">
                             <img src={figmaIcon} alt="Figma" />
                         </span>
@@ -43,7 +43,7 @@ const Footer = () => {
 
                 {/* QUICK LINKS */}
                 <div className="footer__col">
-                    <h4 className="footer__heading">Quick Links</h4>
+                    <h2 className="footer__heading">Quick Links</h2>
                     <ul className="footer__list">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#portfolio">Portfolio</a></li>
@@ -56,7 +56,7 @@ const Footer = () => {
 
                 {/* SERVICES */}
                 <div className="footer__col">
-                    <h4 className="footer__heading">Services</h4>
+                    <h2 className="footer__heading">Services</h2>
                     <ul className="footer__list">
                         <li><a href="#services-custom">Custom Websites</a></li>
                         <li><a href="#services-ecommerce">E-Commerce Websites</a></li>
@@ -66,18 +66,52 @@ const Footer = () => {
 
                 {/* CONTACT */}
                 <div className="footer__col">
-                    <h4 className="footer__heading">Get in Touch</h4>
+                    <h2 className="footer__heading">Get in Touch</h2>
                     <ul className="footer__list">
-                        <li><a href="mailto:hello@konardesign.com">hello@konardesign.com</a></li>
-                        <li><a href="#book-call">Book a Call</a></li>
-                        <li><a href="https://linkedin.com" target="_blank">LinkedIn</a></li>
-                        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
-                        <li><a href="https://dribbble.com" target="_blank">Dribbble</a></li>
-                        <li><a href="https://github.com" target="_blank">GitHub</a></li>
+                        <li>
+                            <a href="mailto:hello@konardesign.com">hello@konardesign.com</a>
+                        </li>
+                        <li><a href="/book-a-call">Book a Call</a></li>
+                        <li>
+                            <a
+                                href="https://linkedin.com"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                            >
+                                LinkedIn
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://instagram.com"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                            >
+                                Instagram
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://dribbble.com"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                            >
+                                Dribbble
+                            </a>
+                        </li>
+                        <li>
+                            <a
+                                href="https://github.com"
+                                target="_blank"
+                                rel="noreferrer noopener"
+                            >
+                                GitHub
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
-                <div className="footer__divider"></div>
+                <div className="footer__divider" />
 
                 {/* BOTTOM ROW */}
                 <div className="footer__bottom">
