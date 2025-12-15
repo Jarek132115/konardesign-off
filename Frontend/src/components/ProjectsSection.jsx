@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -25,29 +25,39 @@ const ProjectsSection = () => {
     const sectionRef = useRef(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const rows = sectionRef.current?.querySelectorAll(".projects-row");
+    useLayoutEffect(() => {
+        const ctx = gsap.context(() => {
+            const rows = sectionRef.current?.querySelectorAll(".projects-row");
 
-        rows?.forEach((row) => {
-            gsap.fromTo(
-                row,
-                { opacity: 0, y: 32 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.6,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: row,
-                        start: "top 85%",
-                    },
-                }
-            );
-        });
+            rows?.forEach((row) => {
+                gsap.fromTo(
+                    row,
+                    { opacity: 0, y: 32 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.6,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: row,
+                            start: "top 85%",
+                        },
+                    }
+                );
+            });
+        }, sectionRef);
 
-        return () => {
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
+        return () => ctx.revert();
+    }, []);
+
+    // Plays/pauses the video only when user clicks
+    const toggleVideo = useCallback((videoEl) => {
+        if (!videoEl) return;
+        if (videoEl.paused) {
+            videoEl.play().catch(() => { });
+        } else {
+            videoEl.pause();
+        }
     }, []);
 
     return (
@@ -55,8 +65,7 @@ const ProjectsSection = () => {
             <header className="projects__header">
                 <p className="eyebrow">OUR WORK</p>
                 <h2 className="heading2">
-                    Selected{" "}
-                    <span className="projects__highlight">Projects</span> & Case
+                    Selected <span className="projects__highlight">Projects</span> & Case
                     Studies
                 </h2>
                 <p className="subheading projects__subtitle">
@@ -81,33 +90,31 @@ const ProjectsSection = () => {
                         <video
                             className="projects-row__media"
                             src={project.media}
-                            autoPlay
                             muted
                             loop
                             playsInline
+                            preload="metadata"
+                            // IMPORTANT: removing autoPlay improves Lighthouse performance a lot
+                            // autoPlay
+                            onClick={(e) => {
+                                // prevent card navigation when user interacts with video
+                                e.stopPropagation();
+                                toggleVideo(e.currentTarget);
+                            }}
                         />
 
                         <div className="projects-row__overlay" />
 
                         <div className="projects-row__content">
-                            <span className="projects-row__year">
-                                {project.year}
-                            </span>
+                            <span className="projects-row__year">{project.year}</span>
 
-                            <h3 className="projects-row__title">
-                                {project.title}
-                            </h3>
+                            <h3 className="projects-row__title">{project.title}</h3>
 
-                            <p className="projects-row__description">
-                                {project.description}
-                            </p>
+                            <p className="projects-row__description">{project.description}</p>
 
                             <div className="projects-row__tags">
                                 {project.tags.map((tag) => (
-                                    <span
-                                        key={tag}
-                                        className="projects-row__pill"
-                                    >
+                                    <span key={tag} className="projects-row__pill">
                                         {tag}
                                     </span>
                                 ))}

@@ -1,26 +1,22 @@
 /* src/styling/fonts.css */
 
-/* Import Cal Sans */
-@import url('https://fonts.googleapis.com/css2?family=Cal+Sans:wght@400;500;600;700&display=swap');
-@import './colours.css';
+@import "./colours.css";
 
 /* ====================================================== */
 /* GLOBAL FONT FAMILY                                     */
 /* ====================================================== */
 
 * {
-    font-family: 'Cal Sans', sans-serif;
+    font-family: "Cal Sans", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
 }
 
 /* ====================================================== */
 /* ROOT: FLUID TYPOGRAPHY SCALE                           */
 /* ====================================================== */
 
-/* Base driver for subheadings + eyebrow */
 :root {
-    /* Subheading / eyebrow size: slightly larger than body on all screens */
     --subheading-size: clamp(14px, 1vw + 0.25rem, 17px);
-    /* Body size token */
     --body-size: clamp(13px, 0.8vw + 0.25rem, 15px);
 }
 
@@ -41,7 +37,6 @@
 /* ====================================================== */
 
 .heading2 {
-    /* Clearly larger than subheading at all sizes */
     font-size: clamp(26px, 2.2vw + 0.6rem, 40px);
     font-weight: 400;
     letter-spacing: -0.015em;
@@ -54,7 +49,6 @@
 /* ====================================================== */
 
 .heading3 {
-    /* Between H2 and subheading */
     font-size: clamp(18px, 1.4vw + 0.45rem, 24px);
     font-weight: 400;
     letter-spacing: -0.01em;
@@ -67,8 +61,8 @@
 /* ====================================================== */
 
 .subheading {
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
     font-size: var(--subheading-size);
     line-height: 1.6;
     font-weight: 400;
@@ -80,8 +74,8 @@
 /* ====================================================== */
 
 .body {
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
     font-size: var(--body-size);
     line-height: 1.5;
     font-weight: 400;
@@ -94,9 +88,8 @@
 
 .eyebrow {
     margin: 0 0 8px;
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    /* Same size as subheading, but styled differently */
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
     font-size: var(--subheading-size);
     letter-spacing: 0.12em;
     text-transform: uppercase;
