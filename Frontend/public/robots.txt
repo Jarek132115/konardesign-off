@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Optional: add sitemap later when ready
+# Sitemap: https://www.konardesign.com/sitemap.xml
