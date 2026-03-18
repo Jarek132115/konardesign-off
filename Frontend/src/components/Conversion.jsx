@@ -1,4 +1,3 @@
-// src/components/Conversion.jsx
 import React, { useEffect, useRef } from "react";
 import "../styling/conversion.css";
 
@@ -15,37 +14,37 @@ gsap.registerPlugin(ScrollTrigger);
 
 const conversionItems = [
     {
-        title: "Audience-Tailored Design",
+        title: "Audience-Led Website Strategy",
         description:
-            "Designed for your customers, not just your brand. Every decision is informed by audience behaviour, intent, and positioning, ensuring your website speaks directly to the people most likely to buy.",
+            "Every website starts with who it needs to reach. Structure, messaging, and page flow are shaped around the people most likely to trust, enquire, and convert.",
         icon: audienceIcon,
         alt: "Audience icon",
     },
     {
-        title: "Data-Driven Conversion Strategy",
+        title: "Conversion-Focused Decisions",
         description:
-            "We design using analytics, not assumptions. From heatmaps to event tracking, every layout is tested, measured, and iterated for performance, not just aesthetics.",
+            "Layouts are designed to guide attention, reduce hesitation, and make next steps feel obvious. The goal is not just a nicer website—it is a more effective one.",
         icon: dataIcon,
         alt: "Data icon",
     },
     {
-        title: "Built For Speed, SEO, & Visibility",
+        title: "Built for Speed, SEO & Visibility",
         description:
-            "Performance-first builds that rank and convert. Lightweight code, Web Vitals optimization, accessibility, schema, and technical SEO, baked in from day one.",
+            "Fast-loading pages, strong technical foundations, and SEO-aware structure help your website perform properly after launch—not just look polished on the surface.",
         icon: speedIcon,
         alt: "Speed icon",
     },
     {
         title: "UX That Reduces Friction",
         description:
-            "Every layout and interaction designed around user psychology. We map real user flows and remove friction to guide visitors from interest → action.",
+            "Clear hierarchy, smoother interactions, and simpler journeys help users move from interest to action without confusion, clutter, or unnecessary drop-off.",
         icon: uxIcon,
         alt: "UX icon",
     },
     {
-        title: "Responsive By Design",
+        title: "Responsive by Default",
         description:
-            "Consistent experience, wherever your users land. Optimized layouts for mobile, desktop, tablet, and large screens with adaptive components, not breakpoints.",
+            "The experience is designed to hold up across desktop, laptop, tablet, and mobile—so the website feels consistent, credible, and usable on every screen.",
         icon: responsiveIcon,
         alt: "Responsive icon",
     },
@@ -65,7 +64,6 @@ const Conversion = () => {
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        // Split title into word wrappers + chars
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -92,9 +90,8 @@ const Conversion = () => {
             }
         });
 
-        // Highlight "Conversion" and "Engineered"
         const wordSpans = titleEl.querySelectorAll(".conversion__title-word");
-        const highlightSet = new Set(["Conversion", "Engineered"]);
+        const highlightSet = new Set(["Conversion", "Performance"]);
 
         wordSpans.forEach((wordSpan) => {
             const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
@@ -105,7 +102,6 @@ const Conversion = () => {
 
         const charSpans = titleEl.querySelectorAll(".conversion__title-word span");
 
-        // Eyebrow + letters + subheading (fast, like Intro)
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
 
         const tl = gsap.timeline({
@@ -147,7 +143,6 @@ const Conversion = () => {
                 ">-0.08"
             );
 
-        // Cards fade-in
         cards.forEach((card, index) => {
             gsap.fromTo(
                 card,
@@ -177,14 +172,17 @@ const Conversion = () => {
         <section className="conversion" ref={sectionRef}>
             <div className="conversion__inner">
                 <header className="conversion__header">
-                    <p className="eyebrow conversion__eyebrow">CONVERSION FOCUSED</p>
+                    <p className="eyebrow conversion__eyebrow">
+                        CONVERSION FOCUSED
+                    </p>
+
                     <h2 className="heading2 conversion__title">
-                        Conversion Isn’t An Accident. It’s Engineered.
+                        Conversion and Performance Built In From the Start.
                     </h2>
 
                     <p className="subheading conversion__subtitle">
-                        We Combine UX, Data, And Performance To Turn Visitors Into
-                        Customers.
+                        Strategy, UX, structure, and technical execution all work
+                        together to help your website do more than just look good.
                     </p>
                 </header>
 
@@ -192,7 +190,8 @@ const Conversion = () => {
                     {conversionItems.map((item, index) => (
                         <article
                             key={item.title}
-                            className={`conversion__card conversion__card--bg${index + 1}`}
+                            className={`conversion__card conversion__card--bg${index + 1
+                                }`}
                         >
                             <div className="conversion__icon" aria-hidden="true">
                                 <img src={item.icon} alt={item.alt} />

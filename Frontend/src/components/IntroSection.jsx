@@ -13,6 +13,7 @@ import framerIcon from "../assets/icons/framer-icon.svg";
 import webflowIcon from "../assets/icons/webflow-icon.svg";
 
 import googleIcon from "../assets/icons/google-icon.svg";
+import googleAnalyticsIcon from "../assets/icons/google-analytics-icon.svg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -57,11 +58,7 @@ const IntroSection = () => {
         });
 
         const wordSpans = headline.querySelectorAll(".intro__headline-word");
-        const highlightSet = new Set([
-            "Strategy",
-            "Design",
-            "Performance",
-        ]);
+        const highlightSet = new Set(["Strategy", "Design", "Performance"]);
 
         wordSpans.forEach((wordSpan) => {
             const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
@@ -217,6 +214,12 @@ const IntroSection = () => {
                         <div className="intro__icons-row">
                             <span className="intro__icon">
                                 <img src={googleIcon} alt="Google" />
+                            </span>
+                            <span className="intro__icon">
+                                <img
+                                    src={googleAnalyticsIcon}
+                                    alt="Google Analytics"
+                                />
                             </span>
                         </div>
                     </div>
