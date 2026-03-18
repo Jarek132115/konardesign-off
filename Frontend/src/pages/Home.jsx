@@ -44,7 +44,6 @@ const images = [
 ];
 
 const Home = () => {
-    // duplicate sequence once for seamless loop
     const loopImages = [...images, ...images];
 
     const heroRef = useRef(null);
@@ -85,7 +84,7 @@ const Home = () => {
             wordWrapper.classList.add("hero__title-word");
             wordWrapper.style.display = "inline-block";
 
-            // Make only the word "Websites" indigo in the hero title
+            // Make only the word "websites" indigo in the hero title
             if (word.toLowerCase() === "websites") {
                 wordWrapper.classList.add("hero__title-word--indigo");
             }
@@ -108,7 +107,6 @@ const Home = () => {
 
         const charSpans = titleEl.querySelectorAll(".hero__title-word span");
 
-        // initial states
         gsap.set(subheadingEl, { opacity: 0, y: 8 });
         gsap.set(buttonsEl, { opacity: 0, y: 8 });
         gsap.set(carouselEl, { opacity: 0, y: 16 });
@@ -116,7 +114,6 @@ const Home = () => {
         const introTl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
         introTl
-            // 1) pill first
             .fromTo(
                 pillEl,
                 { opacity: 0, y: 8 },
@@ -126,7 +123,6 @@ const Home = () => {
                     duration: 0.25,
                 }
             )
-            // 2) letters
             .to(
                 charSpans,
                 {
@@ -137,7 +133,6 @@ const Home = () => {
                 },
                 ">-0.05"
             )
-            // 3) subheading
             .fromTo(
                 subheadingEl,
                 { opacity: 0, y: 8 },
@@ -148,7 +143,6 @@ const Home = () => {
                 },
                 ">-0.08"
             )
-            // 4) buttons
             .fromTo(
                 buttonsEl,
                 { opacity: 0, y: 8 },
@@ -159,7 +153,6 @@ const Home = () => {
                 },
                 ">-0.06"
             )
-            // 5) carousel
             .fromTo(
                 carouselEl,
                 { opacity: 0, y: 16 },
@@ -173,24 +166,20 @@ const Home = () => {
 
         /* -----------------------------
            INFINITE MARQUEE + DRAG
-           - Uses duplicated sequence
-           - offset is kept in [0, distance)
-           - Auto-scrolls unless dragging
-           - Direction follows last drag direction
         ----------------------------- */
 
-        let distance = 0; // width of a single unique sequence
-        let offset = 0; // current offset within that sequence
+        let distance = 0;
+        let offset = 0;
 
-        const baseSpeed = 150; // px per second
-        let direction = 1; // 1 = move left, -1 = move right
+        const baseSpeed = 150;
+        let direction = 1;
 
-        let isDragging = false; // pauses ticker when true
-        let isPointerDown = false; // finger/mouse is down
+        let isDragging = false;
+        let isPointerDown = false;
         let dragStartX = 0;
         let dragStartY = 0;
         let dragStartOffset = 0;
-        let lastDragDeltaX = 0; // track last horizontal drag direction
+        let lastDragDeltaX = 0;
         let tickerFn = null;
 
         const applyTransform = () => {
@@ -200,7 +189,7 @@ const Home = () => {
         const startTicker = () => {
             if (!distance) return;
 
-            let lastTime = gsap.ticker.time; // seconds
+            let lastTime = gsap.ticker.time;
 
             tickerFn = (time) => {
                 const dt = time - lastTime;
@@ -220,7 +209,6 @@ const Home = () => {
             gsap.ticker.add(tickerFn);
         };
 
-        // Wait for images to load so scrollWidth is correct
         const imgEls = carouselTrackEl.querySelectorAll("img");
         const totalImgs = imgEls.length;
         let loadedCount = 0;
@@ -257,9 +245,6 @@ const Home = () => {
 
         /* -----------------------------
            DRAG (mouse + touch)
-           - Horizontal-only drag
-           - Vertical swipe scrolls page
-           - Last drag direction controls autoplay direction
         ----------------------------- */
 
         const getClientX = (e) =>
@@ -268,19 +253,18 @@ const Home = () => {
         const getClientY = (e) =>
             e.touches && e.touches.length ? e.touches[0].clientY : e.clientY;
 
-        const HORIZONTAL_THRESHOLD = 8; // px before we decide direction
-        const MIN_DIRECTION_DELTA = 4; // px to consider drag meaningful for direction
+        const HORIZONTAL_THRESHOLD = 8;
+        const MIN_DIRECTION_DELTA = 4;
 
         const onPointerDown = (e) => {
             if (!distance) return;
 
-            // Desktop: only left mouse button should start drag
             if (e.button !== undefined && e.button !== 0) {
                 return;
             }
 
             isPointerDown = true;
-            isDragging = false; // we only set true once direction is decided
+            isDragging = false;
             dragStartX = getClientX(e);
             dragStartY = getClientY(e);
             dragStartOffset = offset;
@@ -295,37 +279,28 @@ const Home = () => {
             const deltaX = currentX - dragStartX;
             const deltaY = currentY - dragStartY;
 
-            // we haven't decided direction yet
             if (!isDragging) {
                 if (
                     Math.abs(deltaX) < HORIZONTAL_THRESHOLD &&
                     Math.abs(deltaY) < HORIZONTAL_THRESHOLD
                 ) {
-                    // tiny movement – ignore
                     return;
                 }
 
                 if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    // horizontal gesture → start carousel drag
                     isDragging = true;
                     carouselTrackEl.classList.add(
                         "hero__carousel-track--dragging"
                     );
                 } else {
-                    // vertical gesture → let the page scroll
                     isPointerDown = false;
                     isDragging = false;
                     return;
                 }
             }
 
-            // actual drag logic (horizontal)
             offset = dragStartOffset - deltaX;
-
-            // track last horizontal movement for direction
             lastDragDeltaX = deltaX;
-
-            // wrap offset into [0, distance)
             offset = ((offset % distance) + distance) % distance;
 
             applyTransform();
@@ -340,17 +315,13 @@ const Home = () => {
             isDragging = false;
             carouselTrackEl.classList.remove("hero__carousel-track--dragging");
 
-            // Use last drag direction to set autoplay direction
             if (Math.abs(lastDragDeltaX) > MIN_DIRECTION_DELTA) {
-                // dragged to the right → deltaX > 0 → move carousel to the right (direction = -1)
-                // dragged to the left  → deltaX < 0 → move carousel to the left  (direction = 1)
                 direction = lastDragDeltaX > 0 ? -1 : 1;
             }
 
             lastDragDeltaX = 0;
         };
 
-        // Prevent native image drag / ghost image on desktop
         const onNativeDragStart = (e) => {
             e.preventDefault();
         };
@@ -368,9 +339,6 @@ const Home = () => {
         window.addEventListener("touchend", endDrag);
         window.addEventListener("touchcancel", endDrag);
 
-        /* -----------------------------
-           CLEANUP
-        ----------------------------- */
         return () => {
             introTl.kill();
 
@@ -403,30 +371,31 @@ const Home = () => {
             <main className="hero" ref={heroRef}>
                 <div className="hero__inner">
                     <section className="hero__content">
-                        {/* Reusable pill */}
                         <div className="pill--white hero__pill">
-                            Strategy → Design → Development → Growth
+                            Strategy → Design → Development → Performance
                         </div>
 
                         <h1 className="heading1 hero__title">
-                            Custom Websites Engineered for Speed, Scalability &amp;
-                            Growth
+                            I design and build high-performing websites that help
+                            businesses grow.
                         </h1>
 
                         <p className="hero__subheading subheading">
-                            Fully Custom Websites Built From Scratch—Designed To Convert,
-                            Built For Performance, And Crafted To Scale With Your
-                            Business.
+                            Strategy-led, conversion-focused websites designed and
+                            developed by me from start to launch. Built to look sharp,
+                            perform fast, and deliver real results.
                         </p>
 
                         <div className="hero__buttons">
-                            <button className="btn btn--indigo">Book A Call</button>
+                            <button className="btn btn--indigo">
+                                Start a Project
+                            </button>
 
                             <button
                                 className="btn btn--white"
                                 onClick={() => navigate("/projects")}
                             >
-                                View Our Work
+                                View My Work
                             </button>
                         </div>
                     </section>
