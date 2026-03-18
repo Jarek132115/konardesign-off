@@ -39,7 +39,7 @@ const conversionItems = [
         eyebrow: "Performance",
         title: "Built with speed, structure, and visibility in mind.",
         description:
-            "Strong technical foundations, responsive execution, and SEO-aware decisions help your site perform properly after launch—not just look polished on the surface.",
+            "Strong technical foundations, responsive execution, and SEO-aware decisions help your site perform properly after launch—not just polished on the surface.",
         placeholderLabel: "Image Placeholder 03",
         variant: "performance",
         icon: speedIcon,
@@ -59,7 +59,7 @@ const conversionItems = [
         eyebrow: "Consistency",
         title: "The experience holds up across every screen it appears on.",
         description:
-            "From desktop to mobile, the website is designed to feel consistent, credible, and easy to use—so the quality of the experience never drops with screen size.",
+            "From desktop to mobile, the website is designed to feel consistent, credible, and easy to use—so the quality never drops with screen size.",
         placeholderLabel: "Image Placeholder 05",
         variant: "consistency",
         icon: responsiveIcon,
