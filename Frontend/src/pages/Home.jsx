@@ -376,14 +376,11 @@ const Home = () => {
                         </div>
 
                         <h1 className="heading1 hero__title">
-                            I design and build high-performing websites that help
-                            businesses grow.
+                            Custom Websites Built for Performance, Speed & Growth
                         </h1>
 
                         <p className="hero__subheading subheading">
-                            Strategy-led, conversion-focused websites designed and
-                            developed by me from start to launch. Built to look sharp,
-                            perform fast, and deliver real results.
+                            Strategy-led, conversion-focused websites designed and developed by me from start to launch. Built to look sharp, perform fast, and deliver real results.
                         </p>
 
                         <div className="hero__buttons">
