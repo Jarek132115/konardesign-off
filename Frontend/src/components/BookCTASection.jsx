@@ -2,9 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styling/bookctasection.css";
 
-import sendEmailImg from "../assets/images/sendemail.png";
-import sendMessageImg from "../assets/images/sendmessage.png";
-import newsletterImg from "../assets/images/newsletter.png";
+import JarekKonarski from "../assets/images/JarekKonarski.png";
 
 const BookingCTASection = () => {
     const navigate = useNavigate();
@@ -12,146 +10,95 @@ const BookingCTASection = () => {
     return (
         <section className="bookcta">
             <div className="bookcta__inner">
-                {/* MAIN SECTION HEADING (back) */}
-                <header className="bookcta__header">
-                    <p className="eyebrow bookcta__eyebrow">NEXT STEP</p>
-                    <h2 className="heading2 bookcta__title">
-                        Let’s Map Out Your{" "}
-                        <span className="bookcta__title-highlight">Website Build Plan</span>
-                    </h2>
-                    <p className="subheading bookcta__subtitle">
-                        Whether you need a custom website or an e-commerce build, we’ll review your
-                        goals, your current site (if you have one), and outline what a high-conversion
-                        setup could look like — with zero pressure to commit.
-                    </p>
-                </header>
-
-                {/* TOP: Schedule card */}
-                <div className="bookcta__schedule">
-                    <div className="bookcta__schedule-left">
-                        <h3 className="bookcta__schedule-title">Schedule a Meeting</h3>
-                        <p className="bookcta__schedule-subtitle">
-                            Let’s schedule a quick discovery call. We’ll walk through your goals, your
-                            timeline, and what you’re looking to build.
-                        </p>
-
-                        <button
-                            type="button"
-                            className="btn btn--indigo bookcta__schedule-btn"
-                            onClick={() => navigate("/book-a-call")}
-                        >
-                            Schedule Now
-                        </button>
-                    </div>
-
-                    <div className="bookcta__schedule-right" aria-hidden="true">
-                        <div className="bookcta__mock">
-                            <div className="bookcta__mock-avatar" />
-                            <div className="bookcta__mock-lines">
-                                <div className="bookcta__mock-line" />
-                                <div className="bookcta__mock-line bookcta__mock-line--short" />
-                            </div>
-                            <div className="bookcta__mock-pills">
-                                <div className="bookcta__mock-pill" />
-                                <div className="bookcta__mock-pill bookcta__mock-pill--muted" />
-                            </div>
-                        </div>
-                    </div>
+                {/* NAME IMAGE */}
+                <div className="bookcta__name-wrap">
+                    <img
+                        src={JarekKonarski}
+                        alt="Jarek Konarski"
+                        className="bookcta__name-image"
+                    />
                 </div>
 
-                {/* MIDDLE: 3 cards (match inspiration behavior) */}
+                {/* CONTACT OPTIONS */}
                 <div className="bookcta__grid">
-                    {/* Email */}
+                    {/* BOOK A CALL */}
                     <article className="bookcta__card">
-                        <img className="bookcta__bg" src={sendEmailImg} alt="" />
-
-                        {/* blurred content panel sits ABOVE CTA area, not on top of the image */}
-                        <div className="bookcta__panel">
-                            <h3 className="bookcta__card-title">Email</h3>
+                        <div className="bookcta__card-top">
+                            <p className="bookcta__card-label">Book a Call</p>
+                            <h3 className="bookcta__card-title">
+                                Let’s talk through your project properly.
+                            </h3>
                             <p className="bookcta__card-desc">
-                                Send us a quick email about your project and we’ll get back to you as soon
-                                as possible.
+                                We’ll go over your goals, timeline, and what kind of
+                                website will actually drive results for your business.
                             </p>
                         </div>
 
-                        <div className="bookcta__bottom">
+                        <div className="bookcta__card-bottom">
                             <button
-                                type="button"
-                                className="bookcta__pillbtn"
-                                onClick={() => (window.location.href = "mailto:hello@konardesign.com")}
+                                className="btn btn--indigo bookcta__card-btn"
+                                onClick={() => navigate("/book-a-call")}
                             >
-                                Email Us
+                                Schedule a Call
                             </button>
                         </div>
                     </article>
 
-                    {/* WhatsApp */}
+                    {/* EMAIL */}
                     <article className="bookcta__card">
-                        <img className="bookcta__bg" src={sendMessageImg} alt="" />
-
-                        <div className="bookcta__panel">
-                            <h3 className="bookcta__card-title">WhatsApp</h3>
+                        <div className="bookcta__card-top">
+                            <p className="bookcta__card-label">Email Me</p>
+                            <h3 className="bookcta__card-title">
+                                Prefer email? Send over the details.
+                            </h3>
                             <p className="bookcta__card-desc">
-                                Prefer messaging? Send us a WhatsApp and we’ll reply with next steps.
+                                Tell me about your project, your current site, or what
+                                you’re trying to achieve and I’ll get back with next steps.
                             </p>
                         </div>
 
-                        <div className="bookcta__bottom">
-                            <button
-                                type="button"
-                                className="bookcta__pillbtn"
-                                onClick={() => window.open("https://wa.me/", "_blank", "noreferrer")}
+                        <div className="bookcta__card-bottom">
+                            <a
+                                href="mailto:hello@konardesign.com"
+                                className="btn btn--white bookcta__card-link"
                             >
-                                Message Us
-                            </button>
+                                Email Me
+                            </a>
                         </div>
                     </article>
 
-                    {/* Newsletter */}
-                    <article className="bookcta__card bookcta__card--newsletter">
-                        <img className="bookcta__bg" src={newsletterImg} alt="" />
-
-                        <div className="bookcta__panel">
-                            <h3 className="bookcta__card-title">Digital Growth Tips</h3>
+                    {/* WHATSAPP */}
+                    <article className="bookcta__card">
+                        <div className="bookcta__card-top">
+                            <p className="bookcta__card-label">WhatsApp</p>
+                            <h3 className="bookcta__card-title">
+                                Want something quicker and more direct?
+                            </h3>
                             <p className="bookcta__card-desc">
-                                Sign up for conversion, SEO, and performance insights — sent as practical tips you
-                                can apply fast.
+                                Message me on WhatsApp and I’ll reply fast so we can
+                                move things forward without delays.
                             </p>
                         </div>
 
-                        <div className="bookcta__bottom bookcta__bottom--form">
-                            <form
-                                className="bookcta__form"
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    // hook your newsletter logic here
-                                }}
+                        <div className="bookcta__card-bottom">
+                            <a
+                                href="https://wa.me/"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="btn btn--white bookcta__card-link"
                             >
-                                <label className="sr-only" htmlFor="bookcta-name">Your name</label>
-                                <input id="bookcta-name" className="bookcta__input" placeholder="Your name" />
-
-                                <label className="sr-only" htmlFor="bookcta-email">Email address</label>
-                                <input
-                                    id="bookcta-email"
-                                    type="email"
-                                    className="bookcta__input"
-                                    placeholder="Email address"
-                                />
-
-                                <button type="submit" className="bookcta__pillbtn">
-                                    Sign Up
-                                </button>
-                            </form>
+                                Message Me
+                            </a>
                         </div>
                     </article>
                 </div>
 
-                {/* BOTTOM: Social strip */}
+                {/* SOCIAL */}
                 <div className="bookcta__social">
                     <div>
                         <h3 className="bookcta__social-title">Social Channels</h3>
                         <p className="bookcta__social-subtitle">
-                            Message us on our socials and stay up to date with what we’re building next.
+                            Message me on socials and stay up to date with what I’m building next.
                         </p>
                     </div>
 

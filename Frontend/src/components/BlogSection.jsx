@@ -59,7 +59,6 @@ const BlogSection = () => {
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        /* LETTER-BY-LETTER TITLE */
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -68,7 +67,7 @@ const BlogSection = () => {
         words.forEach((word, wordIndex) => {
             const wordWrapper = document.createElement("span");
             wordWrapper.classList.add("blogsection__title-word");
-            wordWrapper.style.display = "inline-block";
+            wordWrapper.style.display = "inline";
 
             for (const ch of word) {
                 const charSpan = document.createElement("span");
@@ -86,7 +85,6 @@ const BlogSection = () => {
             }
         });
 
-        // highlight "Insights"
         const wordSpans = titleEl.querySelectorAll(".blogsection__title-word");
         const highlightSet = new Set(["Insights"]);
 
@@ -127,7 +125,6 @@ const BlogSection = () => {
                 ">-0.08"
             );
 
-        /* CARD FADE-IN ON SCROLL */
         cards.forEach((card, index) => {
             gsap.fromTo(
                 card,
@@ -157,10 +154,12 @@ const BlogSection = () => {
         <section className="blogsection" ref={sectionRef}>
             <div className="blogsection__inner">
                 <header className="blogsection__header">
-                    <p className="eyebrow blogsection__eyebrow">Blog</p>
+                    <p className="eyebrow blogsection__eyebrow">BLOG</p>
+
                     <h2 className="heading2 blogsection__title">
                         Growth-Driven Insights For Modern Brands
                     </h2>
+
                     <p className="subheading blogsection__subtitle">
                         High-impact articles on UX, design, performance, and digital
                         growth—written for brands ready to scale.
@@ -180,7 +179,9 @@ const BlogSection = () => {
                                     alt={article.title}
                                     className="blogsection__card-img"
                                 />
-                                <span className="blogsection__pill">{article.category}</span>
+                                <span className="blogsection__pill">
+                                    {article.category}
+                                </span>
                             </div>
 
                             <div className="blogsection__card-content">
@@ -200,7 +201,10 @@ const BlogSection = () => {
                                         </span>
                                     </div>
 
-                                    <button type="button" className="blogsection__link-button">
+                                    <button
+                                        type="button"
+                                        className="blogsection__link-button"
+                                    >
                                         Read Article
                                     </button>
                                 </div>
