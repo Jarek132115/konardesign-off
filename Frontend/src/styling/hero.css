@@ -70,7 +70,10 @@
 /* SUBHEADING */
 .hero__subheading {
     margin: 16px auto 16px;
-    max-width: 700px;
+    max-width: 760px;
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
 }
 
 /* CTA BUTTONS LAYOUT */
@@ -142,7 +145,8 @@
 
     .hero__subheading {
         max-width: 720px;
-        font-size: 17px;
+        padding-left: 24px;
+        padding-right: 24px;
     }
 
     .hero__buttons {
@@ -167,6 +171,11 @@
     .hero::before {
         top: 20px;
         height: clamp(260px, 60vw, 360px);
+    }
+
+    .hero__subheading {
+        padding-left: 8px;
+        padding-right: 8px;
     }
 }
 
@@ -222,8 +231,9 @@
     }
 
     .hero__subheading {
-        max-width: 720px;
-        font-size: 16px;
+        max-width: 700px;
+        padding-left: 28px;
+        padding-right: 28px;
     }
 
     .hero__buttons {
