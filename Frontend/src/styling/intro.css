@@ -25,7 +25,7 @@
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
     column-gap: 120px;
-    align-items: flex-start;
+    align-items: start;
 }
 
 /* ========================================================= */
@@ -34,8 +34,9 @@
 
 .intro__left {
     position: sticky;
-    top: 120px;
+    top: 180px;
     align-self: start;
+    padding-top: 32px;
 }
 
 .intro__eyebrow {
@@ -134,6 +135,11 @@
         padding: 0 40px;
         column-gap: 80px;
     }
+
+    .intro__left {
+        top: 160px;
+        padding-top: 24px;
+    }
 }
 
 @media (max-width: 1200px) {
@@ -148,6 +154,11 @@
 
     .intro__headline {
         max-width: 680px;
+    }
+
+    .intro__left {
+        top: 140px;
+        padding-top: 16px;
     }
 }
 
@@ -165,6 +176,7 @@
         position: static;
         top: auto;
         text-align: center;
+        padding-top: 0;
     }
 
     .intro__headline,

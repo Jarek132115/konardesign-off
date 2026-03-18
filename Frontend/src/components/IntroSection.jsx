@@ -212,7 +212,7 @@ const IntroSection = () => {
                         <p className="intro__item-text body">
                             Fast-loading pages, strong structure, and SEO-aware
                             decisions that help your website perform better after
-                            launch—not just look good on day one.
+                            launch, not just look good on day one.
                         </p>
                         <div className="intro__icons-row">
                             <span className="intro__icon">
