@@ -382,7 +382,7 @@ const Home = () => {
                         </h1>
 
                         <p className="hero__subheading subheading">
-                            Strategy led websites designed and developed by me to look sharp, perform fast, and drive real results.
+                            Strategy led websites designed and developed by me from start to launch to look sharp, perform fast, and drive real results.
                         </p>
 
                         <div className="hero__buttons">
