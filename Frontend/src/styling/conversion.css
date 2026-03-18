@@ -91,45 +91,14 @@
     gap: 18px;
     padding: 22px;
     border-radius: 28px;
-    border: 1px solid rgba(96, 61, 233, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+        radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(35, 35, 39, 0.96) 0%, rgba(22, 22, 25, 0.98) 100%);
+    background-size: 10px 10px, auto;
     box-shadow: none;
     overflow: hidden;
     min-height: 100%;
-}
-
-.conversion__card--strategy {
-    background:
-        radial-gradient(circle at top left, rgba(126, 87, 255, 0.14), transparent 30%),
-        radial-gradient(circle at bottom right, rgba(126, 87, 255, 0.09), transparent 26%),
-        linear-gradient(135deg, #f7f3ff 0%, #faf9fd 48%, #f1ebfc 100%);
-}
-
-.conversion__card--conversion {
-    background:
-        radial-gradient(circle at top right, rgba(96, 61, 233, 0.14), transparent 30%),
-        radial-gradient(circle at bottom left, rgba(147, 112, 255, 0.08), transparent 24%),
-        linear-gradient(135deg, #f8f4ff 0%, #faf9fd 48%, #f2ecfd 100%);
-}
-
-.conversion__card--performance {
-    background:
-        radial-gradient(circle at top left, rgba(90, 66, 232, 0.14), transparent 28%),
-        radial-gradient(circle at center right, rgba(134, 103, 255, 0.08), transparent 24%),
-        linear-gradient(135deg, #f6f2ff 0%, #faf9fd 50%, #f0eafb 100%);
-}
-
-.conversion__card--experience {
-    background:
-        radial-gradient(circle at top center, rgba(114, 79, 243, 0.14), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(160, 127, 255, 0.08), transparent 24%),
-        linear-gradient(135deg, #f8f4ff 0%, #faf9fd 50%, #f3eefc 100%);
-}
-
-.conversion__card--consistency {
-    background:
-        radial-gradient(circle at left center, rgba(108, 73, 240, 0.14), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(136, 101, 255, 0.08), transparent 24%),
-        linear-gradient(135deg, #f7f3ff 0%, #faf9fd 50%, #f1ebfc 100%);
 }
 
 /* --------------------------------------------------------- */
@@ -146,10 +115,9 @@
     aspect-ratio: 4 / 3;
     border-radius: 22px;
     overflow: hidden;
-    border: 1px solid rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     background:
         linear-gradient(180deg, rgba(35, 35, 39, 0.96) 0%, rgba(22, 22, 25, 0.98) 100%);
-    box-shadow: none;
 }
 
 .conversion__image {
@@ -191,7 +159,7 @@
     min-height: 34px;
     padding: 0 13px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.92);
     box-shadow: none;
 
     font-family: "Satoshi", sans-serif;
@@ -199,37 +167,6 @@
     font-weight: 700;
     letter-spacing: 0.01em;
     color: var(--deep-indigo);
-}
-
-.conversion__media-placeholder {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
-}
-
-.conversion__media-placeholder span {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 170px;
-    min-height: 56px;
-    padding: 0 18px;
-    border-radius: 999px;
-    border: 1px dashed rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.04);
-
-    font-family: "Satoshi", sans-serif;
-    font-size: 0.88rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: rgba(255, 255, 255, 0.58);
-    text-align: center;
 }
 
 /* --------------------------------------------------------- */
@@ -252,18 +189,24 @@
     width: 38px;
     height: 38px;
     display: block;
+    filter: brightness(0) invert(1);
 }
 
 .conversion__item-title {
     margin: 0 0 12px;
     max-width: 100%;
     line-height: 1.08;
+    color: #ffffff;
+}
+
+.conversion__title-accent {
+    color: var(--deep-indigo);
 }
 
 .conversion__item-text {
     margin: 0;
     max-width: 100%;
-    color: rgba(15, 23, 42, 0.72);
+    color: rgba(255, 255, 255, 0.78);
     line-height: 1.56;
 }
 
@@ -357,12 +300,6 @@
         font-size: 0.74rem;
     }
 
-    .conversion__media-placeholder span {
-        min-width: 140px;
-        min-height: 48px;
-        font-size: 0.8rem;
-    }
-
     .conversion__item-icon {
         margin-bottom: 12px;
     }
@@ -389,16 +326,5 @@
     .conversion__card {
         flex-basis: 86vw;
         padding: 14px;
-    }
-
-    .conversion__media-placeholder {
-        padding: 16px;
-    }
-
-    .conversion__media-placeholder span {
-        min-width: 132px;
-        min-height: 46px;
-        padding: 0 14px;
-        font-size: 0.78rem;
     }
 }

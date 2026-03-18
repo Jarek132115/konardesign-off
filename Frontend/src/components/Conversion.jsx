@@ -11,59 +11,88 @@ import uxIcon from "../assets/icons/ux.svg";
 import responsiveIcon from "../assets/icons/responsive.svg";
 
 import conversionImage1 from "../assets/images/Conversion1.png";
+import conversionImage2 from "../assets/images/Conversion2.png";
+import conversionImage3 from "../assets/images/Conversion3.png";
+import conversionImage4 from "../assets/images/Conversion4.png";
+import conversionImage5 from "../assets/images/Conversion5.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const conversionItems = [
     {
         eyebrow: "Strategy",
-        title: "Every decision starts with the people you want to convert.",
+        titleParts: [
+            { text: "Every decision starts with the ", highlight: false },
+            { text: "people", highlight: true },
+            { text: " you want to ", highlight: false },
+            { text: "convert", highlight: true },
+            { text: ".", highlight: false },
+        ],
         description:
             "Structure, messaging, and page flow are shaped around your ideal audience from the beginning, so the website feels clear, relevant, and easier to trust.",
-        variant: "strategy",
         icon: audienceIcon,
         alt: "Audience icon",
         image: conversionImage1,
     },
     {
         eyebrow: "Conversion",
-        title: "Design choices are made to guide attention and reduce hesitation.",
+        titleParts: [
+            { text: "Design choices are made to guide ", highlight: false },
+            { text: "attention", highlight: true },
+            { text: " and reduce ", highlight: false },
+            { text: "hesitation", highlight: true },
+            { text: ".", highlight: false },
+        ],
         description:
             "Layout, hierarchy, and calls to action work together to make next steps feel natural, not forced—helping more visitors move from interest to enquiry.",
-        placeholderLabel: "Image Placeholder 02",
-        variant: "conversion",
         icon: dataIcon,
         alt: "Conversion icon",
+        image: conversionImage2,
     },
     {
         eyebrow: "Performance",
-        title: "Built with speed, structure, and visibility in mind.",
+        titleParts: [
+            { text: "Built with ", highlight: false },
+            { text: "speed", highlight: true },
+            { text: ", structure, and ", highlight: false },
+            { text: "visibility", highlight: true },
+            { text: " in mind.", highlight: false },
+        ],
         description:
             "Strong technical foundations, responsive execution, and SEO-aware decisions help your site perform properly after launch—not just polished on the surface.",
-        placeholderLabel: "Image Placeholder 03",
-        variant: "performance",
         icon: speedIcon,
         alt: "Speed icon",
+        image: conversionImage3,
     },
     {
         eyebrow: "Experience",
-        title: "Smooth user journeys create less friction and more momentum.",
+        titleParts: [
+            { text: "Smooth user journeys create less ", highlight: false },
+            { text: "friction", highlight: true },
+            { text: " and more ", highlight: false },
+            { text: "momentum", highlight: true },
+            { text: ".", highlight: false },
+        ],
         description:
             "Clear layouts and thoughtful interactions help people understand where they are, what matters, and what to do next without confusion or clutter.",
-        placeholderLabel: "Image Placeholder 04",
-        variant: "experience",
         icon: uxIcon,
         alt: "UX icon",
+        image: conversionImage4,
     },
     {
         eyebrow: "Consistency",
-        title: "The experience holds up across every screen it appears on.",
+        titleParts: [
+            { text: "The experience holds up across every ", highlight: false },
+            { text: "screen", highlight: true },
+            { text: " it appears ", highlight: false },
+            { text: "on", highlight: true },
+            { text: ".", highlight: false },
+        ],
         description:
             "From desktop to mobile, the website is designed to feel consistent, credible, and easy to use—so the quality never drops with screen size.",
-        placeholderLabel: "Image Placeholder 05",
-        variant: "consistency",
         icon: responsiveIcon,
         alt: "Responsive icon",
+        image: conversionImage5,
     },
 ];
 
@@ -231,8 +260,8 @@ const Conversion = () => {
                     <div className="conversion__track">
                         {conversionItems.map((item) => (
                             <article
-                                key={item.title}
-                                className={`conversion__card conversion__card--${item.variant}`}
+                                key={item.eyebrow}
+                                className="conversion__card"
                             >
                                 <div className="conversion__media">
                                     <div className="conversion__media-inner">
@@ -240,17 +269,11 @@ const Conversion = () => {
                                             {item.eyebrow}
                                         </div>
 
-                                        {item.image ? (
-                                            <img
-                                                src={item.image}
-                                                alt=""
-                                                className="conversion__image"
-                                            />
-                                        ) : (
-                                            <div className="conversion__media-placeholder">
-                                                <span>{item.placeholderLabel}</span>
-                                            </div>
-                                        )}
+                                        <img
+                                            src={item.image}
+                                            alt=""
+                                            className="conversion__image"
+                                        />
                                     </div>
                                 </div>
 
@@ -263,7 +286,18 @@ const Conversion = () => {
                                     </div>
 
                                     <h3 className="heading4 conversion__item-title">
-                                        {item.title}
+                                        {item.titleParts.map((part, index) => (
+                                            <span
+                                                key={`${item.eyebrow}-${index}`}
+                                                className={
+                                                    part.highlight
+                                                        ? "conversion__title-accent"
+                                                        : ""
+                                                }
+                                            >
+                                                {part.text}
+                                            </span>
+                                        ))}
                                     </h3>
 
                                     <p className="body conversion__item-text">
