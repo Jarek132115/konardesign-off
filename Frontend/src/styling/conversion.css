@@ -130,15 +130,25 @@
 
 .conversion__media-inner {
     position: relative;
-    min-height: 420px;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    /* ✅ LOCKED RATIO */
     border-radius: 24px;
     overflow: hidden;
     border: 1px solid rgba(15, 23, 42, 0.08);
     background:
         linear-gradient(180deg, rgba(35, 35, 39, 0.96) 0%, rgba(22, 22, 25, 0.98) 100%);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.04),
-        0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+/* ✅ IMAGE STYLING */
+.conversion__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* 🔥 fills + crops nicely */
+    object-position: center;
 }
 
 .conversion__media-inner::before {

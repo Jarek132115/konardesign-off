@@ -10,6 +10,9 @@ import speedIcon from "../assets/icons/speed.svg";
 import uxIcon from "../assets/icons/ux.svg";
 import responsiveIcon from "../assets/icons/responsive.svg";
 
+// ✅ NEW IMAGE IMPORT
+import conversionImage1 from "../assets/images/Conversion1.png";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const conversionItems = [
@@ -18,10 +21,10 @@ const conversionItems = [
         title: "Every decision starts with the people you want to convert.",
         description:
             "Structure, messaging, and page flow are shaped around your ideal audience from the beginning, so the website feels clear, relevant, and easier to trust.",
-        placeholderLabel: "Image Placeholder 01",
         variant: "strategy",
         icon: audienceIcon,
         alt: "Audience icon",
+        image: conversionImage1, // ✅ ONLY FIRST HAS IMAGE
     },
     {
         eyebrow: "Conversion",
@@ -125,82 +128,39 @@ const Conversion = () => {
                 start: "top 72%",
                 toggleActions: "play none none none",
             },
-            defaults: { ease: "power2.out" },
         });
 
         introTl
-            .fromTo(
-                eyebrowEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.25,
-                }
-            )
-            .to(
-                charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
-                },
-                ">-0.05"
-            )
-            .fromTo(
-                subtitleEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
-                ">-0.08"
-            );
+            .fromTo(eyebrowEl, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25 })
+            .to(charSpans, { opacity: 1, y: 0, stagger: 0.018, duration: 0.26 }, ">-0.05")
+            .fromTo(subtitleEl, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.28 }, ">-0.08");
 
         rows.forEach((row) => {
             const media = row.querySelector(".conversion__media");
             const content = row.querySelector(".conversion__content");
 
-            gsap.fromTo(
-                media,
+            gsap.fromTo(media,
                 { opacity: 0, y: 28, scale: 0.985 },
                 {
                     opacity: 1,
                     y: 0,
                     scale: 1,
                     duration: 0.6,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: row,
-                        start: "top 82%",
-                        toggleActions: "play none none none",
-                    },
+                    scrollTrigger: { trigger: row, start: "top 82%" },
                 }
             );
 
-            gsap.fromTo(
-                content,
+            gsap.fromTo(content,
                 { opacity: 0, y: 28 },
                 {
                     opacity: 1,
                     y: 0,
                     duration: 0.55,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: row,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    },
+                    scrollTrigger: { trigger: row, start: "top 80%" },
                 }
             );
         });
 
-        return () => {
-            introTl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
     }, []);
 
     return (
@@ -224,23 +184,32 @@ const Conversion = () => {
                     {conversionItems.map((item, index) => (
                         <article
                             key={item.title}
-                            className={`conversion__row conversion__row--${item.variant} ${index % 2 !== 0 ? "conversion__row--reverse" : ""
-                                }`}
+                            className={`conversion__row conversion__row--${item.variant} ${index % 2 !== 0 ? "conversion__row--reverse" : ""}`}
                         >
                             <div className="conversion__media">
                                 <div className="conversion__media-inner">
+
                                     <div className="conversion__media-badge">
                                         {item.eyebrow}
                                     </div>
 
-                                    <div className="conversion__media-placeholder">
-                                        <span>{item.placeholderLabel}</span>
-                                    </div>
+                                    {/* ✅ IMAGE OR PLACEHOLDER */}
+                                    {item.image ? (
+                                        <img
+                                            src={item.image}
+                                            alt=""
+                                            className="conversion__image"
+                                        />
+                                    ) : (
+                                        <div className="conversion__media-placeholder">
+                                            <span>{item.placeholderLabel}</span>
+                                        </div>
+                                    )}
                                 </div>
                             </div>
 
                             <div className="conversion__content">
-                                <div className="conversion__item-icon" aria-hidden="true">
+                                <div className="conversion__item-icon">
                                     <img src={item.icon} alt={item.alt} />
                                 </div>
 
