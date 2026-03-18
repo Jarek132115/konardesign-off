@@ -89,14 +89,14 @@
 .intro__icons-row {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
 }
 
 .intro__icon {
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
     background: var(--white);
     border: 1px solid rgba(15, 23, 42, 0.08);
     box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
@@ -104,11 +104,12 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .intro__icon img {
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 34px;
     display: block;
 }
 
@@ -227,6 +228,17 @@
     .intro__bottom-text {
         font-size: 18px;
     }
+
+    .intro__icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 11px;
+    }
+
+    .intro__icon img {
+        width: 30px;
+        height: 30px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -239,8 +251,9 @@
     }
 
     .intro__icon {
-        width: 40px;
-        height: 40px;
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
     }
 
     .intro__icon img {
