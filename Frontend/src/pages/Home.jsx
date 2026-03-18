@@ -78,14 +78,16 @@ const Home = () => {
         titleEl.textContent = "";
 
         const words = originalText.split(" ");
+        const highlightWords = ["websites", "performance", "growth"];
 
         words.forEach((word, wordIndex) => {
             const wordWrapper = document.createElement("span");
             wordWrapper.classList.add("hero__title-word");
             wordWrapper.style.display = "inline-block";
 
-            // Make only the word "websites" indigo in the hero title
-            if (word.toLowerCase() === "websites") {
+            const cleanedWord = word.toLowerCase().replace(/[^a-z]/g, "");
+
+            if (highlightWords.includes(cleanedWord)) {
                 wordWrapper.classList.add("hero__title-word--indigo");
             }
 
@@ -376,11 +378,13 @@ const Home = () => {
                         </div>
 
                         <h1 className="heading1 hero__title">
-                            Custom Websites Built for Performance, Speed & Growth
+                            Custom Websites Built for Performance, Speed &amp; Growth
                         </h1>
 
                         <p className="hero__subheading subheading">
-                            Strategy-led, conversion-focused websites designed and developed by me from start to launch. Built to look sharp, perform fast, and deliver real results.
+                            Strategy-led, conversion-focused websites designed and
+                            developed by me from start to launch. Built to look sharp,
+                            perform fast, and deliver real results.
                         </p>
 
                         <div className="hero__buttons">
