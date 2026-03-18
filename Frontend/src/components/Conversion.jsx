@@ -10,7 +10,6 @@ import speedIcon from "../assets/icons/speed.svg";
 import uxIcon from "../assets/icons/ux.svg";
 import responsiveIcon from "../assets/icons/responsive.svg";
 
-// ✅ NEW IMAGE IMPORT
 import conversionImage1 from "../assets/images/Conversion1.png";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -24,7 +23,7 @@ const conversionItems = [
         variant: "strategy",
         icon: audienceIcon,
         alt: "Audience icon",
-        image: conversionImage1, // ✅ ONLY FIRST HAS IMAGE
+        image: conversionImage1,
     },
     {
         eyebrow: "Conversion",
@@ -70,15 +69,17 @@ const conversionItems = [
 
 const Conversion = () => {
     const sectionRef = useRef(null);
+    const scrollerRef = useRef(null);
 
     useEffect(() => {
         const sectionEl = sectionRef.current;
-        if (!sectionEl) return;
+        const scrollerEl = scrollerRef.current;
+        if (!sectionEl || !scrollerEl) return;
 
         const eyebrowEl = sectionEl.querySelector(".conversion__eyebrow");
         const titleEl = sectionEl.querySelector(".conversion__title");
         const subtitleEl = sectionEl.querySelector(".conversion__subtitle");
-        const rows = sectionEl.querySelectorAll(".conversion__row");
+        const cards = sectionEl.querySelectorAll(".conversion__card");
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
@@ -128,46 +129,88 @@ const Conversion = () => {
                 start: "top 72%",
                 toggleActions: "play none none none",
             },
+            defaults: { ease: "power2.out" },
         });
 
         introTl
-            .fromTo(eyebrowEl, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.25 })
-            .to(charSpans, { opacity: 1, y: 0, stagger: 0.018, duration: 0.26 }, ">-0.05")
-            .fromTo(subtitleEl, { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.28 }, ">-0.08");
-
-        rows.forEach((row) => {
-            const media = row.querySelector(".conversion__media");
-            const content = row.querySelector(".conversion__content");
-
-            gsap.fromTo(media,
-                { opacity: 0, y: 28, scale: 0.985 },
+            .fromTo(
+                eyebrowEl,
+                { opacity: 0, y: 8 },
+                { opacity: 1, y: 0, duration: 0.25 }
+            )
+            .to(
+                charSpans,
                 {
                     opacity: 1,
                     y: 0,
-                    scale: 1,
-                    duration: 0.6,
-                    scrollTrigger: { trigger: row, start: "top 82%" },
-                }
-            );
-
-            gsap.fromTo(content,
-                { opacity: 0, y: 28 },
+                    stagger: 0.018,
+                    duration: 0.26,
+                },
+                ">-0.05"
+            )
+            .fromTo(
+                subtitleEl,
+                { opacity: 0, y: 8 },
+                { opacity: 1, y: 0, duration: 0.28 },
+                ">-0.08"
+            )
+            .fromTo(
+                cards,
+                { opacity: 0, y: 20 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.55,
-                    scrollTrigger: { trigger: row, start: "top 80%" },
-                }
+                    duration: 0.45,
+                    stagger: 0.08,
+                },
+                ">-0.05"
             );
-        });
 
+        let isPointerDown = false;
+        let startX = 0;
+        let startScrollLeft = 0;
+
+        const onPointerDown = (event) => {
+            isPointerDown = true;
+            scrollerEl.classList.add("is-dragging");
+            startX = event.pageX;
+            startScrollLeft = scrollerEl.scrollLeft;
+        };
+
+        const onPointerMove = (event) => {
+            if (!isPointerDown) return;
+            const deltaX = event.pageX - startX;
+            scrollerEl.scrollLeft = startScrollLeft - deltaX;
+        };
+
+        const onPointerUp = () => {
+            isPointerDown = false;
+            scrollerEl.classList.remove("is-dragging");
+        };
+
+        scrollerEl.addEventListener("pointerdown", onPointerDown);
+        scrollerEl.addEventListener("pointermove", onPointerMove);
+        window.addEventListener("pointerup", onPointerUp);
+        scrollerEl.addEventListener("pointerleave", onPointerUp);
+
+        return () => {
+            introTl.kill();
+            ScrollTrigger.getAll().forEach((st) => st.kill());
+
+            scrollerEl.removeEventListener("pointerdown", onPointerDown);
+            scrollerEl.removeEventListener("pointermove", onPointerMove);
+            window.removeEventListener("pointerup", onPointerUp);
+            scrollerEl.removeEventListener("pointerleave", onPointerUp);
+        };
     }, []);
 
     return (
         <section className="conversion" ref={sectionRef}>
             <div className="conversion__inner">
                 <header className="conversion__header">
-                    <p className="eyebrow conversion__eyebrow">CONVERSION FOCUSED</p>
+                    <p className="eyebrow conversion__eyebrow">
+                        CONVERSION FOCUSED
+                    </p>
 
                     <h2 className="heading2 conversion__title">
                         Conversion and Performance Built In From the Start.
@@ -180,49 +223,56 @@ const Conversion = () => {
                     </p>
                 </header>
 
-                <div className="conversion__stack">
-                    {conversionItems.map((item, index) => (
-                        <article
-                            key={item.title}
-                            className={`conversion__row conversion__row--${item.variant} ${index % 2 !== 0 ? "conversion__row--reverse" : ""}`}
-                        >
-                            <div className="conversion__media">
-                                <div className="conversion__media-inner">
+                <div
+                    className="conversion__scroller"
+                    ref={scrollerRef}
+                    aria-label="Scrollable conversion cards"
+                >
+                    <div className="conversion__track">
+                        {conversionItems.map((item) => (
+                            <article
+                                key={item.title}
+                                className={`conversion__card conversion__card--${item.variant}`}
+                            >
+                                <div className="conversion__media">
+                                    <div className="conversion__media-inner">
+                                        <div className="conversion__media-badge">
+                                            {item.eyebrow}
+                                        </div>
 
-                                    <div className="conversion__media-badge">
-                                        {item.eyebrow}
+                                        {item.image ? (
+                                            <img
+                                                src={item.image}
+                                                alt=""
+                                                className="conversion__image"
+                                            />
+                                        ) : (
+                                            <div className="conversion__media-placeholder">
+                                                <span>{item.placeholderLabel}</span>
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
+
+                                <div className="conversion__content">
+                                    <div
+                                        className="conversion__item-icon"
+                                        aria-hidden="true"
+                                    >
+                                        <img src={item.icon} alt={item.alt} />
                                     </div>
 
-                                    {/* ✅ IMAGE OR PLACEHOLDER */}
-                                    {item.image ? (
-                                        <img
-                                            src={item.image}
-                                            alt=""
-                                            className="conversion__image"
-                                        />
-                                    ) : (
-                                        <div className="conversion__media-placeholder">
-                                            <span>{item.placeholderLabel}</span>
-                                        </div>
-                                    )}
+                                    <h3 className="heading4 conversion__item-title">
+                                        {item.title}
+                                    </h3>
+
+                                    <p className="body conversion__item-text">
+                                        {item.description}
+                                    </p>
                                 </div>
-                            </div>
-
-                            <div className="conversion__content">
-                                <div className="conversion__item-icon">
-                                    <img src={item.icon} alt={item.alt} />
-                                </div>
-
-                                <h3 className="heading4 conversion__item-title">
-                                    {item.title}
-                                </h3>
-
-                                <p className="body conversion__item-text">
-                                    {item.description}
-                                </p>
-                            </div>
-                        </article>
-                    ))}
+                            </article>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
