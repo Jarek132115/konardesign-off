@@ -34,14 +34,29 @@
 
 /* ====================================================== */
 /* HEADING 2 – SECTION TITLES                             */
+/* Desktop + tablet increased, mobile kept as-is          */
 /* ====================================================== */
 
 .heading2 {
-    font-size: clamp(26px, 2.2vw + 0.6rem, 40px);
+    font-size: clamp(32px, 2.8vw + 0.8rem, 52px);
     font-weight: 400;
-    letter-spacing: -0.015em;
-    line-height: 1.2;
+    letter-spacing: -0.02em;
+    line-height: 1.14;
     color: var(--black);
+}
+
+@media (max-width: 1024px) {
+    .heading2 {
+        font-size: clamp(30px, 2.4vw + 0.7rem, 42px);
+        line-height: 1.16;
+    }
+}
+
+@media (max-width: 768px) {
+    .heading2 {
+        font-size: clamp(26px, 2.2vw + 0.6rem, 40px);
+        line-height: 1.2;
+    }
 }
 
 /* ====================================================== */
@@ -104,4 +119,31 @@
     line-height: 1.4;
     font-weight: 500;
     color: rgba(15, 23, 42, 0.6);
+}
+
+/* ====================================================== */
+/* HEADING 4 – SECTION BLOCK TITLES (CONVERSION)           */
+/* ====================================================== */
+
+.heading4 {
+    font-size: clamp(22px, 1.6vw + 0.5rem, 30px);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+    color: var(--black);
+}
+
+/* tablet refinement */
+@media (max-width: 1024px) {
+    .heading4 {
+        font-size: clamp(20px, 1.4vw + 0.45rem, 26px);
+    }
+}
+
+/* mobile (keep clean + readable) */
+@media (max-width: 768px) {
+    .heading4 {
+        font-size: clamp(18px, 1.2vw + 0.4rem, 22px);
+        line-height: 1.2;
+    }
 }

@@ -148,7 +148,7 @@ const IntroSection = () => {
 
                     <p className="intro__subheading subheading">
                         I lead each project personally across planning, design,
-                        development, and launch—creating websites that look sharp,
+                        development, and launch-creating websites that look sharp,
                         feel seamless, and support real business goals. When a project
                         needs specialist creative support, I bring in trusted
                         collaborators without losing direction or consistency.

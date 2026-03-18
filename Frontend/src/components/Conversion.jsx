@@ -4,6 +4,12 @@ import "../styling/conversion.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+import audienceIcon from "../assets/icons/audience.svg";
+import dataIcon from "../assets/icons/data.svg";
+import speedIcon from "../assets/icons/speed.svg";
+import uxIcon from "../assets/icons/ux.svg";
+import responsiveIcon from "../assets/icons/responsive.svg";
+
 gsap.registerPlugin(ScrollTrigger);
 
 const conversionItems = [
@@ -13,6 +19,9 @@ const conversionItems = [
         description:
             "Structure, messaging, and page flow are shaped around your ideal audience from the beginning, so the website feels clear, relevant, and easier to trust.",
         placeholderLabel: "Image Placeholder 01",
+        variant: "strategy",
+        icon: audienceIcon,
+        alt: "Audience icon",
     },
     {
         eyebrow: "Conversion",
@@ -20,6 +29,9 @@ const conversionItems = [
         description:
             "Layout, hierarchy, and calls to action work together to make next steps feel natural, not forced—helping more visitors move from interest to enquiry.",
         placeholderLabel: "Image Placeholder 02",
+        variant: "conversion",
+        icon: dataIcon,
+        alt: "Conversion icon",
     },
     {
         eyebrow: "Performance",
@@ -27,6 +39,9 @@ const conversionItems = [
         description:
             "Strong technical foundations, responsive execution, and SEO-aware decisions help your site perform properly after launch—not just look polished on the surface.",
         placeholderLabel: "Image Placeholder 03",
+        variant: "performance",
+        icon: speedIcon,
+        alt: "Speed icon",
     },
     {
         eyebrow: "Experience",
@@ -34,6 +49,9 @@ const conversionItems = [
         description:
             "Clear layouts and thoughtful interactions help people understand where they are, what matters, and what to do next without confusion or clutter.",
         placeholderLabel: "Image Placeholder 04",
+        variant: "experience",
+        icon: uxIcon,
+        alt: "UX icon",
     },
     {
         eyebrow: "Consistency",
@@ -41,6 +59,9 @@ const conversionItems = [
         description:
             "From desktop to mobile, the website is designed to feel consistent, credible, and easy to use—so the quality of the experience never drops with screen size.",
         placeholderLabel: "Image Placeholder 05",
+        variant: "consistency",
+        icon: responsiveIcon,
+        alt: "Responsive icon",
     },
 ];
 
@@ -144,7 +165,7 @@ const Conversion = () => {
 
             gsap.fromTo(
                 media,
-                { opacity: 0, y: 28, scale: 0.98 },
+                { opacity: 0, y: 28, scale: 0.985 },
                 {
                     opacity: 1,
                     y: 0,
@@ -203,7 +224,7 @@ const Conversion = () => {
                     {conversionItems.map((item, index) => (
                         <article
                             key={item.title}
-                            className={`conversion__row ${index % 2 !== 0 ? "conversion__row--reverse" : ""
+                            className={`conversion__row conversion__row--${item.variant} ${index % 2 !== 0 ? "conversion__row--reverse" : ""
                                 }`}
                         >
                             <div className="conversion__media">
@@ -211,6 +232,7 @@ const Conversion = () => {
                                     <div className="conversion__media-badge">
                                         {item.eyebrow}
                                     </div>
+
                                     <div className="conversion__media-placeholder">
                                         <span>{item.placeholderLabel}</span>
                                     </div>
@@ -218,9 +240,9 @@ const Conversion = () => {
                             </div>
 
                             <div className="conversion__content">
-                                <p className="conversion__item-eyebrow">
-                                    {item.eyebrow}
-                                </p>
+                                <div className="conversion__item-icon" aria-hidden="true">
+                                    <img src={item.icon} alt={item.alt} />
+                                </div>
 
                                 <h3 className="heading3 conversion__item-title">
                                     {item.title}
