@@ -4,49 +4,43 @@ import "../styling/conversion.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import audienceIcon from "../assets/icons/audience.svg";
-import dataIcon from "../assets/icons/data.svg";
-import speedIcon from "../assets/icons/speed.svg";
-import uxIcon from "../assets/icons/ux.svg";
-import responsiveIcon from "../assets/icons/responsive.svg";
-
 gsap.registerPlugin(ScrollTrigger);
 
 const conversionItems = [
     {
-        title: "Audience-Led Website Strategy",
+        eyebrow: "Strategy",
+        title: "Every decision starts with the people you want to convert.",
         description:
-            "Every website starts with who it needs to reach. Structure, messaging, and page flow are shaped around the people most likely to trust, enquire, and convert.",
-        icon: audienceIcon,
-        alt: "Audience icon",
+            "Structure, messaging, and page flow are shaped around your ideal audience from the beginning, so the website feels clear, relevant, and easier to trust.",
+        placeholderLabel: "Image Placeholder 01",
     },
     {
-        title: "Conversion-Focused Decisions",
+        eyebrow: "Conversion",
+        title: "Design choices are made to guide attention and reduce hesitation.",
         description:
-            "Layouts are designed to guide attention, reduce hesitation, and make next steps feel obvious. The goal is not just a nicer website—it is a more effective one.",
-        icon: dataIcon,
-        alt: "Data icon",
+            "Layout, hierarchy, and calls to action work together to make next steps feel natural, not forced—helping more visitors move from interest to enquiry.",
+        placeholderLabel: "Image Placeholder 02",
     },
     {
-        title: "Built for Speed, SEO & Visibility",
+        eyebrow: "Performance",
+        title: "Built with speed, structure, and visibility in mind.",
         description:
-            "Fast-loading pages, strong technical foundations, and SEO-aware structure help your website perform properly after launch—not just look polished on the surface.",
-        icon: speedIcon,
-        alt: "Speed icon",
+            "Strong technical foundations, responsive execution, and SEO-aware decisions help your site perform properly after launch—not just look polished on the surface.",
+        placeholderLabel: "Image Placeholder 03",
     },
     {
-        title: "UX That Reduces Friction",
+        eyebrow: "Experience",
+        title: "Smooth user journeys create less friction and more momentum.",
         description:
-            "Clear hierarchy, smoother interactions, and simpler journeys help users move from interest to action without confusion, clutter, or unnecessary drop-off.",
-        icon: uxIcon,
-        alt: "UX icon",
+            "Clear layouts and thoughtful interactions help people understand where they are, what matters, and what to do next without confusion or clutter.",
+        placeholderLabel: "Image Placeholder 04",
     },
     {
-        title: "Responsive by Default",
+        eyebrow: "Consistency",
+        title: "The experience holds up across every screen it appears on.",
         description:
-            "The experience is designed to hold up across desktop, laptop, tablet, and mobile—so the website feels consistent, credible, and usable on every screen.",
-        icon: responsiveIcon,
-        alt: "Responsive icon",
+            "From desktop to mobile, the website is designed to feel consistent, credible, and easy to use—so the quality of the experience never drops with screen size.",
+        placeholderLabel: "Image Placeholder 05",
     },
 ];
 
@@ -60,7 +54,7 @@ const Conversion = () => {
         const eyebrowEl = sectionEl.querySelector(".conversion__eyebrow");
         const titleEl = sectionEl.querySelector(".conversion__title");
         const subtitleEl = sectionEl.querySelector(".conversion__subtitle");
-        const cards = sectionEl.querySelectorAll(".conversion__card");
+        const rows = sectionEl.querySelectorAll(".conversion__row");
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
@@ -104,24 +98,25 @@ const Conversion = () => {
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
 
-        const tl = gsap.timeline({
+        const introTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
-                start: "top 75%",
+                start: "top 72%",
                 toggleActions: "play none none none",
             },
             defaults: { ease: "power2.out" },
         });
 
-        tl.fromTo(
-            eyebrowEl,
-            { opacity: 0, y: 8 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.25,
-            }
-        )
+        introTl
+            .fromTo(
+                eyebrowEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.25,
+                }
+            )
             .to(
                 charSpans,
                 {
@@ -143,18 +138,37 @@ const Conversion = () => {
                 ">-0.08"
             );
 
-        cards.forEach((card, index) => {
+        rows.forEach((row) => {
+            const media = row.querySelector(".conversion__media");
+            const content = row.querySelector(".conversion__content");
+
             gsap.fromTo(
-                card,
-                { opacity: 0, y: 24 },
+                media,
+                { opacity: 0, y: 28, scale: 0.98 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.4,
+                    scale: 1,
+                    duration: 0.6,
                     ease: "power2.out",
-                    delay: index * 0.05,
                     scrollTrigger: {
-                        trigger: card,
+                        trigger: row,
+                        start: "top 82%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
+
+            gsap.fromTo(
+                content,
+                { opacity: 0, y: 28 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.55,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: row,
                         start: "top 80%",
                         toggleActions: "play none none none",
                     },
@@ -163,7 +177,7 @@ const Conversion = () => {
         });
 
         return () => {
-            tl.kill();
+            introTl.kill();
             ScrollTrigger.getAll().forEach((st) => st.kill());
         };
     }, []);
@@ -172,38 +186,50 @@ const Conversion = () => {
         <section className="conversion" ref={sectionRef}>
             <div className="conversion__inner">
                 <header className="conversion__header">
-                    <p className="eyebrow conversion__eyebrow">
-                        CONVERSION FOCUSED
-                    </p>
+                    <p className="eyebrow conversion__eyebrow">CONVERSION FOCUSED</p>
 
                     <h2 className="heading2 conversion__title">
                         Conversion and Performance Built In From the Start.
                     </h2>
 
                     <p className="subheading conversion__subtitle">
-                        Strategy, UX, structure, and technical execution all work
-                        together to help your website do more than just look good.
+                        Strategy, UX, structure, and technical execution work together
+                        to create websites that not only look sharp, but help move
+                        people towards action.
                     </p>
                 </header>
 
-                <div className="conversion__grid">
+                <div className="conversion__stack">
                     {conversionItems.map((item, index) => (
                         <article
                             key={item.title}
-                            className={`conversion__card conversion__card--bg${index + 1
+                            className={`conversion__row ${index % 2 !== 0 ? "conversion__row--reverse" : ""
                                 }`}
                         >
-                            <div className="conversion__icon" aria-hidden="true">
-                                <img src={item.icon} alt={item.alt} />
+                            <div className="conversion__media">
+                                <div className="conversion__media-inner">
+                                    <div className="conversion__media-badge">
+                                        {item.eyebrow}
+                                    </div>
+                                    <div className="conversion__media-placeholder">
+                                        <span>{item.placeholderLabel}</span>
+                                    </div>
+                                </div>
                             </div>
 
-                            <h3 className="heading3 conversion__card-title">
-                                {item.title}
-                            </h3>
+                            <div className="conversion__content">
+                                <p className="conversion__item-eyebrow">
+                                    {item.eyebrow}
+                                </p>
 
-                            <p className="body conversion__card-text">
-                                {item.description}
-                            </p>
+                                <h3 className="heading3 conversion__item-title">
+                                    {item.title}
+                                </h3>
+
+                                <p className="body conversion__item-text">
+                                    {item.description}
+                                </p>
+                            </div>
                         </article>
                     ))}
                 </div>
