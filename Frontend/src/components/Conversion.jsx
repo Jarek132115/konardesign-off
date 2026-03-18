@@ -244,7 +244,7 @@ const Conversion = () => {
                                     <img src={item.icon} alt={item.alt} />
                                 </div>
 
-                                <h3 className="heading3 conversion__item-title">
+                                <h3 className="heading4 conversion__item-title">
                                     {item.title}
                                 </h3>
 
