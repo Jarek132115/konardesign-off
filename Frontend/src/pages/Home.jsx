@@ -83,7 +83,7 @@ const Home = () => {
         words.forEach((word, wordIndex) => {
             const wordWrapper = document.createElement("span");
             wordWrapper.classList.add("hero__title-word");
-            wordWrapper.style.display = "inline";
+            wordWrapper.style.display = "inline-block";
 
             const cleanedWord = word.toLowerCase().replace(/[^a-z]/g, "");
 

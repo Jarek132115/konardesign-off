@@ -58,11 +58,13 @@
 .hero__title {
     margin: 8px auto 16px;
     max-width: 1000px;
+    white-space: normal;
 }
 
 /* word wrapper for letter animation */
 .hero__title-word {
-    white-space: normal;
+    display: inline-block;
+    white-space: nowrap;
 }
 
 /* SUBHEADING */
@@ -175,7 +177,7 @@
 @media (max-width: 399px) {
     .heading1.hero__title {
         font-size: 34px !important;
-        line-height: 48px;
+        line-height: 1.14;
     }
 
     .hero__card {
@@ -191,7 +193,7 @@
 @media (min-width: 400px) and (max-width: 499px) {
     .heading1.hero__title {
         font-size: 40px !important;
-        line-height: 52px;
+        line-height: 1.12;
     }
 
     .hero__card {
