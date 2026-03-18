@@ -74,6 +74,10 @@
     padding-left: 0;
     padding-right: 0;
     box-sizing: border-box;
+
+    /* bigger on desktop / laptop */
+    font-size: clamp(17px, 0.38vw + 0.95rem, 21px);
+    line-height: 1.62;
 }
 
 /* CTA BUTTONS LAYOUT */
@@ -98,7 +102,7 @@
 
 .hero__carousel-track {
     display: flex;
-    gap: 12px;
+    gap: 16px;
     align-items: center;
     will-change: transform;
     transform: translate3d(0, 0, 0);
@@ -110,9 +114,10 @@
     cursor: grabbing;
 }
 
+/* Desktop: approx 3–4 visible cards depending on screen width */
 .hero__card {
-    flex: 0 0 400px;
-    width: 400px;
+    flex: 0 0 clamp(320px, 21vw, 420px);
+    width: clamp(320px, 21vw, 420px);
     aspect-ratio: 4 / 2.75;
     border-radius: 12px;
     overflow: hidden;
@@ -126,7 +131,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* BIG TABLET (801–1200px)                                   */
+/* BIG TABLET / LAPTOP (801–1200px)                          */
 /* --------------------------------------------------------- */
 
 @media (min-width: 801px) and (max-width: 1200px) {
@@ -147,15 +152,24 @@
         max-width: 720px;
         padding-left: 24px;
         padding-right: 24px;
+        font-size: clamp(17px, 0.35vw + 0.9rem, 19px);
+        line-height: 1.62;
+    }
+
+    /* pill bigger on tablet */
+    .hero__pill {
+        font-size: 15px;
+        padding: 9px 18px;
+    }
+
+    /* about 2 cards visible */
+    .hero__card {
+        flex: 0 0 clamp(360px, 42vw, 460px);
+        width: clamp(360px, 42vw, 460px);
     }
 
     .hero__buttons {
         margin-bottom: 50px;
-    }
-
-    .hero__card {
-        flex: 0 0 360px;
-        width: 360px;
     }
 }
 
@@ -176,6 +190,20 @@
     .hero__subheading {
         padding-left: 8px;
         padding-right: 8px;
+        font-size: inherit;
+        line-height: 1.6;
+    }
+
+    /* keep pill good on mobile */
+    .hero__pill {
+        font-size: 12px;
+        padding: 7px 12px;
+    }
+
+    /* about 1.5 visible cards */
+    .hero__card {
+        flex: 0 0 68vw;
+        width: 68vw;
     }
 }
 
@@ -190,8 +218,8 @@
     }
 
     .hero__card {
-        flex: 0 0 260px;
-        width: 260px;
+        flex: 0 0 72vw;
+        width: 72vw;
     }
 }
 
@@ -206,8 +234,8 @@
     }
 
     .hero__card {
-        flex: 0 0 280px;
-        width: 280px;
+        flex: 0 0 66vw;
+        width: 66vw;
     }
 }
 
@@ -234,15 +262,26 @@
         max-width: 700px;
         padding-left: 28px;
         padding-right: 28px;
+
+        /* keep tablet exactly like you liked it */
+        font-size: inherit;
+        line-height: 1.6;
+    }
+
+    /* pill bigger on tablet */
+    .hero__pill {
+        font-size: 15px;
+        padding: 9px 18px;
     }
 
     .hero__buttons {
         margin-bottom: 56px;
     }
 
+    /* about 2 cards visible */
     .hero__card {
-        flex: 0 0 340px;
-        width: 340px;
+        flex: 0 0 43vw;
+        width: 43vw;
     }
 }
 
@@ -254,11 +293,6 @@
     .heading1.hero__title {
         font-size: 48px !important;
         line-height: 1.1;
-    }
-
-    .hero__card {
-        flex: 0 0 340px;
-        width: 340px;
     }
 }
 
@@ -279,8 +313,8 @@
 
 @media (min-width: 650px) and (max-width: 800px) {
     .hero__card {
-        flex: 0 0 440px;
-        width: 440px;
+        flex: 0 0 41vw;
+        width: 41vw;
     }
 }
 
