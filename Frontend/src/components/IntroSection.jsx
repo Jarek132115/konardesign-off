@@ -25,9 +25,6 @@ const IntroSection = () => {
         const leftEl = leftRef.current;
         if (!sectionEl || !leftEl) return;
 
-        /* -------------------------------
-           LEFT: EYEBROW + LETTER ANIMATION
-           ------------------------------- */
         const eyebrowEl = leftEl.querySelector(".intro__eyebrow");
         const headline = leftEl.querySelector(".intro__headline");
         const subheadingEl = leftEl.querySelector(".intro__subheading");
@@ -36,7 +33,6 @@ const IntroSection = () => {
         const originalText = headline.textContent;
         headline.textContent = "";
 
-        // Split into words, then characters inside each word
         const words = originalText.split(" ");
 
         words.forEach((word, wordIndex) => {
@@ -55,18 +51,20 @@ const IntroSection = () => {
 
             headline.appendChild(wordWrapper);
 
-            // Real space between words so wrapping happens *between* words
             if (wordIndex !== words.length - 1) {
                 headline.appendChild(document.createTextNode(" "));
             }
         });
 
-        // Highlight specific words: ONLY Expertise + Outcomes
         const wordSpans = headline.querySelectorAll(".intro__headline-word");
-        const highlightSet = new Set(["Expertise", "Outcomes"]);
+        const highlightSet = new Set([
+            "Strategy",
+            "Design",
+            "Performance",
+        ]);
 
         wordSpans.forEach((wordSpan) => {
-            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, ""); // strip punctuation
+            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
             if (highlightSet.has(cleaned)) {
                 wordSpan.classList.add("intro__headline-highlight");
             }
@@ -74,8 +72,6 @@ const IntroSection = () => {
 
         const charSpans = headline.querySelectorAll(".intro__headline-word span");
 
-        // Faster intro animation, in order:
-        // 1) eyebrow, 2) letters, 3) subheading
         const leftTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
@@ -85,7 +81,6 @@ const IntroSection = () => {
         });
 
         leftTl
-            // Eyebrow first
             .fromTo(
                 eyebrowEl,
                 { opacity: 0, y: 8 },
@@ -96,7 +91,6 @@ const IntroSection = () => {
                     ease: "power2.out",
                 }
             )
-            // Then headline letters
             .to(
                 charSpans,
                 {
@@ -108,7 +102,6 @@ const IntroSection = () => {
                 },
                 ">-0.05"
             )
-            // Then subheading
             .fromTo(
                 subheadingEl,
                 { opacity: 0, y: 8 },
@@ -121,9 +114,6 @@ const IntroSection = () => {
                 ">-0.08"
             );
 
-        /* -------------------------------
-           RIGHT: EACH ITEM FADES IN ONCE
-           ------------------------------- */
         const items = sectionEl.querySelectorAll(
             ".intro__item, .intro__bottom-text"
         );
@@ -137,11 +127,11 @@ const IntroSection = () => {
                     y: 0,
                     duration: 0.4,
                     ease: "power2.out",
-                    delay: index * 0.1,
+                    delay: index * 0.08,
                     scrollTrigger: {
                         trigger: item,
-                        start: "top 80%",
-                        toggleActions: "play none none none", // fade in only
+                        start: "top 82%",
+                        toggleActions: "play none none none",
                     },
                 }
             );
@@ -151,28 +141,31 @@ const IntroSection = () => {
     return (
         <section className="intro" ref={sectionRef}>
             <div className="intro__container">
-                {/* LEFT SIDE */}
                 <div className="intro__left" ref={leftRef}>
-                    <p className="eyebrow intro__eyebrow">EXPERT TEAM</p>
+                    <p className="eyebrow intro__eyebrow">WHY KONARDESIGN</p>
+
                     <h2 className="intro__headline heading2">
-                        Senior-Level Expertise. Built For Real Business Outcomes.
+                        Strategy. Design. Performance. Led with clarity from start
+                        to finish.
                     </h2>
+
                     <p className="intro__subheading subheading">
-                        A Specialist Team Across UX, Design, Development, And Branding—
-                        Focused On Building High-Performance Digital Experiences That
-                        Convert And Scale.
+                        I lead each project personally across planning, design,
+                        development, and launch—creating websites that look sharp,
+                        feel seamless, and support real business goals. When a project
+                        needs specialist creative support, I bring in trusted
+                        collaborators without losing direction or consistency.
                     </p>
                 </div>
 
-                {/* RIGHT SIDE */}
                 <div className="intro__right">
                     <div className="intro__item">
                         <h3 className="intro__item-title heading3">
                             Design &amp; UX
                         </h3>
                         <p className="intro__item-text body">
-                            We design conversion-focused visuals and seamless user
-                            experiences.
+                            Clear layouts, strong visual direction, and user-focused
+                            design that helps people trust, engage, and convert.
                         </p>
                         <div className="intro__icons-row">
                             <span className="intro__icon">
@@ -192,11 +185,12 @@ const IntroSection = () => {
 
                     <div className="intro__item">
                         <h3 className="intro__item-title heading3">
-                            Development &amp; Engineering
+                            Development &amp; Build
                         </h3>
                         <p className="intro__item-text body">
-                            Fast, scalable builds engineered for performance, reliability,
-                            and future growth.
+                            Custom-built websites focused on responsiveness, clean
+                            execution, and a polished experience across every screen
+                            size.
                         </p>
                         <div className="intro__icons-row">
                             <span className="intro__icon">
@@ -213,11 +207,12 @@ const IntroSection = () => {
 
                     <div className="intro__item">
                         <h3 className="intro__item-title heading3">
-                            Build For Performance
+                            Performance &amp; Visibility
                         </h3>
                         <p className="intro__item-text body">
-                            Fast, scalable builds engineered for performance, reliability,
-                            and future growth.
+                            Fast-loading pages, strong structure, and SEO-aware
+                            decisions that help your website perform better after
+                            launch—not just look good on day one.
                         </p>
                         <div className="intro__icons-row">
                             <span className="intro__icon">
@@ -227,7 +222,7 @@ const IntroSection = () => {
                     </div>
 
                     <p className="intro__bottom-text">
-                        No templates. No outsourcing. Built from scratch, end to end.
+                        One clear lead. One consistent vision. No bloated process.
                     </p>
                 </div>
             </div>
