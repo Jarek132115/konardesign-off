@@ -91,8 +91,8 @@ const ProjectsSection = () => {
                     <p className="eyebrow projects__eyebrow">MY WORK</p>
 
                     <h2 className="heading2 projects__title">
-                        A look at some of my{" "}
-                        <span className="projects__highlight">best work</span>
+                        A Look at Some of My{" "}
+                        <span className="projects__highlight">Best Work</span>
                     </h2>
 
                     <p className="subheading projects__subtitle">

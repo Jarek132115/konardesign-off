@@ -321,3 +321,7 @@
         font-size: 0.7rem;
     }
 }
+
+.projects__highlight {
+    color: var(--deep-indigo);
+}

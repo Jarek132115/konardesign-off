@@ -1,18 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 import IntroSection from "../components/IntroSection";
 import Conversion from "../components/Conversion";
 import ProjectsSection from "../components/ProjectsSection";
-import ServicesSection from "../components/ServicesSection";
-import OfferSection from "../components/OfferSection";
 import ProcessSection from "../components/ProcessSection";
-import ImagineSection from "../components/ImagineSection";
-import Footer from "../components/Footer";
-import BookCTASection from "../components/BookCTASection";
-import BlogSection from "../components/BlogSection";
 import DifferenceSection from "../components/DifferenceSection";
+import BlogSection from "../components/BlogSection";
+import BookCTASection from "../components/BookCTASection";
+import Footer from "../components/Footer";
 
 import "../styling/hero.css";
 import "../styling/buttons.css";
@@ -119,11 +116,7 @@ const Home = () => {
             .fromTo(
                 pillEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.25,
-                }
+                { opacity: 1, y: 0, duration: 0.25 }
             )
             .to(
                 charSpans,
@@ -138,231 +131,24 @@ const Home = () => {
             .fromTo(
                 subheadingEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.08"
             )
             .fromTo(
                 buttonsEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.06"
             )
             .fromTo(
                 carouselEl,
                 { opacity: 0, y: 16 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.04"
             );
 
-        /* -----------------------------
-           INFINITE MARQUEE + DRAG
-        ----------------------------- */
-
-        let distance = 0;
-        let offset = 0;
-
-        const baseSpeed = 150;
-        let direction = 1;
-
-        let isDragging = false;
-        let isPointerDown = false;
-        let dragStartX = 0;
-        let dragStartY = 0;
-        let dragStartOffset = 0;
-        let lastDragDeltaX = 0;
-        let tickerFn = null;
-
-        const applyTransform = () => {
-            gsap.set(carouselTrackEl, { x: -offset });
-        };
-
-        const startTicker = () => {
-            if (!distance) return;
-
-            let lastTime = gsap.ticker.time;
-
-            tickerFn = (time) => {
-                const dt = time - lastTime;
-                lastTime = time;
-
-                if (!isDragging) {
-                    offset += direction * baseSpeed * dt;
-
-                    if (distance > 0) {
-                        offset = offset % distance;
-                    }
-
-                    applyTransform();
-                }
-            };
-
-            gsap.ticker.add(tickerFn);
-        };
-
-        const imgEls = carouselTrackEl.querySelectorAll("img");
-        const totalImgs = imgEls.length;
-        let loadedCount = 0;
-
-        const handleImageLoaded = () => {
-            loadedCount += 1;
-            if (loadedCount >= totalImgs) {
-                distance = carouselTrackEl.scrollWidth / 2;
-                if (distance > 0) {
-                    offset = 0;
-                    applyTransform();
-                    startTicker();
-                }
-            }
-        };
-
-        if (totalImgs === 0) {
-            distance = carouselTrackEl.scrollWidth / 2;
-            if (distance > 0) {
-                offset = 0;
-                applyTransform();
-                startTicker();
-            }
-        } else {
-            imgEls.forEach((img) => {
-                if (img.complete) {
-                    handleImageLoaded();
-                } else {
-                    img.addEventListener("load", handleImageLoaded);
-                    img.addEventListener("error", handleImageLoaded);
-                }
-            });
-        }
-
-        /* -----------------------------
-           DRAG (mouse + touch)
-        ----------------------------- */
-
-        const getClientX = (e) =>
-            e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
-
-        const getClientY = (e) =>
-            e.touches && e.touches.length ? e.touches[0].clientY : e.clientY;
-
-        const HORIZONTAL_THRESHOLD = 8;
-        const MIN_DIRECTION_DELTA = 4;
-
-        const onPointerDown = (e) => {
-            if (!distance) return;
-
-            if (e.button !== undefined && e.button !== 0) {
-                return;
-            }
-
-            isPointerDown = true;
-            isDragging = false;
-            dragStartX = getClientX(e);
-            dragStartY = getClientY(e);
-            dragStartOffset = offset;
-            lastDragDeltaX = 0;
-        };
-
-        const onPointerMove = (e) => {
-            if (!isPointerDown || !distance) return;
-
-            const currentX = getClientX(e);
-            const currentY = getClientY(e);
-            const deltaX = currentX - dragStartX;
-            const deltaY = currentY - dragStartY;
-
-            if (!isDragging) {
-                if (
-                    Math.abs(deltaX) < HORIZONTAL_THRESHOLD &&
-                    Math.abs(deltaY) < HORIZONTAL_THRESHOLD
-                ) {
-                    return;
-                }
-
-                if (Math.abs(deltaX) > Math.abs(deltaY)) {
-                    isDragging = true;
-                    carouselTrackEl.classList.add(
-                        "hero__carousel-track--dragging"
-                    );
-                } else {
-                    isPointerDown = false;
-                    isDragging = false;
-                    return;
-                }
-            }
-
-            offset = dragStartOffset - deltaX;
-            lastDragDeltaX = deltaX;
-            offset = ((offset % distance) + distance) % distance;
-
-            applyTransform();
-
-            if (e.cancelable) e.preventDefault();
-        };
-
-        const endDrag = () => {
-            if (!isPointerDown && !isDragging) return;
-
-            isPointerDown = false;
-            isDragging = false;
-            carouselTrackEl.classList.remove("hero__carousel-track--dragging");
-
-            if (Math.abs(lastDragDeltaX) > MIN_DIRECTION_DELTA) {
-                direction = lastDragDeltaX > 0 ? -1 : 1;
-            }
-
-            lastDragDeltaX = 0;
-        };
-
-        const onNativeDragStart = (e) => {
-            e.preventDefault();
-        };
-
-        carouselTrackEl.addEventListener("dragstart", onNativeDragStart);
-
-        carouselEl.addEventListener("mousedown", onPointerDown);
-        window.addEventListener("mousemove", onPointerMove);
-        window.addEventListener("mouseup", endDrag);
-
-        carouselEl.addEventListener("touchstart", onPointerDown, {
-            passive: false,
-        });
-        window.addEventListener("touchmove", onPointerMove, { passive: false });
-        window.addEventListener("touchend", endDrag);
-        window.addEventListener("touchcancel", endDrag);
-
         return () => {
             introTl.kill();
-
-            if (tickerFn) {
-                gsap.ticker.remove(tickerFn);
-            }
-
-            imgEls.forEach((img) => {
-                img.removeEventListener("load", handleImageLoaded);
-                img.removeEventListener("error", handleImageLoaded);
-            });
-
-            carouselTrackEl.removeEventListener("dragstart", onNativeDragStart);
-
-            carouselEl.removeEventListener("mousedown", onPointerDown);
-            window.removeEventListener("mousemove", onPointerMove);
-            window.removeEventListener("mouseup", endDrag);
-
-            carouselEl.removeEventListener("touchstart", onPointerDown);
-            window.removeEventListener("touchmove", onPointerMove);
-            window.removeEventListener("touchend", endDrag);
-            window.removeEventListener("touchcancel", endDrag);
         };
     }, []);
 
@@ -419,11 +205,8 @@ const Home = () => {
             <IntroSection />
             <Conversion />
             <ProjectsSection />
-            <ServicesSection />
-            <OfferSection />
             <ProcessSection />
             <DifferenceSection />
-            {/* <ImagineSection /> */}
             <BlogSection />
             <BookCTASection />
             <Footer />
