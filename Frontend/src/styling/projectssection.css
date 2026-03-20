@@ -29,10 +29,6 @@
     text-align: center;
 }
 
-.projects__eyebrow {
-    margin-bottom: 8px;
-}
-
 .projects__title {
     margin: 0 0 16px;
 }
@@ -67,7 +63,6 @@
     overflow: hidden;
     background: #000;
     border: 1px solid rgba(15, 23, 42, 0.08);
-    box-shadow: none;
     cursor: pointer;
     transition:
         transform 0.25s ease-out,
@@ -134,7 +129,6 @@
 .projects-row__year {
     display: inline-flex;
     width: fit-content;
-    margin: 0;
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
     font-size: 12px;
@@ -147,7 +141,6 @@
 
 .projects-row__title {
     margin: 0;
-    max-width: 100%;
     color: var(--white);
     line-height: 1.08;
 }
@@ -179,7 +172,6 @@
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.14);
-    box-shadow: none;
 
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
@@ -212,7 +204,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* TABLET / SMALL DESKTOP                                    */
+/* TABLET                                                    */
 /* --------------------------------------------------------- */
 
 @media (max-width: 1024px) {
@@ -238,11 +230,6 @@
         gap: 10px;
     }
 
-    .projects-row__tags {
-        gap: 8px;
-        margin-top: 4px;
-    }
-
     .projects-row__pill {
         min-height: 32px;
         padding: 0 12px;
@@ -251,7 +238,7 @@
 }
 
 /* --------------------------------------------------------- */
-/* UNDER 600PX                                               */
+/* UNDER 600PX (SQUARE)                                      */
 /* --------------------------------------------------------- */
 
 @media (max-width: 600px) {
@@ -282,17 +269,12 @@
     }
 
     .projects-row__content {
-        max-width: 100%;
         padding: 20px 18px 18px;
         gap: 9px;
     }
 
     .projects-row__year {
         font-size: 11px;
-    }
-
-    .projects-row__description {
-        max-width: 100%;
     }
 
     .projects-row__pill {
@@ -303,12 +285,12 @@
 }
 
 /* --------------------------------------------------------- */
-/* UNDER 500PX                                               */
+/* UNDER 500PX (TALLER CARD FIXED)                           */
 /* --------------------------------------------------------- */
 
 @media (max-width: 500px) {
     .projects-row {
-        aspect-ratio: 5 / 4;
+        aspect-ratio: 4 / 5;
     }
 }
 
