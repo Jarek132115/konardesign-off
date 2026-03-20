@@ -37,21 +37,28 @@
 /* Desktop + tablet increased, mobile kept as-is          */
 /* ====================================================== */
 
+/* ====================================================== */
+/* HEADING 2 – SECTION TITLES                             */
+/* FIXED: stronger tablet sizing                          */
+/* ====================================================== */
+
 .heading2 {
-    font-size: clamp(32px, 2.8vw + 0.8rem, 52px);
+    font-size: clamp(34px, 3vw + 0.8rem, 52px);
     font-weight: 400;
     letter-spacing: -0.02em;
     line-height: 1.14;
     color: var(--black);
 }
 
+/* 🔥 Tablet — now properly scaled UP (this was the issue) */
 @media (max-width: 1024px) {
     .heading2 {
-        font-size: clamp(30px, 2.4vw + 0.7rem, 42px);
-        line-height: 1.16;
+        font-size: clamp(32px, 3.2vw + 0.7rem, 46px);
+        line-height: 1.14;
     }
 }
 
+/* Mobile stays clean */
 @media (max-width: 768px) {
     .heading2 {
         font-size: clamp(26px, 2.2vw + 0.6rem, 40px);
