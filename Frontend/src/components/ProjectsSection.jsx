@@ -14,7 +14,7 @@ const projects = [
         year: "2025",
         title: "KonarCard Website Design & Development",
         description:
-            "Creative exploration, showcase website design and custom UX/UI built to highlight product value and conversion.",
+            "Designed and built to clearly communicate value, support user flow, and drive meaningful conversion.",
         tags: ["UX Design", "Web Design", "Web Development"],
         media: konarVideo,
         route: "/projects/konarcard",
@@ -25,9 +25,6 @@ const ProjectsSection = () => {
     const sectionRef = useRef(null);
     const navigate = useNavigate();
 
-    /* ------------------------------
-       SCROLL ANIMATIONS
-    ------------------------------- */
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
             const rows = sectionRef.current?.querySelectorAll(".projects-row");
@@ -53,9 +50,6 @@ const ProjectsSection = () => {
         return () => ctx.revert();
     }, []);
 
-    /* ------------------------------
-       VIDEO TOGGLE (CLICK)
-    ------------------------------- */
     const toggleVideo = useCallback((videoEl) => {
         if (!videoEl) return;
 
@@ -69,16 +63,15 @@ const ProjectsSection = () => {
     return (
         <section className="projects" ref={sectionRef}>
             <header className="projects__header">
-                <p className="eyebrow">OUR WORK</p>
+                <p className="eyebrow">SELECTED WORK</p>
 
                 <h2 className="heading2">
-                    Selected{" "}
-                    <span className="projects__highlight">Projects</span> & Case
-                    Studies
+                    Recent <span className="projects__highlight">Projects</span>
                 </h2>
 
                 <p className="subheading projects__subtitle">
-                    A curated look at recent work — full case studies coming soon.
+                    A selection of websites I’ve designed and built — focused on
+                    clarity, performance, and real business outcomes.
                 </p>
             </header>
 
@@ -92,11 +85,11 @@ const ProjectsSection = () => {
                         onClick={() => navigate(project.route)}
                         onKeyDown={(e) => {
                             if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
                                 navigate(project.route);
                             }
                         }}
                     >
-                        {/* VIDEO */}
                         <video
                             className="projects-row__media"
                             src={project.media}
@@ -106,7 +99,6 @@ const ProjectsSection = () => {
                             playsInline
                             preload="auto"
                             onCanPlay={(e) => {
-                                // Safari/iOS autoplay nudge
                                 e.currentTarget.play().catch(() => { });
                             }}
                             onClick={(e) => {
