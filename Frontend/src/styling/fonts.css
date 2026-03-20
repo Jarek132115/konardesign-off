@@ -125,6 +125,7 @@
 
 /* ====================================================== */
 /* HEADING 4 – SECTION BLOCK TITLES (CONVERSION)           */
+/* Min size locked to 20px                                */
 /* ====================================================== */
 
 .heading4 {
@@ -142,10 +143,10 @@
     }
 }
 
-/* mobile (keep clean + readable) */
+/* mobile (locked min 20px) */
 @media (max-width: 768px) {
     .heading4 {
-        font-size: clamp(18px, 1.2vw + 0.4rem, 22px);
+        font-size: clamp(20px, 1.2vw + 0.4rem, 22px);
         line-height: 1.2;
     }
 }
