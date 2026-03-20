@@ -19,32 +19,53 @@ const BlogSection = () => {
         {
             id: 1,
             category: "Web Design",
-            title: "Why Most Websites Look Good But Don’t Convert (And How To Fix It)",
+            title: (
+                <>
+                    Why Most <span className="blogsection__highlight">Websites</span>{" "}
+                    Look Good But Do Not{" "}
+                    <span className="blogsection__highlight">Convert</span>
+                </>
+            ),
             description:
-                "The design mistakes that quietly kill conversions — and how to turn your site into a performance asset instead of a pretty brochure.",
+                "The design mistakes that quietly hurt conversion, and how to turn your site into something that performs properly.",
             readTime: "1 Min Read",
             img: blogImg1,
             link: "/blog/growth-insights",
+            alt: "Website design article preview",
         },
         {
             id: 2,
             category: "Performance",
-            title: "The 5 Metrics That Actually Matter For Website ROI",
+            title: (
+                <>
+                    The 5 <span className="blogsection__highlight">Metrics</span>{" "}
+                    That Actually Matter for Website{" "}
+                    <span className="blogsection__highlight">ROI</span>
+                </>
+            ),
             description:
-                "Forget vanity metrics. Here are the numbers that actually tell you if your website is pulling its weight for the business.",
+                "Forget vanity numbers. These are the metrics that show whether your website is genuinely helping the business.",
             readTime: "1 Min Read",
             img: blogImg2,
             link: "/blog/conversion-playbooks",
+            alt: "Performance metrics article preview",
         },
         {
             id: 3,
             category: "SEO",
-            title: "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
+            title: (
+                <>
+                    Technical <span className="blogsection__highlight">SEO</span> vs
+                    On-Page SEO for Real{" "}
+                    <span className="blogsection__highlight">Results</span>
+                </>
+            ),
             description:
-                "A simple breakdown of where to focus first if you want organic traffic that turns into pipeline — not just impressions.",
+                "A clearer way to think about where SEO impact comes from, and what to focus on first if you want stronger results.",
             readTime: "1 Min Read",
             img: blogImg3,
             link: "/blog/technical-foundations",
+            alt: "SEO article preview",
         },
     ];
 
@@ -59,44 +80,7 @@ const BlogSection = () => {
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("blogsection__title-word");
-            wordWrapper.style.display = "inline";
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const wordSpans = titleEl.querySelectorAll(".blogsection__title-word");
-        const highlightSet = new Set(["Insights"]);
-
-        wordSpans.forEach((wordSpan) => {
-            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
-            if (highlightSet.has(cleaned)) {
-                wordSpan.classList.add("blogsection__title-highlight");
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(".blogsection__title-word span");
-
+        gsap.set(titleEl, { opacity: 0, y: 8 });
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
 
         const tl = gsap.timeline({
@@ -113,10 +97,11 @@ const BlogSection = () => {
             { opacity: 0, y: 8 },
             { opacity: 1, y: 0, duration: 0.25 }
         )
-            .to(
-                charSpans,
-                { opacity: 1, y: 0, stagger: 0.018, duration: 0.26 },
-                ">-0.05"
+            .fromTo(
+                titleEl,
+                { opacity: 0, y: 8 },
+                { opacity: 1, y: 0, duration: 0.32 },
+                ">-0.04"
             )
             .fromTo(
                 subtitleEl,
@@ -157,12 +142,15 @@ const BlogSection = () => {
                     <p className="eyebrow blogsection__eyebrow">BLOG</p>
 
                     <h2 className="heading2 blogsection__title">
-                        Growth-Driven Insights For Modern Brands
+                        Growth-Driven{" "}
+                        <span className="blogsection__highlight">Insights</span> for
+                        Modern{" "}
+                        <span className="blogsection__highlight">Brands</span>
                     </h2>
 
                     <p className="subheading blogsection__subtitle">
-                        High-impact articles on UX, design, performance, and digital
-                        growth—written for brands ready to scale.
+                        Practical writing on design, UX, performance, and SEO for
+                        brands that want a website built to do more.
                     </p>
                 </header>
 
@@ -176,8 +164,9 @@ const BlogSection = () => {
                             <div className="blogsection__media">
                                 <img
                                     src={article.img}
-                                    alt={article.title}
+                                    alt={article.alt}
                                     className="blogsection__card-img"
+                                    draggable="false"
                                 />
                                 <span className="blogsection__pill">
                                     {article.category}

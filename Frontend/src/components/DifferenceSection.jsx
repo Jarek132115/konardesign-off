@@ -17,7 +17,6 @@ const proChips = [
     "Future-proof development",
 ];
 
-
 const cheapChips = [
     "Reused generic templates",
     "No real UX strategy",
@@ -28,7 +27,6 @@ const cheapChips = [
     "Hard to scale or update",
     "Requires full rebuild later",
 ];
-
 
 const DifferenceSection = () => {
     const sectionRef = useRef(null);
@@ -44,48 +42,7 @@ const DifferenceSection = () => {
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        // TITLE LETTER ANIMATION (word-safe)
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("difference__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        // highlight “Looks Nice” and “Drives Growth”
-        const wordSpans = titleEl.querySelectorAll(".difference__title-word");
-        const highlightSet = new Set(["Looks", "Nice", "Drives", "Growth"]);
-
-        wordSpans.forEach((wordSpan) => {
-            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
-            if (highlightSet.has(cleaned)) {
-                wordSpan.classList.add("difference__title-highlight");
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(
-            ".difference__title-word span"
-        );
-
+        gsap.set(titleEl, { opacity: 0, y: 8 });
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
 
         const tl = gsap.timeline({
@@ -97,42 +54,25 @@ const DifferenceSection = () => {
             defaults: { ease: "power2.out" },
         });
 
-        tl
-            // 1) Eyebrow
+        tl.fromTo(
+            eyebrowEl,
+            { opacity: 0, y: 8 },
+            { opacity: 1, y: 0, duration: 0.25 }
+        )
             .fromTo(
-                eyebrowEl,
+                titleEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.25,
-                }
+                { opacity: 1, y: 0, duration: 0.32 },
+                ">-0.04"
             )
-            // 2) Letters
-            .to(
-                charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
-                },
-                ">-0.05"
-            )
-            // 3) Subheading
             .fromTo(
                 subtitleEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.08"
             );
 
-        // cards fade in on scroll
-        cards.forEach((card) => {
+        cards.forEach((card, index) => {
             gsap.fromTo(
                 card,
                 { opacity: 0, y: 24 },
@@ -140,6 +80,7 @@ const DifferenceSection = () => {
                     opacity: 1,
                     y: 0,
                     duration: 0.45,
+                    delay: index * 0.05,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: card,
@@ -161,43 +102,43 @@ const DifferenceSection = () => {
             <div className="difference__inner">
                 <header className="difference__header">
                     <p className="eyebrow difference__eyebrow">
-                        Why The Build Matters
+                        WHY THE BUILD MATTERS
                     </p>
 
                     <h2 className="heading2 difference__title">
-                        The Difference Between "Looks Nice" And Actually Drives
-                        Growth
+                        The Difference Between{" "}
+                        <span className="difference__highlight">Looks Nice</span>{" "}
+                        and Actually{" "}
+                        <span className="difference__highlight">
+                            Drives Growth
+                        </span>
                     </h2>
 
                     <p className="subheading difference__subtitle">
-                        Most websites look good at first glance. Under the hood,
-                        they&apos;re slow, template-based, unscalable, and
-                        expensive to fix later. We build it right the first
-                        time.
+                        Most websites look good at first glance. Under the surface,
+                        they are slow, hard to scale, and expensive to fix later.
                     </p>
                 </header>
 
                 <div className="difference__grid">
-                    {/* LEFT: PROFESSIONAL BUILD */}
-                    <article className="difference__card difference__card--pro">
-                        <button className="difference__badge difference__badge--pro">
+                    <article className="difference__card">
+                        <div className="difference__badge difference__badge--pro">
                             Professional build
-                        </button>
+                        </div>
 
-                        <h3 className="heading3 difference__card-title">
-                            Built For Growth
+                        <h3 className="heading4 difference__card-title">
+                            Built for Growth
                         </h3>
-                        <p className="body difference__card-subtitle">
-                            Designed right the first time
-                        </p>
 
-                        <p className="body difference__label">What You Get:</p>
+                        <p className="body difference__card-subtitle">
+                            Structured properly from the beginning
+                        </p>
 
                         <div className="difference__chips">
                             {proChips.map((chip) => (
                                 <span
                                     key={chip}
-                                    className="body difference__chip"
+                                    className="difference__chip body"
                                 >
                                     {chip}
                                 </span>
@@ -205,26 +146,24 @@ const DifferenceSection = () => {
                         </div>
                     </article>
 
-                    {/* RIGHT: CHEAP / RANDOM BUILD */}
-                    <article className="difference__card difference__card--cheap">
-                        <button className="difference__badge difference__badge--cheap">
-                            Cheap/Random
-                        </button>
+                    <article className="difference__card">
+                        <div className="difference__badge difference__badge--cheap">
+                            Cheap or random build
+                        </div>
 
-                        <h3 className="heading3 difference__card-title">
-                            Looks Okay – Until It Costs You
+                        <h3 className="heading4 difference__card-title">
+                            Looks Fine Until It Costs You
                         </h3>
-                        <p className="body difference__card-subtitle">
-                            Shortcuts now, expensive fixes later
-                        </p>
 
-                        <p className="body difference__label">What You Get:</p>
+                        <p className="body difference__card-subtitle">
+                            Shortcuts early create bigger problems later
+                        </p>
 
                         <div className="difference__chips">
                             {cheapChips.map((chip) => (
                                 <span
                                     key={chip}
-                                    className="body difference__chip"
+                                    className="difference__chip body"
                                 >
                                     {chip}
                                 </span>

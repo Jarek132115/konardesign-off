@@ -1,29 +1,32 @@
 @import "./colours.css";
 
 /* --------------------------------------------------------- */
-/* SECTION WRAPPER (match .conversion)                       */
+/* SECTION                                                   */
 /* --------------------------------------------------------- */
 
 .difference {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 120px 120px;
+    width: 100%;
+    margin: 0;
+    padding: 130px 0 150px;
     box-sizing: border-box;
-    background: var(--white);
+    background: var(--off-white);
 }
 
 .difference__inner {
+    max-width: 1600px;
     margin: 0 auto;
+    padding: 0 120px;
+    box-sizing: border-box;
 }
 
 /* --------------------------------------------------------- */
-/* HEADER (match conversion spacing)                         */
+/* HEADER                                                    */
 /* --------------------------------------------------------- */
 
 .difference__header {
+    max-width: 860px;
+    margin: 0 auto 64px;
     text-align: center;
-    margin-bottom: 48px;
-    /* was 40px */
 }
 
 .difference__eyebrow {
@@ -32,160 +35,266 @@
 
 .difference__title {
     margin: 0 0 16px;
-    /* match conversion title spacing */
 }
 
 .difference__title-word {
     white-space: nowrap;
 }
 
-.difference__title-highlight,
-.difference__title-highlight span {
-    color: var(--deep-indigo) !important;
-}
-
 .difference__subtitle {
-    max-width: 700px;
-    /* match conversion subtitle width */
+    max-width: 720px;
     margin: 0 auto;
-    color: var(--cool-grey);
     font-weight: 500;
-    /* same weight feel as conversion */
 }
 
 /* --------------------------------------------------------- */
-/* GRID + CARDS (match conversion card style)                */
+/* MANUAL INDIGO HIGHLIGHT                                   */
+/* Use this in JSX around the words you want indigo          */
+/* --------------------------------------------------------- */
+
+.difference__highlight {
+    color: var(--deep-indigo);
+}
+
+/* --------------------------------------------------------- */
+/* GRID                                                      */
 /* --------------------------------------------------------- */
 
 .difference__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    /* match .conversion__grid gap */
+    gap: 20px;
+    align-items: stretch;
 }
+
+/* --------------------------------------------------------- */
+/* CARD                                                      */
+/* --------------------------------------------------------- */
 
 .difference__card {
-    position: relative;
-    background: var(--white);
-    border-radius: 12px;
-    /* match conversion */
-    border: 1px solid var(--light-grey);
-    padding: 24px 24px 26px;
-    /* match conversion card padding */
-    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
-    /* match conversion shadow */
     display: flex;
     flex-direction: column;
-
-    /* keep it flat like conversion (no extra bg image for now) */
+    align-items: flex-start;
+    min-height: 100%;
+    padding: 28px;
+    border-radius: 28px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background:
+        radial-gradient(rgba(99, 91, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(180deg,
+            rgba(255, 255, 255, 0.98) 0%,
+            rgba(248, 248, 252, 1) 100%);
+    background-size: 10px 10px, auto;
+    box-shadow: none;
+    overflow: hidden;
 }
 
-/* top pill */
+/* --------------------------------------------------------- */
+/* BADGES                                                    */
+/* --------------------------------------------------------- */
+
 .difference__badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 16px;
-    border-radius: 999px;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 24px;
-    white-space: nowrap;
     align-self: flex-start;
-    color: #ffffff !important;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: max-content;
+    min-height: 36px;
+    padding: 0 16px;
+    margin: 0 0 22px;
+    border-radius: 999px;
     border: none;
     outline: none;
+    box-shadow: none;
+
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
     cursor: default;
 }
 
 .difference__badge--pro {
     background: var(--deep-indigo);
+    color: var(--white);
 }
 
 .difference__badge--cheap {
-    background: #050816;
+    background: #0f172a;
+    color: var(--white);
 }
 
+/* --------------------------------------------------------- */
+/* CONTENT                                                   */
+/* --------------------------------------------------------- */
+
 .difference__card-title {
-    margin: 0 0 8px;
-    /* match conversion card title spacing */
+    margin: 0 0 10px;
+    max-width: 100%;
+    color: var(--black);
+    line-height: 1.12;
 }
 
 .difference__card-subtitle {
-    margin: 0 0 16px;
+    margin: 0 0 18px;
     color: var(--cool-grey);
+    line-height: 1.56;
 }
-
-.difference__label {
-    margin: 0 0 12px;
-    font-weight: 500;
-    color: var(--cool-grey);
-}
-
-/* --------------------------------------------------------- */
-/* CHIPS (keep, but align visually with other pills)         */
-/* --------------------------------------------------------- */
 
 .difference__chips {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
+    width: 100%;
 }
+
+/* --------------------------------------------------------- */
+/* CHIPS                                                     */
+/* --------------------------------------------------------- */
 
 .difference__chip {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 8px 16px;
+    width: auto;
+    max-width: max-content;
+    min-height: 34px;
+    padding: 0 13px;
     border-radius: 999px;
-    background: var(--white);
-    border: 1px solid var(--light-grey);
+    background: rgba(255, 255, 255, 0.92);
+    border: 1px solid rgba(15, 23, 42, 0.08);
     color: var(--cool-grey);
-    font-size: 13px;
-    line-height: 1.4;
     white-space: nowrap;
+    line-height: 1.4;
+    box-sizing: border-box;
 }
 
 /* --------------------------------------------------------- */
-/* RESPONSIVE (mirror conversion breakpoints)                */
+/* LARGE DESKTOP                                             */
 /* --------------------------------------------------------- */
 
 @media (max-width: 1400px) {
-    .difference {
-        padding: 120px 40px;
+    .difference__inner {
+        padding: 0 48px;
     }
 }
 
+/* --------------------------------------------------------- */
+/* TABLET                                                    */
+/* --------------------------------------------------------- */
+
 @media (max-width: 1024px) {
     .difference {
-        padding: 100px 40px;
+        padding: 108px 0 124px;
+    }
+
+    .difference__inner {
+        padding: 0 40px;
+    }
+
+    .difference__header {
+        margin-bottom: 52px;
     }
 
     .difference__grid {
         grid-template-columns: 1fr;
-        gap: 12px;
-        /* same gap as desktop & conversion */
+        gap: 16px;
+    }
+
+    .difference__card {
+        padding: 24px;
+        border-radius: 24px;
+    }
+
+    .difference__badge {
+        min-height: 34px;
+        padding: 0 14px;
+        margin-bottom: 20px;
     }
 }
+
+/* --------------------------------------------------------- */
+/* MOBILE                                                    */
+/* --------------------------------------------------------- */
 
 @media (max-width: 768px) {
     .difference {
-        padding: 60px 20px;
+        padding: 78px 0 92px;
+    }
+
+    .difference__inner {
+        padding: 0 20px;
+    }
+
+    .difference__header {
+        margin-bottom: 38px;
+    }
+
+    .difference__grid {
+        gap: 14px;
     }
 
     .difference__card {
-        border-radius: 12px;
-        /* same as conversion cards on mobile */
-        padding: 24px 24px 26px;
+        padding: 18px;
+        border-radius: 20px;
+    }
+
+    .difference__badge {
+        min-height: 32px;
+        padding: 0 12px;
+        margin-bottom: 18px;
+        font-size: 0.75rem;
+    }
+
+    .difference__card-subtitle {
+        margin-bottom: 16px;
+    }
+
+    .difference__chips {
+        gap: 8px;
+    }
+
+    .difference__chip {
+        min-height: 30px;
+        padding: 0 11px;
+        font-size: 0.74rem;
     }
 }
 
-/* Optional: tiny tweak like conversion @480 if you want */
-/* 
+/* --------------------------------------------------------- */
+/* SMALL MOBILE                                              */
+/* --------------------------------------------------------- */
+
 @media (max-width: 480px) {
+    .difference {
+        padding: 68px 0 82px;
+    }
+
+    .difference__inner {
+        padding: 0 16px;
+    }
+
     .difference__card {
-        border-radius: 14px;
-        padding: 20px;
+        padding: 16px;
+        border-radius: 18px;
+    }
+
+    .difference__badge {
+        min-height: 30px;
+        padding: 0 11px;
+        font-size: 0.72rem;
+    }
+
+    .difference__chip {
+        white-space: normal;
+        text-align: center;
+        min-height: 28px;
+        padding: 6px 10px;
+        font-size: 0.72rem;
     }
 }
-*/
