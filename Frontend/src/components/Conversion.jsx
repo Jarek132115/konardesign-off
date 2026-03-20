@@ -96,6 +96,8 @@ const conversionItems = [
     },
 ];
 
+const DRAG_THRESHOLD = 6;
+
 const Conversion = () => {
     const sectionRef = useRef(null);
     const scrollerRef = useRef(null);
@@ -196,31 +198,69 @@ const Conversion = () => {
             );
 
         let isPointerDown = false;
+        let isDragging = false;
+        let pointerId = null;
         let startX = 0;
         let startScrollLeft = 0;
 
+        const stopDragging = () => {
+            isPointerDown = false;
+            isDragging = false;
+            pointerId = null;
+            scrollerEl.classList.remove("is-dragging");
+        };
+
         const onPointerDown = (event) => {
+            if (event.button !== 0) return;
+
             isPointerDown = true;
-            scrollerEl.classList.add("is-dragging");
-            startX = event.pageX;
+            isDragging = false;
+            pointerId = event.pointerId;
+            startX = event.clientX;
             startScrollLeft = scrollerEl.scrollLeft;
+
+            scrollerEl.setPointerCapture?.(event.pointerId);
         };
 
         const onPointerMove = (event) => {
             if (!isPointerDown) return;
-            const deltaX = event.pageX - startX;
+
+            const deltaX = event.clientX - startX;
+
+            if (!isDragging && Math.abs(deltaX) > DRAG_THRESHOLD) {
+                isDragging = true;
+                scrollerEl.classList.add("is-dragging");
+            }
+
+            if (!isDragging) return;
+
+            event.preventDefault();
             scrollerEl.scrollLeft = startScrollLeft - deltaX;
         };
 
-        const onPointerUp = () => {
-            isPointerDown = false;
-            scrollerEl.classList.remove("is-dragging");
+        const onPointerUp = (event) => {
+            if (pointerId !== null) {
+                scrollerEl.releasePointerCapture?.(event.pointerId);
+            }
+            stopDragging();
+        };
+
+        const onPointerCancel = (event) => {
+            if (pointerId !== null) {
+                scrollerEl.releasePointerCapture?.(event.pointerId);
+            }
+            stopDragging();
+        };
+
+        const onDragStart = (event) => {
+            event.preventDefault();
         };
 
         scrollerEl.addEventListener("pointerdown", onPointerDown);
         scrollerEl.addEventListener("pointermove", onPointerMove);
-        window.addEventListener("pointerup", onPointerUp);
-        scrollerEl.addEventListener("pointerleave", onPointerUp);
+        scrollerEl.addEventListener("pointerup", onPointerUp);
+        scrollerEl.addEventListener("pointercancel", onPointerCancel);
+        scrollerEl.addEventListener("dragstart", onDragStart);
 
         return () => {
             introTl.kill();
@@ -228,8 +268,9 @@ const Conversion = () => {
 
             scrollerEl.removeEventListener("pointerdown", onPointerDown);
             scrollerEl.removeEventListener("pointermove", onPointerMove);
-            window.removeEventListener("pointerup", onPointerUp);
-            scrollerEl.removeEventListener("pointerleave", onPointerUp);
+            scrollerEl.removeEventListener("pointerup", onPointerUp);
+            scrollerEl.removeEventListener("pointercancel", onPointerCancel);
+            scrollerEl.removeEventListener("dragstart", onDragStart);
         };
     }, []);
 
@@ -273,6 +314,7 @@ const Conversion = () => {
                                             src={item.image}
                                             alt=""
                                             className="conversion__image"
+                                            draggable="false"
                                         />
                                     </div>
                                 </div>
@@ -282,7 +324,11 @@ const Conversion = () => {
                                         className="conversion__item-icon"
                                         aria-hidden="true"
                                     >
-                                        <img src={item.icon} alt={item.alt} />
+                                        <img
+                                            src={item.icon}
+                                            alt={item.alt}
+                                            draggable="false"
+                                        />
                                     </div>
 
                                     <h3 className="heading4 conversion__item-title">
