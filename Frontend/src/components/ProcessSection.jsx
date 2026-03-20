@@ -1,122 +1,78 @@
-// ProcessSection.jsx
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import "../styling/process.css";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import process1 from "../assets/images/Process1.jpg";
+import process2 from "../assets/images/Process2.jpg";
+import process3 from "../assets/images/Process3.jpg";
+import process4 from "../assets/images/Process4.jpg";
+import process5 from "../assets/images/Process5.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const steps = [
     {
         id: "discovery",
-        label: "Discovery & Strategy",
-        title: "Understanding Before Creating.",
-        description:
-            "We start by uncovering your goals, audience, and opportunities. This stage shapes the strategy and direction for everything that follows.",
+        title: "Starting with Clarity on Goals and Direction.",
+        image: process1,
         bullets: [
-            "Market & competitor research",
-            "Audience & conversion analysis",
-            "Strategy & sitemap planning",
-            "Stakeholder & goals workshop",
-            "Project scope & timeline defined",
+            "A focused conversation around what you want to build",
+            "Clear understanding of your goals and priorities",
+            "Early direction shaped around what success should look like",
+            "Initial questions answered before anything moves forward",
         ],
     },
     {
-        id: "brand",
-        label: "Brand Foundations",
-        title: "Crafting Your Visual Identity.",
-        description:
-            "We build your brand’s visual core — from tone and color to typography, establishing the look and feel of your future website.",
+        id: "strategy",
+        title: "Researching the Market and Planning the Scope.",
+        image: process2,
         bullets: [
-            "Brand positioning & messaging",
-            "Color palette & typography",
-            "Logo refinement or integration",
-            "Moodboards & creative direction",
-            "Initial style preview approval",
+            "Competitor and industry research carried out properly",
+            "User personas and audience thinking mapped out",
+            "Project scope defined with clarity from the start",
+            "Timeline and delivery plan put in place",
+        ],
+    },
+    {
+        id: "ux",
+        title: "Planning the Full Journey, Structure, and SEO.",
+        image: process3,
+        bullets: [
+            "User journeys thought through across the full experience",
+            "Sitemap and page by page layout planning completed",
+            "SEO research carried out for the project properly",
+            "Copy direction, inspiration, and ideas explored in depth",
         ],
     },
     {
         id: "design",
-        label: "Design & Prototype",
-        title: "Designing Seamless Experiences.",
-        description:
-            "We transform strategy into a custom, conversion-focused website — starting with wireframes, then polished UI designs and interactive prototypes.",
+        title: "Designing the Full Responsive Visual Experience.",
+        image: process4,
         bullets: [
-            "Sitemap & low-fidelity wireframes",
-            "Full-page high-fidelity designs",
-            "Mobile & responsive views",
-            "Interactive prototype for review",
-            "Feedback, refinements & sign-off",
+            "Colour system and font direction selected carefully",
+            "Wireframes and full website design created",
+            "Responsive layouts designed across screen sizes",
+            "Graphic design details refined where needed",
         ],
     },
     {
-        id: "develop",
-        label: "Develop & Test",
-        title: "Engineering Performance.",
-        description:
-            "We build your site to be fast, scalable, and easy to manage — with clean, responsive code and all the backend essentials in place.",
+        id: "build",
+        title: "Developing a Fast, Scalable, Properly Built Website.",
+        image: process5,
         bullets: [
-            "Front-end & CMS development",
-            "Mobile & browser optimization",
-            "SEO best practices implemented",
-            "Core Web Vitals setup",
-            "QA & bug testing",
-        ],
-    },
-    {
-        id: "launch",
-        label: "Launch & Support",
-        title: "Going Live, The Right Way.",
-        description:
-            "We handle your launch with care and precision — and stick around to ensure everything runs smoothly.",
-        bullets: [
-            "Domain, hosting & deployment",
-            "Post-launch checklist & testing",
-            "CMS training & handover",
-            "Optional retainer for support or updates",
-            "Continued growth guidance (on request)",
+            "Site developed cleanly with performance in mind",
+            "Strong technical setup and scalable build structure",
+            "Tracking and core setup implemented properly",
+            "Everything prepared to launch as it should be",
         ],
     },
 ];
 
-const MOBILE_STACK_BREAKPOINT = 850;
-
 const ProcessSection = () => {
     const sectionRef = useRef(null);
-    const cardRef = useRef(null);
 
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [isMobileStack, setIsMobileStack] = useState(false);
-
-    const activeStep = steps[activeIndex];
-
-    const goPrev = () => {
-        setActiveIndex((prev) => (prev === 0 ? steps.length - 1 : prev - 1));
-    };
-
-    const goNext = () => {
-        setActiveIndex((prev) => (prev === steps.length - 1 ? 0 : prev + 1));
-    };
-
-    /* ---------------------------
-       HANDLE STACKED VS SLIDER
-    ---------------------------- */
-    useEffect(() => {
-        const updateMode = () => {
-            if (typeof window === "undefined") return;
-            setIsMobileStack(window.innerWidth <= MOBILE_STACK_BREAKPOINT);
-        };
-
-        updateMode();
-        window.addEventListener("resize", updateMode);
-        return () => window.removeEventListener("resize", updateMode);
-    }, []);
-
-    /* ---------------------------
-       SCROLL + EYEBROW / LETTER ANIMATION
-       (NO HIGHLIGHT WORDS — ALL WHITE)
-    ---------------------------- */
     useEffect(() => {
         const sectionEl = sectionRef.current;
         if (!sectionEl) return;
@@ -124,7 +80,7 @@ const ProcessSection = () => {
         const eyebrowEl = sectionEl.querySelector(".process__eyebrow");
         const titleEl = sectionEl.querySelector(".process__title");
         const subtitleEl = sectionEl.querySelector(".process__subtitle");
-        const headerRow = sectionEl.querySelector(".process__steps");
+        const cards = sectionEl.querySelectorAll(".process__card");
 
         if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
@@ -132,11 +88,17 @@ const ProcessSection = () => {
         titleEl.textContent = "";
 
         const words = originalText.split(" ");
+        const highlightSet = new Set(["Process", "Built"]);
 
         words.forEach((word, wordIndex) => {
             const wordWrapper = document.createElement("span");
             wordWrapper.classList.add("process__title-word");
             wordWrapper.style.display = "inline-block";
+
+            const cleaned = word.replace(/[^\w-]/g, "");
+            if (highlightSet.has(cleaned)) {
+                wordWrapper.classList.add("process__title-highlight");
+            }
 
             [...word].forEach((ch) => {
                 const span = document.createElement("span");
@@ -148,18 +110,17 @@ const ProcessSection = () => {
             });
 
             titleEl.appendChild(wordWrapper);
+
             if (wordIndex !== words.length - 1) {
                 titleEl.appendChild(document.createTextNode(" "));
             }
         });
 
-        // NO highlight logic — keep heading fully white
         const charSpans = titleEl.querySelectorAll(".process__title-word span");
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
-        if (headerRow) gsap.set(headerRow, { opacity: 0, y: 8 });
 
-        const tl = gsap.timeline({
+        const headerTl = gsap.timeline({
             scrollTrigger: {
                 trigger: sectionEl,
                 start: "top 75%",
@@ -168,14 +129,20 @@ const ProcessSection = () => {
             defaults: { ease: "power2.out" },
         });
 
-        tl.fromTo(
-            eyebrowEl,
-            { opacity: 0, y: 8 },
-            { opacity: 1, y: 0, duration: 0.25 }
-        )
+        headerTl
+            .fromTo(
+                eyebrowEl,
+                { opacity: 0, y: 8 },
+                { opacity: 1, y: 0, duration: 0.25 }
+            )
             .to(
                 charSpans,
-                { opacity: 1, y: 0, stagger: 0.018, duration: 0.26 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                },
                 ">-0.05"
             )
             .fromTo(
@@ -185,154 +152,92 @@ const ProcessSection = () => {
                 ">-0.08"
             );
 
-        if (headerRow) {
-            tl.fromTo(
-                headerRow,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.28 },
-                ">-0.06"
+        cards.forEach((card, index) => {
+            gsap.fromTo(
+                card,
+                { opacity: 0, y: 24 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.45,
+                    ease: "power2.out",
+                    delay: index * 0.04,
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 84%",
+                        toggleActions: "play none none none",
+                    },
+                }
             );
-        }
+        });
 
         return () => {
-            tl.kill();
+            headerTl.kill();
             ScrollTrigger.getAll().forEach((st) => st.kill());
         };
     }, []);
-
-    /* ---------------------------
-       CARD ANIMATION ON CHANGE (slider only)
-    ---------------------------- */
-    useEffect(() => {
-        if (isMobileStack) return;
-        if (!cardRef.current) return;
-
-        gsap.fromTo(
-            cardRef.current,
-            { opacity: 0, y: 16 },
-            { opacity: 1, y: 0, duration: 0.35, ease: "power2.out" }
-        );
-    }, [activeIndex, isMobileStack]);
 
     return (
         <section className="process" ref={sectionRef}>
             <div className="process__inner">
                 <header className="process__header">
-                    <p className="eyebrow process__eyebrow">HOW WE WORK</p>
+                    <p className="eyebrow process__eyebrow">HOW I BUILD</p>
+
                     <h2 className="heading2 process__title">
-                        Our Process. Built Around Your Goals.
+                        My Process. Built from Start to Finish.
                     </h2>
+
                     <p className="subheading process__subtitle">
-                        We guide you through a step-by-step journey — focused on strategy,
-                        clarity, and measurable results.
+                        A clear step by step approach that takes each project from
+                        early direction and planning through to design, development,
+                        and launch.
                     </p>
                 </header>
 
-                {/* DESKTOP / TABLET SLIDER */}
-                {!isMobileStack && (
-                    <>
-                        <div className="process__steps">
-                            {steps.map((step, index) => (
-                                <button
-                                    key={step.id}
-                                    type="button"
-                                    className={`process__step-pill body ${index === activeIndex ? "process__step-pill--active" : ""
-                                        }`}
-                                    onClick={() => setActiveIndex(index)}
-                                >
-                                    {step.label}
-                                </button>
-                            ))}
-                        </div>
+                <div className="process__list-wrap">
+                    {steps.map((step, index) => {
+                        const isReversed = index % 2 === 1;
 
-                        <div className="process__card-wrapper">
-                            <button
-                                type="button"
-                                className="process__nav process__nav--prev"
-                                onClick={goPrev}
-                                aria-label="Previous step"
-                            >
-                                ←
-                            </button>
-
-                            <article
-                                className={`process__card process__card--bg${activeIndex + 1}`}
-                                ref={cardRef}
-                            >
-                                <div className="process__card-inner">
-                                    <div className="process__card-left">
-                                        {/* desktop step number above heading */}
-                                        <div className="process__stack-number process__stack-number--desktop">
-                                            {activeIndex + 1}
-                                        </div>
-
-                                        <h3 className="heading3 process__card-title">
-                                            {activeStep.title}
-                                        </h3>
-                                        <p className="body process__card-description">
-                                            {activeStep.description}
-                                        </p>
-                                    </div>
-
-                                    <div className="process__card-right">
-                                        <ul className="process__list">
-                                            {activeStep.bullets.map((item) => (
-                                                <li key={item} className="process__list-item body">
-                                                    <span className="process__list-icon">●</span>
-                                                    <span>{item}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </article>
-
-                            <button
-                                type="button"
-                                className="process__nav process__nav--next"
-                                onClick={goNext}
-                                aria-label="Next step"
-                            >
-                                →
-                            </button>
-                        </div>
-                    </>
-                )}
-
-                {/* MOBILE STACKED VERSION (<= 850px) */}
-                {isMobileStack && (
-                    <div className="process__stack">
-                        {steps.map((step, index) => (
+                        return (
                             <article
                                 key={step.id}
-                                className={`process__card process__card--stack process__card--bg${index + 1
+                                className={`process__card ${isReversed ? "process__card--reversed" : ""
                                     }`}
                             >
-                                <div className="process__stack-number">{index + 1}</div>
+                                <div className="process__card-media">
+                                    <img
+                                        src={step.image}
+                                        alt={step.title}
+                                        className="process__card-image"
+                                        draggable="false"
+                                    />
+                                </div>
 
-                                <div className="process__card-inner process__card-inner--stack">
-                                    <div className="process__card-left">
-                                        <h3 className="heading3 process__card-title">{step.title}</h3>
-                                        <p className="body process__card-description">
-                                            {step.description}
-                                        </p>
+                                <div className="process__card-content">
+                                    <div className="process__step-number">
+                                        {index + 1}
                                     </div>
 
-                                    <div className="process__card-right">
-                                        <ul className="process__list">
-                                            {step.bullets.map((item) => (
-                                                <li key={item} className="process__list-item body">
-                                                    <span className="process__list-icon">●</span>
-                                                    <span>{item}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                                    <h3 className="heading4 process__card-title">
+                                        {step.title}
+                                    </h3>
+
+                                    <ul className="process__bullets">
+                                        {step.bullets.map((item) => (
+                                            <li
+                                                key={item}
+                                                className="process__bullet body"
+                                            >
+                                                <span className="process__bullet-dot" />
+                                                <span>{item}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
                             </article>
-                        ))}
-                    </div>
-                )}
+                        );
+                    })}
+                </div>
             </div>
         </section>
     );
