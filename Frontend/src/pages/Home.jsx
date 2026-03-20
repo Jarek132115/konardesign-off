@@ -419,9 +419,9 @@ const Home = () => {
             <IntroSection />
             <Conversion />
             <ProjectsSection />
-            <ServicesSection />
-            {/* <OfferSection />
-            <ProcessSection /> */}
+            {/* <ServicesSection />
+            <OfferSection /> */}
+            <ProcessSection />
             <DifferenceSection />
             {/* <ImagineSection /> */}
             <BlogSection />
