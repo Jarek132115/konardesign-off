@@ -1,15 +1,22 @@
 @import "./colours.css";
 
 /* --------------------------------------------------------- */
-/* HOME PROJECTS SECTION                                     */
+/* PROJECTS SECTION                                          */
 /* --------------------------------------------------------- */
 
 .projects {
+    width: 100%;
+    margin: 0;
+    padding: 130px 0 150px;
+    box-sizing: border-box;
+    background: var(--off-white);
+}
+
+.projects__inner {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 120px 120px;
+    padding: 0 120px;
     box-sizing: border-box;
-    background-color: var(--off-white);
 }
 
 /* --------------------------------------------------------- */
@@ -17,58 +24,63 @@
 /* --------------------------------------------------------- */
 
 .projects__header {
+    max-width: 860px;
+    margin: 0 auto 64px;
     text-align: center;
-    margin-bottom: 56px;
+}
+
+.projects__eyebrow {
+    margin-bottom: 8px;
+}
+
+.projects__title {
+    margin: 0 0 16px;
 }
 
 .projects__subtitle {
     max-width: 760px;
     margin: 0 auto;
-    color: var(--cool-grey);
-}
-
-.projects__highlight {
-    color: var(--deep-indigo);
+    font-weight: 500;
 }
 
 /* --------------------------------------------------------- */
-/* LIST WRAPPER                                              */
+/* LIST                                                      */
 /* --------------------------------------------------------- */
 
 .projects__list {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 28px;
 }
 
 /* --------------------------------------------------------- */
-/* PROJECT ROW CARD                                          */
+/* PROJECT CARD                                              */
 /* --------------------------------------------------------- */
 
 .projects-row {
     position: relative;
     width: 100%;
+    max-width: 1000px;
     aspect-ratio: 4 / 2.5;
-    border-radius: 24px;
+    border-radius: 28px;
     overflow: hidden;
     background: #000;
-    border: 1px solid rgba(226, 232, 240, 0.9);
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: none;
     cursor: pointer;
     transition:
         transform 0.25s ease-out,
-        box-shadow 0.25s ease-out,
         border-color 0.25s ease-out;
 }
 
 .projects-row:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 28px 90px rgba(15, 23, 42, 0.18);
-    border-color: rgba(79, 70, 229, 0.45);
+    transform: translateY(-4px);
+    border-color: rgba(15, 23, 42, 0.14);
 }
 
 /* --------------------------------------------------------- */
-/* VIDEO                                                     */
+/* MEDIA                                                     */
 /* --------------------------------------------------------- */
 
 .projects-row__media {
@@ -77,12 +89,13 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.02);
+    object-position: center;
+    transform: scale(1.015);
     transition: transform 0.5s ease;
 }
 
 .projects-row:hover .projects-row__media {
-    transform: scale(1.06);
+    transform: scale(1.04);
 }
 
 /* --------------------------------------------------------- */
@@ -94,9 +107,10 @@
     inset: 0;
     z-index: 1;
     background: linear-gradient(to top,
-            rgba(15, 23, 42, 0.85),
-            rgba(15, 23, 42, 0.35),
-            rgba(15, 23, 42, 0.04));
+            rgba(15, 23, 42, 0.9) 0%,
+            rgba(15, 23, 42, 0.52) 34%,
+            rgba(15, 23, 42, 0.14) 62%,
+            rgba(15, 23, 42, 0.04) 100%);
 }
 
 /* --------------------------------------------------------- */
@@ -109,38 +123,40 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    gap: 10px;
+    gap: 12px;
+    width: 100%;
     height: 100%;
-    max-width: 760px;
-    padding: 40px 40px 34px;
-    color: #f9fafb;
+    max-width: 700px;
+    padding: 28px 30px 28px;
+    box-sizing: border-box;
 }
 
 .projects-row__year {
     display: inline-flex;
     width: fit-content;
-    font-family: "Satoshi", sans-serif;
+    margin: 0;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
     font-size: 12px;
+    line-height: 1.4;
+    font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(241, 245, 249, 0.85);
+    color: rgba(255, 255, 255, 0.82);
 }
 
 .projects-row__title {
     margin: 0;
-    font-size: 28px;
-    line-height: 1.15;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: #ffffff;
+    max-width: 100%;
+    color: var(--white);
+    line-height: 1.08;
 }
 
 .projects-row__description {
     margin: 0;
-    max-width: 680px;
-    font-size: 16px;
-    line-height: 1.65;
-    color: rgba(226, 232, 240, 0.9);
+    max-width: 640px;
+    color: rgba(255, 255, 255, 0.78);
+    line-height: 1.56;
 }
 
 /* --------------------------------------------------------- */
@@ -151,30 +167,28 @@
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 .projects-row__pill {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 7px 12px;
+    min-height: 34px;
+    padding: 0 13px;
     border-radius: 999px;
-    font-size: 12.5px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: none;
+
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 0.8rem;
+    line-height: 1.4;
     font-weight: 500;
     letter-spacing: 0.01em;
-    white-space: nowrap;
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.16);
     color: rgba(255, 255, 255, 0.92);
-}
-
-/* --------------------------------------------------------- */
-/* BUTTON                                                    */
-/* --------------------------------------------------------- */
-
-.projects-row__button {
-    display: none;
+    white-space: nowrap;
 }
 
 /* --------------------------------------------------------- */
@@ -182,13 +196,13 @@
 /* --------------------------------------------------------- */
 
 @media (max-width: 1400px) {
-    .projects {
-        padding: 120px 40px;
+    .projects__inner {
+        padding: 0 48px;
     }
 }
 
 /* --------------------------------------------------------- */
-/* TABLET BREAKPOINT                                         */
+/* UNDER 1000PX                                              */
 /* --------------------------------------------------------- */
 
 @media (max-width: 1000px) {
@@ -203,24 +217,46 @@
 
 @media (max-width: 1024px) {
     .projects {
-        padding: 100px 40px;
+        padding: 108px 0 124px;
+    }
+
+    .projects__inner {
+        padding: 0 40px;
     }
 
     .projects__header {
-        margin-bottom: 48px;
+        margin-bottom: 52px;
+    }
+
+    .projects-row {
+        border-radius: 24px;
     }
 
     .projects-row__content {
-        max-width: 640px;
-        padding: 34px 28px 26px;
+        max-width: 620px;
+        padding: 24px 24px 24px;
+        gap: 10px;
     }
 
-    .projects-row__title {
-        font-size: 24px;
+    .projects-row__tags {
+        gap: 8px;
+        margin-top: 4px;
     }
 
-    .projects-row__description {
-        font-size: 15px;
+    .projects-row__pill {
+        min-height: 32px;
+        padding: 0 12px;
+        font-size: 0.76rem;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* UNDER 600PX                                               */
+/* --------------------------------------------------------- */
+
+@media (max-width: 600px) {
+    .projects-row {
+        aspect-ratio: 1 / 1;
     }
 }
 
@@ -230,7 +266,63 @@
 
 @media (max-width: 768px) {
     .projects {
-        padding: 72px 20px;
+        padding: 78px 0 92px;
+    }
+
+    .projects__inner {
+        padding: 0 20px;
+    }
+
+    .projects__header {
+        margin-bottom: 38px;
+    }
+
+    .projects-row {
+        border-radius: 20px;
+    }
+
+    .projects-row__content {
+        max-width: 100%;
+        padding: 20px 18px 18px;
+        gap: 9px;
+    }
+
+    .projects-row__year {
+        font-size: 11px;
+    }
+
+    .projects-row__description {
+        max-width: 100%;
+    }
+
+    .projects-row__pill {
+        min-height: 30px;
+        padding: 0 11px;
+        font-size: 0.72rem;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* UNDER 500PX                                               */
+/* --------------------------------------------------------- */
+
+@media (max-width: 500px) {
+    .projects-row {
+        aspect-ratio: 5 / 4;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* SMALL MOBILE                                              */
+/* --------------------------------------------------------- */
+
+@media (max-width: 480px) {
+    .projects {
+        padding: 68px 0 82px;
+    }
+
+    .projects__inner {
+        padding: 0 16px;
     }
 
     .projects-row {
@@ -238,36 +330,12 @@
     }
 
     .projects-row__content {
-        padding: 26px 20px 20px;
-    }
-
-    .projects-row__title {
-        font-size: 22px;
-    }
-
-    .projects-row__description {
-        font-size: 14px;
+        padding: 18px 16px 16px;
     }
 
     .projects-row__pill {
-        font-size: 12px;
-    }
-}
-
-@media (max-width: 480px) {
-    .projects {
-        padding: 64px 16px;
-    }
-
-    .projects-row {
-        border-radius: 16px;
-    }
-
-    .projects-row__content {
-        padding: 20px 16px 16px;
-    }
-
-    .projects-row__title {
-        font-size: 20px;
+        min-height: 28px;
+        padding: 0 10px;
+        font-size: 0.7rem;
     }
 }

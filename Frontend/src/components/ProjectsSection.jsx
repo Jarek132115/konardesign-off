@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const projects = [
     {
         id: "konarcard",
-        year: "2025",
+        year: "2025–2026",
         title: "KonarCard Website Design & Development",
         description:
             "Designed and built to clearly communicate value, support user flow, and drive meaningful conversion.",
@@ -33,24 +33,42 @@ const ProjectsSection = () => {
 
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
-            const rows = sectionRef.current?.querySelectorAll(".projects-row");
+            const header = sectionRef.current?.querySelector(".projects__header");
+            const row = sectionRef.current?.querySelector(".projects-row");
 
-            rows?.forEach((row) => {
+            if (header) {
                 gsap.fromTo(
-                    row,
-                    { opacity: 0, y: 32 },
+                    header,
+                    { opacity: 0, y: 18 },
                     {
                         opacity: 1,
                         y: 0,
-                        duration: 0.6,
+                        duration: 0.45,
                         ease: "power2.out",
                         scrollTrigger: {
-                            trigger: row,
-                            start: "top 85%",
+                            trigger: header,
+                            start: "top 82%",
                         },
                     }
                 );
-            });
+            }
+
+            if (row) {
+                gsap.fromTo(
+                    row,
+                    { opacity: 0, y: 26 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.55,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: row,
+                            start: "top 84%",
+                        },
+                    }
+                );
+            }
         }, sectionRef);
 
         return () => ctx.revert();
@@ -68,79 +86,81 @@ const ProjectsSection = () => {
 
     return (
         <section className="projects" ref={sectionRef}>
-            <header className="projects__header">
-                <p className="eyebrow">SELECTED WORK</p>
+            <div className="projects__inner">
+                <header className="projects__header">
+                    <p className="eyebrow projects__eyebrow">SELECTED WORK</p>
 
-                <h2 className="heading2">
-                    Recent <span className="projects__highlight">Projects</span>
-                </h2>
+                    <h2 className="heading2 projects__title">
+                        Recent Projects
+                    </h2>
 
-                <p className="subheading projects__subtitle">
-                    A selection of websites I’ve designed and built — focused on
-                    clarity, performance, and real business outcomes.
-                </p>
-            </header>
+                    <p className="subheading projects__subtitle">
+                        A selection of websites I’ve designed and built — focused on
+                        clarity, performance, and real business outcomes.
+                    </p>
+                </header>
 
-            <div className="projects__list">
-                {projects.map((project) => (
-                    <article
-                        key={project.id}
-                        className="projects-row"
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => navigate(project.route)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter" || e.key === " ") {
-                                e.preventDefault();
-                                navigate(project.route);
-                            }
-                        }}
-                    >
-                        <video
-                            className="projects-row__media"
-                            src={project.media}
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            preload="auto"
-                            onCanPlay={(e) => {
-                                e.currentTarget.play().catch(() => { });
+                <div className="projects__list">
+                    {projects.map((project) => (
+                        <article
+                            key={project.id}
+                            className="projects-row"
+                            role="button"
+                            tabIndex={0}
+                            onClick={() => navigate(project.route)}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") {
+                                    e.preventDefault();
+                                    navigate(project.route);
+                                }
                             }}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                toggleVideo(e.currentTarget);
-                            }}
-                        />
+                        >
+                            <video
+                                className="projects-row__media"
+                                src={project.media}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                preload="auto"
+                                onCanPlay={(e) => {
+                                    e.currentTarget.play().catch(() => { });
+                                }}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    toggleVideo(e.currentTarget);
+                                }}
+                            />
 
-                        <div className="projects-row__overlay" />
+                            <div className="projects-row__overlay" />
 
-                        <div className="projects-row__content">
-                            <span className="projects-row__year">
-                                {project.year}
-                            </span>
+                            <div className="projects-row__content">
+                                <span className="projects-row__year">
+                                    {project.year}
+                                </span>
 
-                            <h3 className="projects-row__title">
-                                {project.title}
-                            </h3>
+                                <h3 className="heading4 projects-row__title">
+                                    {project.title}
+                                </h3>
 
-                            <p className="projects-row__description">
-                                {project.description}
-                            </p>
+                                <p className="body projects-row__description">
+                                    {project.description}
+                                </p>
 
-                            <div className="projects-row__tags">
-                                {project.tags.map((tag) => (
-                                    <span
-                                        key={tag}
-                                        className="projects-row__pill"
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
+                                <div className="projects-row__tags">
+                                    {project.tags.map((tag) => (
+                                        <span
+                                            key={tag}
+                                            className="projects-row__pill"
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
-                        </div>
-                    </article>
-                ))}
+                        </article>
+                    ))}
+                </div>
             </div>
         </section>
     );
