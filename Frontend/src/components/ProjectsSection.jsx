@@ -15,7 +15,13 @@ const projects = [
         title: "KonarCard Website Design & Development",
         description:
             "Designed and built to clearly communicate value, support user flow, and drive meaningful conversion.",
-        tags: ["UX Design", "Web Design", "Web Development"],
+        tags: [
+            "UX Strategy",
+            "UX Design",
+            "Web Design",
+            "Frontend Development",
+            "Responsive Design",
+        ],
         media: konarVideo,
         route: "/projects/konarcard",
     },
@@ -132,17 +138,6 @@ const ProjectsSection = () => {
                                     </span>
                                 ))}
                             </div>
-
-                            <button
-                                type="button"
-                                className="btn btn--indigo projects-row__button"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    navigate(project.route);
-                                }}
-                            >
-                                View Project
-                            </button>
                         </div>
                     </article>
                 ))}
