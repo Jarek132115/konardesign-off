@@ -147,11 +147,7 @@ const IntroSection = () => {
                     </h2>
 
                     <p className="intro__subheading subheading">
-                        I lead each project personally across planning, design,
-                        development, and launch-creating websites that look sharp,
-                        feel seamless, and support real business goals. When a project
-                        needs specialist creative support, I bring in trusted
-                        collaborators without losing direction or consistency.
+                        I lead each project across strategy, design, and development—creating websites that look sharp, feel seamless, and support real business goals. When needed, I bring in trusted collaborators without losing clarity or consistency.
                     </p>
                 </div>
 
