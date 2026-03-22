@@ -106,25 +106,24 @@
 
 .our-projects-row {
     position: relative;
+    isolation: isolate;
     width: 100%;
     max-width: 1000px;
     aspect-ratio: 4 / 2.5;
     border-radius: 28px;
     overflow: hidden;
-    background: #000;
+    background: #000000;
     border: 1px solid rgba(15, 23, 42, 0.08);
     cursor: none;
-    transition:
-        transform 0.28s ease,
-        border-color 0.28s ease,
-        box-shadow 0.28s ease;
     box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+    transition:
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
 }
 
 .our-projects-row:hover {
-    transform: translateY(-5px);
     border-color: rgba(91, 80, 255, 0.22);
-    box-shadow: 0 22px 50px rgba(15, 23, 42, 0.14);
+    box-shadow: 0 20px 46px rgba(15, 23, 42, 0.12);
 }
 
 /* --------------------------------------------------------- */
@@ -134,15 +133,12 @@
 .our-projects-row__media {
     position: absolute;
     inset: 0;
+    z-index: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.015);
-    transition: transform 0.55s ease;
-}
-
-.our-projects-row:hover .our-projects-row__media {
-    transform: scale(1.045);
+    transform: none;
+    transition: none;
 }
 
 /* --------------------------------------------------------- */
@@ -168,8 +164,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 5;
-    min-height: 44px;
+    z-index: 40;
+    min-height: 46px;
     padding: 0 18px;
     border-radius: 999px;
     display: flex;
@@ -178,17 +174,24 @@
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 700;
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+
+    /* glass background */
+    background: rgba(18, 22, 38, 0.18);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+
     opacity: 0;
     pointer-events: none;
     will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+
     box-shadow:
-        0 10px 30px rgba(15, 23, 42, 0.18),
-        0 0 0 1px rgba(255, 255, 255, 0.1);
+        0 14px 40px rgba(15, 23, 42, 0.22),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 0 18px rgba(91, 80, 255, 0.16);
+
     overflow: hidden;
 }
 
@@ -198,15 +201,18 @@
     inset: 0;
     padding: 1px;
     border-radius: inherit;
+
     background: linear-gradient(120deg,
-            rgba(255, 255, 255, 0.2),
-            rgba(91, 80, 255, 1),
-            rgba(255, 255, 255, 0.2));
+            rgba(255, 255, 255, 0.18),
+            rgba(91, 80, 255, 0.98),
+            rgba(255, 255, 255, 0.18));
     background-size: 220% 100%;
-    animation: pillBorderMove 2.5s linear infinite;
+    animation: our-projects-pill-border 2.3s linear infinite;
+
     mask: linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
     mask-composite: exclude;
+
     -webkit-mask: linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -217,14 +223,14 @@
     position: absolute;
     top: -40%;
     left: -35%;
-    width: 50%;
+    width: 52%;
     height: 180%;
     background: linear-gradient(90deg,
             transparent,
-            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0.22),
             transparent);
     transform: rotate(18deg) translateX(-160%);
-    transition: transform 0.7s ease;
+    transition: transform 0.65s ease;
 }
 
 .our-projects-row:hover .our-projects-row__hover-pill::after {
@@ -236,9 +242,10 @@
     z-index: 2;
     white-space: nowrap;
     line-height: 1;
+    color: rgba(255, 255, 255, 0.96);
 }
 
-@keyframes pillBorderMove {
+@keyframes our-projects-pill-border {
     0% {
         background-position: 0% 50%;
     }
@@ -279,7 +286,7 @@
 
 .our-projects-row__description {
     margin: 0;
-    color: rgba(255, 255, 255, 0.78);
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .our-projects-row__tags {
@@ -294,7 +301,7 @@
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.14);
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.92);
 }
 
 /* --------------------------------------------------------- */

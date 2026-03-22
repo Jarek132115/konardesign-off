@@ -1,13 +1,10 @@
-// src/pages/OurProjects.jsx
 import React, { useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-
-import "../styling/ourprojects.css";
-
 import { gsap } from "gsap";
 
+import "../styling/ourprojects.css";
 import konarVideo from "../assets/videos/KonarCard1.mp4";
 
 const projects = [
@@ -31,6 +28,10 @@ const projects = [
 
 const OurProjects = () => {
     const pageRef = useRef(null);
+    const cardRef = useRef(null);
+    const pillRef = useRef(null);
+    const pillXTo = useRef(null);
+    const pillYTo = useRef(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -39,15 +40,11 @@ const OurProjects = () => {
 
         const titleEl = pageEl.querySelector(".our-projects__title");
         const subtitleEl = pageEl.querySelector(".our-projects__subtitle");
-        const cardEl = pageEl.querySelector(".our-projects-row");
-        const card = pageEl.querySelector(".our-projects-row");
-        const pill = pageEl.querySelector(".our-projects-row__hover-pill");
+        const cardEl = cardRef.current;
+        const pillEl = pillRef.current;
 
         if (!titleEl || !subtitleEl || !cardEl) return;
 
-        /* -----------------------------
-           TITLE LETTER ANIMATION
-        ----------------------------- */
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -81,9 +78,7 @@ const OurProjects = () => {
             }
         });
 
-        const charSpans = titleEl.querySelectorAll(
-            ".our-projects__title-word span"
-        );
+        const charSpans = titleEl.querySelectorAll(".our-projects__title-word span");
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
         gsap.set(cardEl, { opacity: 0, y: 20 });
@@ -102,85 +97,82 @@ const OurProjects = () => {
             .fromTo(
                 subtitleEl,
                 { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
+                { opacity: 1, y: 0, duration: 0.28 },
                 ">-0.08"
             )
             .fromTo(
                 cardEl,
                 { opacity: 0, y: 20 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.42,
-                },
+                { opacity: 1, y: 0, duration: 0.42 },
                 ">-0.04"
             );
 
-        /* -----------------------------
-           CURSOR FOLLOW PILL
-        ----------------------------- */
-        let moveTween;
-
-        const movePill = (e) => {
-            if (!card || !pill) return;
-
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            moveTween = gsap.to(pill, {
-                x,
-                y,
-                duration: 0.18,
-                ease: "power3.out",
-                overwrite: true,
-            });
-        };
-
-        const showPill = () => {
-            if (!pill) return;
-
-            gsap.to(pill, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.25,
-                ease: "power2.out",
-                overwrite: true,
-            });
-        };
-
-        const hidePill = () => {
-            if (!pill) return;
-
-            gsap.to(pill, {
+        if (pillEl) {
+            gsap.set(pillEl, {
+                xPercent: -50,
+                yPercent: -50,
                 opacity: 0,
-                scale: 0.9,
-                duration: 0.2,
-                ease: "power2.out",
-                overwrite: true,
+                scale: 0.92,
             });
-        };
 
-        if (card && pill) {
-            card.addEventListener("mousemove", movePill);
-            card.addEventListener("mouseenter", showPill);
-            card.addEventListener("mouseleave", hidePill);
+            pillXTo.current = gsap.quickTo(pillEl, "x", {
+                duration: 0.12,
+                ease: "power3.out",
+            });
+
+            pillYTo.current = gsap.quickTo(pillEl, "y", {
+                duration: 0.12,
+                ease: "power3.out",
+            });
         }
 
         return () => {
             introTl.kill();
-            if (moveTween) moveTween.kill();
-
-            if (card && pill) {
-                card.removeEventListener("mousemove", movePill);
-                card.removeEventListener("mouseenter", showPill);
-                card.removeEventListener("mouseleave", hidePill);
-            }
         };
+    }, []);
+
+    const positionPill = useCallback((clientX, clientY) => {
+        const card = cardRef.current;
+        if (!card || !pillXTo.current || !pillYTo.current) return;
+
+        const rect = card.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        pillXTo.current(x);
+        pillYTo.current(y);
+    }, []);
+
+    const handlePointerEnter = useCallback((e) => {
+        const pill = pillRef.current;
+        if (!pill) return;
+
+        positionPill(e.clientX, e.clientY);
+
+        gsap.to(pill, {
+            opacity: 1,
+            scale: 1,
+            duration: 0.16,
+            ease: "power2.out",
+            overwrite: "auto",
+        });
+    }, [positionPill]);
+
+    const handlePointerMove = useCallback((e) => {
+        positionPill(e.clientX, e.clientY);
+    }, [positionPill]);
+
+    const handlePointerLeave = useCallback(() => {
+        const pill = pillRef.current;
+        if (!pill) return;
+
+        gsap.to(pill, {
+            opacity: 0,
+            scale: 0.92,
+            duration: 0.14,
+            ease: "power2.out",
+            overwrite: "auto",
+        });
     }, []);
 
     const toggleVideo = useCallback((videoEl) => {
@@ -215,9 +207,13 @@ const OurProjects = () => {
                         {projects.map((project) => (
                             <article
                                 key={project.id}
+                                ref={cardRef}
                                 className="our-projects-row"
                                 role="button"
                                 tabIndex={0}
+                                onPointerEnter={handlePointerEnter}
+                                onPointerMove={handlePointerMove}
+                                onPointerLeave={handlePointerLeave}
                                 onClick={() => navigate(project.route)}
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter" || e.key === " ") {
@@ -245,7 +241,11 @@ const OurProjects = () => {
 
                                 <div className="our-projects-row__overlay" />
 
-                                <div className="our-projects-row__hover-pill">
+                                <div
+                                    ref={pillRef}
+                                    className="our-projects-row__hover-pill"
+                                    aria-hidden="true"
+                                >
                                     <span className="our-projects-row__hover-pill-text">
                                         View Case Study
                                     </span>
