@@ -29,11 +29,15 @@ const Navbar = () => {
         </div>
 
         <nav className="navbar__links" aria-label="Primary navigation">
+          <button className="navbar__link" onClick={() => goTo("/")}>
+            Home
+          </button>
+
           <button
             className="navbar__link"
-            onClick={() => goTo("/")}
+            onClick={() => goTo("/about")}
           >
-            Home
+            About Me
           </button>
 
           <button
@@ -41,20 +45,6 @@ const Navbar = () => {
             onClick={() => goTo("/projects")}
           >
             My Work
-          </button>
-
-          <button
-            className="navbar__link"
-            onClick={() => goTo("/services/custom")}
-          >
-            Custom Website
-          </button>
-
-          <button
-            className="navbar__link"
-            onClick={() => goTo("/services/ecommerce")}
-          >
-            E-Commerce Website
           </button>
 
           <button
@@ -70,7 +60,7 @@ const Navbar = () => {
             className="btn btn--indigo"
             onClick={() => goTo("/book-a-call")}
           >
-            Start a Project
+            Contact Me
           </button>
         </div>
 
@@ -100,23 +90,16 @@ const Navbar = () => {
 
               <button
                 className="navbar__menu-item"
+                onClick={() => goTo("/about")}
+              >
+                About Me
+              </button>
+
+              <button
+                className="navbar__menu-item"
                 onClick={() => goTo("/projects")}
               >
                 My Work
-              </button>
-
-              <button
-                className="navbar__menu-item"
-                onClick={() => goTo("/services/custom")}
-              >
-                Custom Website
-              </button>
-
-              <button
-                className="navbar__menu-item"
-                onClick={() => goTo("/services/ecommerce")}
-              >
-                E-Commerce Website
               </button>
 
               <button
@@ -130,7 +113,7 @@ const Navbar = () => {
                 className="navbar__menu-item navbar__menu-item--cta"
                 onClick={() => goTo("/book-a-call")}
               >
-                Start a Project
+                Contact Me
               </button>
             </div>
           )}
