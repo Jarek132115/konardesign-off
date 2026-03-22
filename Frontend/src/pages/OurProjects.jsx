@@ -1,55 +1,31 @@
 // src/pages/OurProjects.jsx
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-import "../styling/buttons.css";
 import "../styling/ourprojects.css";
-import "../styling/projectssection.css"; // reuse pill styles
 
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import ecommerceVideo from "../assets/videos/ECommerce1.mp4";
-import konarVideo1 from "../assets/videos/KonarCard1.mp4";
-import konarVideo2 from "../assets/videos/Custom1.mp4";
-
-gsap.registerPlugin(ScrollTrigger);
+import konarVideo from "../assets/videos/KonarCard1.mp4";
 
 const projects = [
     {
         id: "konarcard",
-        title: "KonarCard (E-Commerce)",
-        year: "2025",
-        headline: "Project details will be added soon.",
+        year: "2025–2026",
+        title: "KonarCard Website Design & Development",
         description:
-            "A full case study for this build is on the way. Check back soon for a deeper breakdown.",
-        metrics: ["Case Study Coming Soon"],
-        tags: ["More Info Soon"],
-        media: konarVideo1,
-    },
-    {
-        id: "comingsoon1",
-        title: "Custom Website",
-        year: "Coming Soon",
-        headline: "Project details will be added soon.",
-        description:
-            "We’ll share more about this custom website once the case study and results are ready.",
-        metrics: ["Case Study Coming Soon"],
-        tags: ["More Info Soon"],
-        media: ecommerceVideo,
-    },
-    {
-        id: "comingsoon2",
-        title: "E-Commerce Website",
-        year: "Coming Soon",
-        headline: "Project details will be added soon.",
-        description:
-            "A full overview of this e-commerce project will be published here soon.",
-        metrics: ["Case Study Coming Soon"],
-        tags: ["More Info Soon"],
-        media: konarVideo2,
+            "Designed and built to clearly communicate value, support user flow, and drive meaningful conversion.",
+        tags: [
+            "UX Strategy",
+            "UX Design",
+            "Web Design",
+            "Frontend Development",
+            "Responsive Design",
+        ],
+        media: konarVideo,
+        route: "/projects/konarcard",
     },
 ];
 
@@ -63,20 +39,31 @@ const OurProjects = () => {
 
         const titleEl = pageEl.querySelector(".our-projects__title");
         const subtitleEl = pageEl.querySelector(".our-projects__subtitle");
-        const cards = pageEl.querySelectorAll(".our-projects__card");
+        const cardEl = pageEl.querySelector(".our-projects-row");
+        const card = pageEl.querySelector(".our-projects-row");
+        const pill = pageEl.querySelector(".our-projects-row__hover-pill");
 
-        if (!titleEl || !subtitleEl) return;
+        if (!titleEl || !subtitleEl || !cardEl) return;
 
-        // ----- TITLE: LETTER BY LETTER -----
+        /* -----------------------------
+           TITLE LETTER ANIMATION
+        ----------------------------- */
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
         const words = originalText.split(" ");
+        const highlightWords = ["selected", "project"];
 
         words.forEach((word, wordIndex) => {
             const wordWrapper = document.createElement("span");
             wordWrapper.classList.add("our-projects__title-word");
             wordWrapper.style.display = "inline-block";
+
+            const cleanedWord = word.toLowerCase().replace(/[^a-z]/g, "");
+
+            if (highlightWords.includes(cleanedWord)) {
+                wordWrapper.classList.add("our-projects__title-word--indigo");
+            }
 
             for (const ch of word) {
                 const charSpan = document.createElement("span");
@@ -94,172 +81,203 @@ const OurProjects = () => {
             }
         });
 
-        // Highlight “Recent” in deep indigo
-        const wordSpans = titleEl.querySelectorAll(".our-projects__title-word");
-        const highlightSet = new Set(["Recent"]);
-
-        wordSpans.forEach((wordSpan) => {
-            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
-            if (highlightSet.has(cleaned)) {
-                wordSpan.classList.add("our-projects__title-highlight");
-            }
-        });
-
         const charSpans = titleEl.querySelectorAll(
             ".our-projects__title-word span"
         );
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
+        gsap.set(cardEl, { opacity: 0, y: 20 });
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: pageEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
+        const introTl = gsap.timeline({
             defaults: { ease: "power2.out" },
         });
 
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.03,
-            duration: 0.4,
-        }).to(
-            subtitleEl,
-            {
+        introTl
+            .to(charSpans, {
                 opacity: 1,
                 y: 0,
-                duration: 0.45,
-            },
-            ">-0.05"
-        );
-
-        // ----- CARDS: FADE IN ON SCROLL -----
-        cards.forEach((card, index) => {
-            gsap.fromTo(
-                card,
-                { opacity: 0, y: 24 },
+                stagger: 0.018,
+                duration: 0.26,
+            })
+            .fromTo(
+                subtitleEl,
+                { opacity: 0, y: 8 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.4,
-                    ease: "power2.out",
-                    delay: index * 0.05,
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    },
-                }
+                    duration: 0.28,
+                },
+                ">-0.08"
+            )
+            .fromTo(
+                cardEl,
+                { opacity: 0, y: 20 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.42,
+                },
+                ">-0.04"
             );
-        });
+
+        /* -----------------------------
+           CURSOR FOLLOW PILL
+        ----------------------------- */
+        let moveTween;
+
+        const movePill = (e) => {
+            if (!card || !pill) return;
+
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            moveTween = gsap.to(pill, {
+                x,
+                y,
+                duration: 0.18,
+                ease: "power3.out",
+                overwrite: true,
+            });
+        };
+
+        const showPill = () => {
+            if (!pill) return;
+
+            gsap.to(pill, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.25,
+                ease: "power2.out",
+                overwrite: true,
+            });
+        };
+
+        const hidePill = () => {
+            if (!pill) return;
+
+            gsap.to(pill, {
+                opacity: 0,
+                scale: 0.9,
+                duration: 0.2,
+                ease: "power2.out",
+                overwrite: true,
+            });
+        };
+
+        if (card && pill) {
+            card.addEventListener("mousemove", movePill);
+            card.addEventListener("mouseenter", showPill);
+            card.addEventListener("mouseleave", hidePill);
+        }
 
         return () => {
-            tl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
+            introTl.kill();
+            if (moveTween) moveTween.kill();
+
+            if (card && pill) {
+                card.removeEventListener("mousemove", movePill);
+                card.removeEventListener("mouseenter", showPill);
+                card.removeEventListener("mouseleave", hidePill);
+            }
         };
     }, []);
 
-    const handleViewDetails = (projectId) => {
-        if (projectId === "konarcard") {
-            navigate("/projects/konarcard");
+    const toggleVideo = useCallback((videoEl) => {
+        if (!videoEl) return;
+
+        if (videoEl.paused) {
+            videoEl.play().catch(() => { });
+        } else {
+            videoEl.pause();
         }
-    };
+    }, []);
 
     return (
         <div className="our-projects-page">
             <Navbar />
 
             <main className="our-projects" ref={pageRef}>
-                {/* HERO-STYLE HEADER */}
-                <header className="our-projects__header">
-                    <p className="eyebrow">Our Work</p>
+                <div className="our-projects__inner">
+                    <header className="our-projects__header">
+                        <h1 className="heading1 our-projects__title">
+                            A Selected Project That Shows How I Build for Clarity
+                        </h1>
 
-                    <h1 className="heading1 our-projects__title">
-                        A Selection Of Our Recent Client Projects
-                    </h1>
+                        <p className="subheading our-projects__subtitle">
+                            A closer look at a website I designed and built to feel
+                            premium, communicate clearly, and support real business
+                            growth through thoughtful structure and performance.
+                        </p>
+                    </header>
 
-                    <p className="subheading our-projects__subtitle">
-                        Explore real-world websites we’ve designed and built —
-                        each crafted to solve business problems, drive
-                        conversions, and scale with growth.
-                    </p>
-                </header>
-
-                {/* PROJECT GRID */}
-                <div className="our-projects__grid">
-                    {projects.map((project) => (
-                        <article
-                            key={project.id}
-                            className="our-projects__card"
-                            onClick={() =>
-                                project.id === "konarcard" &&
-                                handleViewDetails(project.id)
-                            }
-                        >
-                            {/* Header row (white) */}
-                            <header className="our-projects__card-header">
-                                <h2 className="heading3 our-projects__card-title">
-                                    {project.title}
-                                </h2>
-                                <span className="heading3 our-projects__card-year">
-                                    {project.year}
-                                </span>
-                            </header>
-
-                            {/* Media with overlay */}
-                            <div className="our-projects__card-media">
+                    <div className="our-projects__list">
+                        {projects.map((project) => (
+                            <article
+                                key={project.id}
+                                className="our-projects-row"
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => navigate(project.route)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        navigate(project.route);
+                                    }
+                                }}
+                            >
                                 <video
+                                    className="our-projects-row__media"
                                     src={project.media}
                                     autoPlay
                                     muted
                                     loop
                                     playsInline
-                                    className="our-projects__card-video"
+                                    preload="auto"
+                                    onCanPlay={(e) => {
+                                        e.currentTarget.play().catch(() => { });
+                                    }}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        toggleVideo(e.currentTarget);
+                                    }}
                                 />
 
-                                <div className="our-projects__card-overlay">
-                                    <p className="our-projects__card-headline">
-                                        {project.headline}
-                                    </p>
+                                <div className="our-projects-row__overlay" />
 
-                                    <p className="body our-projects__card-description">
+                                <div className="our-projects-row__hover-pill">
+                                    <span className="our-projects-row__hover-pill-text">
+                                        View Case Study
+                                    </span>
+                                </div>
+
+                                <div className="our-projects-row__content">
+                                    <span className="our-projects-row__year">
+                                        {project.year}
+                                    </span>
+
+                                    <h2 className="heading4 our-projects-row__title">
+                                        {project.title}
+                                    </h2>
+
+                                    <p className="body our-projects-row__description">
                                         {project.description}
                                     </p>
 
-                                    <div className="our-projects__card-meta">
-                                        {project.metrics &&
-                                            project.metrics.length > 0 && (
-                                                <div className="our-projects__card-metrics">
-                                                    {project.metrics.map(
-                                                        (metric) => (
-                                                            <span
-                                                                key={metric}
-                                                                className="body projects__pill projects__pill--metric"
-                                                            >
-                                                                {metric}
-                                                            </span>
-                                                        )
-                                                    )}
-                                                </div>
-                                            )}
-
-                                        <div className="our-projects__card-tags">
-                                            {project.tags.map((tag) => (
-                                                <span
-                                                    key={tag}
-                                                    className="body projects__pill projects__pill--tag"
-                                                >
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
+                                    <div className="our-projects-row__tags">
+                                        {project.tags.map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="our-projects-row__pill"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
                                     </div>
                                 </div>
-                            </div>
-                        </article>
-                    ))}
+                            </article>
+                        ))}
+                    </div>
                 </div>
             </main>
 
