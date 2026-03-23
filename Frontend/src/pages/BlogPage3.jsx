@@ -6,7 +6,6 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 import "../styling/buttons.css";
-import "../styling/blogpage.css";
 
 gsap.registerPlugin(ScrollTrigger);
 

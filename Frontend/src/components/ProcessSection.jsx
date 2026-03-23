@@ -1,210 +1,101 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "../styling/process.css";
-
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import process1 from "../assets/images/Process1.jpg";
 import process2 from "../assets/images/Process2.jpg";
 import process3 from "../assets/images/Process3.jpg";
 import process4 from "../assets/images/Process4.jpg";
 import process5 from "../assets/images/Process5.jpg";
-
-gsap.registerPlugin(ScrollTrigger);
+import process6 from "../assets/images/Process5.jpg";
 
 const steps = [
     {
         id: "discovery",
+        number: "01",
         title: "Starting with Clarity on Goals and Direction.",
+        subtitle:
+            "The process begins with focused discussion around what you want to build, what success looks like, and what the website needs to achieve from the start.",
         image: process1,
-        bullets: [
-            "A focused conversation around what you want to build",
-            "Clear understanding of your goals and priorities",
-            "Early direction shaped around what success should look like",
-            "Initial questions answered before anything moves forward",
-        ],
     },
     {
         id: "strategy",
+        number: "02",
         title: "Researching the Market and Planning the Scope.",
+        subtitle:
+            "Competitor research, audience thinking, and project scope are mapped out properly so the direction is clear before design and development begin.",
         image: process2,
-        bullets: [
-            "Competitor and industry research carried out properly",
-            "User personas and audience thinking mapped out",
-            "Project scope defined with clarity from the start",
-            "Timeline and delivery plan put in place",
-        ],
     },
     {
         id: "ux",
+        number: "03",
         title: "Planning the Full Journey, Structure, and SEO.",
+        subtitle:
+            "User journeys, sitemap direction, layout planning, and SEO thinking are shaped together so the experience feels structured and purposeful.",
         image: process3,
-        bullets: [
-            "User journeys thought through across the full experience",
-            "Sitemap and page by page layout planning completed",
-            "SEO research carried out for the project properly",
-            "Copy direction, inspiration, and ideas explored in depth",
-        ],
     },
     {
         id: "design",
+        number: "04",
         title: "Designing the Full Responsive Visual Experience.",
+        subtitle:
+            "Wireframes, visual design, and responsive decisions are refined carefully so the final interface feels premium across every screen size.",
         image: process4,
-        bullets: [
-            "Colour system and font direction selected carefully",
-            "Wireframes and full website design created",
-            "Responsive layouts designed across screen sizes",
-            "Graphic design details refined where needed",
-        ],
     },
     {
         id: "build",
+        number: "05",
         title: "Developing a Fast, Scalable, Properly Built Website.",
+        subtitle:
+            "The site is built cleanly with performance, structure, and long-term scalability in mind so it launches properly and is easy to improve later.",
         image: process5,
-        bullets: [
-            "Site developed cleanly with performance in mind",
-            "Strong technical setup and scalable build structure",
-            "Tracking and core setup implemented properly",
-            "Everything prepared to launch as it should be",
-        ],
+    },
+    {
+        id: "optimisation",
+        number: "06",
+        title: "Adding Analytics, Auditing Performance, and Final Optimisation.",
+        subtitle:
+            "Tracking, analytics, ranking checks, performance auditing, and final launch optimisation are handled properly so the site is ready to perform after release.",
+        image: process6,
     },
 ];
 
 const ProcessSection = () => {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const sectionEl = sectionRef.current;
-        if (!sectionEl) return;
-
-        const eyebrowEl = sectionEl.querySelector(".process__eyebrow");
-        const titleEl = sectionEl.querySelector(".process__title");
-        const subtitleEl = sectionEl.querySelector(".process__subtitle");
-        const cards = sectionEl.querySelectorAll(".process__card");
-
-        if (!eyebrowEl || !titleEl || !subtitleEl) return;
-
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-        const highlightSet = new Set(["Process", "Built"]);
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("process__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            const cleaned = word.replace(/[^\w-]/g, "");
-            if (highlightSet.has(cleaned)) {
-                wordWrapper.classList.add("process__title-highlight");
-            }
-
-            [...word].forEach((ch) => {
-                const span = document.createElement("span");
-                span.textContent = ch;
-                span.style.display = "inline-block";
-                span.style.opacity = "0";
-                span.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(span);
-            });
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(".process__title-word span");
-
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-
-        const headerTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-            defaults: { ease: "power2.out" },
-        });
-
-        headerTl
-            .fromTo(
-                eyebrowEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.25 }
-            )
-            .to(
-                charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
-                },
-                ">-0.05"
-            )
-            .fromTo(
-                subtitleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.28 },
-                ">-0.08"
-            );
-
-        cards.forEach((card, index) => {
-            gsap.fromTo(
-                card,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.45,
-                    ease: "power2.out",
-                    delay: index * 0.04,
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 84%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-
-        return () => {
-            headerTl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
-    }, []);
-
     return (
-        <section className="process" ref={sectionRef}>
+        <section className="process">
             <div className="process__inner">
                 <header className="process__header">
                     <p className="eyebrow process__eyebrow">HOW I BUILD</p>
 
                     <h2 className="heading2 process__title">
-                        My Process. Built from Start to Finish.
+                        My <span className="process__title-highlight">Process</span>.{" "}
+                        <span className="process__title-highlight">Built</span> from
+                        Start to Finish.
                     </h2>
 
                     <p className="subheading process__subtitle">
-                        A clear step by step approach that takes each project from
-                        early direction and planning through to design, development,
-                        and launch.
+                        A clear step by step approach that takes each project
+                        from early direction and planning through to design,
+                        development, launch, and optimisation.
                     </p>
                 </header>
 
-                <div className="process__list-wrap">
-                    {steps.map((step, index) => {
-                        const isReversed = index % 2 === 1;
+                <div className="process__grid">
+                    {steps.map((step) => (
+                        <article key={step.id} className="process__card">
+                            <div className="process__step-number">
+                                {step.number}
+                            </div>
 
-                        return (
-                            <article
-                                key={step.id}
-                                className={`process__card ${isReversed ? "process__card--reversed" : ""
-                                    }`}
-                            >
-                                <div className="process__card-media">
+                            <h3 className="heading4 process__card-title">
+                                {step.title}
+                            </h3>
+
+                            <p className="body process__card-subtitle">
+                                {step.subtitle}
+                            </p>
+
+                            <div className="process__image-wrap">
+                                <div className="process__image-card">
                                     <img
                                         src={step.image}
                                         alt={step.title}
@@ -212,31 +103,9 @@ const ProcessSection = () => {
                                         draggable="false"
                                     />
                                 </div>
-
-                                <div className="process__card-content">
-                                    <div className="process__step-number">
-                                        {index + 1}
-                                    </div>
-
-                                    <h3 className="heading4 process__card-title">
-                                        {step.title}
-                                    </h3>
-
-                                    <ul className="process__bullets">
-                                        {step.bullets.map((item) => (
-                                            <li
-                                                key={item}
-                                                className="process__bullet body"
-                                            >
-                                                <span className="process__bullet-dot" />
-                                                <span>{item}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </article>
-                        );
-                    })}
+                            </div>
+                        </article>
+                    ))}
                 </div>
             </div>
         </section>

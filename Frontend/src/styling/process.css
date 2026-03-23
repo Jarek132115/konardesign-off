@@ -24,17 +24,23 @@
 /* --------------------------------------------------------- */
 
 .process__header {
-    max-width: 860px;
-    margin: 0 auto 64px;
+    max-width: 980px;
+    margin: 0 auto 72px;
     text-align: center;
 }
 
-.process__title {
+.process__eyebrow {
     margin: 0 0 16px;
+    letter-spacing: 0.18em;
+    color: #7a8aa0;
 }
 
-.process__title-word {
-    white-space: nowrap;
+.process__title {
+    margin: 0;
+    color: #111111;
+    line-height: 1.06;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
 }
 
 .process__title-highlight {
@@ -43,20 +49,20 @@
 
 .process__subtitle {
     max-width: 760px;
-    margin: 0 auto;
-    font-weight: 500;
+    margin: 20px auto 0;
+    color: var(--cool-grey);
+    line-height: 1.6;
 }
 
 /* --------------------------------------------------------- */
-/* CARD LIST                                                 */
+/* GRID                                                      */
 /* --------------------------------------------------------- */
 
-.process__list-wrap {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    align-items: center;
-    width: 100%;
+.process__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    align-items: stretch;
 }
 
 /* --------------------------------------------------------- */
@@ -64,134 +70,78 @@
 /* --------------------------------------------------------- */
 
 .process__card {
-    width: 100%;
-    max-width: 1100px;
-    display: grid;
-    grid-template-columns: 55% 45%;
-    align-items: center;
-    gap: 32px;
-    padding: 24px;
-    border-radius: 28px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    background:
-        radial-gradient(rgba(99, 91, 255, 0.1) 1px, transparent 1px),
-        linear-gradient(180deg,
-            rgba(255, 255, 255, 0.98) 0%,
-            rgba(248, 248, 252, 1) 100%);
-    background-size: 10px 10px, auto;
-    box-shadow: none;
-    overflow: hidden;
-}
-
-.process__card--reversed {
-    grid-template-columns: 45% 55%;
-}
-
-.process__card--reversed .process__card-media {
-    order: 2;
-}
-
-.process__card--reversed .process__card-content {
-    order: 1;
-}
-
-/* --------------------------------------------------------- */
-/* MEDIA                                                     */
-/* --------------------------------------------------------- */
-
-.process__card-media {
-    width: 100%;
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.process__card-image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 2.5;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 22px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    background: rgba(255, 255, 255, 0.72);
-}
-
-/* --------------------------------------------------------- */
-/* CONTENT                                                   */
-/* --------------------------------------------------------- */
-
-.process__card-content {
-    min-width: 0;
+    position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 4px 4px 4px 0;
+    padding: 24px;
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    border-radius: 28px;
+    background:
+        radial-gradient(circle, rgba(91, 80, 255, 0.06) 1px, transparent 1px),
+        #ffffff;
+    background-size: 12px 12px, auto;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .process__step-number {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    margin-bottom: 18px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.96);
-    border: 1px solid rgba(15, 23, 42, 0.08);
-
+    align-self: flex-start;
+    min-height: 34px;
+    padding: 0 14px;
+    margin: 0 0 18px;
+    border-radius: 999px;
+    background: rgba(79, 70, 229, 0.06);
+    border: 1px solid rgba(79, 70, 229, 0.14);
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
-    font-size: 17px;
+    font-size: 12px;
     line-height: 1;
     font-weight: 700;
-    color: var(--black);
+    letter-spacing: 0.08em;
+    color: var(--deep-indigo);
+    white-space: nowrap;
 }
 
 .process__card-title {
-    margin: 0 0 18px;
-    max-width: 100%;
+    margin: 0 0 12px;
     color: var(--black);
-    line-height: 1.08;
+    max-width: 95%;
+}
+
+.process__card-subtitle {
+    margin: 0 0 22px;
+    color: var(--cool-grey);
+    line-height: 1.65;
+    max-width: 100%;
 }
 
 /* --------------------------------------------------------- */
-/* BULLETS                                                   */
+/* IMAGE                                                     */
 /* --------------------------------------------------------- */
 
-.process__bullets {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+.process__image-wrap {
     width: 100%;
+    margin-top: auto;
 }
 
-.process__bullet {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    margin: 0;
-    color: var(--black) !important;
+.process__image-card {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 22px;
+    overflow: hidden;
+    background: transparent;
+    box-sizing: border-box;
 }
 
-.process__bullet span:not(.process__bullet-dot) {
-    color: var(--black) !important;
-    line-height: 1.6;
-}
-
-.process__bullet-dot {
-    width: 4px;
-    height: 4px;
-    min-width: 4px;
-    margin-top: 10px;
-    border-radius: 999px;
-    background: var(--black);
-    font-size: 0;
+.process__card-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
 }
 
 /* --------------------------------------------------------- */
@@ -218,30 +168,21 @@
     }
 
     .process__header {
-        margin-bottom: 52px;
+        margin: 0 auto 56px;
     }
 
-    .process__list-wrap {
-        gap: 22px;
+    .process__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
     }
 
-    .process__card,
-    .process__card--reversed {
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        padding: 20px;
+    .process__card {
+        padding: 22px;
         border-radius: 24px;
     }
 
-    .process__step-number {
-        width: 40px;
-        height: 40px;
-        margin-bottom: 16px;
-        font-size: 16px;
-    }
-
-    .process__card-image {
-        border-radius: 18px;
+    .process__image-card {
+        border-radius: 20px;
     }
 }
 
@@ -259,49 +200,34 @@
     }
 
     .process__header {
-        margin-bottom: 38px;
+        margin: 0 auto 40px;
     }
 
-    .process__list-wrap {
-        gap: 16px;
-    }
-
-    .process__card,
-    .process__card--reversed {
+    .process__grid {
         grid-template-columns: 1fr;
-        gap: 18px;
-        padding: 16px;
+        gap: 14px;
+    }
+
+    .process__card {
+        padding: 18px;
         border-radius: 20px;
     }
 
-    .process__card-media,
-    .process__card-content,
-    .process__card--reversed .process__card-media,
-    .process__card--reversed .process__card-content {
-        order: initial;
-    }
-
-    .process__card-content {
-        padding: 0;
-    }
-
     .process__step-number {
-        width: 38px;
-        height: 38px;
-        margin-bottom: 14px;
-        font-size: 15px;
+        margin-bottom: 16px;
     }
 
     .process__card-title {
-        margin-bottom: 14px;
+        margin-bottom: 10px;
+        max-width: 100%;
     }
 
-    .process__bullets {
-        gap: 10px;
+    .process__card-subtitle {
+        margin-bottom: 18px;
     }
 
-    .process__card-image {
-        border-radius: 16px;
+    .process__image-card {
+        border-radius: 18px;
     }
 }
 
@@ -318,13 +244,12 @@
         padding: 0 16px;
     }
 
-    .process__card,
-    .process__card--reversed {
-        padding: 14px;
+    .process__card {
+        padding: 16px;
         border-radius: 18px;
     }
 
-    .process__card-image {
-        border-radius: 14px;
+    .process__image-card {
+        border-radius: 16px;
     }
 }
