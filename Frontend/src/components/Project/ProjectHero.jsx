@@ -112,75 +112,77 @@ const ProjectHero = () => {
 
     return (
         <section className="project-hero" ref={heroRef}>
-            <div className="project-hero__top">
-                <div className="project-hero__info">
-                    <div className="project-hero__copy-bg" />
+            <div className="project-hero__inner">
+                <div className="project-hero__top">
+                    <div className="project-hero__info">
+                        <div className="project-hero__copy-bg" />
 
-                    <h1 className="heading1 project-hero__title">
-                        KonarCard Digital Software Website
-                    </h1>
+                        <h1 className="heading1 project-hero__title">
+                            KonarCard Digital Software Website
+                        </h1>
 
-                    <p className="subheading project-hero__subtitle">
-                        A custom software website built for a digital business
-                        card platform focused on clearer product communication,
-                        stronger trust, and a more conversion-ready user journey.
-                    </p>
+                        <p className="subheading project-hero__subtitle">
+                            A custom software website built for a digital business
+                            card platform focused on clearer product communication,
+                            stronger trust, and a more conversion-ready user journey.
+                        </p>
 
-                    <div className="project-hero__pills">
-                        <span className="project-hero__pill">
-                            Digital Business Card Platform
-                        </span>
-                        <span className="project-hero__pill">
-                            Conversion-Focused Website
-                        </span>
-                        <span className="project-hero__pill">
-                            Performance-Driven Build
-                        </span>
+                        <div className="project-hero__pills">
+                            <span className="project-hero__pill">
+                                Digital Business Card Platform
+                            </span>
+                            <span className="project-hero__pill">
+                                Conversion-Focused Website
+                            </span>
+                            <span className="project-hero__pill">
+                                Performance-Driven Build
+                            </span>
+                        </div>
                     </div>
+
+                    <aside className="project-hero__meta">
+                        <div className="project-hero__meta-group">
+                            <span className="project-hero__meta-label">
+                                Pages Developed
+                            </span>
+                            <span className="project-hero__meta-value">23+</span>
+                        </div>
+
+                        <div className="project-hero__meta-group">
+                            <span className="project-hero__meta-label">Industry</span>
+                            <span className="project-hero__meta-value">Software</span>
+                        </div>
+
+                        <div className="project-hero__meta-group">
+                            <span className="project-hero__meta-label">Year</span>
+                            <span className="project-hero__meta-value">2026</span>
+                        </div>
+
+                        <div className="project-hero__meta-group">
+                            <span className="project-hero__meta-label">Website</span>
+                            <a
+                                href="https://www.konarcard.com"
+                                target="_blank"
+                                rel="noreferrer"
+                                className="project-hero__meta-link"
+                            >
+                                www.konarcard.com
+                            </a>
+                        </div>
+                    </aside>
                 </div>
 
-                <aside className="project-hero__meta">
-                    <div className="project-hero__meta-group">
-                        <span className="project-hero__meta-label">
-                            Pages Developed
-                        </span>
-                        <span className="project-hero__meta-value">23+</span>
+                <div className="project-hero__media">
+                    <div className="project-hero__media-inner">
+                        <video
+                            src={konarVideoHero}
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            className="project-hero__media-video"
+                        />
                     </div>
-
-                    <div className="project-hero__meta-group">
-                        <span className="project-hero__meta-label">Industry</span>
-                        <span className="project-hero__meta-value">Software</span>
-                    </div>
-
-                    <div className="project-hero__meta-group">
-                        <span className="project-hero__meta-label">Year</span>
-                        <span className="project-hero__meta-value">2026</span>
-                    </div>
-
-                    <div className="project-hero__meta-group">
-                        <span className="project-hero__meta-label">Website</span>
-                        <a
-                            href="https://www.konarcard.com"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="project-hero__meta-link"
-                        >
-                            www.konarcard.com
-                        </a>
-                    </div>
-                </aside>
-            </div>
-
-            <div className="project-hero__media">
-                <div className="project-hero__media-inner">
-                    <video
-                        src={konarVideoHero}
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="project-hero__media-video"
-                    />
                 </div>
             </div>
         </section>

@@ -1,102 +1,295 @@
 @import "../../colours.css";
 
-/* --------------------------------------------------------- */
-/* PROJECT DESCRIPTION                                       */
-/* --------------------------------------------------------- */
+/* ========================================================= */
+/* OUTER WRAPPER                                             */
+/* ========================================================= */
 
 .project-description {
-    margin: 72px 0;
-}
-
-.project-description__inner {
-    background: var(--deep-indigo);
-    border-radius: 24px;
-    padding: 64px 56px;
-    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.35);
-    color: #ffffff;
-}
-
-.project-description__header {
-    max-width: 900px;
-    margin: 0 auto 28px;
-    text-align: left;
-}
-
-.project-description__header--spaced {
-    margin-top: 48px;
-}
-
-.project-description__title {
-    margin: 0 0 10px;
-    color: #ffffff !important;
-}
-
-.project-description__lead {
+    width: 100%;
     margin: 0;
-    color: rgba(255, 255, 255, 0.82);
-    line-height: 1.7;
+    padding: 120px 0 140px;
+    box-sizing: border-box;
+    background: #ffffff;
+    /* FIXED WHITE BG */
 }
 
-.project-description__grid {
+/* ========================================================= */
+/* INNER CONTAINER                                           */
+/* ========================================================= */
+
+.project-description__container {
+    width: 100%;
+    box-sizing: border-box;
+
     display: grid;
-    gap: 18px;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: 120px;
+    align-items: start;
 }
 
-.project-description__grid--two {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-top: 28px;
+/* ========================================================= */
+/* LEFT COLUMN                                               */
+/* ========================================================= */
+
+.project-description__left {
+    position: sticky;
+    top: 180px;
+    align-self: start;
+    padding-top: 32px;
+}
+
+.project-description__eyebrow {
+    margin-bottom: 18px;
+    color: rgba(15, 23, 42, 0.5);
+}
+
+.project-description__headline {
+    margin: 0 0 18px;
+    max-width: 760px;
+    word-break: keep-all;
+    overflow-wrap: normal;
+}
+
+.project-description__headline-word {
+    white-space: nowrap;
+}
+
+.project-description__headline-highlight {
+    color: var(--deep-indigo);
+}
+
+.project-description__subheading {
+    margin: 0;
+    max-width: 720px;
+}
+
+/* ========================================================= */
+/* RIGHT COLUMN                                              */
+/* ========================================================= */
+
+.project-description__right {
+    align-self: start;
+    padding-top: 6px;
+}
+
+/* MAIN BLOCK (Challenge / Solution) */
+
+.project-description__block {
+    position: relative;
+    margin-bottom: 28px;
+    padding: 28px;
+
+    border-radius: 28px;
+    background: #ffffff;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+
+/* DOTTED FADE EFFECT FOR SOLUTION */
+
+.project-description__block--solution {
+    overflow: hidden;
+}
+
+.project-description__block--solution::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    background-image: radial-gradient(circle,
+            rgba(91, 80, 255, 0.08) 1px,
+            transparent 1px);
+    background-size: 10px 10px;
+
+    -webkit-mask-image: radial-gradient(circle at top right,
+            rgba(0, 0, 0, 1) 6%,
+            rgba(0, 0, 0, 0.45) 28%,
+            transparent 56%);
+    mask-image: radial-gradient(circle at top right,
+            rgba(0, 0, 0, 1) 6%,
+            rgba(0, 0, 0, 0.45) 28%,
+            transparent 56%);
+}
+
+/* ========================================================= */
+/* HEADER                                                    */
+/* ========================================================= */
+
+.project-description__block-top {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 22px;
+}
+
+.project-description__label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 34px;
+    padding: 0 14px;
+    margin-bottom: 14px;
+
+    border-radius: 999px;
+    background: rgba(91, 80, 255, 0.06);
+    border: 1px solid rgba(91, 80, 255, 0.14);
+
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--deep-indigo);
+}
+
+.project-description__block-title {
+    margin: 0;
+    max-width: 680px;
+    line-height: 1.2;
+}
+
+/* ========================================================= */
+/* ITEMS                                                     */
+/* ========================================================= */
+
+.project-description__items {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 16px;
 }
 
 .project-description__item {
-    border-radius: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.06);
-    padding: 18px 18px 16px;
+    padding: 20px 18px 18px;
+    border-radius: 20px;
+
+    background: #f8fafc;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.project-description__item:hover {
+    transform: translateY(-2px);
+    border-color: rgba(91, 80, 255, 0.12);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.05);
 }
 
 .project-description__item-title {
-    margin: 0 0 10px;
-    font-size: 16px;
-    font-weight: 700;
-    color: #ffffff;
-    line-height: 1.35;
+    margin: 0 0 8px;
+    font-family: "Cal Sans", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 20px;
+    line-height: 1.2;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--black);
 }
 
-.project-description__item-body {
+.project-description__item-text {
     margin: 0;
-    color: rgba(255, 255, 255, 0.82);
-    line-height: 1.7;
+    max-width: 720px;
+    line-height: 1.6;
 }
 
-/* --------------------------------------------------------- */
+/* ========================================================= */
 /* RESPONSIVE                                                */
-/* --------------------------------------------------------- */
+/* ========================================================= */
 
-@media (max-width: 1024px) {
-    .project-description__inner {
-        padding: 52px 32px;
+@media (max-width: 1400px) {
+    .project-description__container {
+        column-gap: 80px;
     }
 
-    .project-description__grid--two {
+    .project-description__left {
+        top: 160px;
+        padding-top: 24px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .project-description {
+        padding: 100px 0 120px;
+    }
+
+    .project-description__container {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+        column-gap: 64px;
+    }
+
+    .project-description__headline {
+        max-width: 680px;
+    }
+
+    .project-description__left {
+        top: 140px;
+        padding-top: 16px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .project-description {
+        padding: 90px 0 100px;
+    }
+
+    .project-description__container {
         grid-template-columns: 1fr;
+        row-gap: 56px;
+    }
+
+    .project-description__left {
+        position: static;
+        text-align: center;
+        padding-top: 0;
+    }
+
+    .project-description__headline,
+    .project-description__subheading {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .project-description__right {
+        max-width: 760px;
+        margin: 0 auto;
     }
 }
 
 @media (max-width: 768px) {
     .project-description {
-        margin: 56px 0;
+        padding: 72px 0 84px;
     }
 
-    .project-description__inner {
-        border-radius: 18px;
-        padding: 44px 20px;
+    .project-description__container {
+        row-gap: 44px;
     }
 
-    .project-description__header--spaced {
-        margin-top: 40px;
+    .project-description__block {
+        padding: 20px 18px;
+        border-radius: 22px;
     }
 
     .project-description__item {
+        padding: 16px 14px;
         border-radius: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-description {
+        padding: 64px 0 76px;
+    }
+
+    .project-description__block-title {
+        font-size: 22px;
+    }
+
+    .project-description__item-title {
+        font-size: 17px;
     }
 }

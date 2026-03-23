@@ -5,22 +5,32 @@
 /* --------------------------------------------------------- */
 
 .project-page {
-    background: #ffffff;
+    background: var(--off-white);
+    width: 100%;
 }
 
 .project-page__main {
-    max-width: 1600px;
-    margin: 0 auto;
-    padding: 120px 120px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 /* --------------------------------------------------------- */
-/* INLINE VIDEO SECTIONS                                     */
+/* INLINE VIDEO SECTION                                      */
 /* --------------------------------------------------------- */
 
 .project-media-break {
+    width: 100%;
     margin: 72px 0;
+    background: var(--white);
+}
+
+.project-media-break__container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 120px;
+    box-sizing: border-box;
 }
 
 .project-media-break__inner {
@@ -35,12 +45,8 @@
     width: 100%;
     height: auto;
     display: block;
-    aspect-ratio: 16 / 7;
+    aspect-ratio: 4 / 2.5;
     object-fit: cover;
-}
-
-.project-media-break--secondary {
-    margin-top: 72px;
 }
 
 /* --------------------------------------------------------- */
@@ -48,39 +54,35 @@
 /* --------------------------------------------------------- */
 
 @media (max-width: 1400px) {
-    .project-page__main {
-        padding: 120px 40px;
+    .project-media-break__container {
+        padding: 0 40px;
     }
 }
 
 @media (max-width: 1024px) {
-    .project-page__main {
-        padding: 100px 40px;
+    .project-media-break__container {
+        padding: 0 40px;
     }
 
     .project-media-break__inner {
         border-radius: 22px;
     }
+
+    .project-media-break__video {
+        aspect-ratio: 4 / 3;
+    }
 }
 
 @media (max-width: 768px) {
-    .project-page__main {
-        padding: 72px 20px;
-    }
-
     .project-media-break {
         margin: 56px 0;
     }
 
+    .project-media-break__container {
+        padding: 0 20px;
+    }
+
     .project-media-break__inner {
         border-radius: 18px;
-    }
-
-    .project-media-break__video {
-        aspect-ratio: 16 / 9;
-    }
-
-    .project-media-break--secondary {
-        margin-top: 56px;
     }
 }

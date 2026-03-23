@@ -1,136 +1,240 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import "../../styling/projects/project1/projectdescription.css";
 
+const challengePoints = [
+    {
+        title: "Explaining a newer type of product",
+        text: "Most visitors are familiar with traditional business cards, not a digital-first alternative. The website needed to explain the product quickly and make the value feel obvious from the first few sections.",
+    },
+    {
+        title: "Building trust early",
+        text: "Because the offer sits between software, branding, and networking tools, the site needed to feel polished, credible, and easy to understand straight away.",
+    },
+    {
+        title: "Creating a clearer path to action",
+        text: "The existing experience needed stronger hierarchy around product value, comparison, and calls to action so users could move from interest to purchase with less friction.",
+    },
+];
+
+const solutionPoints = [
+    {
+        title: "Sharper product positioning",
+        text: "I reworked the messaging so KonarCard felt more immediate and relevant, focusing on convenience, modern networking, and the practical value of a digital card system.",
+    },
+    {
+        title: "Stronger page hierarchy",
+        text: "The layout was restructured to guide attention more clearly, giving more weight to product explanation, trust-building sections, and the conversion journey.",
+    },
+    {
+        title: "A more premium presentation",
+        text: "Typography, spacing, contrast, and content structure were all refined so the brand felt cleaner, more established, and more distinct within its category.",
+    },
+];
+
 const ProjectDescription = () => {
+    const sectionRef = useRef(null);
+    const leftRef = useRef(null);
+
+    useEffect(() => {
+        const sectionEl = sectionRef.current;
+        const leftEl = leftRef.current;
+        if (!sectionEl || !leftEl) return;
+
+        const eyebrowEl = leftEl.querySelector(".project-description__eyebrow");
+        const headline = leftEl.querySelector(".project-description__headline");
+        const subheadingEl = leftEl.querySelector(".project-description__subheading");
+        if (!eyebrowEl || !headline || !subheadingEl) return;
+
+        const originalText = headline.textContent;
+        headline.textContent = "";
+
+        const words = originalText.split(" ");
+        const highlightSet = new Set(["Product", "Easier", "Stronger", "Trust"]);
+
+        words.forEach((word, wordIndex) => {
+            const wordWrapper = document.createElement("span");
+            wordWrapper.classList.add("project-description__headline-word");
+            wordWrapper.style.display = "inline-block";
+
+            for (const ch of word) {
+                const charSpan = document.createElement("span");
+                charSpan.textContent = ch;
+                charSpan.style.display = "inline-block";
+                charSpan.style.opacity = "0";
+                charSpan.style.transform = "translateY(8px)";
+                wordWrapper.appendChild(charSpan);
+            }
+
+            headline.appendChild(wordWrapper);
+
+            if (wordIndex !== words.length - 1) {
+                headline.appendChild(document.createTextNode(" "));
+            }
+        });
+
+        const wordSpans = headline.querySelectorAll(
+            ".project-description__headline-word"
+        );
+
+        wordSpans.forEach((wordSpan) => {
+            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
+            if (highlightSet.has(cleaned)) {
+                wordSpan.classList.add("project-description__headline-highlight");
+            }
+        });
+
+        const charSpans = headline.querySelectorAll(
+            ".project-description__headline-word span"
+        );
+
+        const leftTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: sectionEl,
+                start: "top 75%",
+                toggleActions: "play none none none",
+            },
+        });
+
+        leftTl
+            .fromTo(
+                eyebrowEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.25,
+                    ease: "power2.out",
+                }
+            )
+            .to(
+                charSpans,
+                {
+                    opacity: 1,
+                    y: 0,
+                    stagger: 0.018,
+                    duration: 0.26,
+                    ease: "power2.out",
+                },
+                ">-0.05"
+            )
+            .fromTo(
+                subheadingEl,
+                { opacity: 0, y: 8 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.28,
+                    ease: "power2.out",
+                },
+                ">-0.08"
+            );
+
+        const items = sectionEl.querySelectorAll(
+            ".project-description__block, .project-description__item"
+        );
+
+        items.forEach((item, index) => {
+            gsap.fromTo(
+                item,
+                { opacity: 0, y: 24 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4,
+                    ease: "power2.out",
+                    delay: index * 0.05,
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 82%",
+                        toggleActions: "play none none none",
+                    },
+                }
+            );
+        });
+    }, []);
+
     return (
-        <section className="project-description">
-            <div className="project-description__inner">
-                <header className="project-description__header">
-                    <h2 className="heading2 project-description__title">
-                        The Challenge
+        <section className="project-description" ref={sectionRef}>
+            <div className="project-description__container">
+                <div className="project-description__left" ref={leftRef}>
+                    <p className="eyebrow project-description__eyebrow">
+                        PROJECT OVERVIEW
+                    </p>
+
+                    <h2 className="project-description__headline heading2">
+                        A Website Built to Make the Product Easier to Understand and
+                        Stronger to Trust
                     </h2>
 
-                    <p className="project-description__lead">
-                        KonarCard set out to redefine how tradespeople and business
-                        owners connect, but needed a digital experience that matched
-                        that ambition. These were the main challenges that needed to
-                        be solved.
+                    <p className="project-description__subheading subheading">
+                        KonarCard needed more than a polished interface. The site had
+                        to explain the product clearly, make the offer feel credible,
+                        and guide users through a smoother, more conversion-ready
+                        experience.
                     </p>
-                </header>
-
-                <div className="project-description__grid project-description__grid--two">
-                    <article className="project-description__item">
-                        <h3 className="project-description__item-title">
-                            Old-School Market Perception
-                        </h3>
-
-                        <p className="project-description__item-body">
-                            The audience was used to traditional business cards and
-                            word-of-mouth referrals, not digital-first experiences
-                            with clear landing pages, stronger messaging, and modern
-                            value presentation.
-                        </p>
-                    </article>
-
-                    <article className="project-description__item">
-                        <h3 className="project-description__item-title">
-                            Complex Custom Functionality
-                        </h3>
-
-                        <p className="project-description__item-body">
-                            The platform needed to support dynamic user profiles,
-                            account flows, calls to action, and sales-driven
-                            journeys without making the experience feel heavy or
-                            confusing.
-                        </p>
-                    </article>
-
-                    <article className="project-description__item">
-                        <h3 className="project-description__item-title">
-                            Clearer Value Communication
-                        </h3>
-
-                        <p className="project-description__item-body">
-                            The site needed to explain not only what a digital
-                            business card is, but why it is more useful, more modern,
-                            and more effective than a traditional one.
-                        </p>
-                    </article>
-
-                    <article className="project-description__item">
-                        <h3 className="project-description__item-title">
-                            Mobile-First Expectations
-                        </h3>
-
-                        <p className="project-description__item-body">
-                            The audience browses and buys on mobile, so the
-                            experience had to feel fast, intuitive, and premium on
-                            smaller screens while still holding up on desktop.
-                        </p>
-                    </article>
                 </div>
 
-                <header className="project-description__header project-description__header--spaced">
-                    <h2 className="heading2 project-description__title">
-                        The Solution
-                    </h2>
+                <div className="project-description__right">
+                    <section className="project-description__block">
+                        <div className="project-description__block-top">
+                            <span className="project-description__label">
+                                The Challenge
+                            </span>
 
-                    <p className="project-description__lead">
-                        I designed and developed a custom e-commerce experience that
-                        combined education, clarity, conversion thinking, and a bold
-                        visual system that felt distinct to the product.
-                    </p>
-                </header>
+                            <h3 className="heading3 project-description__block-title">
+                                Turning a modern product into a clear online
+                                experience
+                            </h3>
+                        </div>
 
-                <div className="project-description__grid project-description__grid--two">
-                    <article className="project-description__item">
-                        <h3 className="project-description__item-title">
-                            Educating The Market Through The Homepage
-                        </h3>
+                        <div className="project-description__items">
+                            {challengePoints.map((item) => (
+                                <article
+                                    key={item.title}
+                                    className="project-description__item"
+                                >
+                                    <h4 className="project-description__item-title">
+                                        {item.title}
+                                    </h4>
 
-                        <p className="project-description__item-body">
-                            I built a homepage structure that explains the product
-                            clearly, shows why it matters, and reduces friction for
-                            users discovering the idea of a digital business card for
-                            the first time.
-                        </p>
-                    </article>
+                                    <p className="body project-description__item-text">
+                                        {item.text}
+                                    </p>
+                                </article>
+                            ))}
+                        </div>
+                    </section>
 
-                    <article className="project-description__item">
-                        <h3 className="project-description__item-title">
-                            Conversion-Focused E-Commerce Flow
-                        </h3>
+                    <section className="project-description__block project-description__block--solution">
+                        <div className="project-description__block-top">
+                            <span className="project-description__label">
+                                The Solution
+                            </span>
 
-                        <p className="project-description__item-body">
-                            From the hero section to plan comparison, FAQs, and
-                            checkout pathways, the experience was shaped to keep the
-                            offer understandable and move users closer to purchase.
-                        </p>
-                    </article>
+                            <h3 className="heading3 project-description__block-title">
+                                A clearer structure, stronger messaging, and a more
+                                premium digital presence
+                            </h3>
+                        </div>
 
-                    <article className="project-description__item">
-                        <h3 className="project-description__item-title">
-                            Scalable And Responsive Build
-                        </h3>
+                        <div className="project-description__items">
+                            {solutionPoints.map((item) => (
+                                <article
+                                    key={item.title}
+                                    className="project-description__item"
+                                >
+                                    <h4 className="project-description__item-title">
+                                        {item.title}
+                                    </h4>
 
-                        <p className="project-description__item-body">
-                            The site was built to be fast, flexible, and easy to grow
-                            over time, with a cleaner structure, reusable sections,
-                            and responsive layouts that hold together properly.
-                        </p>
-                    </article>
-
-                    <article className="project-description__item">
-                        <h3 className="project-description__item-title">
-                            Brand-Led Visual Direction
-                        </h3>
-
-                        <p className="project-description__item-body">
-                            The visual language leaned into bold typography, stronger
-                            contrast, and a more premium presentation so the product
-                            felt more established, more modern, and more memorable.
-                        </p>
-                    </article>
+                                    <p className="body project-description__item-text">
+                                        {item.text}
+                                    </p>
+                                </article>
+                            ))}
+                        </div>
+                    </section>
                 </div>
             </div>
         </section>
