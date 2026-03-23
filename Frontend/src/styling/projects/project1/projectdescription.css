@@ -9,8 +9,7 @@
     margin: 0;
     padding: 120px 0 140px;
     box-sizing: border-box;
-    background: #ffffff;
-    /* FIXED WHITE BG */
+    background: var(--white);
 }
 
 /* ========================================================= */
@@ -18,7 +17,9 @@
 /* ========================================================= */
 
 .project-description__container {
-    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 120px;
     box-sizing: border-box;
 
     display: grid;
@@ -45,9 +46,9 @@
 
 .project-description__headline {
     margin: 0 0 18px;
-    max-width: 760px;
     word-break: keep-all;
     overflow-wrap: normal;
+    max-width: 760px;
 }
 
 .project-description__headline-word {
@@ -61,6 +62,7 @@
 .project-description__subheading {
     margin: 0;
     max-width: 720px;
+    color: var(--cool-grey);
 }
 
 /* ========================================================= */
@@ -72,20 +74,27 @@
     padding-top: 6px;
 }
 
-/* MAIN BLOCK (Challenge / Solution) */
+/* ========================================================= */
+/* MAIN BLOCKS                                               */
+/* ========================================================= */
 
 .project-description__block {
     position: relative;
     margin-bottom: 28px;
     padding: 28px;
-
     border-radius: 28px;
-    background: #ffffff;
+    background: var(--white);
     border: 1px solid rgba(15, 23, 42, 0.08);
     box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
 }
 
-/* DOTTED FADE EFFECT FOR SOLUTION */
+.project-description__block:last-child {
+    margin-bottom: 0;
+}
+
+/* ========================================================= */
+/* DOTTED FADE EFFECT FOR SOLUTION                           */
+/* ========================================================= */
 
 .project-description__block--solution {
     overflow: hidden;
@@ -113,7 +122,7 @@
 }
 
 /* ========================================================= */
-/* HEADER                                                    */
+/* BLOCK HEADER                                              */
 /* ========================================================= */
 
 .project-description__block-top {
@@ -164,10 +173,8 @@
 .project-description__item {
     padding: 20px 18px 18px;
     border-radius: 20px;
-
     background: #f8fafc;
     border: 1px solid rgba(15, 23, 42, 0.06);
-
     transition:
         transform 0.2s ease,
         border-color 0.2s ease,
@@ -195,6 +202,7 @@
     margin: 0;
     max-width: 720px;
     line-height: 1.6;
+    color: var(--cool-grey);
 }
 
 /* ========================================================= */
@@ -203,6 +211,7 @@
 
 @media (max-width: 1400px) {
     .project-description__container {
+        padding: 0 40px;
         column-gap: 80px;
     }
 
@@ -244,6 +253,7 @@
 
     .project-description__left {
         position: static;
+        top: auto;
         text-align: center;
         padding-top: 0;
     }
@@ -255,8 +265,20 @@
     }
 
     .project-description__right {
+        text-align: center;
+        padding-top: 0;
+    }
+
+    .project-description__block {
         max-width: 760px;
-        margin: 0 auto;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .project-description__block-title,
+    .project-description__item-text {
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
@@ -266,10 +288,12 @@
     }
 
     .project-description__container {
+        padding: 0 20px;
         row-gap: 44px;
     }
 
     .project-description__block {
+        margin-bottom: 24px;
         padding: 20px 18px;
         border-radius: 22px;
     }
@@ -278,11 +302,25 @@
         padding: 16px 14px;
         border-radius: 16px;
     }
+
+    .project-description__item-title {
+        font-size: 18px;
+    }
 }
 
 @media (max-width: 480px) {
     .project-description {
         padding: 64px 0 76px;
+    }
+
+    .project-description__container {
+        padding: 0 16px;
+    }
+
+    .project-description__label {
+        min-height: 32px;
+        padding: 0 12px;
+        font-size: 11px;
     }
 
     .project-description__block-title {

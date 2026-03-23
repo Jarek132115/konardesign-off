@@ -16,8 +16,6 @@ import ProjectResults from "../components/Project/ProjectResults";
 import "../styling/buttons.css";
 import "../styling/projectpage.css";
 
-import konarVideoSecondary from "../assets/videos/KonarCard2.mp4";
-
 const Project1 = () => {
     return (
         <div className="project-page">
@@ -29,21 +27,6 @@ const Project1 = () => {
                 <ProjectDescription />
 
                 <ProjectStyling />
-
-                <section className="project-media-break">
-                    <div className="project-media-break__container">
-                        <div className="project-media-break__inner">
-                            <video
-                                src={konarVideoSecondary}
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                className="project-media-break__video"
-                            />
-                        </div>
-                    </div>
-                </section>
 
                 <ProjectProcess1 />
                 <ProjectProcess2 />

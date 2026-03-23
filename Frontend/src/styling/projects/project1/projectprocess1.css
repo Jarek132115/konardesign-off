@@ -5,13 +5,42 @@
 /* --------------------------------------------------------- */
 
 .project-process {
-    margin: 72px 0;
+    width: 100%;
+    margin: 0;
+    padding: 120px 0 140px;
+    background: var(--white);
+    box-sizing: border-box;
 }
 
-.project-process__eyebrow-wrap {
+.project-process__container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 120px;
+    box-sizing: border-box;
+}
+
+.project-process__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 64px;
+    align-items: center;
+}
+
+/* --------------------------------------------------------- */
+/* LEFT CONTENT                                              */
+/* --------------------------------------------------------- */
+
+.project-process__left {
+    align-self: center;
+    min-width: 0;
+}
+
+.project-process__step-row {
     display: flex;
-    justify-content: center;
-    margin-bottom: 18px;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 20px;
 }
 
 .project-process__eyebrow {
@@ -23,7 +52,6 @@
     border-radius: 999px;
     background: rgba(79, 70, 229, 0.06);
     border: 1px solid rgba(79, 70, 229, 0.14);
-
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
     font-size: 12px;
@@ -34,15 +62,8 @@
     white-space: nowrap;
 }
 
-.project-process__grid {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    gap: 24px;
-    align-items: start;
-}
-
 .project-process__intro {
-    padding-top: 6px;
+    margin-bottom: 24px;
 }
 
 .project-process__title {
@@ -52,69 +73,318 @@
 
 .project-process__subtitle {
     margin: 0;
-    max-width: 560px;
+    max-width: 530px;
     color: var(--cool-grey);
-    line-height: 1.7;
+    line-height: 1.6;
 }
 
-.project-process__content {
-    display: grid;
-    gap: 18px;
+/* --------------------------------------------------------- */
+/* HORIZONTAL CARD SCROLLER                                  */
+/* --------------------------------------------------------- */
+
+.project-process__cards-scroll {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: visible;
+    cursor: grab;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    touch-action: pan-x pan-y;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: auto;
 }
 
-.project-process__card {
+.project-process__cards-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.project-process__cards-scroll.is-dragging {
+    cursor: grabbing;
+}
+
+.project-process__cards-track {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    width: max-content;
+    min-width: 100%;
+    padding-bottom: 4px;
+}
+
+.project-process__info-card {
+    flex: 0 0 clamp(280px, 26vw, 340px);
+    width: clamp(280px, 26vw, 340px);
+    aspect-ratio: 4 / 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 18px 18px 16px;
     border-radius: 24px;
-    background: #ffffff;
     border: 1px solid rgba(226, 232, 240, 0.9);
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
-    padding: 22px 22px 18px;
+    background: #ffffff;
+    box-shadow: none;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-.project-process__card-title {
-    margin: 0 0 10px;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 1.35;
-    color: #0f172a;
+.project-process__info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    width: 38px;
+    height: 38px;
 }
 
-.project-process__card-body {
+.project-process__info-icon img {
+    width: 38px;
+    height: 38px;
+    display: block;
+    filter: brightness(0) saturate(100%);
+}
+
+.project-process__info-title {
+    margin: 0 0 8px;
+    font-family: "Cal Sans", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 22px;
+    line-height: 1.18;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    color: var(--black);
+}
+
+.project-process__info-body {
     margin: 0;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    font-weight: 400;
     color: var(--cool-grey);
-    line-height: 1.75;
+}
+
+/* --------------------------------------------------------- */
+/* RIGHT VISUAL                                              */
+/* --------------------------------------------------------- */
+
+.project-process__visual {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    align-self: center;
+}
+
+.project-process__marquee {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    height: 100%;
+}
+
+.project-process__marquee-column {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.project-process__marquee-track {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.project-process__marquee-column--up .project-process__marquee-track {
+    animation: project-process-marquee-up 18s linear infinite;
+}
+
+.project-process__marquee-column--down .project-process__marquee-track {
+    animation: project-process-marquee-down 18s linear infinite;
+}
+
+.project-process__image-card {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 22px;
+    overflow: hidden;
+    flex: 0 0 auto;
+    background: transparent;
+    box-shadow: none;
+}
+
+.project-process__image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* --------------------------------------------------------- */
+/* ANIMATIONS                                                */
+/* --------------------------------------------------------- */
+
+@keyframes project-process-marquee-up {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(calc(-50% - 8px));
+    }
+}
+
+@keyframes project-process-marquee-down {
+    0% {
+        transform: translateY(calc(-50% - 8px));
+    }
+
+    100% {
+        transform: translateY(0);
+    }
 }
 
 /* --------------------------------------------------------- */
 /* RESPONSIVE                                                */
 /* --------------------------------------------------------- */
 
-@media (max-width: 1024px) {
-    .project-process__grid {
-        grid-template-columns: 1fr;
+@media (max-width: 1400px) {
+    .project-process__container {
+        padding: 0 40px;
     }
 
-    .project-process__intro {
-        padding-top: 0;
+    .project-process__grid {
+        gap: 64px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .project-process {
+        padding: 100px 0 120px;
+    }
+
+    .project-process__grid {
+        grid-template-columns: 1fr;
+        align-items: start;
+        gap: 36px;
+    }
+
+    .project-process__left,
+    .project-process__visual {
+        align-self: start;
     }
 
     .project-process__title,
     .project-process__subtitle {
-        max-width: 100%;
+        max-width: 760px;
+    }
+
+    .project-process__subtitle {
+        max-width: 620px;
+    }
+
+    .project-process__visual {
+        max-width: 900px;
+    }
+
+    .project-process__info-card {
+        flex-basis: 340px;
+        width: 340px;
     }
 }
 
 @media (max-width: 768px) {
     .project-process {
-        margin: 56px 0;
+        padding: 72px 0 84px;
     }
 
-    .project-process__eyebrow-wrap {
-        justify-content: flex-start;
+    .project-process__container {
+        padding: 0 20px;
+    }
+
+    .project-process__step-row {
         margin-bottom: 16px;
     }
 
-    .project-process__card {
+    .project-process__intro {
+        margin-bottom: 22px;
+    }
+
+    .project-process__subtitle {
+        max-width: 100%;
+    }
+
+    .project-process__cards-track {
+        gap: 12px;
+    }
+
+    .project-process__info-card {
+        flex: 0 0 82%;
+        width: 82%;
+        border-radius: 20px;
+        padding: 16px 16px 14px;
+    }
+
+    .project-process__info-title {
+        font-size: 20px;
+    }
+
+    .project-process__info-body {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .project-process__info-icon {
+        width: 34px;
+        height: 34px;
+        margin-bottom: 12px;
+    }
+
+    .project-process__info-icon img {
+        width: 34px;
+        height: 34px;
+    }
+
+    .project-process__marquee {
+        gap: 10px;
+    }
+
+    .project-process__marquee-track {
+        gap: 10px;
+    }
+
+    .project-process__image-card {
         border-radius: 18px;
-        padding: 20px 18px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .project-process {
+        padding: 64px 0 76px;
+    }
+
+    .project-process__container {
+        padding: 0 16px;
+    }
+
+    .project-process__info-card {
+        flex: 0 0 86%;
+        width: 86%;
+        border-radius: 18px;
+    }
+
+    .project-process__info-title {
+        font-size: 19px;
+    }
+
+    .project-process__info-body {
+        font-size: 14px;
+        line-height: 1.48;
+    }
+
+    .project-process__image-card {
+        border-radius: 16px;
     }
 }
