@@ -1,0 +1,192 @@
+@import "../colours.css";
+
+/* --------------------------------------------------------- */
+/* ABOUT VALUES                                              */
+/* --------------------------------------------------------- */
+
+.aboutvalues {
+    position: relative;
+    width: 100%;
+    padding: 130px 0 150px;
+    margin: 0;
+    background: var(--off-white);
+    box-sizing: border-box;
+}
+
+.aboutvalues__inner {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 120px;
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------- */
+/* WRAP                                                      */
+/* --------------------------------------------------------- */
+
+.aboutvalues__wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 56px;
+    align-items: start;
+}
+
+/* --------------------------------------------------------- */
+/* COPY                                                      */
+/* --------------------------------------------------------- */
+
+.aboutvalues__copy {
+    max-width: 560px;
+}
+
+.aboutvalues__eyebrow {
+    margin: 0 0 16px;
+    letter-spacing: 0.18em;
+    color: #7a8aa0;
+}
+
+.aboutvalues__title {
+    margin: 0;
+    color: #111111;
+    line-height: 1.06;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+}
+
+.aboutvalues__highlight {
+    color: var(--deep-indigo);
+}
+
+.aboutvalues__subtitle {
+    margin: 20px 0 0;
+    color: #6f7f95;
+    line-height: 1.75;
+    max-width: 90%;
+}
+
+/* --------------------------------------------------------- */
+/* LIST CARD                                                 */
+/* --------------------------------------------------------- */
+
+.aboutvalues__list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 30px 26px;
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    border-radius: 28px;
+    background:
+        radial-gradient(circle, rgba(91, 80, 255, 0.06) 1px, transparent 1px),
+        #ffffff;
+    background-size: 12px 12px, auto;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* --------------------------------------------------------- */
+/* LIST ITEMS                                                */
+/* --------------------------------------------------------- */
+
+.aboutvalues__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.aboutvalues__dot {
+    flex: 0 0 7px;
+    width: 7px;
+    height: 7px;
+    margin-top: 9px;
+    border-radius: 999px;
+    background: var(--deep-indigo);
+}
+
+.aboutvalues__text {
+    margin: 0;
+    color: #6f7f95;
+    line-height: 1.75;
+    max-width: 100%;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .aboutvalues__inner {
+        padding: 0 48px;
+    }
+
+    .aboutvalues__wrap {
+        gap: 40px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .aboutvalues {
+        padding: 108px 0 124px;
+    }
+
+    .aboutvalues__inner {
+        padding: 0 40px;
+    }
+
+    .aboutvalues__wrap {
+        grid-template-columns: 1fr;
+        gap: 36px;
+    }
+
+    .aboutvalues__copy {
+        max-width: 100%;
+    }
+
+    .aboutvalues__subtitle {
+        max-width: 100%;
+    }
+
+    .aboutvalues__list {
+        padding: 26px 22px;
+        border-radius: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .aboutvalues {
+        padding: 78px 0 92px;
+    }
+
+    .aboutvalues__inner {
+        padding: 0 20px;
+    }
+
+    .aboutvalues__wrap {
+        gap: 28px;
+    }
+
+    .aboutvalues__list {
+        padding: 22px 18px;
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .aboutvalues {
+        padding: 68px 0 82px;
+    }
+
+    .aboutvalues__inner {
+        padding: 0 16px;
+    }
+
+    .aboutvalues__eyebrow {
+        margin-bottom: 14px;
+    }
+
+    .aboutvalues__list {
+        padding: 20px 16px;
+        border-radius: 18px;
+    }
+}

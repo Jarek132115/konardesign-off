@@ -1,0 +1,298 @@
+@import "../colours.css";
+
+/* --------------------------------------------------------- */
+/* ABOUT TOOLS                                               */
+/* --------------------------------------------------------- */
+
+.abouttools {
+    position: relative;
+    width: 100%;
+    padding: 130px 0 150px;
+    margin: 0;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+
+.abouttools__inner {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 120px;
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------- */
+/* HEADER                                                    */
+/* --------------------------------------------------------- */
+
+.abouttools__header {
+    max-width: 920px;
+    margin: 0 auto 56px;
+    text-align: center;
+}
+
+.abouttools__eyebrow {
+    margin: 0 0 16px;
+    letter-spacing: 0.18em;
+    color: #7a8aa0;
+}
+
+.abouttools__title {
+    margin: 0 0 18px;
+    color: #111111;
+    line-height: 1.06;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+}
+
+.abouttools__highlight {
+    color: var(--deep-indigo);
+}
+
+.abouttools__subtitle {
+    max-width: 720px;
+    margin: 0 auto;
+    color: #6f7f95;
+    line-height: 1.75;
+}
+
+/* --------------------------------------------------------- */
+/* GRID                                                      */
+/* --------------------------------------------------------- */
+
+.abouttools__grid {
+    --tool-gap: 18px;
+    --tool-size: calc((100% - (5 * var(--tool-gap))) / 6);
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--tool-gap);
+}
+
+.abouttools__row {
+    display: flex;
+    gap: var(--tool-gap);
+    justify-content: center;
+}
+
+.abouttools__row--top .abouttools__card,
+.abouttools__row--bottom .abouttools__card {
+    width: var(--tool-size);
+    flex: 0 0 var(--tool-size);
+}
+
+/* --------------------------------------------------------- */
+/* CARD                                                      */
+/* --------------------------------------------------------- */
+
+.abouttools__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1 / 1;
+    padding: 20px 16px;
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    border-radius: 22px;
+    background:
+        radial-gradient(circle, rgba(91, 80, 255, 0.06) 1px, transparent 1px),
+        #ffffff;
+    background-size: 12px 12px, auto;
+    text-align: center;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.abouttools__card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(91, 80, 255, 0.25);
+    box-shadow: 0 10px 30px rgba(17, 17, 17, 0.04);
+}
+
+.abouttools__icon-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 18px;
+    flex-shrink: 0;
+}
+
+.abouttools__icon {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+    display: block;
+}
+
+.abouttools__card-title {
+    margin: 0 0 10px;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: #111111;
+    letter-spacing: -0.02em;
+}
+
+.abouttools__card-subtitle {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.45;
+    color: #6f7f95;
+    max-width: 140px;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .abouttools__inner {
+        padding: 0 48px;
+    }
+
+    .abouttools__grid {
+        --tool-gap: 16px;
+    }
+
+    .abouttools__row {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: var(--tool-gap);
+    }
+
+    .abouttools__row--top .abouttools__card,
+    .abouttools__row--bottom .abouttools__card {
+        width: auto;
+        flex: initial;
+    }
+}
+
+@media (max-width: 1024px) {
+    .abouttools {
+        padding: 108px 0 124px;
+    }
+
+    .abouttools__inner {
+        padding: 0 40px;
+    }
+
+    .abouttools__header {
+        margin: 0 auto 46px;
+    }
+
+    .abouttools__row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .abouttools__card {
+        border-radius: 20px;
+        padding: 18px 14px;
+    }
+
+    .abouttools__icon-wrap {
+        width: 66px;
+        height: 66px;
+        margin-bottom: 16px;
+    }
+
+    .abouttools__icon {
+        width: 46px;
+        height: 46px;
+    }
+}
+
+@media (max-width: 768px) {
+    .abouttools {
+        padding: 78px 0 92px;
+    }
+
+    .abouttools__inner {
+        padding: 0 20px;
+    }
+
+    .abouttools__header {
+        margin: 0 auto 36px;
+    }
+
+    .abouttools__grid {
+        --tool-gap: 14px;
+    }
+
+    .abouttools__row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .abouttools__card {
+        border-radius: 18px;
+    }
+
+    .abouttools__icon-wrap {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 14px;
+    }
+
+    .abouttools__icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .abouttools__card-title {
+        font-size: 16px;
+    }
+
+    .abouttools__card-subtitle {
+        font-size: 12px;
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    .abouttools {
+        padding: 68px 0 82px;
+    }
+
+    .abouttools__inner {
+        padding: 0 16px;
+    }
+
+    .abouttools__header {
+        margin: 0 auto 32px;
+    }
+
+    .abouttools__eyebrow {
+        margin-bottom: 14px;
+    }
+
+    .abouttools__row {
+        grid-template-columns: 1fr;
+    }
+
+    .abouttools__card {
+        aspect-ratio: auto;
+        min-height: 190px;
+        padding: 24px 18px;
+    }
+
+    .abouttools__icon-wrap {
+        width: 64px;
+        height: 64px;
+    }
+
+    .abouttools__icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .abouttools__card-subtitle {
+        max-width: 100%;
+    }
+}

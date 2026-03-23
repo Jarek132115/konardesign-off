@@ -1,0 +1,159 @@
+@import "../colours.css";
+
+/* --------------------------------------------------------- */
+/* ABOUT CTA                                                 */
+/* --------------------------------------------------------- */
+
+.aboutcta {
+    position: relative;
+    width: 100%;
+    padding: 0 0 150px;
+    margin: 0;
+    background: transparent;
+    box-sizing: border-box;
+}
+
+.aboutcta__inner {
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 120px;
+    box-sizing: border-box;
+}
+
+.aboutcta__card {
+    position: relative;
+    width: 100%;
+    padding: 64px 32px;
+    text-align: center;
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    border-radius: 28px;
+    background:
+        radial-gradient(circle, rgba(91, 80, 255, 0.06) 1px, transparent 1px),
+        #ffffff;
+    background-size: 12px 12px, auto;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------- */
+/* CONTENT                                                   */
+/* --------------------------------------------------------- */
+
+.aboutcta__eyebrow {
+    margin: 0 0 16px;
+    letter-spacing: 0.18em;
+    color: #7a8aa0;
+}
+
+.aboutcta__title {
+    max-width: 900px;
+    margin: 0 auto;
+    color: #111111;
+    line-height: 1.06;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+}
+
+.aboutcta__highlight {
+    color: var(--deep-indigo);
+}
+
+.aboutcta__subtitle {
+    max-width: 640px;
+    margin: 20px auto 0;
+    color: #6f7f95;
+    line-height: 1.75;
+}
+
+/* --------------------------------------------------------- */
+/* ACTIONS                                                   */
+/* --------------------------------------------------------- */
+
+.aboutcta__actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 34px;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1400px) {
+    .aboutcta__inner {
+        padding: 0 48px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .aboutcta {
+        padding: 0 0 124px;
+    }
+
+    .aboutcta__inner {
+        padding: 0 40px;
+    }
+
+    .aboutcta__card {
+        padding: 56px 28px;
+        border-radius: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .aboutcta {
+        padding: 0 0 92px;
+    }
+
+    .aboutcta__inner {
+        padding: 0 20px;
+    }
+
+    .aboutcta__card {
+        padding: 44px 20px;
+        border-radius: 20px;
+    }
+
+    .aboutcta__actions {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 26px;
+    }
+
+    .aboutcta__actions .btn {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .aboutcta {
+        padding: 0 0 82px;
+    }
+
+    .aboutcta__inner {
+        padding: 0 16px;
+    }
+
+    .aboutcta__card {
+        padding: 38px 16px;
+        border-radius: 18px;
+    }
+
+    .aboutcta__eyebrow {
+        margin-bottom: 14px;
+    }
+
+    .aboutcta__subtitle {
+        margin-top: 18px;
+    }
+
+    .aboutcta__actions {
+        margin-top: 24px;
+    }
+}
