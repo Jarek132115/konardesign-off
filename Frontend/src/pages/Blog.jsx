@@ -19,31 +19,52 @@ const posts = [
     {
         id: "why-most-websites-dont-convert",
         category: "Web Design",
-        title: "Why Most Websites Look Good But Don’t Convert (And How To Fix It)",
+        title: (
+            <>
+                Why Most <span className="blog__highlight">Websites</span> Look
+                Good But Don’t <span className="blog__highlight">Convert</span>{" "}
+                (And How To Fix It)
+            </>
+        ),
         description:
             "The design mistakes that quietly kill conversions — and how to turn your site into a performance asset instead of a pretty brochure.",
         readTime: "1 Min Read",
         image: cardImage1,
+        alt: "Website design article preview",
         link: "/blog/growth-insights",
     },
     {
         id: "metrics-that-matter",
         category: "Performance",
-        title: "The 5 Metrics That Actually Matter For Website ROI",
+        title: (
+            <>
+                The 5 <span className="blog__highlight">Metrics</span> That
+                Actually Matter For Website{" "}
+                <span className="blog__highlight">ROI</span>
+            </>
+        ),
         description:
             "Forget vanity metrics. Here are the numbers that actually tell you if your website is pulling its weight for the business.",
         readTime: "1 Min Read",
         image: cardImage2,
+        alt: "Performance metrics article preview",
         link: "/blog/conversion-playbooks",
     },
     {
         id: "technical-vs-onpage-seo",
         category: "SEO",
-        title: "Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?",
+        title: (
+            <>
+                Technical <span className="blog__highlight">SEO</span> Vs
+                On-Page SEO: Which One Actually Moves{" "}
+                <span className="blog__highlight">Revenue</span>?
+            </>
+        ),
         description:
             "A simple breakdown of where to focus first if you want organic traffic that turns into pipeline — not just impressions.",
         readTime: "1 Min Read",
         image: cardImage3,
+        alt: "SEO article preview",
         link: "/blog/technical-foundations",
     },
 ];
@@ -56,56 +77,17 @@ const Blog = () => {
         const pageEl = pageRef.current;
         if (!pageEl) return;
 
+        const eyebrowEl = pageEl.querySelector(".blog__eyebrow");
         const titleEl = pageEl.querySelector(".blog__title");
         const subtitleEl = pageEl.querySelector(".blog__subtitle");
         const cards = pageEl.querySelectorAll(".blog-card");
 
-        if (!titleEl || !subtitleEl) return;
+        if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        const timelines = [];
-
-        // LETTER-BY-LETTER MAIN TITLE
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("blog__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        // Highlight “Insights”
-        const wordSpans = titleEl.querySelectorAll(".blog__title-word");
-        const highlightSet = new Set(["Insights"]);
-
-        wordSpans.forEach((wordSpan) => {
-            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
-            if (highlightSet.has(cleaned)) {
-                wordSpan.classList.add("blog__title-highlight");
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(".blog__title-word span");
+        gsap.set(titleEl, { opacity: 0, y: 8 });
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
 
-        const heroTl = gsap.timeline({
+        const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: pageEl,
                 start: "top 75%",
@@ -114,48 +96,45 @@ const Blog = () => {
             defaults: { ease: "power2.out" },
         });
 
-        heroTl
-            .to(charSpans, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.03,
-                duration: 0.4,
-            })
-            .to(
+        tl.fromTo(
+            eyebrowEl,
+            { opacity: 0, y: 8 },
+            { opacity: 1, y: 0, duration: 0.25 }
+        )
+            .fromTo(
+                titleEl,
+                { opacity: 0, y: 8 },
+                { opacity: 1, y: 0, duration: 0.32 },
+                ">-0.04"
+            )
+            .fromTo(
                 subtitleEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.45,
-                },
-                ">-0.05"
+                { opacity: 0, y: 8 },
+                { opacity: 1, y: 0, duration: 0.28 },
+                ">-0.08"
             );
 
-        timelines.push(heroTl);
-
-        // CARD FADE-INS
         cards.forEach((card, index) => {
-            const tl = gsap.fromTo(
+            gsap.fromTo(
                 card,
                 { opacity: 0, y: 24 },
                 {
                     opacity: 1,
                     y: 0,
                     duration: 0.4,
-                    delay: index * 0.05,
                     ease: "power2.out",
+                    delay: index * 0.05,
                     scrollTrigger: {
                         trigger: card,
-                        start: "top 85%",
+                        start: "top 82%",
                         toggleActions: "play none none none",
                     },
                 }
             );
-            timelines.push(tl);
         });
 
         return () => {
-            timelines.forEach((t) => t.kill());
+            tl.kill();
             ScrollTrigger.getAll().forEach((st) => st.kill());
         };
     }, []);
@@ -165,56 +144,72 @@ const Blog = () => {
             <Navbar />
 
             <main className="blog-page__main" ref={pageRef}>
-                <section className="blog-hero">
-                    <div className="blog-hero__inner">
-                        <header className="blog-hero__header">
+                <section className="blog-page__section">
+                    <div className="blog-page__inner">
+                        <header className="blog-page__header">
                             <p className="eyebrow blog__eyebrow">BLOG</p>
+
                             <h1 className="heading1 blog__title">
-                                Growth-Driven Insights For Modern Brands
+                                Growth-Driven{" "}
+                                <span className="blog__highlight">Insights</span>{" "}
+                                For Modern Brands
                             </h1>
+
                             <p className="subheading blog__subtitle">
-                                High-impact articles on UX, design, performance, and digital
-                                growth — written for brands ready to scale.
+                                High-impact articles on UX, design, performance,
+                                and digital growth — written for brands ready to
+                                scale.
                             </p>
                         </header>
-                    </div>
 
-                    <div className="blog__grid">
-                        {posts.map((post) => (
-                            <article
-                                key={post.id}
-                                className="blog-card"
-                                onClick={() => navigate(post.link)}
-                            >
-                                <div className="blog-card__media">
-                                    <img
-                                        src={post.image}
-                                        alt={post.title}
-                                        className="blog-card__image"
-                                    />
-                                    <span className="blog-card__pill">{post.category}</span>
-                                </div>
+                        <div className="blog-page__grid">
+                            {posts.map((post) => (
+                                <article
+                                    key={post.id}
+                                    className="blog-card"
+                                    onClick={() => navigate(post.link)}
+                                >
+                                    <div className="blog-card__media">
+                                        <img
+                                            src={post.image}
+                                            alt={post.alt}
+                                            className="blog-card__image"
+                                            draggable="false"
+                                        />
 
-                                <div className="blog-card__body">
-                                    <h3 className="heading3 blog-card__title">{post.title}</h3>
-
-                                    <p className="body blog-card__description">
-                                        {post.description}
-                                    </p>
-
-                                    <div className="blog-card__footer">
-                                        <div className="blog-card__meta-bottom">
-                                            <span className="blog-card__time-dot" />
-                                            <span className="body blog-card__time">{post.readTime}</span>
-                                        </div>
-
-                                        <button type="button" className="blog-card__link-button">
-                                            Read Article
-                                        </button>
+                                        <span className="blog-card__pill">
+                                            {post.category}
+                                        </span>
                                     </div>
-                                </div>
-                            </article>
-                        ))}
+
+                                    <div className="blog-card__body">
+                                        <h2 className="heading3 blog-card__title">
+                                            {post.title}
+                                        </h2>
+
+                                        <p className="body blog-card__description">
+                                            {post.description}
+                                        </p>
+
+                                        <div className="blog-card__footer">
+                                            <div className="blog-card__meta">
+                                                <span className="blog-card__time-dot" />
+                                                <span className="body blog-card__readtime">
+                                                    {post.readTime}
+                                                </span>
+                                            </div>
+
+                                            <button
+                                                type="button"
+                                                className="blog-card__link-button"
+                                            >
+                                                Read Article
+                                            </button>
+                                        </div>
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
                     </div>
                 </section>
             </main>

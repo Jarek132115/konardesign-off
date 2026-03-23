@@ -9,165 +9,387 @@
 }
 
 .blog-page__main {
+    width: 100%;
+    background: var(--off-white);
+}
+
+.blog-page__section {
+    position: relative;
+    width: 100%;
+    padding: 100px 0 120px;
+    background: var(--off-white);
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.blog-page__section::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 36px;
+    width: min(1200px, calc(100% - 80px));
+    height: clamp(320px, 40vw, 460px);
+    pointer-events: none;
+    z-index: 0;
+
+    background-image: radial-gradient(circle,
+            rgba(148, 163, 184, 0.35) 1px,
+            transparent 1px);
+    background-size: 6px 6px;
+
+    -webkit-mask-image: radial-gradient(ellipse at center,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.9) 45%,
+            rgba(0, 0, 0, 0.6) 60%,
+            rgba(0, 0, 0, 0.25) 70%,
+            transparent 85%);
+    mask-image: radial-gradient(ellipse at center,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.9) 45%,
+            rgba(0, 0, 0, 0.6) 60%,
+            rgba(0, 0, 0, 0.25) 70%,
+            transparent 85%);
+}
+
+.blog-page__inner {
+    position: relative;
+    z-index: 1;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 120px 40px 120px;
+    padding: 0 120px;
     box-sizing: border-box;
 }
 
 /* --------------------------------------------------------- */
-/* HERO                                                       */
+/* HEADER                                                    */
 /* --------------------------------------------------------- */
 
-.blog-hero {
-    max-width: 1200px;
-    margin: 0 auto;
+.blog-page__header {
+    max-width: 900px;
+    margin: 0 auto 48px;
+    text-align: center;
 }
 
-.blog-hero__header {
-    text-align: center;
-    margin-bottom: 48px;
+.blog__eyebrow {
+    margin-bottom: 8px;
 }
 
 .blog__title {
-    margin: 0 0 12px;
+    margin: 0 0 16px;
+    text-wrap: balance;
 }
 
-/* word wrapper for letter animation */
-.blog__title-word {
-    white-space: nowrap;
-}
-
-/* deep indigo highlight for “Insights” */
-.blog__title-highlight {
+.blog__highlight {
     color: var(--deep-indigo);
 }
 
 .blog__subtitle {
-    max-width: 720px;
+    max-width: 700px;
     margin: 0 auto;
-}
-
-/* --------------------------------------------------------- */
-/* GRID OF POSTS                                              */
-/* --------------------------------------------------------- */
-
-.blog__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
-}
-
-/* Card base */
-
-.blog-card {
-    background: var(--white);
-    border-radius: 18px;
-    border: 1px solid var(--light-grey);
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-/* Media */
-
-.blog-card__media {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-}
-
-.blog-card__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Body */
-
-.blog-card__body {
-    padding: 18px 20px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Top meta row (category + arrow) */
-
-.blog-card__meta-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 4px;
-}
-
-.blog-card__category {
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    font-size: 12px;
     font-weight: 500;
-    color: var(--deep-indigo);
-}
-
-.blog-card__external {
-    font-size: 18px;
-    line-height: 1;
     color: var(--cool-grey);
 }
 
-/* Title + description */
+/* --------------------------------------------------------- */
+/* GRID                                                      */
+/* --------------------------------------------------------- */
+
+.blog-page__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 32px;
+    margin-top: 40px;
+}
+
+/* --------------------------------------------------------- */
+/* CARD                                                      */
+/* --------------------------------------------------------- */
+
+.blog-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    transition: transform 0.25s ease-out;
+    overflow: visible;
+}
+
+.blog-card__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    background: #000;
+    z-index: 0;
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+}
+
+.blog-card__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.02);
+    transition: transform 0.45s ease;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.blog-card__pill {
+    position: absolute;
+    left: 16px;
+    top: 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.86);
+    color: #f9fafb;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+/* --------------------------------------------------------- */
+/* CONTENT PANEL                                             */
+/* --------------------------------------------------------- */
+
+.blog-card__body {
+    position: relative;
+    z-index: 2;
+    margin-top: -32px;
+    width: 100%;
+    background: #ffffff;
+    border-radius: 24px;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    padding: 20px 20px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+    box-sizing: border-box;
+}
 
 .blog-card__title {
     margin: 0;
+    line-height: 1.22;
+    text-wrap: balance;
+}
+
+.blog-card__title .blog__highlight {
+    color: var(--deep-indigo);
 }
 
 .blog-card__description {
     margin: 0;
     color: var(--cool-grey);
+    line-height: 1.56;
 }
 
-/* Bottom meta (read time) */
+/* --------------------------------------------------------- */
+/* FOOTER                                                    */
+/* --------------------------------------------------------- */
 
-.blog-card__meta-bottom {
-    margin-top: 4px;
+.blog-card__footer {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 12px;
+}
+
+.blog-card__meta {
+    display: inline-flex;
     align-items: center;
     gap: 6px;
 }
 
 .blog-card__time-dot {
-    width: 4px;
-    height: 4px;
+    width: 6px;
+    height: 6px;
     border-radius: 999px;
-    background: var(--cool-grey);
+    background: var(--deep-indigo);
 }
 
-.blog-card__time {
-    font-size: 12px;
+.blog-card__readtime {
+    font-size: 13px;
     color: var(--cool-grey);
 }
 
+.blog-card__link-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0f172a;
+}
+
+.blog-card__link-button::after {
+    content: "→";
+    display: inline-block;
+    transition: transform 0.18s ease-out;
+}
+
+.blog-card:hover {
+    transform: translateY(-6px);
+}
+
+.blog-card:hover .blog-card__image {
+    transform: scale(1.06);
+}
+
+.blog-card:hover .blog-card__link-button::after {
+    transform: translateX(4px);
+}
+
 /* --------------------------------------------------------- */
-/* RESPONSIVE BREAKPOINTS                                    */
+/* RESPONSIVE                                                */
 /* --------------------------------------------------------- */
 
-@media (max-width: 1200px) {
-    .blog-page__main {
-        padding: 100px 24px 96px;
-    }
-
-    .blog__grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+@media (max-width: 1400px) {
+    .blog-page__inner {
+        padding: 0 48px;
     }
 }
 
-@media (max-width: 800px) {
-    .blog-page__main {
-        padding: 80px 20px 80px;
+@media (max-width: 1100px) {
+    .blog-page__section {
+        padding: 100px 0 120px;
     }
 
-    .blog__grid {
+    .blog-page__inner {
+        padding: 0 40px;
+    }
+
+    .blog-page__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+    }
+
+    .blog-card:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        max-width: 720px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .blog-page__section {
+        padding: 72px 0 84px;
+    }
+
+    .blog-page__inner {
+        padding: 0 20px;
+    }
+
+    .blog-page__header {
+        margin-bottom: 36px;
+    }
+
+    .blog-page__grid {
         grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: 32px;
+    }
+
+    .blog-card {
+        max-width: 100%;
+    }
+
+    .blog-card__media {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .blog-card__image {
+        border-top-left-radius: 20px;
+        border-top-right-radius: 20px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .blog-card__body {
+        margin-top: -24px;
+        border-radius: 20px;
+        padding: 18px 18px 16px;
+    }
+
+    .blog-card__footer {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-page__section {
+        padding: 64px 0 76px;
+    }
+
+    .blog-page__inner {
+        padding: 0 16px;
+    }
+
+    .blog-page__section::before {
+        top: 18px;
+        width: calc(100% - 32px);
+        height: 260px;
+    }
+
+    .blog-card__media {
+        border-top-left-radius: 18px;
+        border-top-right-radius: 18px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .blog-card__image {
+        border-top-left-radius: 18px;
+        border-top-right-radius: 18px;
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .blog-card__pill {
+        left: 12px;
+        top: 12px;
+        font-size: 10px;
+        padding: 5px 9px;
+    }
+
+    .blog-card__body {
+        margin-top: -20px;
+        border-radius: 18px;
+        padding: 16px 16px 15px;
+    }
+
+    .blog-card__link-button {
+        font-size: 13px;
+    }
+
+    .blog-card__readtime {
+        font-size: 12px;
     }
 }
