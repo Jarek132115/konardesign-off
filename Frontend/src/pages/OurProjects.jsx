@@ -192,6 +192,8 @@ const OurProjects = () => {
             <main className="our-projects" ref={pageRef}>
                 <div className="our-projects__inner">
                     <header className="our-projects__header">
+                        <p className="eyebrow our-projects__eyebrow">MY WORK</p>
+
                         <h1 className="heading1 our-projects__title">
                             A Selected Project That Shows How I Build for Clarity
                         </h1>

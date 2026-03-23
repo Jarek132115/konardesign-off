@@ -66,6 +66,10 @@
     text-align: center;
 }
 
+.our-projects__eyebrow {
+    margin-bottom: 8px;
+}
+
 .our-projects__title {
     margin: 0 auto 16px;
     max-width: 900px;
@@ -177,7 +181,6 @@
     font-weight: 700;
     color: #ffffff;
 
-    /* glass background */
     background: rgba(18, 22, 38, 0.18);
     backdrop-filter: blur(16px) saturate(160%);
     -webkit-backdrop-filter: blur(16px) saturate(160%);

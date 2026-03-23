@@ -12,7 +12,6 @@ const BookACall = () => {
             <Navbar />
 
             <main className="bookacall-main">
-                {/* This already includes the heading, subheading + Cal.com form */}
                 <BookingSection />
             </main>
 
