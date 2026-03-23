@@ -1,0 +1,100 @@
+@import "../../colours.css";
+
+/* --------------------------------------------------------- */
+/* RESULTS SECTION                                           */
+/* --------------------------------------------------------- */
+
+.project-results {
+    margin: 72px 0;
+}
+
+.project-results__header {
+    max-width: 900px;
+    margin: 0 auto 32px;
+    text-align: center;
+}
+
+.project-results__title {
+    margin: 0 0 12px;
+}
+
+.project-results__title-word {
+    white-space: nowrap;
+}
+
+.project-results__title-highlight {
+    color: var(--deep-indigo);
+}
+
+.project-results__subtitle {
+    margin: 0 auto;
+    max-width: 760px;
+    color: var(--cool-grey);
+}
+
+.project-results__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.project-results__item {
+    border-radius: 24px;
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+    padding: 20px 18px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.project-results__circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: rgba(79, 70, 229, 0.08);
+    border: 1px solid rgba(79, 70, 229, 0.22);
+    color: var(--deep-indigo);
+    font-weight: 800;
+    font-size: 16px;
+}
+
+.project-results__item-title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 800;
+    color: #0f172a;
+}
+
+.project-results__item-text {
+    margin: 0;
+    color: var(--cool-grey);
+    line-height: 1.7;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+    .project-results__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .project-results {
+        margin: 56px 0;
+    }
+
+    .project-results__item {
+        border-radius: 18px;
+    }
+
+    .project-results__grid {
+        grid-template-columns: 1fr;
+    }
+}

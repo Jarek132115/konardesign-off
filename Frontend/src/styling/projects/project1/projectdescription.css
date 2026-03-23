@@ -1,0 +1,102 @@
+@import "../../colours.css";
+
+/* --------------------------------------------------------- */
+/* PROJECT DESCRIPTION                                       */
+/* --------------------------------------------------------- */
+
+.project-description {
+    margin: 72px 0;
+}
+
+.project-description__inner {
+    background: var(--deep-indigo);
+    border-radius: 24px;
+    padding: 64px 56px;
+    box-shadow: 0 30px 80px rgba(15, 23, 42, 0.35);
+    color: #ffffff;
+}
+
+.project-description__header {
+    max-width: 900px;
+    margin: 0 auto 28px;
+    text-align: left;
+}
+
+.project-description__header--spaced {
+    margin-top: 48px;
+}
+
+.project-description__title {
+    margin: 0 0 10px;
+    color: #ffffff !important;
+}
+
+.project-description__lead {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.7;
+}
+
+.project-description__grid {
+    display: grid;
+    gap: 18px;
+}
+
+.project-description__grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 28px;
+}
+
+.project-description__item {
+    border-radius: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    padding: 18px 18px 16px;
+}
+
+.project-description__item-title {
+    margin: 0 0 10px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.35;
+}
+
+.project-description__item-body {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.7;
+}
+
+/* --------------------------------------------------------- */
+/* RESPONSIVE                                                */
+/* --------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+    .project-description__inner {
+        padding: 52px 32px;
+    }
+
+    .project-description__grid--two {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .project-description {
+        margin: 56px 0;
+    }
+
+    .project-description__inner {
+        border-radius: 18px;
+        padding: 44px 20px;
+    }
+
+    .project-description__header--spaced {
+        margin-top: 40px;
+    }
+
+    .project-description__item {
+        border-radius: 16px;
+    }
+}
