@@ -10,8 +10,8 @@ import ProjectProcess2 from "../components/Project/ProjectProcess2";
 import ProjectProcess3 from "../components/Project/ProjectProcess3";
 import ProjectProcess4 from "../components/Project/ProjectProcess4";
 import ProjectProcess5 from "../components/Project/ProjectProcess5";
-import ProjectFinalLooks from "../components/Project/ProjectFinalLooks";
 import ProjectResults from "../components/Project/ProjectResults";
+import ProjectFinalLooks from "../components/Project/ProjectFinalLooks";
 
 import "../styling/buttons.css";
 import "../styling/projectpage.css";
@@ -34,9 +34,9 @@ const Project1 = () => {
                 <ProjectProcess4 />
                 <ProjectProcess5 />
 
-                <ProjectFinalLooks />
-
                 <ProjectResults />
+
+                <ProjectFinalLooks />
             </main>
 
             <Footer />

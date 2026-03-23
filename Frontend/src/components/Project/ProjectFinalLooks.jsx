@@ -13,12 +13,54 @@ import carousel6 from "../../assets/images/carousel6.jpg";
 gsap.registerPlugin(ScrollTrigger);
 
 const finalLooks = [
-    carousel1,
-    carousel2,
-    carousel3,
-    carousel4,
-    carousel5,
-    carousel6,
+    {
+        image: carousel1,
+        className: "project-final__card project-final__card--large project-final__card--tall",
+    },
+    {
+        image: carousel2,
+        className: "project-final__card",
+    },
+    {
+        image: carousel3,
+        className: "project-final__card project-final__card--wide",
+    },
+    {
+        image: carousel4,
+        className: "project-final__card",
+    },
+    {
+        image: carousel5,
+        className: "project-final__card project-final__card--tall",
+    },
+    {
+        image: carousel6,
+        className: "project-final__card",
+    },
+    {
+        image: carousel2,
+        className: "project-final__card",
+    },
+    {
+        image: carousel4,
+        className: "project-final__card project-final__card--wide",
+    },
+    {
+        image: carousel1,
+        className: "project-final__card",
+    },
+    {
+        image: carousel6,
+        className: "project-final__card project-final__card--tall",
+    },
+    {
+        image: carousel3,
+        className: "project-final__card",
+    },
+    {
+        image: carousel5,
+        className: "project-final__card project-final__card--large",
+    },
 ];
 
 const ProjectFinalLooks = () => {
@@ -97,16 +139,16 @@ const ProjectFinalLooks = () => {
         cards.forEach((card, index) => {
             gsap.fromTo(
                 card,
-                { opacity: 0, y: 24 },
+                { opacity: 0, y: 28 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.45,
-                    delay: index * 0.05,
+                    duration: 0.5,
+                    delay: index * 0.04,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: card,
-                        start: "top 82%",
+                        start: "top 85%",
                         toggleActions: "play none none none",
                     },
                 }
@@ -121,28 +163,32 @@ const ProjectFinalLooks = () => {
 
     return (
         <section className="project-final" ref={sectionRef}>
-            <header className="project-final__header">
-                <h2 className="heading2 project-final__title">
-                    Final Looks Across Every Touchpoint.
-                </h2>
+            <div className="project-final__container">
+                <header className="project-final__header">
+                    <span className="project-final__eyebrow">FINAL LOOKS</span>
 
-                <p className="subheading project-final__subtitle">
-                    A selection of key KonarCard screens showing how the visual
-                    system holds together across landing pages, product sections,
-                    and the wider user journey.
-                </p>
-            </header>
+                    <h2 className="heading2 project-final__title">
+                        Final Looks Across Every Touchpoint.
+                    </h2>
 
-            <div className="project-final__grid">
-                {finalLooks.map((src, index) => (
-                    <article key={index} className="project-final__card">
-                        <img
-                            src={src}
-                            alt={`KonarCard final screen ${index + 1}`}
-                            className="project-final__image"
-                        />
-                    </article>
-                ))}
+                    <p className="subheading project-final__subtitle">
+                        A broader set of KonarCard screens showing how the visual
+                        system holds together across landing pages, product moments,
+                        supporting sections, and the wider user journey.
+                    </p>
+                </header>
+
+                <div className="project-final__grid">
+                    {finalLooks.map((item, index) => (
+                        <article key={index} className={item.className}>
+                            <img
+                                src={item.image}
+                                alt={`KonarCard final screen ${index + 1}`}
+                                className="project-final__image"
+                            />
+                        </article>
+                    ))}
+                </div>
             </div>
         </section>
     );
