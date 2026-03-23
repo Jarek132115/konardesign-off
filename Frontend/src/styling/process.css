@@ -253,3 +253,9 @@
         border-radius: 16px;
     }
 }
+
+.process__card-title-wrap {
+    display: block;
+    max-width: 22ch;
+    /* controls line length */
+}

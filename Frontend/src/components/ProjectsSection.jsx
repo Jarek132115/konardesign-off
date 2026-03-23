@@ -34,7 +34,7 @@ const ProjectsSection = () => {
     useLayoutEffect(() => {
         const ctx = gsap.context(() => {
             const header = sectionRef.current?.querySelector(".projects__header");
-            const row = sectionRef.current?.querySelector(".projects-row");
+            const card = sectionRef.current?.querySelector(".projects__card");
 
             if (header) {
                 gsap.fromTo(
@@ -53,9 +53,9 @@ const ProjectsSection = () => {
                 );
             }
 
-            if (row) {
+            if (card) {
                 gsap.fromTo(
-                    row,
+                    card,
                     { opacity: 0, y: 26 },
                     {
                         opacity: 1,
@@ -63,7 +63,7 @@ const ProjectsSection = () => {
                         duration: 0.55,
                         ease: "power2.out",
                         scrollTrigger: {
-                            trigger: row,
+                            trigger: card,
                             start: "top 84%",
                         },
                     }
@@ -87,80 +87,83 @@ const ProjectsSection = () => {
     return (
         <section className="projects" ref={sectionRef}>
             <div className="projects__inner">
-                <header className="projects__header">
-                    <p className="eyebrow projects__eyebrow">MY WORK</p>
+                <div className="projects__grid">
+                    <header className="projects__header">
+                        <p className="eyebrow projects__eyebrow">MY WORK</p>
 
-                    <h2 className="heading2 projects__title">
-                        A Look at Some of My{" "}
-                        <span className="projects__highlight">Best Work</span>
-                    </h2>
+                        <h2 className="heading2 projects__title">
+                            A Look at Some of My{" "}
+                            <span className="projects__highlight">Best Work</span>
+                        </h2>
 
-                    <p className="subheading projects__subtitle">
-                        A selection of websites I’ve designed and built, focused on clarity,
-                        performance, and real business results.
-                    </p>
-                </header>
+                        <p className="subheading projects__subtitle">
+                            A selection of websites I’ve designed and built,
+                            focused on clarity, performance, and real business
+                            results.
+                        </p>
+                    </header>
 
-                <div className="projects__list">
-                    {projects.map((project) => (
-                        <article
-                            key={project.id}
-                            className="projects-row"
-                            role="button"
-                            tabIndex={0}
-                            onClick={() => navigate(project.route)}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter" || e.key === " ") {
-                                    e.preventDefault();
-                                    navigate(project.route);
-                                }
-                            }}
-                        >
-                            <video
-                                className="projects-row__media"
-                                src={project.media}
-                                autoPlay
-                                muted
-                                loop
-                                playsInline
-                                preload="auto"
-                                onCanPlay={(e) => {
-                                    e.currentTarget.play().catch(() => { });
+                    <div className="projects__list">
+                        {projects.map((project) => (
+                            <article
+                                key={project.id}
+                                className="projects__card"
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => navigate(project.route)}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        navigate(project.route);
+                                    }
                                 }}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleVideo(e.currentTarget);
-                                }}
-                            />
+                            >
+                                <video
+                                    className="projects__media"
+                                    src={project.media}
+                                    autoPlay
+                                    muted
+                                    loop
+                                    playsInline
+                                    preload="auto"
+                                    onCanPlay={(e) => {
+                                        e.currentTarget.play().catch(() => { });
+                                    }}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        toggleVideo(e.currentTarget);
+                                    }}
+                                />
 
-                            <div className="projects-row__overlay" />
+                                <div className="projects__overlay" />
 
-                            <div className="projects-row__content">
-                                <span className="projects-row__year">
-                                    {project.year}
-                                </span>
+                                <div className="projects__content">
+                                    <span className="projects__year">
+                                        {project.year}
+                                    </span>
 
-                                <h3 className="heading4 projects-row__title">
-                                    {project.title}
-                                </h3>
+                                    <h3 className="heading4 projects__card-title">
+                                        {project.title}
+                                    </h3>
 
-                                <p className="body projects-row__description">
-                                    {project.description}
-                                </p>
+                                    <p className="body projects__description">
+                                        {project.description}
+                                    </p>
 
-                                <div className="projects-row__tags">
-                                    {project.tags.map((tag) => (
-                                        <span
-                                            key={tag}
-                                            className="projects-row__pill"
-                                        >
-                                            {tag}
-                                        </span>
-                                    ))}
+                                    <div className="projects__tags">
+                                        {project.tags.map((tag) => (
+                                            <span
+                                                key={tag}
+                                                className="projects__pill"
+                                            >
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </div>
-                            </div>
-                        </article>
-                    ))}
+                            </article>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

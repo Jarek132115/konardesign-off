@@ -424,8 +424,8 @@ const Home = () => {
             <ProcessSection />
             <DifferenceSection />
             {/* <ImagineSection /> */}
-            <BlogSection />
             <BookCTASection />
+            <BlogSection />
             <Footer />
         </div>
     );

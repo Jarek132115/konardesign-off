@@ -9,7 +9,7 @@
     margin: 0;
     padding: 120px 0 140px;
     box-sizing: border-box;
-    background: var(--white);
+    background: var(--off-white);
 }
 
 .blogsection__inner {

@@ -86,8 +86,11 @@ const ProcessSection = () => {
                                 {step.number}
                             </div>
 
+                            {/* ✅ UPDATED TITLE */}
                             <h3 className="heading4 process__card-title">
-                                {step.title}
+                                <span className="process__card-title-wrap">
+                                    {step.title}
+                                </span>
                             </h3>
 
                             <p className="body process__card-subtitle">
