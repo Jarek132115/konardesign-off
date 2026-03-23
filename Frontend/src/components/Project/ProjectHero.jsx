@@ -23,11 +23,17 @@ const ProjectHero = () => {
         titleEl.textContent = "";
 
         const words = originalText.split(" ");
+        const highlightWords = new Set(["KonarCard"]);
 
         words.forEach((word, wordIndex) => {
             const wordWrapper = document.createElement("span");
             wordWrapper.classList.add("project-hero__title-word");
             wordWrapper.style.display = "inline-block";
+
+            const cleanedWord = word.replace(/[^\w]/g, "");
+            if (highlightWords.has(cleanedWord)) {
+                wordWrapper.classList.add("project-hero__title-word--indigo");
+            }
 
             for (const ch of word) {
                 const charSpan = document.createElement("span");
@@ -111,21 +117,21 @@ const ProjectHero = () => {
                     <div className="project-hero__copy-bg" />
 
                     <h1 className="heading1 project-hero__title">
-                        KonarCard E-Commerce Website
+                        KonarCard Digital Software Website
                     </h1>
 
                     <p className="subheading project-hero__subtitle">
-                        A tailored e-commerce experience for a next-gen digital
-                        business card startup — optimised for speed, clarity,
-                        and conversions.
+                        A custom software website built for a digital business
+                        card platform focused on clearer product communication,
+                        stronger trust, and a more conversion-ready user journey.
                     </p>
 
                     <div className="project-hero__pills">
                         <span className="project-hero__pill">
-                            Custom E-Commerce Website
+                            Digital Business Card Platform
                         </span>
                         <span className="project-hero__pill">
-                            Conversion-Focused Design
+                            Conversion-Focused Website
                         </span>
                         <span className="project-hero__pill">
                             Performance-Driven Build
@@ -138,17 +144,17 @@ const ProjectHero = () => {
                         <span className="project-hero__meta-label">
                             Pages Developed
                         </span>
-                        <span className="project-hero__meta-value">24+</span>
+                        <span className="project-hero__meta-value">23+</span>
                     </div>
 
                     <div className="project-hero__meta-group">
                         <span className="project-hero__meta-label">Industry</span>
-                        <span className="project-hero__meta-value">E-commerce</span>
+                        <span className="project-hero__meta-value">Software</span>
                     </div>
 
                     <div className="project-hero__meta-group">
                         <span className="project-hero__meta-label">Year</span>
-                        <span className="project-hero__meta-value">2025</span>
+                        <span className="project-hero__meta-value">2026</span>
                     </div>
 
                     <div className="project-hero__meta-group">
