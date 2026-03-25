@@ -23,7 +23,7 @@ const AboutMe = () => {
                 <AboutApproach />
                 <AboutWork />
                 <AboutFocus />
-                <AboutValues />
+                {/* <AboutValues /> */}
                 <AboutTools />
                 <AboutCTA />
             </main>

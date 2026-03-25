@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useCallback } from "react";
+import React, {
+    useEffect,
+    useRef,
+    useCallback,
+    useState,
+    useLayoutEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -6,6 +12,7 @@ import { gsap } from "gsap";
 
 import "../styling/ourprojects.css";
 import konarVideo from "../assets/videos/KonarCard1.mp4";
+import ecommerceVideo from "../assets/videos/ECommerce1.mp4";
 
 const projects = [
     {
@@ -23,27 +30,241 @@ const projects = [
         ],
         media: konarVideo,
         route: "/projects/konarcard",
+        hoverLabel: "View Case Study",
+        isComingSoon: false,
+    },
+    {
+        id: "coming-soon",
+        year: "2026",
+        title: "A New E-Commerce Project Is On The Way",
+        description:
+            "A new build focused on stronger product storytelling, clearer user flow, and a more refined online shopping experience.",
+        tags: [
+            "E-Commerce Design",
+            "Conversion Focus",
+            "Product Strategy",
+            "Responsive Build",
+            "Coming Soon",
+        ],
+        media: ecommerceVideo,
+        route: "",
+        hoverLabel: "Coming Soon",
+        isComingSoon: true,
     },
 ];
 
-const OurProjects = () => {
-    const pageRef = useRef(null);
+const ProjectCard = ({ project, navigate }) => {
     const cardRef = useRef(null);
     const pillRef = useRef(null);
     const pillXTo = useRef(null);
     const pillYTo = useRef(null);
-    const navigate = useNavigate();
+    const [isPressed, setIsPressed] = useState(false);
 
     useEffect(() => {
+        const cardEl = cardRef.current;
+        const pillEl = pillRef.current;
+
+        if (!cardEl || !pillEl) return;
+
+        gsap.set(pillEl, {
+            xPercent: -50,
+            yPercent: -50,
+            opacity: 0,
+            scale: 0.92,
+        });
+
+        pillXTo.current = gsap.quickTo(pillEl, "x", {
+            duration: 0.12,
+            ease: "power3.out",
+        });
+
+        pillYTo.current = gsap.quickTo(pillEl, "y", {
+            duration: 0.12,
+            ease: "power3.out",
+        });
+    }, []);
+
+    const positionPill = useCallback((clientX, clientY) => {
+        const card = cardRef.current;
+        if (!card || !pillXTo.current || !pillYTo.current) return;
+
+        const rect = card.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+
+        pillXTo.current(x);
+        pillYTo.current(y);
+    }, []);
+
+    const handlePointerEnter = useCallback(
+        (e) => {
+            if (window.innerWidth <= 1024) return;
+
+            const pill = pillRef.current;
+            if (!pill) return;
+
+            positionPill(e.clientX, e.clientY);
+
+            gsap.to(pill, {
+                opacity: 1,
+                scale: 1,
+                duration: 0.16,
+                ease: "power2.out",
+                overwrite: "auto",
+            });
+        },
+        [positionPill]
+    );
+
+    const handlePointerMove = useCallback(
+        (e) => {
+            if (window.innerWidth <= 1024) return;
+            positionPill(e.clientX, e.clientY);
+        },
+        [positionPill]
+    );
+
+    const handlePointerLeave = useCallback(() => {
+        const pill = pillRef.current;
+        if (!pill) return;
+
+        gsap.to(pill, {
+            opacity: 0,
+            scale: 0.92,
+            duration: 0.14,
+            ease: "power2.out",
+            overwrite: "auto",
+        });
+    }, []);
+
+    const toggleVideo = useCallback((videoEl) => {
+        if (!videoEl) return;
+
+        if (videoEl.paused) {
+            videoEl.play().catch(() => { });
+        } else {
+            videoEl.pause();
+        }
+    }, []);
+
+    const handleActivate = useCallback(() => {
+        if (project.isComingSoon) {
+            setIsPressed(true);
+            window.setTimeout(() => setIsPressed(false), 180);
+            return;
+        }
+
+        navigate(project.route);
+    }, [navigate, project]);
+
+    return (
+        <article className="our-projects-row">
+            <div className="our-projects-row__glow-frame our-projects-row__glow-frame--indigo">
+                <div
+                    ref={cardRef}
+                    className={`our-projects-row__card ${project.isComingSoon
+                            ? "our-projects-row__card--coming-soon"
+                            : ""
+                        } ${isPressed ? "our-projects-row__card--pressed" : ""}`}
+                    role="button"
+                    tabIndex={0}
+                    onPointerEnter={handlePointerEnter}
+                    onPointerMove={handlePointerMove}
+                    onPointerLeave={handlePointerLeave}
+                    onPointerDown={() => {
+                        if (project.isComingSoon) setIsPressed(true);
+                    }}
+                    onPointerUp={() => {
+                        if (project.isComingSoon) {
+                            window.setTimeout(() => setIsPressed(false), 120);
+                        }
+                    }}
+                    onPointerCancel={() => {
+                        if (project.isComingSoon) setIsPressed(false);
+                    }}
+                    onClick={handleActivate}
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            handleActivate();
+                        }
+                    }}
+                >
+                    <video
+                        className="our-projects-row__media"
+                        src={project.media}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        preload="auto"
+                        onCanPlay={(e) => {
+                            e.currentTarget.play().catch(() => { });
+                        }}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            toggleVideo(e.currentTarget);
+                        }}
+                    />
+
+                    <div className="our-projects-row__overlay" />
+
+                    <div
+                        ref={pillRef}
+                        className={`our-projects-row__hover-pill ${project.isComingSoon
+                                ? "our-projects-row__hover-pill--soon"
+                                : ""
+                            }`}
+                        aria-hidden="true"
+                    >
+                        <span className="our-projects-row__hover-pill-text">
+                            {project.hoverLabel}
+                        </span>
+                    </div>
+
+                    <div className="our-projects-row__content">
+                        <span className="our-projects-row__year">
+                            {project.year}
+                        </span>
+
+                        <h2 className="heading4 our-projects-row__title">
+                            {project.title}
+                        </h2>
+
+                        <p className="body our-projects-row__description">
+                            {project.description}
+                        </p>
+
+                        <div className="our-projects-row__tags">
+                            {project.tags.map((tag) => (
+                                <span
+                                    key={tag}
+                                    className="our-projects-row__pill"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    );
+};
+
+const OurProjects = () => {
+    const pageRef = useRef(null);
+    const navigate = useNavigate();
+
+    useLayoutEffect(() => {
         const pageEl = pageRef.current;
         if (!pageEl) return;
 
         const titleEl = pageEl.querySelector(".our-projects__title");
         const subtitleEl = pageEl.querySelector(".our-projects__subtitle");
-        const cardEl = cardRef.current;
-        const pillEl = pillRef.current;
+        const cards = pageEl.querySelectorAll(".our-projects-row");
 
-        if (!titleEl || !subtitleEl || !cardEl) return;
+        if (!titleEl || !subtitleEl || !cards.length) return;
 
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
@@ -78,10 +299,12 @@ const OurProjects = () => {
             }
         });
 
-        const charSpans = titleEl.querySelectorAll(".our-projects__title-word span");
+        const charSpans = titleEl.querySelectorAll(
+            ".our-projects__title-word span"
+        );
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
-        gsap.set(cardEl, { opacity: 0, y: 20 });
+        gsap.set(cards, { opacity: 0, y: 26 });
 
         const introTl = gsap.timeline({
             defaults: { ease: "power2.out" },
@@ -101,88 +324,20 @@ const OurProjects = () => {
                 ">-0.08"
             )
             .fromTo(
-                cardEl,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 0.42 },
+                cards,
+                { opacity: 0, y: 26 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.55,
+                    stagger: 0.08,
+                },
                 ">-0.04"
             );
-
-        if (pillEl) {
-            gsap.set(pillEl, {
-                xPercent: -50,
-                yPercent: -50,
-                opacity: 0,
-                scale: 0.92,
-            });
-
-            pillXTo.current = gsap.quickTo(pillEl, "x", {
-                duration: 0.12,
-                ease: "power3.out",
-            });
-
-            pillYTo.current = gsap.quickTo(pillEl, "y", {
-                duration: 0.12,
-                ease: "power3.out",
-            });
-        }
 
         return () => {
             introTl.kill();
         };
-    }, []);
-
-    const positionPill = useCallback((clientX, clientY) => {
-        const card = cardRef.current;
-        if (!card || !pillXTo.current || !pillYTo.current) return;
-
-        const rect = card.getBoundingClientRect();
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
-
-        pillXTo.current(x);
-        pillYTo.current(y);
-    }, []);
-
-    const handlePointerEnter = useCallback((e) => {
-        const pill = pillRef.current;
-        if (!pill) return;
-
-        positionPill(e.clientX, e.clientY);
-
-        gsap.to(pill, {
-            opacity: 1,
-            scale: 1,
-            duration: 0.16,
-            ease: "power2.out",
-            overwrite: "auto",
-        });
-    }, [positionPill]);
-
-    const handlePointerMove = useCallback((e) => {
-        positionPill(e.clientX, e.clientY);
-    }, [positionPill]);
-
-    const handlePointerLeave = useCallback(() => {
-        const pill = pillRef.current;
-        if (!pill) return;
-
-        gsap.to(pill, {
-            opacity: 0,
-            scale: 0.92,
-            duration: 0.14,
-            ease: "power2.out",
-            overwrite: "auto",
-        });
-    }, []);
-
-    const toggleVideo = useCallback((videoEl) => {
-        if (!videoEl) return;
-
-        if (videoEl.paused) {
-            videoEl.play().catch(() => { });
-        } else {
-            videoEl.pause();
-        }
     }, []);
 
     return (
@@ -207,77 +362,11 @@ const OurProjects = () => {
 
                     <div className="our-projects__list">
                         {projects.map((project) => (
-                            <article
+                            <ProjectCard
                                 key={project.id}
-                                ref={cardRef}
-                                className="our-projects-row"
-                                role="button"
-                                tabIndex={0}
-                                onPointerEnter={handlePointerEnter}
-                                onPointerMove={handlePointerMove}
-                                onPointerLeave={handlePointerLeave}
-                                onClick={() => navigate(project.route)}
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter" || e.key === " ") {
-                                        e.preventDefault();
-                                        navigate(project.route);
-                                    }
-                                }}
-                            >
-                                <video
-                                    className="our-projects-row__media"
-                                    src={project.media}
-                                    autoPlay
-                                    muted
-                                    loop
-                                    playsInline
-                                    preload="auto"
-                                    onCanPlay={(e) => {
-                                        e.currentTarget.play().catch(() => { });
-                                    }}
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleVideo(e.currentTarget);
-                                    }}
-                                />
-
-                                <div className="our-projects-row__overlay" />
-
-                                <div
-                                    ref={pillRef}
-                                    className="our-projects-row__hover-pill"
-                                    aria-hidden="true"
-                                >
-                                    <span className="our-projects-row__hover-pill-text">
-                                        View Case Study
-                                    </span>
-                                </div>
-
-                                <div className="our-projects-row__content">
-                                    <span className="our-projects-row__year">
-                                        {project.year}
-                                    </span>
-
-                                    <h2 className="heading4 our-projects-row__title">
-                                        {project.title}
-                                    </h2>
-
-                                    <p className="body our-projects-row__description">
-                                        {project.description}
-                                    </p>
-
-                                    <div className="our-projects-row__tags">
-                                        {project.tags.map((tag) => (
-                                            <span
-                                                key={tag}
-                                                className="our-projects-row__pill"
-                                            >
-                                                {tag}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </article>
+                                project={project}
+                                navigate={navigate}
+                            />
                         ))}
                     </div>
                 </div>

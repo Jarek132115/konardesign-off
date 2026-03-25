@@ -9,7 +9,7 @@
     width: 100%;
     padding: 0 0 150px;
     margin: 0;
-    background: transparent;
+    background: var(--off-white);
     box-sizing: border-box;
 }
 

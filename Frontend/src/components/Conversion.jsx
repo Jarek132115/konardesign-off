@@ -4,22 +4,16 @@ import "../styling/conversion.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import audienceIcon from "../assets/icons/audience.svg";
-import dataIcon from "../assets/icons/data.svg";
-import speedIcon from "../assets/icons/speed.svg";
-import uxIcon from "../assets/icons/ux.svg";
-import responsiveIcon from "../assets/icons/responsive.svg";
-
 import conversionImage1 from "../assets/images/Conversion1.png";
 import conversionImage2 from "../assets/images/Conversion2.png";
 import conversionImage3 from "../assets/images/Conversion3.png";
 import conversionImage4 from "../assets/images/Conversion4.png";
-import conversionImage5 from "../assets/images/Conversion5.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const conversionItems = [
     {
+        id: "strategy",
         eyebrow: "Strategy",
         titleParts: [
             { text: "Every decision starts with the ", highlight: false },
@@ -30,11 +24,10 @@ const conversionItems = [
         ],
         description:
             "Structure, messaging, and page flow are shaped around your ideal audience from the beginning, so the website feels clear, relevant, and easier to trust.",
-        icon: audienceIcon,
-        alt: "Audience icon",
         image: conversionImage1,
     },
     {
+        id: "conversion",
         eyebrow: "Conversion",
         titleParts: [
             { text: "Design choices are made to guide ", highlight: false },
@@ -44,12 +37,11 @@ const conversionItems = [
             { text: ".", highlight: false },
         ],
         description:
-            "Layout, hierarchy, and calls to action work together to make next steps feel natural, not forced—helping more visitors move from interest to enquiry.",
-        icon: dataIcon,
-        alt: "Conversion icon",
+            "Layout, hierarchy, and calls to action work together to make next steps feel natural, not forced, helping more visitors move from interest to enquiry.",
         image: conversionImage2,
     },
     {
+        id: "performance",
         eyebrow: "Performance",
         titleParts: [
             { text: "Built with ", highlight: false },
@@ -59,12 +51,11 @@ const conversionItems = [
             { text: " in mind.", highlight: false },
         ],
         description:
-            "Strong technical foundations, responsive execution, and SEO-aware decisions help your site perform properly after launch—not just polished on the surface.",
-        icon: speedIcon,
-        alt: "Speed icon",
+            "Strong technical foundations, responsive execution, and SEO-aware decisions help your site perform properly after launch, not just polished on the surface.",
         image: conversionImage3,
     },
     {
+        id: "experience",
         eyebrow: "Experience",
         titleParts: [
             { text: "Smooth user journeys create less ", highlight: false },
@@ -75,44 +66,23 @@ const conversionItems = [
         ],
         description:
             "Clear layouts and thoughtful interactions help people understand where they are, what matters, and what to do next without confusion or clutter.",
-        icon: uxIcon,
-        alt: "UX icon",
         image: conversionImage4,
-    },
-    {
-        eyebrow: "Consistency",
-        titleParts: [
-            { text: "The experience holds up across every ", highlight: false },
-            { text: "screen", highlight: true },
-            { text: " it appears ", highlight: false },
-            { text: "on", highlight: true },
-            { text: ".", highlight: false },
-        ],
-        description:
-            "From desktop to mobile, the website is designed to feel consistent, credible, and easy to use—so the quality never drops with screen size.",
-        icon: responsiveIcon,
-        alt: "Responsive icon",
-        image: conversionImage5,
     },
 ];
 
-const DRAG_THRESHOLD = 6;
-
 const Conversion = () => {
     const sectionRef = useRef(null);
-    const scrollerRef = useRef(null);
 
     useEffect(() => {
         const sectionEl = sectionRef.current;
-        const scrollerEl = scrollerRef.current;
-        if (!sectionEl || !scrollerEl) return;
+        if (!sectionEl) return;
 
         const eyebrowEl = sectionEl.querySelector(".conversion__eyebrow");
         const titleEl = sectionEl.querySelector(".conversion__title");
         const subtitleEl = sectionEl.querySelector(".conversion__subtitle");
         const cards = sectionEl.querySelectorAll(".conversion__card");
 
-        if (!eyebrowEl || !titleEl || !subtitleEl) return;
+        if (!eyebrowEl || !titleEl || !subtitleEl || !cards.length) return;
 
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
@@ -153,6 +123,7 @@ const Conversion = () => {
         const charSpans = titleEl.querySelectorAll(".conversion__title-word span");
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
+        gsap.set(cards, { opacity: 0, y: 22 });
 
         const introTl = gsap.timeline({
             scrollTrigger: {
@@ -167,110 +138,38 @@ const Conversion = () => {
             .fromTo(
                 eyebrowEl,
                 { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.25 }
+                { opacity: 1, y: 0, duration: 0.22 }
             )
             .to(
                 charSpans,
                 {
                     opacity: 1,
                     y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
+                    stagger: 0.014,
+                    duration: 0.22,
                 },
-                ">-0.05"
+                ">-0.03"
             )
             .fromTo(
                 subtitleEl,
                 { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.28 },
-                ">-0.08"
+                { opacity: 1, y: 0, duration: 0.24 },
+                ">-0.06"
             )
             .fromTo(
                 cards,
-                { opacity: 0, y: 20 },
+                { opacity: 0, y: 22 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.45,
+                    duration: 0.38,
                     stagger: 0.08,
                 },
-                ">-0.05"
+                ">-0.04"
             );
-
-        let isPointerDown = false;
-        let isDragging = false;
-        let pointerId = null;
-        let startX = 0;
-        let startScrollLeft = 0;
-
-        const stopDragging = () => {
-            isPointerDown = false;
-            isDragging = false;
-            pointerId = null;
-            scrollerEl.classList.remove("is-dragging");
-        };
-
-        const onPointerDown = (event) => {
-            if (event.button !== 0) return;
-
-            isPointerDown = true;
-            isDragging = false;
-            pointerId = event.pointerId;
-            startX = event.clientX;
-            startScrollLeft = scrollerEl.scrollLeft;
-
-            scrollerEl.setPointerCapture?.(event.pointerId);
-        };
-
-        const onPointerMove = (event) => {
-            if (!isPointerDown) return;
-
-            const deltaX = event.clientX - startX;
-
-            if (!isDragging && Math.abs(deltaX) > DRAG_THRESHOLD) {
-                isDragging = true;
-                scrollerEl.classList.add("is-dragging");
-            }
-
-            if (!isDragging) return;
-
-            event.preventDefault();
-            scrollerEl.scrollLeft = startScrollLeft - deltaX;
-        };
-
-        const onPointerUp = (event) => {
-            if (pointerId !== null) {
-                scrollerEl.releasePointerCapture?.(event.pointerId);
-            }
-            stopDragging();
-        };
-
-        const onPointerCancel = (event) => {
-            if (pointerId !== null) {
-                scrollerEl.releasePointerCapture?.(event.pointerId);
-            }
-            stopDragging();
-        };
-
-        const onDragStart = (event) => {
-            event.preventDefault();
-        };
-
-        scrollerEl.addEventListener("pointerdown", onPointerDown);
-        scrollerEl.addEventListener("pointermove", onPointerMove);
-        scrollerEl.addEventListener("pointerup", onPointerUp);
-        scrollerEl.addEventListener("pointercancel", onPointerCancel);
-        scrollerEl.addEventListener("dragstart", onDragStart);
 
         return () => {
             introTl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-
-            scrollerEl.removeEventListener("pointerdown", onPointerDown);
-            scrollerEl.removeEventListener("pointermove", onPointerMove);
-            scrollerEl.removeEventListener("pointerup", onPointerUp);
-            scrollerEl.removeEventListener("pointercancel", onPointerCancel);
-            scrollerEl.removeEventListener("dragstart", onDragStart);
         };
     }, []);
 
@@ -287,32 +186,27 @@ const Conversion = () => {
                     </h2>
 
                     <p className="subheading conversion__subtitle">
-                        Strategy, UX, structure, and technical execution work together
-                        to create websites that not only look sharp, but help move
-                        people towards action.
+                        Strategy, UX, structure, and technical execution work
+                        together to create websites that not only look sharp,
+                        but help move people towards action.
                     </p>
                 </header>
 
-                <div
-                    className="conversion__scroller"
-                    ref={scrollerRef}
-                    aria-label="Scrollable conversion cards"
-                >
-                    <div className="conversion__track">
-                        {conversionItems.map((item) => (
-                            <article
-                                key={item.eyebrow}
-                                className="conversion__card"
-                            >
-                                <div className="conversion__media">
-                                    <div className="conversion__media-inner">
-                                        <div className="conversion__media-badge">
-                                            {item.eyebrow}
-                                        </div>
+                <div className="conversion__grid">
+                    {conversionItems.map((item, index) => {
+                        const secondRow = index >= 2;
 
+                        return (
+                            <article
+                                key={item.id}
+                                className={`conversion__card ${secondRow ? "conversion__card--reverse" : ""
+                                    }`}
+                            >
+                                <div className="conversion__image-wrap">
+                                    <div className="conversion__image-card">
                                         <img
                                             src={item.image}
-                                            alt=""
+                                            alt={item.eyebrow}
                                             className="conversion__image"
                                             draggable="false"
                                         />
@@ -320,21 +214,14 @@ const Conversion = () => {
                                 </div>
 
                                 <div className="conversion__content">
-                                    <div
-                                        className="conversion__item-icon"
-                                        aria-hidden="true"
-                                    >
-                                        <img
-                                            src={item.icon}
-                                            alt={item.alt}
-                                            draggable="false"
-                                        />
+                                    <div className="conversion__media-badge">
+                                        {item.eyebrow}
                                     </div>
 
                                     <h3 className="heading4 conversion__item-title">
-                                        {item.titleParts.map((part, index) => (
+                                        {item.titleParts.map((part, partIndex) => (
                                             <span
-                                                key={`${item.eyebrow}-${index}`}
+                                                key={`${item.id}-${partIndex}`}
                                                 className={
                                                     part.highlight
                                                         ? "conversion__title-accent"
@@ -351,8 +238,8 @@ const Conversion = () => {
                                     </p>
                                 </div>
                             </article>
-                        ))}
-                    </div>
+                        );
+                    })}
                 </div>
             </div>
         </section>
