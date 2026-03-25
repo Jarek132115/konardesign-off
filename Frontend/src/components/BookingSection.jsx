@@ -310,20 +310,18 @@ const BookingSection = () => {
                     </aside>
 
                     <div className="booking__embed-panel">
-                        <div className="booking__embed-shell">
-                            <div className="booking__embed">
-                                <Cal
-                                    namespace="30min"
-                                    calLink="konardesign/30min"
-                                    style={{
-                                        width: "100%",
-                                    }}
-                                    config={{
-                                        layout: "month_view",
-                                        theme: "light",
-                                    }}
-                                />
-                            </div>
+                        <div className="booking__embed">
+                            <Cal
+                                namespace="30min"
+                                calLink="konardesign/30min"
+                                style={{
+                                    width: "100%",
+                                }}
+                                config={{
+                                    layout: "month_view",
+                                    theme: "light",
+                                }}
+                            />
                         </div>
                     </div>
                 </div>

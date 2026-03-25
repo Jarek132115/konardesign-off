@@ -56,7 +56,6 @@
 /* --------------------------------------------------------- */
 
 .booking__info-panel,
-.booking__embed-shell,
 .booking__contact-card,
 .booking__social {
     border-radius: 28px;
@@ -109,16 +108,17 @@
 
 .booking__layout {
     display: grid;
-    grid-template-columns: minmax(320px, 0.78fr) minmax(0, 1.22fr);
-    gap: 32px;
+    grid-template-columns: minmax(280px, 0.68fr) minmax(0, 1.32fr);
+    gap: 24px;
     align-items: start;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
 }
 
 .booking__info-panel {
-    width: 100%;
-    max-width: 460px;
+    max-width: 414px;
+    width: auto;
     justify-self: start;
+    align-self: start;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -126,14 +126,8 @@
 }
 
 .booking__embed-panel {
+    width: 100%;
     min-width: 0;
-    width: 100%;
-}
-
-.booking__embed-shell {
-    width: 100%;
-    padding: 14px;
-    overflow: hidden;
 }
 
 .booking__embed {
@@ -148,6 +142,9 @@
     max-width: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .booking__embed iframe {
@@ -155,8 +152,10 @@
     height: 100% !important;
     min-height: 100% !important;
     border: 0 !important;
-    border-radius: 18px;
+    border-radius: 0 !important;
     display: block;
+    background: transparent !important;
+    box-shadow: none !important;
 }
 
 .booking__embed [style*="margin-top"] {
@@ -383,12 +382,12 @@ a.booking__quick-value:hover {
 
 @media (min-width: 1500px) {
     .booking__layout {
-        grid-template-columns: minmax(360px, 0.76fr) minmax(0, 1.24fr);
-        gap: 40px;
+        grid-template-columns: minmax(300px, 0.66fr) minmax(0, 1.34fr);
+        gap: 24px;
     }
 
     .booking__info-panel {
-        max-width: 480px;
+        max-width: 430px;
     }
 }
 
@@ -402,12 +401,16 @@ a.booking__quick-value:hover {
     }
 
     .booking__layout {
-        grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.18fr);
-        gap: 28px;
+        grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+        gap: 24px;
     }
 
     .booking__header {
         margin-bottom: 48px;
+    }
+
+    .booking__info-panel {
+        max-width: 400px;
     }
 }
 
@@ -423,6 +426,7 @@ a.booking__quick-value:hover {
 
     .booking__info-panel {
         max-width: 100%;
+        width: 100%;
     }
 
     .booking__embed {
@@ -471,7 +475,6 @@ a.booking__quick-value:hover {
     }
 
     .booking__info-panel,
-    .booking__embed-shell,
     .booking__social {
         border-radius: 22px;
     }
@@ -481,11 +484,8 @@ a.booking__quick-value:hover {
         gap: 16px;
     }
 
-    .booking__embed-shell {
-        padding: 10px;
-    }
-
     .booking__embed {
+        aspect-ratio: auto;
         min-height: 690px;
     }
 
@@ -526,7 +526,6 @@ a.booking__quick-value:hover {
     }
 
     .booking__info-panel,
-    .booking__embed-shell,
     .booking__social,
     .booking__contact-card {
         border-radius: 18px;
@@ -536,10 +535,6 @@ a.booking__quick-value:hover {
     .booking__social,
     .booking__contact-card {
         padding: 16px;
-    }
-
-    .booking__embed-shell {
-        padding: 8px;
     }
 
     .booking__embed {
