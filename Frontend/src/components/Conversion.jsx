@@ -207,7 +207,7 @@ const Conversion = () => {
 
                                 <div className="conversion__content">
                                     <div className="conversion__media-badge">
-                                        {item.eyebrow}
+                                        {item.eyebrow.toUpperCase()}
                                     </div>
 
                                     <h3 className="heading4 conversion__item-title">
