@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Cal, { getCalApi } from "@calcom/embed-react";
-import "../styling/booking.css";
+import "../styling/bookingsection.css";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -263,37 +263,6 @@ const BookingSection = () => {
                 </header>
 
                 <div className="booking__layout">
-                    <div className="booking__embed-panel">
-                        <div className="booking__embed-copy">
-                            <p className="booking__panel-label">Schedule a Call</p>
-
-                            <h2 className="heading4 booking__panel-title">
-                                Pick a slot and let’s talk through your project
-                                properly.
-                            </h2>
-
-                            <p className="body booking__panel-text">
-                                We can go over goals, timeline, current blockers,
-                                and what kind of website or digital direction will
-                                actually support the next stage of growth.
-                            </p>
-                        </div>
-
-                        <div className="booking__embed">
-                            <Cal
-                                namespace="30min"
-                                calLink="konardesign/30min"
-                                style={{
-                                    width: "100%",
-                                }}
-                                config={{
-                                    layout: "month_view",
-                                    theme: "light",
-                                }}
-                            />
-                        </div>
-                    </div>
-
                     <aside className="booking__info-panel">
                         <div className="booking__profile-media">
                             <img
@@ -325,20 +294,13 @@ const BookingSection = () => {
                             </div>
 
                             <div className="booking__quick-item">
-                                <span className="booking__quick-key">Availability</span>
-                                <span className="booking__quick-value">
-                                    Discovery calls and project enquiries
-                                </span>
-                            </div>
-
-                            <div className="booking__quick-item">
                                 <span className="booking__quick-key">Response</span>
                                 <span className="booking__quick-value">
                                     1 hour - 24 hours
                                 </span>
                             </div>
 
-                            <div className="booking__quick-item">
+                            <div className="booking__quick-item booking__quick-item--last">
                                 <span className="booking__quick-key">Based In</span>
                                 <span className="booking__quick-value">
                                     United Kingdom
@@ -346,6 +308,24 @@ const BookingSection = () => {
                             </div>
                         </div>
                     </aside>
+
+                    <div className="booking__embed-panel">
+                        <div className="booking__embed-shell">
+                            <div className="booking__embed">
+                                <Cal
+                                    namespace="30min"
+                                    calLink="konardesign/30min"
+                                    style={{
+                                        width: "100%",
+                                    }}
+                                    config={{
+                                        layout: "month_view",
+                                        theme: "light",
+                                    }}
+                                />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="booking__contact-grid">
