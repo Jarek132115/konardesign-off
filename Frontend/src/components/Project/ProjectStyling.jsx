@@ -42,12 +42,6 @@ const typographyItems = [
             "Designed for clarity, consistency, and a more premium digital experience.",
         previewClass: "project-styling__type-preview--body",
     },
-    {
-        label: "Button Text",
-        spec: "Satoshi · 14 / Auto",
-        preview: "Start Free Trial",
-        previewClass: "project-styling__type-preview--button",
-    },
 ];
 
 const colourTokens = [
@@ -133,7 +127,9 @@ const ProjectStyling = () => {
             }
         });
 
-        const charSpans = titleEl.querySelectorAll(".project-styling__title-word span");
+        const charSpans = titleEl.querySelectorAll(
+            ".project-styling__title-word span"
+        );
         const animatedItems = sectionEl.querySelectorAll(
             ".project-styling__panel, .project-styling__media"
         );
@@ -210,7 +206,8 @@ const ProjectStyling = () => {
                             </span>
 
                             <h3 className="project-styling__panel-title">
-                                A full hierarchy designed for clarity, consistency, and scale
+                                A full hierarchy designed for clarity, consistency, and
+                                scale
                             </h3>
 
                             <p className="project-styling__panel-text">
@@ -252,12 +249,14 @@ const ProjectStyling = () => {
                             </span>
 
                             <h3 className="project-styling__panel-title">
-                                A restrained palette with clearer hierarchy and better contrast
+                                A restrained palette with clearer hierarchy and better
+                                contrast
                             </h3>
 
                             <p className="project-styling__panel-text">
-                                The palette was structured to support product communication,
-                                attention control, and a more modern software feel.
+                                The palette was structured to support product
+                                communication, attention control, and a more modern
+                                software feel.
                             </p>
                         </div>
 

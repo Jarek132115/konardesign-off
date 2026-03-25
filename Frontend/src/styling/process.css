@@ -60,7 +60,7 @@
 
 .process__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
     align-items: stretch;
 }
@@ -70,10 +70,9 @@
 /* --------------------------------------------------------- */
 
 .process__card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
     border: 1px solid rgba(17, 17, 17, 0.08);
     border-radius: 28px;
     background:
@@ -84,38 +83,22 @@
     overflow: hidden;
 }
 
-.process__step-number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
-    min-height: 34px;
-    padding: 0 14px;
-    margin: 0 0 18px;
-    border-radius: 999px;
-    background: rgba(79, 70, 229, 0.06);
-    border: 1px solid rgba(79, 70, 229, 0.14);
-    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif;
-    font-size: 12px;
-    line-height: 1;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--deep-indigo);
-    white-space: nowrap;
+/* default = text left, image right */
+.process__card .process__image-wrap {
+    order: 2;
 }
 
-.process__card-title {
-    margin: 0 0 12px;
-    color: var(--black);
-    max-width: 95%;
+.process__card .process__content {
+    order: 1;
 }
 
-.process__card-subtitle {
-    margin: 0 0 22px;
-    color: var(--cool-grey);
-    line-height: 1.65;
-    max-width: 100%;
+/* middle row = image left, text right */
+.process__card--reverse .process__image-wrap {
+    order: 1;
+}
+
+.process__card--reverse .process__content {
+    order: 2;
 }
 
 /* --------------------------------------------------------- */
@@ -123,17 +106,20 @@
 /* --------------------------------------------------------- */
 
 .process__image-wrap {
-    width: 100%;
-    margin-top: auto;
+    min-width: 0;
+    padding: 18px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 
 .process__image-card {
     width: 100%;
     aspect-ratio: 4 / 3;
-    border-radius: 22px;
+    border-radius: 20px;
     overflow: hidden;
     background: transparent;
-    box-sizing: border-box;
+    box-shadow: 0 0 12px rgba(15, 23, 42, 0.08);
 }
 
 .process__card-image {
@@ -142,6 +128,51 @@
     display: block;
     object-fit: cover;
     object-position: center;
+}
+
+/* --------------------------------------------------------- */
+/* CONTENT                                                   */
+/* --------------------------------------------------------- */
+
+.process__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 28px 28px 28px 28px;
+    box-sizing: border-box;
+    min-width: 0;
+}
+
+.process__card--reverse .process__content {
+    padding: 28px 28px 28px 10px;
+}
+
+.process__step-number {
+    display: inline-block;
+    margin-bottom: 16px;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 12px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--deep-indigo);
+    white-space: nowrap;
+}
+
+.process__card-title {
+    margin: 0 0 12px;
+    color: var(--black);
+    line-height: 1.12;
+    max-width: 100%;
+}
+
+.process__card-subtitle {
+    margin: 0;
+    color: var(--cool-grey);
+    line-height: 1.6;
+    max-width: 34ch;
 }
 
 /* --------------------------------------------------------- */
@@ -172,13 +203,32 @@
     }
 
     .process__grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 16px;
+        grid-template-columns: 1fr;
+        gap: 18px;
     }
 
-    .process__card {
-        padding: 22px;
+    .process__card,
+    .process__card--reverse {
+        grid-template-columns: 1fr 1fr;
         border-radius: 24px;
+    }
+
+    .process__card .process__image-wrap {
+        order: 2;
+    }
+
+    .process__card .process__content {
+        order: 1;
+        padding: 24px;
+    }
+
+    .process__card--reverse .process__image-wrap {
+        order: 1;
+    }
+
+    .process__card--reverse .process__content {
+        order: 2;
+        padding: 24px 24px 24px 10px;
     }
 
     .process__image-card {
@@ -203,27 +253,39 @@
         margin: 0 auto 40px;
     }
 
-    .process__grid {
+    .process__card,
+    .process__card--reverse {
         grid-template-columns: 1fr;
-        gap: 14px;
-    }
-
-    .process__card {
-        padding: 18px;
         border-radius: 20px;
     }
 
+    .process__card .process__image-wrap,
+    .process__card .process__content,
+    .process__card--reverse .process__image-wrap,
+    .process__card--reverse .process__content {
+        order: initial;
+    }
+
+    .process__image-wrap {
+        padding: 18px 18px 0;
+    }
+
+    .process__content,
+    .process__card .process__content,
+    .process__card--reverse .process__content {
+        padding: 20px 18px 18px;
+    }
+
     .process__step-number {
-        margin-bottom: 16px;
+        margin-bottom: 14px;
     }
 
     .process__card-title {
         margin-bottom: 10px;
-        max-width: 100%;
     }
 
     .process__card-subtitle {
-        margin-bottom: 18px;
+        max-width: 100%;
     }
 
     .process__image-card {
@@ -245,17 +307,20 @@
     }
 
     .process__card {
-        padding: 16px;
         border-radius: 18px;
+    }
+
+    .process__image-wrap {
+        padding: 16px 16px 0;
+    }
+
+    .process__content,
+    .process__card .process__content,
+    .process__card--reverse .process__content {
+        padding: 18px 16px 16px;
     }
 
     .process__image-card {
         border-radius: 16px;
     }
-}
-
-.process__card-title-wrap {
-    display: block;
-    max-width: 22ch;
-    /* controls line length */
 }

@@ -8,7 +8,7 @@ import focusImage4 from "../../assets/images/ProjectStep1-Image4.jpg";
 
 const focusItems = [
     {
-        number: "01",
+        number: "FOCUS 1",
         title: "Strategy-led website thinking",
         subtitle:
             "Every project starts by understanding what the site needs to achieve, how it should guide attention, and what the structure needs to communicate clearly.",
@@ -16,7 +16,7 @@ const focusItems = [
         imageAlt: "Strategy and planning visual",
     },
     {
-        number: "02",
+        number: "FOCUS 2",
         title: "Custom design without template feel",
         subtitle:
             "The design should feel aligned to the brand, visually distinctive, and intentionally built around the product rather than relying on generic patterns.",
@@ -24,7 +24,7 @@ const focusItems = [
         imageAlt: "Custom design process visual",
     },
     {
-        number: "03",
+        number: "FOCUS 3",
         title: "Development built for performance",
         subtitle:
             "Good design means very little if the final build is slow, brittle, or difficult to scale, so performance and long-term reliability matter throughout.",
@@ -32,7 +32,7 @@ const focusItems = [
         imageAlt: "Development and performance visual",
     },
     {
-        number: "04",
+        number: "FOCUS 4",
         title: "Conversion and clarity together",
         subtitle:
             "The experience should build trust, reduce friction, and guide users toward action without sacrificing clarity or making the journey feel forced.",
@@ -64,32 +64,42 @@ const AboutFocus = () => {
                 </header>
 
                 <div className="aboutfocus__grid">
-                    {focusItems.map((item) => (
-                        <article key={item.number} className="aboutfocus__card">
-                            <div className="aboutfocus__number">
-                                {item.number}
-                            </div>
+                    {focusItems.map((item, index) => {
+                        const isReversed = index >= 2;
 
-                            <h3 className="heading4 aboutfocus__card-title">
-                                {item.title}
-                            </h3>
-
-                            <p className="body aboutfocus__card-subtitle">
-                                {item.subtitle}
-                            </p>
-
-                            <div className="aboutfocus__image-wrap">
-                                <div className="aboutfocus__image-card">
-                                    <img
-                                        src={item.image}
-                                        alt={item.imageAlt}
-                                        className="aboutfocus__image"
-                                        draggable="false"
-                                    />
+                        return (
+                            <article
+                                key={item.number}
+                                className={`aboutfocus__card ${isReversed ? "aboutfocus__card--reverse" : ""
+                                    }`}
+                            >
+                                <div className="aboutfocus__image-wrap">
+                                    <div className="aboutfocus__image-card">
+                                        <img
+                                            src={item.image}
+                                            alt={item.imageAlt}
+                                            className="aboutfocus__image"
+                                            draggable="false"
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                        </article>
-                    ))}
+
+                                <div className="aboutfocus__content">
+                                    <div className="aboutfocus__number">
+                                        {item.number}
+                                    </div>
+
+                                    <h3 className="heading4 aboutfocus__card-title">
+                                        {item.title}
+                                    </h3>
+
+                                    <p className="body aboutfocus__card-subtitle">
+                                        {item.subtitle}
+                                    </p>
+                                </div>
+                            </article>
+                        );
+                    })}
                 </div>
             </div>
         </section>
