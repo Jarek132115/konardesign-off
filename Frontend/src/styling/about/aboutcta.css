@@ -24,6 +24,8 @@
 .aboutcta__card {
     position: relative;
     width: 100%;
+    max-width: 1120px;
+    margin: 0 auto;
     padding: 64px 32px;
     text-align: center;
     border: 1px solid rgba(17, 17, 17, 0.08);
@@ -155,5 +157,9 @@
 
     .aboutcta__actions {
         margin-top: 24px;
+    }
+
+    .aboutcta__actions .btn {
+        max-width: 100%;
     }
 }

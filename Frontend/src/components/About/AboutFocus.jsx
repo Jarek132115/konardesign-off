@@ -65,12 +65,18 @@ const AboutFocus = () => {
 
                 <div className="aboutfocus__grid">
                     {focusItems.map((item, index) => {
-                        const isReversed = index >= 2;
+                        const isDesktopReverse = index >= 2;
+                        const isSingleColumnReverse = index % 2 === 1;
 
                         return (
                             <article
                                 key={item.number}
-                                className={`aboutfocus__card ${isReversed ? "aboutfocus__card--reverse" : ""
+                                className={`aboutfocus__card ${isDesktopReverse
+                                        ? "aboutfocus__card--reverse"
+                                        : ""
+                                    } ${isSingleColumnReverse
+                                        ? "aboutfocus__card--single-reverse"
+                                        : ""
                                     }`}
                             >
                                 <div className="aboutfocus__image-wrap">
