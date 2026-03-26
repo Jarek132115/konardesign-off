@@ -45,7 +45,6 @@ const images = [
 
 const Home = () => {
     const loopImages = [...images, ...images];
-
     const heroRef = useRef(null);
     const navigate = useNavigate();
 
@@ -71,9 +70,6 @@ const Home = () => {
             return;
         }
 
-        /* -----------------------------
-           TITLE LETTER ANIMATION
-        ----------------------------- */
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
 
@@ -166,13 +162,8 @@ const Home = () => {
                 ">-0.04"
             );
 
-        /* -----------------------------
-           INFINITE MARQUEE + DRAG
-        ----------------------------- */
-
         let distance = 0;
         let offset = 0;
-
         const baseSpeed = 150;
         let direction = 1;
 
@@ -245,10 +236,6 @@ const Home = () => {
             });
         }
 
-        /* -----------------------------
-           DRAG (mouse + touch)
-        ----------------------------- */
-
         const getClientX = (e) =>
             e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
 
@@ -261,9 +248,7 @@ const Home = () => {
         const onPointerDown = (e) => {
             if (!distance) return;
 
-            if (e.button !== undefined && e.button !== 0) {
-                return;
-            }
+            if (e.button !== undefined && e.button !== 0) return;
 
             isPointerDown = true;
             isDragging = false;
@@ -378,11 +363,14 @@ const Home = () => {
                         </div>
 
                         <h1 className="heading1 hero__title">
-                            Custom Websites Built for Performance, Speed &amp; Growth
+                            Custom Websites Built for Performance, Speed &amp;
+                            Growth
                         </h1>
 
                         <p className="hero__subheading subheading">
-                            Strategy led websites designed and developed by me from start to launch to look sharp, perform fast, and drive real results.
+                            Strategy led websites designed and developed by me
+                            from start to launch to look sharp, perform fast,
+                            and drive real results.
                         </p>
 
                         <div className="hero__buttons">
