@@ -87,13 +87,17 @@ const ProcessSection = () => {
 
                 <div className="home-process__grid">
                     {steps.map((step, index) => {
-                        const isReversed = index === 2 || index === 3;
+                        const isDesktopReverse = index === 2 || index === 3;
+                        const isSingleColumnReverse = index % 2 === 1;
 
                         return (
                             <article
                                 key={step.id}
-                                className={`home-process__card ${isReversed
+                                className={`home-process__card ${isDesktopReverse
                                         ? "home-process__card--reverse"
+                                        : ""
+                                    } ${isSingleColumnReverse
+                                        ? "home-process__card--single-reverse"
                                         : ""
                                     }`}
                             >
