@@ -22,7 +22,7 @@ const posts = [
         title: (
             <>
                 Why Most <span className="blog__highlight">Websites</span> Look
-                Good But Don’t <span className="blog__highlight">Convert</span>{" "}
+                Good But Don&apos;t <span className="blog__highlight">Convert</span>{" "}
                 (And How To Fix It)
             </>
         ),
@@ -77,67 +77,76 @@ const Blog = () => {
         const pageEl = pageRef.current;
         if (!pageEl) return;
 
-        const eyebrowEl = pageEl.querySelector(".blog__eyebrow");
-        const titleEl = pageEl.querySelector(".blog__title");
-        const subtitleEl = pageEl.querySelector(".blog__subtitle");
-        const cards = pageEl.querySelectorAll(".blog-card");
+        const ctx = gsap.context(() => {
+            const eyebrowEl = pageEl.querySelector(".blog__eyebrow");
+            const titleEl = pageEl.querySelector(".blog__title");
+            const subtitleEl = pageEl.querySelector(".blog__subtitle");
+            const cards = pageEl.querySelectorAll(".blog-card");
 
-        if (!eyebrowEl || !titleEl || !subtitleEl) return;
+            if (!eyebrowEl || !titleEl || !subtitleEl) return;
 
-        gsap.set(titleEl, { opacity: 0, y: 8 });
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
+            gsap.set([titleEl, subtitleEl], { opacity: 0, y: 10 });
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: pageEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-            defaults: { ease: "power2.out" },
-        });
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: pageEl,
+                    start: "top 78%",
+                    toggleActions: "play none none none",
+                },
+                defaults: { ease: "power2.out" },
+            });
 
-        tl.fromTo(
-            eyebrowEl,
-            { opacity: 0, y: 8 },
-            { opacity: 1, y: 0, duration: 0.25 }
-        )
-            .fromTo(
-                titleEl,
+            tl.fromTo(
+                eyebrowEl,
                 { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.32 },
-                ">-0.04"
+                { opacity: 1, y: 0, duration: 0.26 }
             )
-            .fromTo(
-                subtitleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.28 },
-                ">-0.08"
-            );
+                .fromTo(
+                    titleEl,
+                    { opacity: 0, y: 10 },
+                    { opacity: 1, y: 0, duration: 0.34 },
+                    ">-0.04"
+                )
+                .fromTo(
+                    subtitleEl,
+                    { opacity: 0, y: 10 },
+                    { opacity: 1, y: 0, duration: 0.3 },
+                    ">-0.12"
+                );
 
-        cards.forEach((card, index) => {
-            gsap.fromTo(
-                card,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.4,
-                    ease: "power2.out",
-                    delay: index * 0.05,
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 82%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
+            cards.forEach((card, index) => {
+                gsap.fromTo(
+                    card,
+                    { opacity: 0, y: 24 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.42,
+                        delay: index * 0.05,
+                        ease: "power2.out",
+                        scrollTrigger: {
+                            trigger: card,
+                            start: "top 86%",
+                            toggleActions: "play none none none",
+                        },
+                    }
+                );
+            });
+        }, pageRef);
 
-        return () => {
-            tl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
+        return () => ctx.revert();
     }, []);
+
+    const handleNavigate = (link) => {
+        navigate(link);
+    };
+
+    const handleCardKeyDown = (event, link) => {
+        if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            navigate(link);
+        }
+    };
 
     return (
         <div className="blog-page">
@@ -167,7 +176,13 @@ const Blog = () => {
                                 <article
                                     key={post.id}
                                     className="blog-card"
-                                    onClick={() => navigate(post.link)}
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => handleNavigate(post.link)}
+                                    onKeyDown={(event) =>
+                                        handleCardKeyDown(event, post.link)
+                                    }
+                                    aria-label={`Read article: ${post.id}`}
                                 >
                                     <div className="blog-card__media">
                                         <img
@@ -199,12 +214,9 @@ const Blog = () => {
                                                 </span>
                                             </div>
 
-                                            <button
-                                                type="button"
-                                                className="blog-card__link-button"
-                                            >
+                                            <span className="blog-card__link-button">
                                                 Read Article
-                                            </button>
+                                            </span>
                                         </div>
                                     </div>
                                 </article>
