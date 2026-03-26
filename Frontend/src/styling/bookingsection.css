@@ -9,7 +9,7 @@
     width: 100%;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 110px 120px 110px;
+    padding: 100px 40px 120px;
     box-sizing: border-box;
     background: transparent;
     overflow: hidden;
@@ -19,35 +19,36 @@
     content: "";
     position: absolute;
     left: 50%;
-    top: 28px;
+    top: 40px;
     transform: translateX(-50%);
-    width: min(1220px, calc(100% - 80px));
-    height: clamp(320px, 40vw, 470px);
+    width: min(1200px, calc(100% - 80px));
+    height: clamp(320px, 42vw, 460px);
     pointer-events: none;
     z-index: 0;
     background-image: radial-gradient(circle,
-            rgba(148, 163, 184, 0.34) 1px,
+            rgba(148, 163, 184, 0.35) 1px,
             transparent 1px);
     background-size: 6px 6px;
     -webkit-mask-image: radial-gradient(ellipse at center,
             rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 0.92) 42%,
+            rgba(0, 0, 0, 0.9) 45%,
             rgba(0, 0, 0, 0.6) 60%,
-            rgba(0, 0, 0, 0.22) 72%,
-            transparent 86%);
+            rgba(0, 0, 0, 0.25) 70%,
+            transparent 85%);
     mask-image: radial-gradient(ellipse at center,
             rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 0.92) 42%,
+            rgba(0, 0, 0, 0.9) 45%,
             rgba(0, 0, 0, 0.6) 60%,
-            rgba(0, 0, 0, 0.22) 72%,
-            transparent 86%);
+            rgba(0, 0, 0, 0.25) 70%,
+            transparent 85%);
 }
 
 .booking__inner {
     position: relative;
     z-index: 1;
-    max-width: 1360px;
+    max-width: 1600px;
     margin: 0 auto;
+    padding: 0 120px;
     box-sizing: border-box;
 }
 
@@ -69,24 +70,28 @@
 
 /* --------------------------------------------------------- */
 /* HEADER                                                    */
+/* MATCHES BLOG + MY WORK EXACTLY                            */
 /* --------------------------------------------------------- */
 
 .booking__header {
-    max-width: 920px;
-    margin: 0 auto 48px;
+    max-width: 1200px;
+    margin: 0 auto 56px;
     text-align: center;
 }
 
 .booking__eyebrow {
-    margin: 0 0 10px;
+    margin-bottom: 8px;
 }
 
 .booking__title {
-    margin: 0 0 18px;
+    margin: 0 auto 16px;
+    max-width: 900px;
+    white-space: normal;
     text-wrap: balance;
 }
 
 .booking__title-word {
+    display: inline-block;
     white-space: nowrap;
 }
 
@@ -95,11 +100,11 @@
 }
 
 .booking__subtitle {
-    max-width: 720px;
-    margin: 0 auto;
-    font-weight: 500;
-    color: var(--cool-grey);
+    margin: 16px auto 0;
+    max-width: 760px;
+    font-size: clamp(17px, 0.38vw + 0.95rem, 21px);
     line-height: 1.62;
+    color: var(--cool-grey);
 }
 
 /* --------------------------------------------------------- */
@@ -414,7 +419,11 @@ a.booking__quick-value:hover {
 
 @media (max-width: 1400px) {
     .booking {
-        padding: 108px 48px 104px;
+        padding: 100px 48px 104px;
+    }
+
+    .booking__inner {
+        padding: 0 48px;
     }
 
     .booking__lower-row {
@@ -425,6 +434,10 @@ a.booking__quick-value:hover {
 @media (max-width: 1180px) {
     .booking {
         padding: 96px 40px 92px;
+    }
+
+    .booking__inner {
+        padding: 0 40px;
     }
 
     .booking__calendar-wrap {
@@ -488,17 +501,21 @@ a.booking__quick-value:hover {
 
 @media (max-width: 768px) {
     .booking {
-        padding: 78px 20px 78px;
+        padding: 80px 20px 78px;
     }
 
     .booking::before {
-        top: 18px;
+        top: 24px;
         width: calc(100% - 40px);
-        height: 280px;
+        height: clamp(260px, 48vw, 360px);
+    }
+
+    .booking__inner {
+        padding: 0 20px;
     }
 
     .booking__header {
-        margin-bottom: 32px;
+        margin-bottom: 40px;
     }
 
     .booking__calendar-wrap {
@@ -558,13 +575,17 @@ a.booking__quick-value:hover {
     }
 
     .booking::before {
-        top: 12px;
+        top: 20px;
         width: calc(100% - 32px);
-        height: 240px;
+        height: clamp(240px, 62vw, 340px);
+    }
+
+    .booking__inner {
+        padding: 0 16px;
     }
 
     .booking__header {
-        margin-bottom: 28px;
+        margin-bottom: 32px;
     }
 
     .booking__calendar-wrap {
