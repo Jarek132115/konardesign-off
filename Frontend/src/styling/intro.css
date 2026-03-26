@@ -21,10 +21,9 @@
     margin: 0 auto;
     padding: 0 120px;
     box-sizing: border-box;
-
     display: grid;
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
-    column-gap: 120px;
+    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
+    column-gap: 104px;
     align-items: start;
 }
 
@@ -34,20 +33,20 @@
 
 .intro__left {
     position: sticky;
-    top: 180px;
+    top: 168px;
     align-self: start;
-    padding-top: 32px;
+    padding-top: 10px;
 }
 
 .intro__eyebrow {
-    margin-bottom: 18px;
+    margin: 0 0 14px;
 }
 
 .intro__headline {
     margin: 0 0 18px;
-    word-break: keep-all;
-    overflow-wrap: normal;
     max-width: 760px;
+    white-space: normal;
+    text-wrap: balance;
 }
 
 .intro__headline-word {
@@ -60,7 +59,9 @@
 
 .intro__subheading {
     margin: 0;
-    max-width: 720px;
+    max-width: 700px;
+    color: var(--cool-grey);
+    line-height: 1.62;
 }
 
 /* ========================================================= */
@@ -69,21 +70,27 @@
 
 .intro__right {
     align-self: start;
-    padding-top: 6px;
+    padding-top: 2px;
 }
 
 .intro__item {
-    margin-bottom: 72px;
+    margin-bottom: 64px;
+}
+
+.intro__item:last-of-type {
+    margin-bottom: 56px;
 }
 
 .intro__item-title {
     margin: 0;
+    text-wrap: balance;
 }
 
 .intro__item-text {
-    margin-top: 10px;
-    margin-bottom: 24px;
+    margin: 10px 0 24px;
     max-width: 520px;
+    color: var(--cool-grey);
+    line-height: 1.6;
 }
 
 .intro__icons-row {
@@ -118,13 +125,12 @@
 /* ========================================================= */
 
 .intro__bottom-text {
+    margin: 0;
+    max-width: 460px;
     font-size: 20px;
     line-height: 1.5;
     font-weight: 500;
     color: var(--black);
-    margin-top: 4px;
-    margin-bottom: 0;
-    max-width: 460px;
 }
 
 /* ========================================================= */
@@ -133,33 +139,45 @@
 
 @media (max-width: 1400px) {
     .intro__container {
-        padding: 0 40px;
-        column-gap: 80px;
+        padding: 0 48px;
+        column-gap: 72px;
     }
 
     .intro__left {
-        top: 160px;
-        padding-top: 24px;
+        top: 156px;
     }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1180px) {
     .intro {
-        padding: 100px 0 120px;
+        padding: 108px 0 124px;
     }
 
     .intro__container {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
-        column-gap: 64px;
+        padding: 0 40px;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 0.96fr);
+        column-gap: 56px;
+    }
+
+    .intro__left {
+        top: 144px;
+        padding-top: 0;
     }
 
     .intro__headline {
         max-width: 680px;
     }
 
-    .intro__left {
-        top: 140px;
-        padding-top: 16px;
+    .intro__subheading {
+        max-width: 620px;
+    }
+
+    .intro__item {
+        margin-bottom: 56px;
+    }
+
+    .intro__item:last-of-type {
+        margin-bottom: 48px;
     }
 }
 
@@ -170,14 +188,14 @@
 
     .intro__container {
         grid-template-columns: 1fr;
-        row-gap: 56px;
+        row-gap: 52px;
     }
 
     .intro__left {
         position: static;
         top: auto;
-        text-align: center;
         padding-top: 0;
+        text-align: center;
     }
 
     .intro__headline,
@@ -193,7 +211,11 @@
 
     .intro__item {
         max-width: 620px;
-        margin: 0 auto 48px;
+        margin: 0 auto 44px;
+    }
+
+    .intro__item:last-of-type {
+        margin-bottom: 40px;
     }
 
     .intro__item-text,
@@ -209,16 +231,20 @@
 
 @media (max-width: 768px) {
     .intro {
-        padding: 72px 0 84px;
+        padding: 78px 0 84px;
     }
 
     .intro__container {
         padding: 0 20px;
-        row-gap: 44px;
+        row-gap: 42px;
     }
 
     .intro__item {
-        margin-bottom: 40px;
+        margin-bottom: 38px;
+    }
+
+    .intro__item:last-of-type {
+        margin-bottom: 34px;
     }
 
     .intro__item-text {
@@ -243,7 +269,7 @@
 
 @media (max-width: 480px) {
     .intro {
-        padding: 64px 0 76px;
+        padding: 68px 0 76px;
     }
 
     .intro__container {
@@ -263,5 +289,6 @@
 
     .intro__bottom-text {
         font-size: 17px;
+        line-height: 1.5;
     }
 }

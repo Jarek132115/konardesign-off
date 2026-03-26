@@ -26,113 +26,122 @@ const IntroSection = () => {
         const leftEl = leftRef.current;
         if (!sectionEl || !leftEl) return;
 
-        const eyebrowEl = leftEl.querySelector(".intro__eyebrow");
-        const headline = leftEl.querySelector(".intro__headline");
-        const subheadingEl = leftEl.querySelector(".intro__subheading");
-        if (!eyebrowEl || !headline || !subheadingEl) return;
+        const ctx = gsap.context(() => {
+            const eyebrowEl = leftEl.querySelector(".intro__eyebrow");
+            const headline = leftEl.querySelector(".intro__headline");
+            const subheadingEl = leftEl.querySelector(".intro__subheading");
 
-        const originalText = headline.textContent;
-        headline.textContent = "";
+            if (!eyebrowEl || !headline || !subheadingEl) return;
 
-        const words = originalText.split(" ");
+            const originalText = headline.textContent;
+            headline.textContent = "";
 
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("intro__headline-word");
-            wordWrapper.style.display = "inline-block";
+            const words = originalText.split(" ");
 
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
+            words.forEach((word, wordIndex) => {
+                const wordWrapper = document.createElement("span");
+                wordWrapper.classList.add("intro__headline-word");
+                wordWrapper.style.display = "inline-block";
 
-            headline.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                headline.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const wordSpans = headline.querySelectorAll(".intro__headline-word");
-        const highlightSet = new Set(["Strategy", "Design", "Performance"]);
-
-        wordSpans.forEach((wordSpan) => {
-            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
-            if (highlightSet.has(cleaned)) {
-                wordSpan.classList.add("intro__headline-highlight");
-            }
-        });
-
-        const charSpans = headline.querySelectorAll(".intro__headline-word span");
-
-        const leftTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-        });
-
-        leftTl
-            .fromTo(
-                eyebrowEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.25,
-                    ease: "power2.out",
+                for (const ch of word) {
+                    const charSpan = document.createElement("span");
+                    charSpan.textContent = ch;
+                    charSpan.style.display = "inline-block";
+                    charSpan.style.opacity = "0";
+                    charSpan.style.transform = "translateY(8px)";
+                    wordWrapper.appendChild(charSpan);
                 }
-            )
-            .to(
-                charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
-                    ease: "power2.out",
-                },
-                ">-0.05"
-            )
-            .fromTo(
-                subheadingEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                    ease: "power2.out",
-                },
-                ">-0.08"
+
+                headline.appendChild(wordWrapper);
+
+                if (wordIndex !== words.length - 1) {
+                    headline.appendChild(document.createTextNode(" "));
+                }
+            });
+
+            const wordSpans = headline.querySelectorAll(".intro__headline-word");
+            const highlightSet = new Set([
+                "Strategy",
+                "Design",
+                "Performance",
+            ]);
+
+            wordSpans.forEach((wordSpan) => {
+                const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
+                if (highlightSet.has(cleaned)) {
+                    wordSpan.classList.add("intro__headline-highlight");
+                }
+            });
+
+            const charSpans = headline.querySelectorAll(
+                ".intro__headline-word span"
             );
 
-        const items = sectionEl.querySelectorAll(
-            ".intro__item, .intro__bottom-text"
-        );
+            const leftTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: sectionEl,
+                    start: "top 75%",
+                    toggleActions: "play none none none",
+                },
+                defaults: { ease: "power2.out" },
+            });
 
-        items.forEach((item, index) => {
-            gsap.fromTo(
-                item,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.4,
-                    ease: "power2.out",
-                    delay: index * 0.08,
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 82%",
-                        toggleActions: "play none none none",
+            leftTl
+                .fromTo(
+                    eyebrowEl,
+                    { opacity: 0, y: 8 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.25,
+                    }
+                )
+                .to(
+                    charSpans,
+                    {
+                        opacity: 1,
+                        y: 0,
+                        stagger: 0.018,
+                        duration: 0.26,
                     },
-                }
+                    ">-0.05"
+                )
+                .fromTo(
+                    subheadingEl,
+                    { opacity: 0, y: 8 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.28,
+                    },
+                    ">-0.08"
+                );
+
+            const items = sectionEl.querySelectorAll(
+                ".intro__item, .intro__bottom-text"
             );
-        });
+
+            items.forEach((item, index) => {
+                gsap.fromTo(
+                    item,
+                    { opacity: 0, y: 24 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.4,
+                        ease: "power2.out",
+                        delay: index * 0.08,
+                        scrollTrigger: {
+                            trigger: item,
+                            start: "top 84%",
+                            toggleActions: "play none none none",
+                        },
+                    }
+                );
+            });
+        }, sectionRef);
+
+        return () => ctx.revert();
     }, []);
 
     return (
@@ -142,13 +151,16 @@ const IntroSection = () => {
                     <p className="eyebrow intro__eyebrow">WHY KONARDESIGN</p>
 
                     <h2 className="intro__headline heading2">
-                        Strategy. Design. Performance. Led with clarity from start
-                        to finish.
+                        Strategy. Design. Performance. Led with clarity from
+                        start to finish.
                     </h2>
 
                     <p className="intro__subheading subheading">
-                        I lead each project across strategy, design, and development—creating websites that look sharp, feel seamless, and support real business goals.
-                        When needed, I bring in trusted collaborators without losing clarity or consistency.
+                        I lead each project across strategy, design, and
+                        development—creating websites that look sharp, feel
+                        seamless, and support real business goals. When needed,
+                        I bring in trusted collaborators without losing clarity
+                        or consistency.
                     </p>
                 </div>
 
@@ -158,8 +170,9 @@ const IntroSection = () => {
                             Design &amp; UX
                         </h3>
                         <p className="intro__item-text body">
-                            Clear layouts, strong visual direction, and user-focused
-                            design that helps people trust, engage, and convert.
+                            Clear layouts, strong visual direction, and
+                            user-focused design that helps people trust, engage,
+                            and convert.
                         </p>
                         <div className="intro__icons-row">
                             <span className="intro__icon">
@@ -182,9 +195,9 @@ const IntroSection = () => {
                             Development &amp; Build
                         </h3>
                         <p className="intro__item-text body">
-                            Custom-built websites focused on responsiveness, clean
-                            execution, and a polished experience across every screen
-                            size.
+                            Custom-built websites focused on responsiveness,
+                            clean execution, and a polished experience across
+                            every screen size.
                         </p>
                         <div className="intro__icons-row">
                             <span className="intro__icon">
@@ -205,8 +218,8 @@ const IntroSection = () => {
                         </h3>
                         <p className="intro__item-text body">
                             Fast-loading pages, strong structure, and SEO-aware
-                            decisions that help your website perform better after
-                            launch, not just look good on day one.
+                            decisions that help your website perform better
+                            after launch, not just look good on day one.
                         </p>
                         <div className="intro__icons-row">
                             <span className="intro__icon">
@@ -222,7 +235,8 @@ const IntroSection = () => {
                     </div>
 
                     <p className="intro__bottom-text">
-                        One clear lead. One consistent vision. No bloated process.
+                        One clear lead. One consistent vision. No bloated
+                        process.
                     </p>
                 </div>
             </div>
