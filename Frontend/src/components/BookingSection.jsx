@@ -302,39 +302,41 @@ const BookingSection = () => {
                                 />
                             </div>
 
-                            <div className="booking__profile-content">
-                                <h2 className="heading4 booking__profile-name">
-                                    Jarek Konarski
-                                </h2>
+                            <div className="booking__profile-details">
+                                <div className="booking__profile-content">
+                                    <h2 className="heading4 booking__profile-name">
+                                        Jarek Konarski
+                                    </h2>
 
-                                <p className="booking__profile-role">
-                                    UI/UX Focused Full Stack Designer &amp; Developer
-                                </p>
-                            </div>
-
-                            <div className="booking__quick-list">
-                                <div className="booking__quick-item">
-                                    <span className="booking__quick-key">Email</span>
-                                    <a
-                                        href="mailto:hello@konardesign.com"
-                                        className="booking__quick-value"
-                                    >
-                                        hello@konardesign.com
-                                    </a>
+                                    <p className="booking__profile-role">
+                                        UI/UX Focused Full Stack Designer &amp; Developer
+                                    </p>
                                 </div>
 
-                                <div className="booking__quick-item">
-                                    <span className="booking__quick-key">Response</span>
-                                    <span className="booking__quick-value">
-                                        1 hour - 24 hours
-                                    </span>
-                                </div>
+                                <div className="booking__quick-list">
+                                    <div className="booking__quick-item">
+                                        <span className="booking__quick-key">Email</span>
+                                        <a
+                                            href="mailto:hello@konardesign.com"
+                                            className="booking__quick-value"
+                                        >
+                                            hello@konardesign.com
+                                        </a>
+                                    </div>
 
-                                <div className="booking__quick-item booking__quick-item--last">
-                                    <span className="booking__quick-key">Based In</span>
-                                    <span className="booking__quick-value">
-                                        United Kingdom
-                                    </span>
+                                    <div className="booking__quick-item">
+                                        <span className="booking__quick-key">Response</span>
+                                        <span className="booking__quick-value">
+                                            1 hour - 24 hours
+                                        </span>
+                                    </div>
+
+                                    <div className="booking__quick-item booking__quick-item--last">
+                                        <span className="booking__quick-key">Based In</span>
+                                        <span className="booking__quick-value">
+                                            United Kingdom
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </aside>
@@ -365,14 +367,8 @@ const BookingSection = () => {
                                         <a
                                             href={card.href}
                                             className="btn btn--white booking__contact-button"
-                                            target={
-                                                card.external ? "_blank" : undefined
-                                            }
-                                            rel={
-                                                card.external
-                                                    ? "noreferrer"
-                                                    : undefined
-                                            }
+                                            target={card.external ? "_blank" : undefined}
+                                            rel={card.external ? "noreferrer" : undefined}
                                         >
                                             {card.actionLabel}
                                         </a>

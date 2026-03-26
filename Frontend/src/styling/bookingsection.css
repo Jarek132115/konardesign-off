@@ -189,6 +189,7 @@
     border-radius: 22px;
     overflow: hidden;
     background: #f3f4f6;
+    flex-shrink: 0;
 }
 
 .booking__profile-image {
@@ -196,6 +197,14 @@
     height: 100%;
     display: block;
     object-fit: cover;
+}
+
+.booking__profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+    width: 100%;
 }
 
 .booking__profile-content {
@@ -433,7 +442,25 @@ a.booking__quick-value:hover {
     }
 
     .booking__profile-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
         height: auto;
+        padding: 20px;
+    }
+
+    .booking__profile-media {
+        width: calc(50% - 10px);
+        aspect-ratio: 4 / 3;
+        min-height: 0;
+        height: auto;
+        align-self: center;
+    }
+
+    .booking__profile-details {
+        width: calc(50% - 10px);
+        gap: 14px;
     }
 
     .booking__contact-grid {
@@ -489,12 +516,26 @@ a.booking__quick-value:hover {
     }
 
     .booking__profile-card {
-        padding: 18px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
         gap: 16px;
+        padding: 18px;
+    }
+
+    .booking__profile-media {
+        width: calc(50% - 8px);
+        aspect-ratio: 4 / 3;
+        border-radius: 18px;
+    }
+
+    .booking__profile-details {
+        width: calc(50% - 8px);
+        gap: 12px;
     }
 
     .booking__contact-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 20px;
         height: auto;
     }
@@ -506,16 +547,12 @@ a.booking__quick-value:hover {
         border-radius: 20px;
     }
 
-    .booking__profile-media {
-        border-radius: 18px;
-    }
-
     .booking__social {
         padding: 20px;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 599px) {
     .booking {
         padding: 68px 16px 68px;
     }
@@ -545,10 +582,16 @@ a.booking__quick-value:hover {
         border-radius: 18px;
     }
 
-    .booking__profile-card,
-    .booking__social,
-    .booking__contact-card {
+    .booking__profile-card {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
         padding: 16px;
+    }
+
+    .booking__profile-media,
+    .booking__profile-details {
+        width: 100%;
     }
 
     .booking__profile-media {
@@ -556,6 +599,7 @@ a.booking__quick-value:hover {
     }
 
     .booking__contact-grid {
+        grid-template-columns: 1fr;
         gap: 16px;
     }
 

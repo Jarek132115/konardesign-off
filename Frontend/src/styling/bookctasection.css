@@ -5,15 +5,64 @@
 /* --------------------------------------------------------- */
 
 .bookcta {
+    position: relative;
     width: 100%;
-    padding: 120px 0 140px;
+    padding: 110px 0 110px;
+    box-sizing: border-box;
     background: var(--white);
+    overflow: hidden;
+}
+
+.bookcta::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 28px;
+    transform: translateX(-50%);
+    width: min(1220px, calc(100% - 80px));
+    height: clamp(320px, 40vw, 470px);
+    pointer-events: none;
+    z-index: 0;
+    background-image: radial-gradient(circle,
+            rgba(148, 163, 184, 0.34) 1px,
+            transparent 1px);
+    background-size: 6px 6px;
+    -webkit-mask-image: radial-gradient(ellipse at center,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.92) 42%,
+            rgba(0, 0, 0, 0.6) 60%,
+            rgba(0, 0, 0, 0.22) 72%,
+            transparent 86%);
+    mask-image: radial-gradient(ellipse at center,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.92) 42%,
+            rgba(0, 0, 0, 0.6) 60%,
+            rgba(0, 0, 0, 0.22) 72%,
+            transparent 86%);
 }
 
 .bookcta__inner {
+    position: relative;
+    z-index: 1;
     max-width: 1600px;
     margin: 0 auto;
-    padding: 0 80px;
+    padding: 0 120px;
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------- */
+/* SHARED CARD SURFACE                                       */
+/* --------------------------------------------------------- */
+
+.bookcta__profile-card,
+.bookcta__contact-card,
+.bookcta__social {
+    border-radius: 28px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    background:
+        radial-gradient(rgba(99, 91, 255, 0.065) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #ffffff 100%);
+    background-size: 10px 10px, auto;
     box-sizing: border-box;
 }
 
@@ -22,85 +71,192 @@
 /* --------------------------------------------------------- */
 
 .bookcta__header {
-    max-width: 780px;
-    margin: 0 auto 40px;
+    max-width: 920px;
+    margin: 0 auto 48px;
     text-align: center;
 }
 
-.bookcta__heading {
-    margin: 0 0 16px;
+.bookcta__eyebrow {
+    margin: 0 0 10px;
 }
 
-.bookcta__subtitle {
-    margin: 0 auto;
-    max-width: 700px;
+.bookcta__heading {
+    margin: 0 0 18px;
+    text-wrap: balance;
 }
 
 .bookcta__highlight {
     color: var(--deep-indigo);
 }
 
+.bookcta__subtitle {
+    max-width: 720px;
+    margin: 0 auto;
+    font-weight: 500;
+    color: var(--cool-grey);
+    line-height: 1.62;
+}
+
 /* --------------------------------------------------------- */
-/* MAIN LAYOUT                                               */
+/* LOWER ROW                                                 */
 /* --------------------------------------------------------- */
 
-.bookcta__layout {
+.bookcta__lower-row {
     display: grid;
-    grid-template-columns: 420px 1fr;
+    grid-template-columns: clamp(320px, 27vw, 392px) minmax(0, 1fr);
     gap: 24px;
     align-items: stretch;
     margin-bottom: 24px;
 }
 
-.bookcta__image-wrap {
+.bookcta__profile-column,
+.bookcta__cards-column {
     width: 100%;
-    height: 100%;
+    min-width: 0;
 }
 
-.bookcta__image {
+.bookcta__profile-column {
+    display: flex;
+}
+
+.bookcta__cards-column {
+    display: flex;
+}
+
+/* --------------------------------------------------------- */
+/* PROFILE CARD                                              */
+/* --------------------------------------------------------- */
+
+.bookcta__profile-card {
     width: 100%;
-    height: 100%;
-    min-height: 100%;
-    display: block;
-    object-fit: cover;
-    border-radius: 28px;
-}
-
-/* --------------------------------------------------------- */
-/* CARD GRID                                                 */
-/* --------------------------------------------------------- */
-
-.bookcta__grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 24px;
-}
-
-/* --------------------------------------------------------- */
-/* CARD                                                      */
-/* --------------------------------------------------------- */
-
-.bookcta__card {
-    min-height: 258px;
-    padding: 24px;
-    border-radius: 24px;
-    border: 1px solid rgba(15, 23, 42, 0.08);
-    background:
-        radial-gradient(rgba(99, 91, 255, 0.08) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #ffffff 100%);
-    background-size: 10px 10px, auto;
+    padding: 20px;
     display: flex;
     flex-direction: column;
-    box-sizing: border-box;
+    gap: 18px;
+    height: 100%;
 }
 
-.bookcta__card-content {
+.bookcta__profile-media {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #f3f4f6;
+    flex-shrink: 0;
+}
+
+.bookcta__profile-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.bookcta__profile-details {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+    width: 100%;
+}
+
+.bookcta__profile-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 2px;
+}
+
+.bookcta__profile-name {
+    margin: 0;
+    color: var(--black);
+    line-height: 1.06;
+}
+
+.bookcta__profile-role {
+    margin: 0;
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--cool-grey);
+}
+
+.bookcta__quick-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.bookcta__quick-item {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 14px 2px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+}
+
+.bookcta__quick-item--last {
+    border-bottom: none;
+    padding-bottom: 2px;
+}
+
+.bookcta__quick-key {
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cool-grey);
+}
+
+.bookcta__quick-value {
+    font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: var(--black);
+    text-decoration: none;
+    word-break: break-word;
+}
+
+a.bookcta__quick-value:hover {
+    color: var(--deep-indigo);
+}
+
+/* --------------------------------------------------------- */
+/* CONTACT GRID                                              */
+/* --------------------------------------------------------- */
+
+.bookcta__contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    width: 100%;
+    height: 100%;
+    align-items: stretch;
+}
+
+.bookcta__contact-card {
+    min-height: 0;
+    height: 100%;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.bookcta__contact-card-content {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.bookcta__label {
+.bookcta__contact-label {
     margin: 0;
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
@@ -111,25 +267,26 @@
     color: var(--deep-indigo);
 }
 
-.bookcta__card-title {
+.bookcta__contact-title {
     margin: 0;
-    line-height: 1.08;
     color: var(--black);
+    line-height: 1.08;
+    text-wrap: balance;
 }
 
-.bookcta__card-desc {
+.bookcta__contact-text {
     margin: 0;
     color: var(--cool-grey);
     line-height: 1.55;
     max-width: 95%;
 }
 
-.bookcta__card-action {
+.bookcta__contact-action {
     margin-top: auto;
-    padding-top: 22px;
+    padding-top: 28px;
 }
 
-.bookcta__button {
+.bookcta__contact-button {
     width: 100%;
     text-decoration: none;
     justify-content: center;
@@ -144,21 +301,14 @@
 .bookcta__social {
     width: 100%;
     padding: 24px;
-    border-radius: 24px;
-    background:
-        radial-gradient(rgba(99, 91, 255, 0.08) 1px, transparent 1px),
-        linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, #ffffff 100%);
-    background-size: 10px 10px, auto;
-    border: 1px solid rgba(15, 23, 42, 0.08);
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-    box-sizing: border-box;
 }
 
 .bookcta__social-copy {
-    max-width: 520px;
+    max-width: 560px;
 }
 
 .bookcta__social-title {
@@ -193,7 +343,9 @@
     font-size: 13px;
     font-weight: 700;
     text-decoration: none;
-    transition: transform 0.2s ease, background 0.2s ease,
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
         border-color 0.2s ease;
 }
 
@@ -207,49 +359,78 @@
 /* RESPONSIVE                                                */
 /* --------------------------------------------------------- */
 
+@media (min-width: 1500px) {
+    .bookcta__lower-row {
+        grid-template-columns: 404px minmax(0, 1fr);
+    }
+}
+
 @media (max-width: 1400px) {
     .bookcta__inner {
         padding: 0 48px;
     }
+
+    .bookcta__lower-row {
+        grid-template-columns: clamp(300px, 29vw, 372px) minmax(0, 1fr);
+    }
 }
 
 @media (max-width: 1180px) {
-    .bookcta__layout {
-        grid-template-columns: 360px 1fr;
-        gap: 24px;
-    }
-
-    .bookcta__grid {
-        gap: 24px;
-    }
-}
-
-@media (max-width: 1024px) {
     .bookcta {
-        padding: 100px 0 120px;
+        padding: 96px 0 92px;
     }
 
     .bookcta__inner {
         padding: 0 40px;
     }
 
-    .bookcta__header {
-        margin-bottom: 36px;
-    }
-
-    .bookcta__layout {
+    .bookcta__lower-row {
         grid-template-columns: 1fr;
         gap: 24px;
-        margin-bottom: 24px;
     }
 
-    .bookcta__image {
-        max-height: 620px;
+    .bookcta__profile-column,
+    .bookcta__cards-column {
+        display: block;
     }
 
-    .bookcta__grid {
+    .bookcta__profile-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 20px;
+        height: auto;
+        padding: 20px;
+    }
+
+    .bookcta__profile-media {
+        width: calc(50% - 10px);
+        aspect-ratio: 4 / 3;
+        min-height: 0;
+        height: auto;
+        align-self: center;
+    }
+
+    .bookcta__profile-details {
+        width: calc(50% - 10px);
+        gap: 14px;
+    }
+
+    .bookcta__contact-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 24px;
+        grid-template-rows: auto;
+        height: auto;
+    }
+
+    .bookcta__contact-card {
+        min-height: 258px;
+        height: auto;
+    }
+}
+
+@media (max-width: 1024px) {
+    .bookcta__header {
+        margin-bottom: 40px;
     }
 
     .bookcta__social {
@@ -260,7 +441,13 @@
 
 @media (max-width: 768px) {
     .bookcta {
-        padding: 76px 0 92px;
+        padding: 78px 0 78px;
+    }
+
+    .bookcta::before {
+        top: 18px;
+        width: calc(100% - 40px);
+        height: 280px;
     }
 
     .bookcta__inner {
@@ -271,67 +458,115 @@
         margin-bottom: 32px;
     }
 
-    .bookcta__layout {
+    .bookcta__lower-row {
         gap: 20px;
         margin-bottom: 20px;
     }
 
-    .bookcta__grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    .bookcta__profile-card,
+    .bookcta__social {
+        border-radius: 22px;
     }
 
-    .bookcta__card {
+    .bookcta__profile-card {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        padding: 18px;
+    }
+
+    .bookcta__profile-media {
+        width: calc(50% - 8px);
+        aspect-ratio: 4 / 3;
+        border-radius: 18px;
+    }
+
+    .bookcta__profile-details {
+        width: calc(50% - 8px);
+        gap: 12px;
+    }
+
+    .bookcta__contact-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+        height: auto;
+    }
+
+    .bookcta__contact-card {
         min-height: 240px;
+        height: auto;
         padding: 20px;
         border-radius: 20px;
-    }
-
-    .bookcta__image {
-        border-radius: 22px;
     }
 
     .bookcta__social {
         padding: 20px;
-        border-radius: 20px;
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 599px) {
     .bookcta {
-        padding: 68px 0 84px;
+        padding: 68px 0 68px;
+    }
+
+    .bookcta::before {
+        top: 12px;
+        width: calc(100% - 32px);
+        height: 240px;
     }
 
     .bookcta__inner {
         padding: 0 16px;
     }
 
-    .bookcta__layout {
+    .bookcta__header {
+        margin-bottom: 28px;
+    }
+
+    .bookcta__lower-row {
         gap: 16px;
         margin-bottom: 16px;
     }
 
-    .bookcta__grid {
+    .bookcta__profile-card,
+    .bookcta__social,
+    .bookcta__contact-card {
+        border-radius: 18px;
+    }
+
+    .bookcta__profile-card {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .bookcta__profile-media,
+    .bookcta__profile-details {
+        width: 100%;
+    }
+
+    .bookcta__profile-media {
+        border-radius: 16px;
+    }
+
+    .bookcta__contact-grid {
+        grid-template-columns: 1fr;
         gap: 16px;
     }
 
-    .bookcta__card {
+    .bookcta__contact-card {
         min-height: 228px;
-        padding: 18px;
-        border-radius: 18px;
+        padding: 16px;
     }
 
-    .bookcta__image {
-        border-radius: 18px;
-    }
-
-    .bookcta__card-action {
+    .bookcta__contact-action {
         padding-top: 18px;
     }
 
-    .bookcta__social {
-        padding: 18px;
-        border-radius: 18px;
+    .bookcta__quick-value {
+        font-size: 14px;
     }
 
     .bookcta__pill {
