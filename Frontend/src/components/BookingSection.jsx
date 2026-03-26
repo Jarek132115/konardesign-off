@@ -101,11 +101,14 @@ const BookingSection = () => {
         const eyebrowEl = sectionEl.querySelector(".booking__eyebrow");
         const titleEl = sectionEl.querySelector(".booking__title");
         const subtitleEl = sectionEl.querySelector(".booking__subtitle");
-        const layoutEl = sectionEl.querySelector(".booking__layout");
+        const calEl = sectionEl.querySelector(".booking__calendar-wrap");
+        const lowerRowEl = sectionEl.querySelector(".booking__lower-row");
         const cards = sectionEl.querySelectorAll(".booking__contact-card");
         const socialEl = sectionEl.querySelector(".booking__social");
 
-        if (!eyebrowEl || !titleEl || !subtitleEl || !layoutEl) return;
+        if (!eyebrowEl || !titleEl || !subtitleEl || !calEl || !lowerRowEl) {
+            return;
+        }
 
         const originalText = titleEl.textContent;
         titleEl.textContent = "";
@@ -149,7 +152,8 @@ const BookingSection = () => {
         const charSpans = titleEl.querySelectorAll(".booking__title-word span");
 
         gsap.set(subtitleEl, { opacity: 0, y: 8 });
-        gsap.set(layoutEl, { opacity: 0, y: 18 });
+        gsap.set(calEl, { opacity: 0, y: 18 });
+        gsap.set(lowerRowEl, { opacity: 0, y: 18 });
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -190,25 +194,35 @@ const BookingSection = () => {
                 ">-0.08"
             )
             .fromTo(
-                layoutEl,
+                calEl,
+                { opacity: 0, y: 18 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.4,
+                },
+                ">-0.04"
+            )
+            .fromTo(
+                lowerRowEl,
                 { opacity: 0, y: 18 },
                 {
                     opacity: 1,
                     y: 0,
                     duration: 0.42,
                 },
-                ">-0.04"
+                ">-0.08"
             );
 
         cards.forEach((card, index) => {
             gsap.fromTo(
                 card,
-                { opacity: 0, y: 22 },
+                { opacity: 0, y: 18 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.4,
-                    delay: index * 0.05,
+                    duration: 0.35,
+                    delay: index * 0.04,
                     ease: "power2.out",
                     scrollTrigger: {
                         trigger: card,
@@ -262,102 +276,110 @@ const BookingSection = () => {
                     </p>
                 </header>
 
-                <div className="booking__layout">
-                    <aside className="booking__info-panel">
-                        <div className="booking__profile-media">
-                            <img
-                                src={ProfilePic}
-                                alt="Jarek Konarski"
-                                className="booking__profile-image"
-                            />
-                        </div>
-
-                        <div className="booking__profile-content">
-                            <h2 className="heading4 booking__profile-name">
-                                Jarek Konarski
-                            </h2>
-
-                            <p className="booking__profile-role">
-                                UI/UX Focused Full Stack Designer &amp; Developer
-                            </p>
-                        </div>
-
-                        <div className="booking__quick-list">
-                            <div className="booking__quick-item">
-                                <span className="booking__quick-key">Email</span>
-                                <a
-                                    href="mailto:hello@konardesign.com"
-                                    className="booking__quick-value"
-                                >
-                                    hello@konardesign.com
-                                </a>
-                            </div>
-
-                            <div className="booking__quick-item">
-                                <span className="booking__quick-key">Response</span>
-                                <span className="booking__quick-value">
-                                    1 hour - 24 hours
-                                </span>
-                            </div>
-
-                            <div className="booking__quick-item booking__quick-item--last">
-                                <span className="booking__quick-key">Based In</span>
-                                <span className="booking__quick-value">
-                                    United Kingdom
-                                </span>
-                            </div>
-                        </div>
-                    </aside>
-
-                    <div className="booking__embed-panel">
-                        <div className="booking__embed">
-                            <Cal
-                                namespace="30min"
-                                calLink="konardesign/30min"
-                                style={{
-                                    width: "100%",
-                                }}
-                                config={{
-                                    layout: "month_view",
-                                    theme: "light",
-                                }}
-                            />
-                        </div>
+                <div className="booking__calendar-wrap">
+                    <div className="booking__calendar-embed">
+                        <Cal
+                            namespace="30min"
+                            calLink="konardesign/30min"
+                            style={{ width: "100%" }}
+                            config={{
+                                layout: "month_view",
+                                theme: "light",
+                            }}
+                        />
                     </div>
                 </div>
 
-                <div className="booking__contact-grid">
-                    {contactCards.map((card) => (
-                        <article
-                            key={card.title}
-                            className="booking__contact-card"
-                        >
-                            <div className="booking__contact-card-content">
-                                <p className="booking__contact-label">
-                                    {card.label}
-                                </p>
+                <div className="booking__lower-row">
+                    <div className="booking__profile-column">
+                        <aside className="booking__profile-card">
+                            <div className="booking__profile-media">
+                                <img
+                                    src={ProfilePic}
+                                    alt="Jarek Konarski"
+                                    className="booking__profile-image"
+                                />
+                            </div>
 
-                                <h3 className="heading4 booking__contact-title">
-                                    {card.title}
-                                </h3>
+                            <div className="booking__profile-content">
+                                <h2 className="heading4 booking__profile-name">
+                                    Jarek Konarski
+                                </h2>
 
-                                <p className="body booking__contact-text">
-                                    {card.description}
+                                <p className="booking__profile-role">
+                                    UI/UX Focused Full Stack Designer &amp; Developer
                                 </p>
                             </div>
 
-                            <div className="booking__contact-action">
-                                <a
-                                    href={card.href}
-                                    className="btn btn--white booking__contact-button"
-                                    target={card.external ? "_blank" : undefined}
-                                    rel={card.external ? "noreferrer" : undefined}
+                            <div className="booking__quick-list">
+                                <div className="booking__quick-item">
+                                    <span className="booking__quick-key">Email</span>
+                                    <a
+                                        href="mailto:hello@konardesign.com"
+                                        className="booking__quick-value"
+                                    >
+                                        hello@konardesign.com
+                                    </a>
+                                </div>
+
+                                <div className="booking__quick-item">
+                                    <span className="booking__quick-key">Response</span>
+                                    <span className="booking__quick-value">
+                                        1 hour - 24 hours
+                                    </span>
+                                </div>
+
+                                <div className="booking__quick-item booking__quick-item--last">
+                                    <span className="booking__quick-key">Based In</span>
+                                    <span className="booking__quick-value">
+                                        United Kingdom
+                                    </span>
+                                </div>
+                            </div>
+                        </aside>
+                    </div>
+
+                    <div className="booking__cards-column">
+                        <div className="booking__contact-grid">
+                            {contactCards.map((card) => (
+                                <article
+                                    key={card.title}
+                                    className="booking__contact-card"
                                 >
-                                    {card.actionLabel}
-                                </a>
-                            </div>
-                        </article>
-                    ))}
+                                    <div className="booking__contact-card-content">
+                                        <p className="booking__contact-label">
+                                            {card.label}
+                                        </p>
+
+                                        <h3 className="heading4 booking__contact-title">
+                                            {card.title}
+                                        </h3>
+
+                                        <p className="body booking__contact-text">
+                                            {card.description}
+                                        </p>
+                                    </div>
+
+                                    <div className="booking__contact-action">
+                                        <a
+                                            href={card.href}
+                                            className="btn btn--white booking__contact-button"
+                                            target={
+                                                card.external ? "_blank" : undefined
+                                            }
+                                            rel={
+                                                card.external
+                                                    ? "noreferrer"
+                                                    : undefined
+                                            }
+                                        >
+                                            {card.actionLabel}
+                                        </a>
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+                    </div>
                 </div>
 
                 <div className="booking__social">
