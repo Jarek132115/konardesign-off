@@ -30,11 +30,12 @@
 }
 
 .difference__eyebrow {
-    margin-bottom: 8px;
+    margin: 0 0 10px;
 }
 
 .difference__title {
     margin: 0 0 16px;
+    text-wrap: balance;
 }
 
 .difference__title-word {
@@ -45,11 +46,12 @@
     max-width: 720px;
     margin: 0 auto;
     font-weight: 500;
+    line-height: 1.6;
+    color: var(--cool-grey);
 }
 
 /* --------------------------------------------------------- */
 /* MANUAL INDIGO HIGHLIGHT                                   */
-/* Use this in JSX around the words you want indigo          */
 /* --------------------------------------------------------- */
 
 .difference__highlight {
@@ -87,6 +89,7 @@
     background-size: 10px 10px, auto;
     box-shadow: none;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 /* --------------------------------------------------------- */
@@ -108,7 +111,6 @@
     border: none;
     outline: none;
     box-shadow: none;
-
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", sans-serif;
     font-size: 0.8rem;
@@ -138,6 +140,7 @@
     max-width: 100%;
     color: var(--black);
     line-height: 1.12;
+    text-wrap: balance;
 }
 
 .difference__card-subtitle {
@@ -186,6 +189,7 @@
 
 /* --------------------------------------------------------- */
 /* TABLET                                                    */
+/* keep 2 cards in the same row                              */
 /* --------------------------------------------------------- */
 
 @media (max-width: 1024px) {
@@ -202,7 +206,7 @@
     }
 
     .difference__grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 16px;
     }
 
@@ -216,10 +220,25 @@
         padding: 0 14px;
         margin-bottom: 20px;
     }
+
+    .difference__card-subtitle {
+        margin-bottom: 16px;
+    }
+
+    .difference__chips {
+        gap: 8px;
+    }
+
+    .difference__chip {
+        min-height: 32px;
+        padding: 0 12px;
+        font-size: 0.76rem;
+    }
 }
 
 /* --------------------------------------------------------- */
 /* MOBILE                                                    */
+/* now switch to 1 card per row                              */
 /* --------------------------------------------------------- */
 
 @media (max-width: 768px) {
@@ -236,6 +255,7 @@
     }
 
     .difference__grid {
+        grid-template-columns: 1fr;
         gap: 14px;
     }
 
