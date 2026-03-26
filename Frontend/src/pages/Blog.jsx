@@ -1,71 +1,67 @@
-import React, { useEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-import "../styling/buttons.css";
 import "../styling/blog.css";
 
-import cardImage1 from "../assets/images/carousel1.jpg";
-import cardImage2 from "../assets/images/carousel2.jpg";
-import cardImage3 from "../assets/images/carousel3.jpg";
-
-gsap.registerPlugin(ScrollTrigger);
+import cardImage1 from "../assets/images/carousel5.jpg";
+import cardImage2 from "../assets/images/carousel6.jpg";
+import cardImage3 from "../assets/images/carousel7.jpg";
 
 const posts = [
     {
-        id: "why-most-websites-dont-convert",
+        id: "1",
         category: "Web Design",
         title: (
             <>
-                Why Most <span className="blog__highlight">Websites</span> Look
-                Good But Don&apos;t <span className="blog__highlight">Convert</span>{" "}
-                (And How To Fix It)
+                Why Most <span className="kd-blogpage__highlight">Websites</span>{" "}
+                Look Good But Do Not{" "}
+                <span className="kd-blogpage__highlight">Convert</span>
             </>
         ),
         description:
-            "The design mistakes that quietly kill conversions — and how to turn your site into a performance asset instead of a pretty brochure.",
+            "The design mistakes that quietly hurt conversion, and how to turn your site into something that performs properly.",
         readTime: "1 Min Read",
         image: cardImage1,
+        link: "/blog/1",
         alt: "Website design article preview",
-        link: "/blog/growth-insights",
     },
     {
-        id: "metrics-that-matter",
+        id: "2",
         category: "Performance",
         title: (
             <>
-                The 5 <span className="blog__highlight">Metrics</span> That
-                Actually Matter For Website{" "}
-                <span className="blog__highlight">ROI</span>
+                The 5 <span className="kd-blogpage__highlight">Metrics</span>{" "}
+                That Actually Matter for Website{" "}
+                <span className="kd-blogpage__highlight">ROI</span>
             </>
         ),
         description:
-            "Forget vanity metrics. Here are the numbers that actually tell you if your website is pulling its weight for the business.",
+            "Forget vanity numbers. These are the metrics that show whether your website is genuinely helping the business.",
         readTime: "1 Min Read",
         image: cardImage2,
+        link: "/blog/2",
         alt: "Performance metrics article preview",
-        link: "/blog/conversion-playbooks",
     },
     {
-        id: "technical-vs-onpage-seo",
+        id: "3",
         category: "SEO",
         title: (
             <>
-                Technical <span className="blog__highlight">SEO</span> Vs
-                On-Page SEO: Which One Actually Moves{" "}
-                <span className="blog__highlight">Revenue</span>?
+                Technical <span className="kd-blogpage__highlight">SEO</span> vs
+                On-Page SEO for Real{" "}
+                <span className="kd-blogpage__highlight">Results</span>
             </>
         ),
         description:
-            "A simple breakdown of where to focus first if you want organic traffic that turns into pipeline — not just impressions.",
+            "A clearer way to think about where SEO impact comes from, and what to focus on first if you want stronger results.",
         readTime: "1 Min Read",
         image: cardImage3,
+        link: "/blog/3",
         alt: "SEO article preview",
-        link: "/blog/technical-foundations",
     },
 ];
 
@@ -73,157 +69,161 @@ const Blog = () => {
     const pageRef = useRef(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const pageEl = pageRef.current;
         if (!pageEl) return;
 
-        const ctx = gsap.context(() => {
-            const eyebrowEl = pageEl.querySelector(".blog__eyebrow");
-            const titleEl = pageEl.querySelector(".blog__title");
-            const subtitleEl = pageEl.querySelector(".blog__subtitle");
-            const cards = pageEl.querySelectorAll(".blog-card");
+        const titleEl = pageEl.querySelector(".kd-blogpage__title");
+        const subtitleEl = pageEl.querySelector(".kd-blogpage__subtitle");
+        const cards = pageEl.querySelectorAll(".kd-blogpage__card");
 
-            if (!eyebrowEl || !titleEl || !subtitleEl) return;
+        if (!titleEl || !subtitleEl || !cards.length) return;
 
-            gsap.set([titleEl, subtitleEl], { opacity: 0, y: 10 });
+        const originalText = titleEl.textContent;
+        titleEl.textContent = "";
 
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: pageEl,
-                    start: "top 78%",
-                    toggleActions: "play none none none",
-                },
-                defaults: { ease: "power2.out" },
-            });
+        const words = originalText.split(" ");
+        const highlightWords = ["insights", "brands"];
 
-            tl.fromTo(
-                eyebrowEl,
+        words.forEach((word, wordIndex) => {
+            const wordWrapper = document.createElement("span");
+            wordWrapper.classList.add("kd-blogpage__title-word");
+            wordWrapper.style.display = "inline-block";
+
+            const cleanedWord = word.toLowerCase().replace(/[^a-z]/g, "");
+
+            if (highlightWords.includes(cleanedWord)) {
+                wordWrapper.classList.add("kd-blogpage__title-word--indigo");
+            }
+
+            for (const ch of word) {
+                const charSpan = document.createElement("span");
+                charSpan.textContent = ch;
+                charSpan.style.display = "inline-block";
+                charSpan.style.opacity = "0";
+                charSpan.style.transform = "translateY(8px)";
+                wordWrapper.appendChild(charSpan);
+            }
+
+            titleEl.appendChild(wordWrapper);
+
+            if (wordIndex !== words.length - 1) {
+                titleEl.appendChild(document.createTextNode(" "));
+            }
+        });
+
+        const charSpans = titleEl.querySelectorAll(
+            ".kd-blogpage__title-word span"
+        );
+
+        gsap.set(subtitleEl, { opacity: 0, y: 8 });
+        gsap.set(cards, { opacity: 0, y: 26 });
+
+        const introTl = gsap.timeline({
+            defaults: { ease: "power2.out" },
+        });
+
+        introTl
+            .to(charSpans, {
+                opacity: 1,
+                y: 0,
+                stagger: 0.018,
+                duration: 0.26,
+            })
+            .fromTo(
+                subtitleEl,
                 { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.26 }
+                { opacity: 1, y: 0, duration: 0.28 },
+                ">-0.08"
             )
-                .fromTo(
-                    titleEl,
-                    { opacity: 0, y: 10 },
-                    { opacity: 1, y: 0, duration: 0.34 },
-                    ">-0.04"
-                )
-                .fromTo(
-                    subtitleEl,
-                    { opacity: 0, y: 10 },
-                    { opacity: 1, y: 0, duration: 0.3 },
-                    ">-0.12"
-                );
+            .fromTo(
+                cards,
+                { opacity: 0, y: 26 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.55,
+                    stagger: 0.08,
+                },
+                ">-0.04"
+            );
 
-            cards.forEach((card, index) => {
-                gsap.fromTo(
-                    card,
-                    { opacity: 0, y: 24 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.42,
-                        delay: index * 0.05,
-                        ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: card,
-                            start: "top 86%",
-                            toggleActions: "play none none none",
-                        },
-                    }
-                );
-            });
-        }, pageRef);
-
-        return () => ctx.revert();
+        return () => {
+            introTl.kill();
+        };
     }, []);
 
-    const handleNavigate = (link) => {
-        navigate(link);
-    };
-
-    const handleCardKeyDown = (event, link) => {
-        if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            navigate(link);
-        }
-    };
-
     return (
-        <div className="blog-page">
+        <div className="kd-blogpage-shell">
             <Navbar />
 
-            <main className="blog-page__main" ref={pageRef}>
-                <section className="blog-page__section">
-                    <div className="blog-page__inner">
-                        <header className="blog-page__header">
-                            <p className="eyebrow blog__eyebrow">BLOG</p>
+            <main className="kd-blogpage" ref={pageRef}>
+                <div className="kd-blogpage__inner">
+                    <header className="kd-blogpage__header">
+                        <p className="eyebrow kd-blogpage__eyebrow">BLOG</p>
 
-                            <h1 className="heading1 blog__title">
-                                Growth-Driven{" "}
-                                <span className="blog__highlight">Insights</span>{" "}
-                                For Modern Brands
-                            </h1>
+                        <h1 className="heading1 kd-blogpage__title">
+                            Growth-Driven Insights for Modern Brands
+                        </h1>
 
-                            <p className="subheading blog__subtitle">
-                                High-impact articles on UX, design, performance,
-                                and digital growth — written for brands ready to
-                                scale.
-                            </p>
-                        </header>
+                        <p className="subheading kd-blogpage__subtitle">
+                            Practical writing on design, UX, performance, and SEO
+                            for brands that want a website built to do more.
+                        </p>
+                    </header>
 
-                        <div className="blog-page__grid">
-                            {posts.map((post) => (
-                                <article
-                                    key={post.id}
-                                    className="blog-card"
-                                    role="button"
-                                    tabIndex={0}
-                                    onClick={() => handleNavigate(post.link)}
-                                    onKeyDown={(event) =>
-                                        handleCardKeyDown(event, post.link)
-                                    }
-                                    aria-label={`Read article: ${post.id}`}
-                                >
-                                    <div className="blog-card__media">
-                                        <img
-                                            src={post.image}
-                                            alt={post.alt}
-                                            className="blog-card__image"
-                                            draggable="false"
-                                        />
+                    <div className="kd-blogpage__grid">
+                        {posts.map((post) => (
+                            <article
+                                key={post.id}
+                                className="kd-blogpage__card"
+                                onClick={() => navigate(post.link)}
+                            >
+                                <div className="kd-blogpage__media">
+                                    <img
+                                        src={post.image}
+                                        alt={post.alt}
+                                        className="kd-blogpage__card-img"
+                                        draggable="false"
+                                    />
+                                    <span className="kd-blogpage__pill">
+                                        {post.category}
+                                    </span>
+                                </div>
 
-                                        <span className="blog-card__pill">
-                                            {post.category}
-                                        </span>
-                                    </div>
+                                <div className="kd-blogpage__card-content">
+                                    <h2 className="heading4 kd-blogpage__card-title">
+                                        {post.title}
+                                    </h2>
 
-                                    <div className="blog-card__body">
-                                        <h2 className="heading3 blog-card__title">
-                                            {post.title}
-                                        </h2>
+                                    <p className="body kd-blogpage__card-description">
+                                        {post.description}
+                                    </p>
 
-                                        <p className="body blog-card__description">
-                                            {post.description}
-                                        </p>
-
-                                        <div className="blog-card__footer">
-                                            <div className="blog-card__meta">
-                                                <span className="blog-card__time-dot" />
-                                                <span className="body blog-card__readtime">
-                                                    {post.readTime}
-                                                </span>
-                                            </div>
-
-                                            <span className="blog-card__link-button">
-                                                Read Article
+                                    <div className="kd-blogpage__footer">
+                                        <div className="kd-blogpage__meta">
+                                            <span className="kd-blogpage__time-dot" />
+                                            <span className="body kd-blogpage__readtime">
+                                                {post.readTime}
                                             </span>
                                         </div>
+
+                                        <button
+                                            type="button"
+                                            className="kd-blogpage__link-button"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                navigate(post.link);
+                                            }}
+                                        >
+                                            Read Article
+                                        </button>
                                     </div>
-                                </article>
-                            ))}
-                        </div>
+                                </div>
+                            </article>
+                        ))}
                     </div>
-                </section>
+                </div>
             </main>
 
             <Footer />
