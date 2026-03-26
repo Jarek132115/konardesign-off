@@ -1,10 +1,10 @@
 @import "./colours.css";
 
 /* --------------------------------------------------------- */
-/* PROCESS SECTION                                           */
+/* HOME PROCESS SECTION                                      */
 /* --------------------------------------------------------- */
 
-.process {
+.home-process {
     width: 100%;
     margin: 0;
     padding: 130px 0 150px;
@@ -12,7 +12,7 @@
     background: #ffffff;
 }
 
-.process__inner {
+.home-process__inner {
     max-width: 1600px;
     margin: 0 auto;
     padding: 0 120px;
@@ -23,19 +23,19 @@
 /* HEADER                                                    */
 /* --------------------------------------------------------- */
 
-.process__header {
+.home-process__header {
     max-width: 980px;
-    margin: 0 auto 72px;
+    margin: 0 auto 64px;
     text-align: center;
 }
 
-.process__eyebrow {
+.home-process__eyebrow {
     margin: 0 0 16px;
     letter-spacing: 0.18em;
     color: #7a8aa0;
 }
 
-.process__title {
+.home-process__title {
     margin: 0;
     color: #111111;
     line-height: 1.06;
@@ -43,11 +43,11 @@
     text-wrap: balance;
 }
 
-.process__title-highlight {
+.home-process__title-highlight {
     color: var(--deep-indigo);
 }
 
-.process__subtitle {
+.home-process__subtitle {
     max-width: 760px;
     margin: 20px auto 0;
     color: var(--cool-grey);
@@ -58,7 +58,7 @@
 /* GRID                                                      */
 /* --------------------------------------------------------- */
 
-.process__grid {
+.home-process__grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
@@ -69,10 +69,11 @@
 /* CARD                                                      */
 /* --------------------------------------------------------- */
 
-.process__card {
+.home-process__card {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: stretch;
+    min-height: 0;
     border: 1px solid rgba(17, 17, 17, 0.08);
     border-radius: 28px;
     background:
@@ -83,46 +84,45 @@
     overflow: hidden;
 }
 
-/* default = text left, image right */
-.process__card .process__image-wrap {
-    order: 2;
-}
-
-.process__card .process__content {
+.home-process__card .home-process__content {
     order: 1;
 }
 
-/* middle row = image left, text right */
-.process__card--reverse .process__image-wrap {
-    order: 1;
+.home-process__card .home-process__image-wrap {
+    order: 2;
 }
 
-.process__card--reverse .process__content {
+.home-process__card--reverse .home-process__content {
     order: 2;
+}
+
+.home-process__card--reverse .home-process__image-wrap {
+    order: 1;
 }
 
 /* --------------------------------------------------------- */
 /* IMAGE                                                     */
 /* --------------------------------------------------------- */
 
-.process__image-wrap {
+.home-process__image-wrap {
     min-width: 0;
     padding: 18px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
+    justify-content: center;
 }
 
-.process__image-card {
+.home-process__image-card {
     width: 100%;
     aspect-ratio: 4 / 3;
     border-radius: 20px;
     overflow: hidden;
-    background: transparent;
+    background: #f5f6f8;
     box-shadow: 0 0 12px rgba(15, 23, 42, 0.08);
 }
 
-.process__card-image {
+.home-process__card-image {
     width: 100%;
     height: 100%;
     display: block;
@@ -134,20 +134,16 @@
 /* CONTENT                                                   */
 /* --------------------------------------------------------- */
 
-.process__content {
+.home-process__content {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 28px 28px 28px 28px;
+    padding: 28px;
     box-sizing: border-box;
-    min-width: 0;
 }
 
-.process__card--reverse .process__content {
-    padding: 28px 28px 28px 10px;
-}
-
-.process__step-number {
+.home-process__step-number {
     display: inline-block;
     margin-bottom: 16px;
     font-family: "Satoshi", system-ui, -apple-system, BlinkMacSystemFont,
@@ -161,18 +157,19 @@
     white-space: nowrap;
 }
 
-.process__card-title {
+.home-process__card-title {
     margin: 0 0 12px;
     color: var(--black);
     line-height: 1.12;
     max-width: 100%;
+    text-wrap: balance;
 }
 
-.process__card-subtitle {
+.home-process__card-subtitle {
     margin: 0;
+    max-width: 34ch;
     color: var(--cool-grey);
     line-height: 1.6;
-    max-width: 34ch;
 }
 
 /* --------------------------------------------------------- */
@@ -180,7 +177,7 @@
 /* --------------------------------------------------------- */
 
 @media (max-width: 1400px) {
-    .process__inner {
+    .home-process__inner {
         padding: 0 48px;
     }
 }
@@ -189,49 +186,55 @@
 /* TABLET                                                    */
 /* --------------------------------------------------------- */
 
-@media (max-width: 1024px) {
-    .process {
+@media (max-width: 1180px) {
+    .home-process {
         padding: 108px 0 124px;
     }
 
-    .process__inner {
+    .home-process__inner {
         padding: 0 40px;
     }
 
-    .process__header {
+    .home-process__header {
         margin: 0 auto 56px;
     }
 
-    .process__grid {
+    .home-process__grid {
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 20px;
     }
 
-    .process__card,
-    .process__card--reverse {
-        grid-template-columns: 1fr 1fr;
+    .home-process__card,
+    .home-process__card--reverse {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         border-radius: 24px;
     }
 
-    .process__card .process__image-wrap {
+    .home-process__card .home-process__content {
+        order: 1;
+    }
+
+    .home-process__card .home-process__image-wrap {
         order: 2;
     }
 
-    .process__card .process__content {
+    .home-process__card--reverse .home-process__content {
+        order: 2;
+    }
+
+    .home-process__card--reverse .home-process__image-wrap {
         order: 1;
+    }
+
+    .home-process__content {
         padding: 24px;
     }
 
-    .process__card--reverse .process__image-wrap {
-        order: 1;
+    .home-process__image-wrap {
+        padding: 18px;
     }
 
-    .process__card--reverse .process__content {
-        order: 2;
-        padding: 24px 24px 24px 10px;
-    }
-
-    .process__image-card {
+    .home-process__image-card {
         border-radius: 20px;
     }
 }
@@ -241,54 +244,55 @@
 /* --------------------------------------------------------- */
 
 @media (max-width: 768px) {
-    .process {
+    .home-process {
         padding: 78px 0 92px;
     }
 
-    .process__inner {
+    .home-process__inner {
         padding: 0 20px;
     }
 
-    .process__header {
+    .home-process__header {
         margin: 0 auto 40px;
     }
 
-    .process__card,
-    .process__card--reverse {
+    .home-process__card,
+    .home-process__card--reverse {
         grid-template-columns: 1fr;
         border-radius: 20px;
     }
 
-    .process__card .process__image-wrap,
-    .process__card .process__content,
-    .process__card--reverse .process__image-wrap,
-    .process__card--reverse .process__content {
-        order: initial;
+    .home-process__card .home-process__image-wrap,
+    .home-process__card--reverse .home-process__image-wrap {
+        order: 1;
     }
 
-    .process__image-wrap {
+    .home-process__card .home-process__content,
+    .home-process__card--reverse .home-process__content {
+        order: 2;
+    }
+
+    .home-process__image-wrap {
         padding: 18px 18px 0;
     }
 
-    .process__content,
-    .process__card .process__content,
-    .process__card--reverse .process__content {
+    .home-process__content {
         padding: 20px 18px 18px;
     }
 
-    .process__step-number {
+    .home-process__step-number {
         margin-bottom: 14px;
     }
 
-    .process__card-title {
+    .home-process__card-title {
         margin-bottom: 10px;
     }
 
-    .process__card-subtitle {
+    .home-process__card-subtitle {
         max-width: 100%;
     }
 
-    .process__image-card {
+    .home-process__image-card {
         border-radius: 18px;
     }
 }
@@ -298,29 +302,28 @@
 /* --------------------------------------------------------- */
 
 @media (max-width: 480px) {
-    .process {
+    .home-process {
         padding: 68px 0 82px;
     }
 
-    .process__inner {
+    .home-process__inner {
         padding: 0 16px;
     }
 
-    .process__card {
+    .home-process__card,
+    .home-process__card--reverse {
         border-radius: 18px;
     }
 
-    .process__image-wrap {
+    .home-process__image-wrap {
         padding: 16px 16px 0;
     }
 
-    .process__content,
-    .process__card .process__content,
-    .process__card--reverse .process__content {
+    .home-process__content {
         padding: 18px 16px 16px;
     }
 
-    .process__image-card {
+    .home-process__image-card {
         border-radius: 16px;
     }
 }

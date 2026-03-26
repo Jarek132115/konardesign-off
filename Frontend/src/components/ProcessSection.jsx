@@ -61,57 +61,65 @@ const steps = [
 
 const ProcessSection = () => {
     return (
-        <section className="process">
-            <div className="process__inner">
-                <header className="process__header">
-                    <p className="eyebrow process__eyebrow">HOW I BUILD</p>
+        <section className="home-process">
+            <div className="home-process__inner">
+                <header className="home-process__header">
+                    <p className="eyebrow home-process__eyebrow">HOW I BUILD</p>
 
-                    <h2 className="heading2 process__title">
-                        My <span className="process__title-highlight">Process</span>.{" "}
-                        <span className="process__title-highlight">Built</span> from
-                        Start to Finish.
+                    <h2 className="heading2 home-process__title">
+                        My{" "}
+                        <span className="home-process__title-highlight">
+                            Process
+                        </span>
+                        .{" "}
+                        <span className="home-process__title-highlight">
+                            Built
+                        </span>{" "}
+                        from Start to Finish.
                     </h2>
 
-                    <p className="subheading process__subtitle">
+                    <p className="subheading home-process__subtitle">
                         A clear step by step approach that takes each project
                         from early direction and planning through to design,
                         development, launch, and optimisation.
                     </p>
                 </header>
 
-                <div className="process__grid">
+                <div className="home-process__grid">
                     {steps.map((step, index) => {
                         const isReversed = index === 2 || index === 3;
 
                         return (
                             <article
                                 key={step.id}
-                                className={`process__card ${isReversed ? "process__card--reverse" : ""
+                                className={`home-process__card ${isReversed
+                                        ? "home-process__card--reverse"
+                                        : ""
                                     }`}
                             >
-                                <div className="process__image-wrap">
-                                    <div className="process__image-card">
-                                        <img
-                                            src={step.image}
-                                            alt={step.title}
-                                            className="process__card-image"
-                                            draggable="false"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="process__content">
-                                    <div className="process__step-number">
+                                <div className="home-process__content">
+                                    <div className="home-process__step-number">
                                         {step.number}
                                     </div>
 
-                                    <h3 className="heading4 process__card-title">
+                                    <h3 className="heading4 home-process__card-title">
                                         {step.title}
                                     </h3>
 
-                                    <p className="body process__card-subtitle">
+                                    <p className="body home-process__card-subtitle">
                                         {step.subtitle}
                                     </p>
+                                </div>
+
+                                <div className="home-process__image-wrap">
+                                    <div className="home-process__image-card">
+                                        <img
+                                            src={step.image}
+                                            alt={step.title}
+                                            className="home-process__card-image"
+                                            draggable="false"
+                                        />
+                                    </div>
                                 </div>
                             </article>
                         );

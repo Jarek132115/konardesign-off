@@ -7,29 +7,30 @@
 .hero {
     position: relative;
     z-index: 0;
-    width: 100%;
     max-width: 2000px;
     margin: 0 auto;
-    padding: 100px 40px 88px;
+    padding: 100px 40px 80px;
     box-sizing: border-box;
-    background: var(--off-white);
-    overflow: hidden;
 }
 
+/* dotted halo behind hero content */
 .hero::before {
     content: "";
     position: absolute;
     left: 50%;
-    top: 40px;
     transform: translateX(-50%);
-    width: min(1200px, calc(100% - 80px));
+    top: 40px;
+    max-width: 1200px;
+    width: 100%;
     height: clamp(320px, 42vw, 460px);
     z-index: -1;
     pointer-events: none;
+
     background-image: radial-gradient(circle,
             rgba(148, 163, 184, 0.35) 1px,
             transparent 1px);
     background-size: 6px 6px;
+
     -webkit-mask-image: radial-gradient(ellipse at center,
             rgba(0, 0, 0, 1) 0%,
             rgba(0, 0, 0, 0.9) 45%,
@@ -45,57 +46,48 @@
 }
 
 .hero__inner {
-    max-width: 1600px;
-    margin: 0 auto 44px;
-    padding: 0 120px;
-    box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto 48px;
 }
 
 .hero__content {
-    max-width: 1080px;
-    margin: 0 auto;
     text-align: center;
 }
 
-/* --------------------------------------------------------- */
-/* CONTENT                                                   */
-/* --------------------------------------------------------- */
-
-.hero__pill {
-    margin: 0 auto 14px;
-    width: fit-content;
-}
-
+/* H1 */
 .hero__title {
-    margin: 0 auto 18px;
-    max-width: 1100px;
+    margin: 8px auto 16px;
+    max-width: 1000px;
     white-space: normal;
-    text-wrap: balance;
 }
 
+/* word wrapper for letter animation */
 .hero__title-word {
     display: inline-block;
     white-space: nowrap;
 }
 
-.hero__title-word--indigo span {
-    color: var(--deep-indigo);
-}
-
+/* SUBHEADING */
 .hero__subheading {
+    margin: 16px auto 16px;
     max-width: 760px;
-    margin: 0 auto;
-    color: var(--cool-grey);
+    padding-left: 0;
+    padding-right: 0;
+    box-sizing: border-box;
+
+    /* bigger on desktop / laptop */
     font-size: clamp(17px, 0.38vw + 0.95rem, 21px);
     line-height: 1.62;
 }
 
+/* CTA BUTTONS LAYOUT */
 .hero__buttons {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 16px;
-    margin-top: 28px;
+    margin-top: 0;
+    margin-bottom: 40px;
 }
 
 /* --------------------------------------------------------- */
@@ -110,26 +102,25 @@
 
 .hero__carousel-track {
     display: flex;
-    align-items: center;
     gap: 16px;
+    align-items: center;
     will-change: transform;
     transform: translate3d(0, 0, 0);
     cursor: grab;
     touch-action: pan-y;
-    user-select: none;
 }
 
 .hero__carousel-track--dragging {
     cursor: grabbing;
 }
 
+/* Desktop: approx 3–4 visible cards depending on screen width */
 .hero__card {
-    flex: 0 0 clamp(300px, 21vw, 420px);
-    width: clamp(300px, 21vw, 420px);
+    flex: 0 0 clamp(320px, 21vw, 420px);
+    width: clamp(320px, 21vw, 420px);
     aspect-ratio: 4 / 2.75;
-    border-radius: 20px;
+    border-radius: 12px;
     overflow: hidden;
-    background: #e5e7eb;
 }
 
 .hero__image {
@@ -140,161 +131,197 @@
 }
 
 /* --------------------------------------------------------- */
-/* RESPONSIVE                                                */
+/* BIG TABLET / LAPTOP (801–1200px)                          */
 /* --------------------------------------------------------- */
 
-@media (max-width: 1400px) {
-    .hero__inner {
-        padding: 0 48px;
-    }
-}
-
-@media (max-width: 1180px) {
+@media (min-width: 801px) and (max-width: 1200px) {
     .hero {
-        padding: 96px 40px 84px;
+        padding: 110px 40px 95px;
     }
 
     .hero__inner {
-        padding: 0 40px;
-        margin-bottom: 40px;
-    }
-
-    .hero__content {
-        max-width: 980px;
+        margin-bottom: 60px;
     }
 
     .hero__title {
-        max-width: 980px;
+        font-size: clamp(48px, 4.6vw, 60px);
+        line-height: 1.08;
     }
 
     .hero__subheading {
         max-width: 720px;
+        padding-left: 24px;
+        padding-right: 24px;
+        font-size: clamp(17px, 0.35vw + 0.9rem, 19px);
+        line-height: 1.62;
     }
 
+    /* pill bigger on tablet */
+    .hero__pill {
+        font-size: 15px;
+        padding: 9px 18px;
+    }
+
+    /* about 2 cards visible */
     .hero__card {
-        flex: 0 0 clamp(320px, 38vw, 430px);
-        width: clamp(320px, 38vw, 430px);
-    }
-}
-
-@media (max-width: 900px) {
-    .hero::before {
-        top: 28px;
-        width: calc(100% - 56px);
-        height: clamp(300px, 46vw, 380px);
-    }
-
-    .hero__inner {
-        margin-bottom: 34px;
+        flex: 0 0 clamp(360px, 42vw, 460px);
+        width: clamp(360px, 42vw, 460px);
     }
 
     .hero__buttons {
-        flex-wrap: wrap;
-        gap: 14px;
-        margin-top: 26px;
-    }
-
-    .hero__card {
-        flex: 0 0 46vw;
-        width: 46vw;
+        margin-bottom: 50px;
     }
 }
 
-@media (max-width: 768px) {
+/* --------------------------------------------------------- */
+/* GENERIC MOBILE (up to 499px)                              */
+/* --------------------------------------------------------- */
+
+@media (max-width: 499px) {
     .hero {
-        padding: 78px 20px 72px;
+        padding: 80px 20px 60px;
     }
 
     .hero::before {
-        top: 18px;
-        width: calc(100% - 40px);
-        height: 300px;
-    }
-
-    .hero__inner {
-        padding: 0 20px;
-        margin-bottom: 30px;
-    }
-
-    .hero__pill {
-        margin-bottom: 12px;
-    }
-
-    .hero__title {
-        margin-bottom: 16px;
+        top: 20px;
+        height: clamp(260px, 60vw, 360px);
     }
 
     .hero__subheading {
-        max-width: 680px;
-        line-height: 1.58;
+        padding-left: 8px;
+        padding-right: 8px;
+        font-size: inherit;
+        line-height: 1.6;
     }
 
-    .hero__buttons {
-        margin-top: 24px;
-    }
-
-    .hero__card {
-        flex: 0 0 58vw;
-        width: 58vw;
-        border-radius: 18px;
-    }
-}
-
-@media (max-width: 560px) {
+    /* keep pill good on mobile */
     .hero__pill {
         font-size: 12px;
         padding: 7px 12px;
     }
 
-    .hero__buttons {
-        flex-direction: column;
-        align-items: stretch;
-        width: min(100%, 320px);
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .hero__buttons .btn {
-        width: 100%;
-        justify-content: center;
-    }
-
+    /* about 1.5 visible cards */
     .hero__card {
         flex: 0 0 68vw;
         width: 68vw;
     }
 }
 
-@media (max-width: 480px) {
-    .hero {
-        padding: 68px 16px 64px;
-    }
+/* --------------------------------------------------------- */
+/* MOBILE SMALL (≤399px)                                     */
+/* --------------------------------------------------------- */
 
-    .hero::before {
-        top: 12px;
-        width: calc(100% - 32px);
-        height: 240px;
-    }
-
-    .hero__inner {
-        padding: 0 16px;
-        margin-bottom: 26px;
-    }
-
-    .hero__subheading {
-        line-height: 1.56;
+@media (max-width: 399px) {
+    .heading1.hero__title {
+        font-size: 34px !important;
+        line-height: 1.14;
     }
 
     .hero__card {
         flex: 0 0 72vw;
         width: 72vw;
-        border-radius: 16px;
     }
 }
 
-@media (max-width: 399px) {
-    .hero__card {
-        flex: 0 0 76vw;
-        width: 76vw;
+/* --------------------------------------------------------- */
+/* MOBILE LARGE (400–499px)                                  */
+/* --------------------------------------------------------- */
+
+@media (min-width: 400px) and (max-width: 499px) {
+    .heading1.hero__title {
+        font-size: 40px !important;
+        line-height: 1.12;
     }
+
+    .hero__card {
+        flex: 0 0 66vw;
+        width: 66vw;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* MID TABLET (500–800px)                                    */
+/* --------------------------------------------------------- */
+
+@media (min-width: 500px) and (max-width: 800px) {
+    .hero {
+        padding: 120px 40px 110px;
+    }
+
+    .hero__inner {
+        margin-bottom: 72px;
+    }
+
+    .hero__title {
+        font-size: clamp(44px, 5vw, 54px);
+        line-height: 1.1;
+        max-width: 900px;
+    }
+
+    .hero__subheading {
+        max-width: 700px;
+        padding-left: 28px;
+        padding-right: 28px;
+
+        /* keep tablet exactly like you liked it */
+        font-size: inherit;
+        line-height: 1.6;
+    }
+
+    /* pill bigger on tablet */
+    .hero__pill {
+        font-size: 15px;
+        padding: 9px 18px;
+    }
+
+    .hero__buttons {
+        margin-bottom: 56px;
+    }
+
+    /* about 2 cards visible */
+    .hero__card {
+        flex: 0 0 43vw;
+        width: 43vw;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* MID TABLET SMALL (500–599px)                              */
+/* --------------------------------------------------------- */
+
+@media (min-width: 500px) and (max-width: 599px) {
+    .heading1.hero__title {
+        font-size: 48px !important;
+        line-height: 1.1;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* MID TABLET LARGE (600–800px)                              */
+/* --------------------------------------------------------- */
+
+@media (min-width: 600px) and (max-width: 800px) {
+    .heading1.hero__title {
+        font-size: 56px !important;
+        line-height: 1.1;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* LARGE TABLET IMAGE UPGRADE (650–800px)                    */
+/* --------------------------------------------------------- */
+
+@media (min-width: 650px) and (max-width: 800px) {
+    .hero__card {
+        flex: 0 0 41vw;
+        width: 41vw;
+    }
+}
+
+/* --------------------------------------------------------- */
+/* COLOUR OVERRIDE FOR HIGHLIGHTED HERO WORDS                */
+/* --------------------------------------------------------- */
+
+.hero__title-word--indigo span {
+    color: var(--deep-indigo);
 }
