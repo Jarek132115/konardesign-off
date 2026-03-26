@@ -72,6 +72,7 @@
 
 .projects-row {
     width: 100%;
+    min-width: 0;
     aspect-ratio: 4 / 3;
 }
 
@@ -143,13 +144,11 @@
     background: #07090f;
 }
 
-/* shared click / press feedback */
 .projects-row__card:active {
     transform: scale(0.988);
     filter: brightness(1.06);
 }
 
-/* neutralise the old jsx-driven pressed class */
 .projects-row__card--pressed {
     transform: none;
     filter: none;
@@ -166,6 +165,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center center;
     transform: none;
     transition: none;
 }
@@ -315,6 +315,7 @@
     margin: 0;
     color: #ffffff;
     line-height: 1.08;
+    text-wrap: balance;
 }
 
 .projects-row__description {
@@ -473,13 +474,21 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 499px) {
     .projects {
         padding: 68px 0 82px;
     }
 
     .projects__inner {
         padding: 0 16px;
+    }
+
+    .projects-row,
+    .projects-row__glow-frame,
+    .projects-row__card {
+        aspect-ratio: 3 / 4;
+        height: auto;
+        min-height: 0;
     }
 
     .projects-row__glow-frame {
@@ -494,8 +503,40 @@
         border-radius: 16px;
     }
 
+    .projects-row__overlay {
+        background: linear-gradient(to top,
+                rgba(15, 23, 42, 0.95) 0%,
+                rgba(15, 23, 42, 0.72) 38%,
+                rgba(15, 23, 42, 0.28) 66%,
+                rgba(15, 23, 42, 0.1) 100%);
+    }
+
+    .projects-row__card--coming-soon .projects-row__overlay {
+        background: linear-gradient(to top,
+                rgba(10, 14, 28, 0.96) 0%,
+                rgba(20, 24, 42, 0.76) 38%,
+                rgba(20, 24, 42, 0.32) 66%,
+                rgba(20, 24, 42, 0.12) 100%);
+    }
+
     .projects-row__content {
+        max-width: 100%;
         padding: 18px 16px 16px;
+        gap: 8px;
+    }
+
+    .projects-row__title {
+        text-wrap: pretty;
+    }
+
+    .projects-row__description {
+        max-width: 100%;
+        line-height: 1.5;
+    }
+
+    .projects-row__tags {
+        gap: 8px;
+        margin-top: 4px;
     }
 
     .projects-row__pill {
