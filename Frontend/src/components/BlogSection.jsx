@@ -174,7 +174,7 @@ const BlogSection = () => {
                             </div>
 
                             <div className="blogsection__card-content">
-                                <h3 className="heading3 blogsection__card-title">
+                                <h3 className="heading4 blogsection__card-title">
                                     {article.title}
                                 </h3>
 
