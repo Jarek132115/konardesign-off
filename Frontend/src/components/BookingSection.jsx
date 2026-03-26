@@ -24,7 +24,7 @@ const contactCards = [
         description:
             "Message me if you want a faster conversation without the long back and forth of email.",
         actionLabel: "Message Me",
-        href: "https://wa.me/",
+        href: "https://wa.me/447935956564",
         external: true,
     },
     {
@@ -33,7 +33,7 @@ const contactCards = [
         description:
             "A good option if you want to connect there first, follow along, or message me directly.",
         actionLabel: "View LinkedIn",
-        href: "https://linkedin.com",
+        href: "https://www.linkedin.com/in/jarek-konarski-024752274/",
         external: true,
     },
     {
@@ -42,7 +42,8 @@ const contactCards = [
         description:
             "Keep my business details on hand so you can reach out again when the timing is right.",
         actionLabel: "View Card",
-        href: "#",
+        href: "https://www.konarcard.com/u/konardesign",
+        external: true,
     },
 ];
 
@@ -55,7 +56,7 @@ const socialLinks = [
     {
         label: "LinkedIn",
         short: "in",
-        href: "https://linkedin.com",
+        href: "https://www.linkedin.com/in/jarek-konarski-024752274/",
     },
     {
         label: "Dribbble",
