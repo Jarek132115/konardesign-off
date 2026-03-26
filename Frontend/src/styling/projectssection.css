@@ -277,7 +277,7 @@
     z-index: 2;
     white-space: nowrap;
     line-height: 1;
-    color: rgba(255, 255, 255, 0.96);
+    color: #ffffff;
 }
 
 /* --------------------------------------------------------- */
@@ -296,6 +296,13 @@
     max-width: 700px;
     padding: 28px 30px;
     box-sizing: border-box;
+    color: #ffffff;
+}
+
+/* force all card text to white */
+.projects-row__content,
+.projects-row__content * {
+    color: #ffffff;
 }
 
 .projects-row__year {
@@ -308,20 +315,24 @@
     font-weight: 500;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.82);
+    color: #ffffff;
 }
 
-.projects-row__title {
+.projects-row__title,
+.projects-row__content .projects-row__title,
+.projects-row__content .heading4.projects-row__title {
     margin: 0;
     color: #ffffff;
     line-height: 1.08;
     text-wrap: balance;
 }
 
-.projects-row__description {
+.projects-row__description,
+.projects-row__content .projects-row__description,
+.projects-row__content .body.projects-row__description {
     margin: 0;
     max-width: 640px;
-    color: rgba(255, 255, 255, 0.8);
+    color: #ffffff;
     line-height: 1.56;
 }
 
@@ -347,7 +358,7 @@
     line-height: 1.4;
     font-weight: 500;
     letter-spacing: 0.01em;
-    color: rgba(255, 255, 255, 0.92);
+    color: #ffffff;
     white-space: nowrap;
 }
 
