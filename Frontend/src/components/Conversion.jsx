@@ -69,100 +69,100 @@ const Conversion = () => {
         const sectionEl = sectionRef.current;
         if (!sectionEl) return;
 
-        const eyebrowEl = sectionEl.querySelector(".conversion__eyebrow");
-        const titleEl = sectionEl.querySelector(".conversion__title");
-        const subtitleEl = sectionEl.querySelector(".conversion__subtitle");
-        const cards = sectionEl.querySelectorAll(".conversion__card");
+        const ctx = gsap.context(() => {
+            const eyebrowEl = sectionEl.querySelector(".conversion__eyebrow");
+            const titleEl = sectionEl.querySelector(".conversion__title");
+            const subtitleEl = sectionEl.querySelector(".conversion__subtitle");
+            const cards = sectionEl.querySelectorAll(".conversion__card");
 
-        if (!eyebrowEl || !titleEl || !subtitleEl || !cards.length) return;
+            if (!eyebrowEl || !titleEl || !subtitleEl || !cards.length) return;
 
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
+            const originalText = titleEl.textContent;
+            titleEl.textContent = "";
 
-        const words = originalText.split(" ");
+            const words = originalText.split(" ");
 
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("conversion__title-word");
-            wordWrapper.style.display = "inline-block";
+            words.forEach((word, wordIndex) => {
+                const wordWrapper = document.createElement("span");
+                wordWrapper.classList.add("conversion__title-word");
+                wordWrapper.style.display = "inline-block";
 
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
+                for (const ch of word) {
+                    const charSpan = document.createElement("span");
+                    charSpan.textContent = ch;
+                    charSpan.style.display = "inline-block";
+                    charSpan.style.opacity = "0";
+                    charSpan.style.transform = "translateY(8px)";
+                    wordWrapper.appendChild(charSpan);
+                }
 
-            titleEl.appendChild(wordWrapper);
+                titleEl.appendChild(wordWrapper);
 
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
+                if (wordIndex !== words.length - 1) {
+                    titleEl.appendChild(document.createTextNode(" "));
+                }
+            });
 
-        const wordSpans = titleEl.querySelectorAll(".conversion__title-word");
-        const highlightSet = new Set(["Conversion", "Performance"]);
+            const wordSpans = titleEl.querySelectorAll(".conversion__title-word");
+            const highlightSet = new Set(["Conversion", "Performance"]);
 
-        wordSpans.forEach((wordSpan) => {
-            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
-            if (highlightSet.has(cleaned)) {
-                wordSpan.classList.add("conversion__title-highlight");
-            }
-        });
+            wordSpans.forEach((wordSpan) => {
+                const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
+                if (highlightSet.has(cleaned)) {
+                    wordSpan.classList.add("conversion__title-highlight");
+                }
+            });
 
-        const charSpans = titleEl.querySelectorAll(".conversion__title-word span");
+            const charSpans = titleEl.querySelectorAll(".conversion__title-word span");
 
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-        gsap.set(cards, { opacity: 0, y: 22 });
+            gsap.set(subtitleEl, { opacity: 0, y: 8 });
+            gsap.set(cards, { opacity: 0, y: 22 });
 
-        const introTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionEl,
-                start: "top 72%",
-                toggleActions: "play none none none",
-            },
-            defaults: { ease: "power2.out" },
-        });
-
-        introTl
-            .fromTo(
-                eyebrowEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.22 }
-            )
-            .to(
-                charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.014,
-                    duration: 0.22,
+            const introTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: sectionEl,
+                    start: "top 72%",
+                    toggleActions: "play none none none",
                 },
-                ">-0.03"
-            )
-            .fromTo(
-                subtitleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.24 },
-                ">-0.06"
-            )
-            .fromTo(
-                cards,
-                { opacity: 0, y: 22 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.38,
-                    stagger: 0.08,
-                },
-                ">-0.04"
-            );
+                defaults: { ease: "power2.out" },
+            });
 
-        return () => {
-            introTl.kill();
-        };
+            introTl
+                .fromTo(
+                    eyebrowEl,
+                    { opacity: 0, y: 8 },
+                    { opacity: 1, y: 0, duration: 0.22 }
+                )
+                .to(
+                    charSpans,
+                    {
+                        opacity: 1,
+                        y: 0,
+                        stagger: 0.014,
+                        duration: 0.22,
+                    },
+                    ">-0.03"
+                )
+                .fromTo(
+                    subtitleEl,
+                    { opacity: 0, y: 8 },
+                    { opacity: 1, y: 0, duration: 0.24 },
+                    ">-0.06"
+                )
+                .fromTo(
+                    cards,
+                    { opacity: 0, y: 22 },
+                    {
+                        opacity: 1,
+                        y: 0,
+                        duration: 0.38,
+                        stagger: 0.08,
+                    },
+                    ">-0.04"
+                );
+        }, sectionRef);
+
+        return () => ctx.revert();
     }, []);
 
     return (
@@ -186,12 +186,16 @@ const Conversion = () => {
 
                 <div className="conversion__grid">
                     {conversionItems.map((item, index) => {
-                        const secondRow = index >= 2;
+                        const isDesktopReverse = index >= 2;
+                        const isSingleColumnReverse = index % 2 === 1;
 
                         return (
                             <article
                                 key={item.id}
-                                className={`conversion__card ${secondRow ? "conversion__card--reverse" : ""
+                                className={`conversion__card ${isDesktopReverse ? "conversion__card--reverse" : ""
+                                    } ${isSingleColumnReverse
+                                        ? "conversion__card--single-reverse"
+                                        : ""
                                     }`}
                             >
                                 <div className="conversion__image-wrap">
