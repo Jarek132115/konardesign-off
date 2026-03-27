@@ -1,43 +1,43 @@
 import React from "react";
 import "../../styling/about/aboutfocus.css";
 
-import focusImage1 from "../../assets/images/ProjectStep1-Image1.jpg";
-import focusImage2 from "../../assets/images/ProjectStep1-Image2.jpg";
-import focusImage3 from "../../assets/images/ProjectStep1-Image3.jpg";
-import focusImage4 from "../../assets/images/ProjectStep1-Image4.jpg";
+import focusImage1 from "../../assets/images/focusImage1.jpg";
+import focusImage2 from "../../assets/images/focusImage2.jpg";
+import focusImage3 from "../../assets/images/focusImage3.jpg";
+import focusImage4 from "../../assets/images/focusImage4.jpg";
 
 const focusItems = [
     {
-        number: "FOCUS 1",
-        title: "Strategy-led website thinking",
+        number: "STRENGTH 1",
+        title: "Turning design into real websites",
         subtitle:
-            "Every project starts by understanding what the site needs to achieve, how it should guide attention, and what the structure needs to communicate clearly.",
+            "I take ideas beyond static screens and turn them into fully built, responsive websites that feel polished and production-ready.",
         image: focusImage1,
-        imageAlt: "Strategy and planning visual",
+        imageAlt: "Design translated into a functional website",
     },
     {
-        number: "FOCUS 2",
-        title: "Custom design without template feel",
+        number: "STRENGTH 2",
+        title: "UX that supports business goals",
         subtitle:
-            "The design should feel aligned to the brand, visually distinctive, and intentionally built around the product rather than relying on generic patterns.",
+            "I understand how structure, hierarchy, and user flow affect trust, conversion, and how clearly the product is understood.",
         image: focusImage2,
-        imageAlt: "Custom design process visual",
+        imageAlt: "UX strategy and structure",
     },
     {
-        number: "FOCUS 3",
-        title: "Development built for performance",
+        number: "STRENGTH 3",
+        title: "Structure decided by real users",
         subtitle:
-            "Good design means very little if the final build is slow, brittle, or difficult to scale, so performance and long-term reliability matter throughout.",
+            "Websites should not be shaped by guesswork. I think carefully about what users need, how they move, and what matters most.",
         image: focusImage3,
-        imageAlt: "Development and performance visual",
+        imageAlt: "User-focused structure and performance",
     },
     {
-        number: "FOCUS 4",
-        title: "Conversion and clarity together",
+        number: "STRENGTH 4",
+        title: "Thinking beyond the visual layer",
         subtitle:
-            "The experience should build trust, reduce friction, and guide users toward action without sacrificing clarity or making the journey feel forced.",
+            "I consider responsiveness, performance, scalability, and implementation from the start so the final result works properly long-term.",
         image: focusImage4,
-        imageAlt: "Conversion and structure visual",
+        imageAlt: "Long-term website thinking and build quality",
     },
 ];
 
@@ -47,19 +47,18 @@ const AboutFocus = () => {
             <div className="aboutfocus__inner">
                 <header className="aboutfocus__section-header">
                     <p className="eyebrow aboutfocus__eyebrow">
-                        WHAT I FOCUS ON
+                        WHAT MAKES MY WORK DIFFERENT
                     </p>
 
                     <h2 className="heading2 aboutfocus__title">
-                        The Way I Work Is Built Around{" "}
-                        <span className="aboutfocus__highlight">Clarity</span>,{" "}
-                        Quality, and Long-Term Thinking
+                        The Areas Where I Bring the Most{" "}
+                        <span className="aboutfocus__highlight">Value</span>
                     </h2>
 
                     <p className="subheading aboutfocus__subtitle">
-                        Each project is shaped around structure, usability, and
-                        performance so the final result feels premium, works
-                        properly, and supports growth over time.
+                        More than visuals, I focus on the parts of a website
+                        that make it clearer, stronger, and more effective once
+                        it is actually being used.
                     </p>
                 </header>
 
