@@ -13,34 +13,6 @@
     overflow: hidden;
 }
 
-.bookcta::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    top: 28px;
-    transform: translateX(-50%);
-    width: min(1220px, calc(100% - 80px));
-    height: clamp(320px, 40vw, 470px);
-    pointer-events: none;
-    z-index: 0;
-    background-image: radial-gradient(circle,
-            rgba(148, 163, 184, 0.34) 1px,
-            transparent 1px);
-    background-size: 6px 6px;
-    -webkit-mask-image: radial-gradient(ellipse at center,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 0.92) 42%,
-            rgba(0, 0, 0, 0.6) 60%,
-            rgba(0, 0, 0, 0.22) 72%,
-            transparent 86%);
-    mask-image: radial-gradient(ellipse at center,
-            rgba(0, 0, 0, 1) 0%,
-            rgba(0, 0, 0, 0.92) 42%,
-            rgba(0, 0, 0, 0.6) 60%,
-            rgba(0, 0, 0, 0.22) 72%,
-            transparent 86%);
-}
-
 .bookcta__inner {
     position: relative;
     z-index: 1;
@@ -444,12 +416,6 @@ a.bookcta__quick-value:hover {
         padding: 78px 0 78px;
     }
 
-    .bookcta::before {
-        top: 18px;
-        width: calc(100% - 40px);
-        height: 280px;
-    }
-
     .bookcta__inner {
         padding: 0 20px;
     }
@@ -508,12 +474,6 @@ a.bookcta__quick-value:hover {
 @media (max-width: 599px) {
     .bookcta {
         padding: 68px 0 68px;
-    }
-
-    .bookcta::before {
-        top: 12px;
-        width: calc(100% - 32px);
-        height: 240px;
     }
 
     .bookcta__inner {
