@@ -16,57 +16,123 @@ import aiIcon from "../../assets/icons/Tools_AI.svg";
 const tools = [
     {
         name: "Figma",
-        subtitle: "Interface design and systems",
+        subtitle: (
+            <>
+                Interface design
+                <br />
+                and systems
+            </>
+        ),
         icon: figmaIcon,
     },
     {
         name: "Framer",
-        subtitle: "Fast visual web building",
+        subtitle: (
+            <>
+                Fast visual web
+                <br />
+                building
+            </>
+        ),
         icon: framerIcon,
     },
     {
         name: "Webflow",
-        subtitle: "Responsive no-code development",
+        subtitle: (
+            <>
+                Responsive no-code
+                <br />
+                development
+            </>
+        ),
         icon: webflowIcon,
     },
     {
         name: "GitHub",
-        subtitle: "Version control and collaboration",
+        subtitle: (
+            <>
+                Version control and
+                <br />
+                collaboration
+            </>
+        ),
         icon: githubIcon,
     },
     {
         name: "Vercel",
-        subtitle: "Deployment and hosting workflow",
+        subtitle: (
+            <>
+                Deployment and
+                <br />
+                hosting workflow
+            </>
+        ),
         icon: vercelIcon,
     },
     {
         name: "VSCode",
-        subtitle: "Frontend / backend development",
+        subtitle: (
+            <>
+                Frontend / backend
+                <br />
+                development
+            </>
+        ),
         icon: vscodeIcon,
     },
     {
         name: "Notion",
-        subtitle: "Planning and project organisation",
+        subtitle: (
+            <>
+                Planning and project
+                <br />
+                organisation
+            </>
+        ),
         icon: notionIcon,
     },
     {
         name: "Photoshop",
-        subtitle: "Mockups and image editing",
+        subtitle: (
+            <>
+                Mockups and image
+                <br />
+                editing
+            </>
+        ),
         icon: photoshopIcon,
     },
     {
         name: "Illustrator",
-        subtitle: "Vector graphics and assets",
+        subtitle: (
+            <>
+                Vector graphics
+                <br />
+                and assets
+            </>
+        ),
         icon: illustratorIcon,
     },
     {
         name: "After Effects",
-        subtitle: "Motion and visual polish",
+        subtitle: (
+            <>
+                Motion and
+                <br />
+                visual polish
+            </>
+        ),
         icon: afterEffectsIcon,
     },
     {
         name: "AI Tools",
-        subtitle: "Research and workflow support",
+        subtitle: (
+            <>
+                Research and
+                <br />
+                workflow support
+            </>
+        ),
         icon: aiIcon,
     },
 ];
@@ -91,7 +157,7 @@ const AboutTools = () => {
                     </h2>
 
                     <p className="subheading abouttools__subtitle">
-                        A focused set of tools across design, development, and
+                        A focused toolset across design, development, and
                         delivery that helps me take projects from early ideas to
                         polished final builds.
                     </p>

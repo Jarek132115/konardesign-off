@@ -1,30 +1,30 @@
 import React, { useEffect, useRef } from "react";
 import "../../styling/about/aboutwork.css";
 
-import workImage from "../../assets/images/ProjectStep1-Image6.jpg";
+import workVideo from "../../assets/videos/Custom1.mp4";
 
 const DRAG_THRESHOLD = 6;
 
 const workItems = [
     {
         number: "01",
-        title: "Clear communication throughout",
-        text: "I keep the process direct, structured, and easy to follow, so you always know what is happening and why decisions are being made.",
+        title: "Clear, Direct Communication",
+        text: "The process stays direct and easy to follow, so you always know what is happening and why.",
     },
     {
         number: "02",
-        title: "Strategy before visual polish",
-        text: "The process starts with clarity around goals, hierarchy, and direction first, so the final design is not just attractive, but genuinely effective.",
+        title: "Strategy Before Visual Polish",
+        text: "Goals, structure, and hierarchy are defined first so the design is not just attractive, but effective.",
     },
     {
         number: "03",
-        title: "Built with detail and intention",
-        text: "I care about the small decisions too — spacing, responsiveness, structure, and consistency — because those details shape how premium the final result feels.",
+        title: "Detail That Holds Together",
+        text: "Spacing, responsiveness, and consistency are handled carefully so the final result feels more considered.",
     },
     {
         number: "04",
-        title: "Focused work without unnecessary noise",
-        text: "The aim is to make the whole experience feel organised and considered, without bloated process, confusion, or things that do not move the project forward.",
+        title: "Focused Work, No Extra Noise",
+        text: "The aim is to keep the project organised, clear, and moving forward without unnecessary clutter.",
     },
 ];
 
@@ -115,11 +115,17 @@ const AboutWork = () => {
                 <div className="aboutwork__grid">
                     <div className="aboutwork__visual">
                         <div className="aboutwork__image-card">
-                            <img
-                                src={workImage}
-                                alt="Process and workflow visual"
-                                className="aboutwork__image"
-                                draggable="false"
+                            <video
+                                className="aboutwork__video"
+                                src={workVideo}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                preload="auto"
+                                onCanPlay={(e) => {
+                                    e.currentTarget.play().catch(() => { });
+                                }}
                             />
                         </div>
                     </div>
@@ -140,7 +146,7 @@ const AboutWork = () => {
 
                             <p className="subheading aboutwork__subtitle">
                                 The process is designed to feel clear, focused,
-                                and considered from the start, so every stage
+                                and considered from the start, so each stage
                                 builds naturally toward a stronger final result.
                             </p>
                         </div>

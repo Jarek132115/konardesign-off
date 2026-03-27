@@ -58,7 +58,7 @@
     box-sizing: border-box;
 }
 
-.aboutwork__image {
+.aboutwork__video {
     width: 100%;
     height: 100%;
     display: block;
@@ -202,8 +202,8 @@
 .aboutwork__card-title {
     margin: 0 0 10px;
     color: var(--black);
-    line-height: 1.15;
-    text-wrap: balance;
+    line-height: 1.12;
+    text-wrap: pretty;
 }
 
 .aboutwork__card-text {
@@ -300,6 +300,11 @@
 
     .aboutwork__number {
         align-self: center;
+    }
+
+    .aboutwork__card-title,
+    .aboutwork__card-text {
+        max-width: 100%;
     }
 
     .aboutwork__image-card {

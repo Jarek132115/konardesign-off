@@ -15,25 +15,25 @@ const approachItems = [
         id: "clarity",
         icon: strategyIcon,
         title: "Clarity Before Decoration",
-        text: "Structure, hierarchy, and messaging need to make sense before visuals take over.",
+        text: "Structure, hierarchy, and messaging are defined first so the site feels clear before visual styling takes over.",
     },
     {
         id: "useful",
         icon: uxIcon,
         title: "Useful, Not Just Attractive",
-        text: "The work should look strong, but also feel easier to use and understand.",
+        text: "The work should feel strong visually, while also being easier to use, understand, and more valuable over time.",
     },
     {
         id: "process",
         icon: figmaIcon,
         title: "Direction Before Design",
-        text: "I get clear on the goal, audience, and flow before shaping the design.",
+        text: "I define the goal, audience, and flow first, then shape the design around what actually needs attention.",
     },
     {
         id: "result",
         icon: responsiveIcon,
         title: "A Result That Holds Together",
-        text: "The final website should feel considered across design, structure, and responsiveness.",
+        text: "The final website feels consistent across structure, design, and responsiveness, not just one polished screen.",
     },
 ];
 
