@@ -14,7 +14,7 @@ const contactCards = [
         label: "Email",
         title: "Prefer email? Send over the details",
         description:
-            "Share your project, goals, or current situation and I will come back with clear next steps.",
+            "Share your project, goals, or current situation and I will come back with clear, practical next steps.",
         actionLabel: "hello@konardesign.com",
         href: "mailto:hello@konardesign.com",
     },
@@ -138,8 +138,8 @@ const BookingSection = () => {
         });
 
         const wordSpans = titleEl.querySelectorAll(".booking__title-word");
-        const highlightSet = new Set(["time", "you"]);
-
+        const highlightSet = new Set(["your", "project"]);
+        
         wordSpans.forEach((wordSpan) => {
             const cleaned = wordSpan.textContent
                 .replace(/[^\w-]/g, "")
@@ -263,17 +263,15 @@ const BookingSection = () => {
         <section className="booking" ref={sectionRef}>
             <div className="booking__inner">
                 <header className="booking__header">
-                    <p className="eyebrow booking__eyebrow">Book a discovery call</p>
+                    <p className="eyebrow booking__eyebrow">Contact</p>
 
                     <h1 className="heading1 booking__title">
-                        Choose a time that works best for you.
+                        Let’s Talk About Your Project
                     </h1>
 
                     <p className="subheading booking__subtitle">
-                        Schedule a 30-minute call and we will talk through your
-                        goals, challenges, and what you are looking to build.
-                        Whether you prefer booking directly, emailing first, or
-                        reaching out another way, everything you need is here.
+                        Whether you are starting fresh or improving what you already
+                        have, we can work out the right next step clearly.
                     </p>
                 </header>
 
@@ -327,7 +325,7 @@ const BookingSection = () => {
                                     <div className="booking__quick-item">
                                         <span className="booking__quick-key">Response</span>
                                         <span className="booking__quick-value">
-                                            1 hour - 24 hours
+                                            Within 24 hours
                                         </span>
                                     </div>
 
