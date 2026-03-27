@@ -21,13 +21,12 @@ const projects = [
         year: "2025–2026",
         title: "KonarCard Website Design & Development",
         description:
-            "Designed and built to clearly communicate value, support user flow, and drive meaningful conversion.",
+            "Designed and built to communicate value clearly, support user flow, and drive conversion.",
         tags: [
             "UX Strategy",
             "UX Design",
             "Web Design",
             "Frontend Development",
-            "Responsive Design",
         ],
         media: konarVideo,
         route: "/projects/konarcard",
@@ -39,13 +38,12 @@ const projects = [
         year: "2026",
         title: "A New E-Commerce Project Is On The Way",
         description:
-            "A new build focused on stronger product storytelling, clearer user flow, and a more refined online shopping experience.",
+            "A new build focused on clearer product storytelling, improved user flow, and a more refined e-commerce experience.",
         tags: [
             "E-Commerce Design",
             "Conversion Focus",
             "Product Strategy",
             "Responsive Build",
-            "Coming Soon",
         ],
         media: ecommerceVideo,
         route: "",
@@ -211,8 +209,8 @@ const ProjectCard = ({ project, navigate }) => {
                     <div
                         ref={pillRef}
                         className={`projects-row__hover-pill ${project.isComingSoon
-                                ? "projects-row__hover-pill--soon"
-                                : ""
+                            ? "projects-row__hover-pill--soon"
+                            : ""
                             }`}
                         aria-hidden="true"
                     >
@@ -302,13 +300,14 @@ const ProjectsSection = () => {
                     <p className="eyebrow projects__eyebrow">MY WORK</p>
 
                     <h2 className="heading2 projects__title">
-                        A Look at Some of My{" "}
-                        <span className="projects__highlight">Best Work</span>
+                        Selected{" "}
+                        <span className="projects__highlight">Work</span>
                     </h2>
 
                     <p className="subheading projects__subtitle">
-                        A selection of websites I’ve designed and built, focused
-                        on clarity, performance, and real business results.
+                        A selection of projects where strategy, design, and
+                        development come together to create clear,
+                        high-performing websites.
                     </p>
                 </header>
 

@@ -45,7 +45,7 @@ const conversionItems = [
             { text: " from the start.", highlight: false },
         ],
         description:
-            "Clean code, responsive structure, and SEO-aware decisions ensure the site performs well after launch, not just on day one.",
+            "Clean code, responsive structure, and SEO-aware decisions ensure the site performs properly after launch.",
         image: conversionImage3,
     },
     {
@@ -178,7 +178,9 @@ const Conversion = () => {
                     </h2>
 
                     <p className="subheading conversion__subtitle">
-                        Every project is built around the same core principles - focused on clarity, usability, and performance from the very beginning.
+                        Every project is built around the same core principles,
+                        focused on clarity, usability, and performance from the
+                        very beginning.
                     </p>
                 </header>
 
@@ -191,8 +193,8 @@ const Conversion = () => {
                             <article
                                 key={item.id}
                                 className={`conversion__card ${isDesktopReverse
-                                    ? "conversion__card--reverse"
-                                    : ""
+                                        ? "conversion__card--reverse"
+                                        : ""
                                     } ${isSingleColumnReverse
                                         ? "conversion__card--single-reverse"
                                         : ""
