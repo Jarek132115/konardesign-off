@@ -20,13 +20,12 @@ const projects = [
         year: "2025–2026",
         title: "KonarCard Website Design & Development",
         description:
-            "Designed and built to clearly communicate value, support user flow, and drive meaningful conversion.",
+            "Designed and built to communicate value clearly, support user flow, and drive conversion.",
         tags: [
             "UX Strategy",
             "UX Design",
             "Web Design",
             "Frontend Development",
-            "Responsive Design",
         ],
         media: konarVideo,
         route: "/projects/konarcard",
@@ -38,13 +37,12 @@ const projects = [
         year: "2026",
         title: "A New E-Commerce Project Is On The Way",
         description:
-            "A new build focused on stronger product storytelling, clearer user flow, and a more refined online shopping experience.",
+            "A new build focused on clearer product storytelling, improved user flow, and a more refined e-commerce experience.",
         tags: [
             "E-Commerce Design",
             "Conversion Focus",
             "Product Strategy",
             "Responsive Build",
-            "Coming Soon",
         ],
         media: ecommerceVideo,
         route: "",
@@ -163,8 +161,8 @@ const ProjectCard = ({ project, navigate }) => {
                 <div
                     ref={cardRef}
                     className={`our-projects-row__card ${project.isComingSoon
-                            ? "our-projects-row__card--coming-soon"
-                            : ""
+                        ? "our-projects-row__card--coming-soon"
+                        : ""
                         } ${isPressed ? "our-projects-row__card--pressed" : ""}`}
                     role="button"
                     tabIndex={0}
@@ -212,8 +210,8 @@ const ProjectCard = ({ project, navigate }) => {
                     <div
                         ref={pillRef}
                         className={`our-projects-row__hover-pill ${project.isComingSoon
-                                ? "our-projects-row__hover-pill--soon"
-                                : ""
+                            ? "our-projects-row__hover-pill--soon"
+                            : ""
                             }`}
                         aria-hidden="true"
                     >
@@ -270,7 +268,7 @@ const OurProjects = () => {
         titleEl.textContent = "";
 
         const words = originalText.split(" ");
-        const highlightWords = ["selected", "project"];
+        const highlightWords = ["selected", "work"];
 
         words.forEach((word, wordIndex) => {
             const wordWrapper = document.createElement("span");
@@ -347,16 +345,21 @@ const OurProjects = () => {
             <main className="our-projects" ref={pageRef}>
                 <div className="our-projects__inner">
                     <header className="our-projects__header">
-                        <p className="eyebrow our-projects__eyebrow">MY WORK</p>
+                        <p className="eyebrow our-projects__eyebrow">
+                            SELECTED WORK
+                        </p>
 
                         <h1 className="heading1 our-projects__title">
-                            A Selected Project That Shows How I Build for Clarity
+                            Selected{" "}
+                            <span className="our-projects__title-word--indigo">
+                                Work
+                            </span>
                         </h1>
 
                         <p className="subheading our-projects__subtitle">
-                            A closer look at a website I designed and built to feel
-                            premium, communicate clearly, and support real business
-                            growth through thoughtful structure and performance.
+                            A selection of projects where strategy, design, and
+                            development come together to create clear,
+                            high-performing websites.
                         </p>
                     </header>
 

@@ -12,17 +12,17 @@ const AboutCTA = () => {
                     <p className="eyebrow aboutcta__eyebrow">NEXT STEP</p>
 
                     <h2 className="heading2 aboutcta__title">
-                        If You Want a Website That Feels Better and{" "}
+                        If You Want a Website That{" "}
                         <span className="aboutcta__highlight">
-                            Performs Better
+                            Actually Works Properly
                         </span>
                         , Let’s Talk
                     </h2>
 
                     <p className="subheading aboutcta__subtitle">
-                        Whether you are starting from scratch or improving an
-                        existing site, we can work out the right direction
-                        together.
+                        If you are planning a new site or improving what you
+                        already have, we can go through your situation and work
+                        out the right next step.
                     </p>
 
                     <div className="aboutcta__actions">
@@ -30,7 +30,7 @@ const AboutCTA = () => {
                             className="btn btn--indigo"
                             onClick={() => navigate("/book-a-call")}
                         >
-                            Book a Call
+                            Contact Me
                         </button>
 
                         <button
