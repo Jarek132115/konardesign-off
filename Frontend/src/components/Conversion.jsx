@@ -17,11 +17,11 @@ const conversionItems = [
         eyebrow: "Strategy",
         titleParts: [
             { text: "Start with the ", highlight: false },
-            { text: "right people", highlight: true },
-            { text: " in mind.", highlight: false },
+            { text: "right direction", highlight: true },
+            { text: ".", highlight: false },
         ],
         description:
-            "Structure and messaging are shaped around the audience you want to reach, so the website feels clearer and easier to trust.",
+            "The structure, audience, and goals are defined first, so the site has a solid foundation to build on.",
         image: conversionImage1,
     },
     {
@@ -30,34 +30,34 @@ const conversionItems = [
         titleParts: [
             { text: "Guide ", highlight: false },
             { text: "attention", highlight: true },
-            { text: " and reduce hesitation.", highlight: false },
+            { text: ". Reduce hesitation.", highlight: false },
         ],
         description:
-            "Layout, hierarchy, and calls to action are designed to make next steps feel natural and easier to take.",
+            "Layout, hierarchy, and calls to action are used intentionally so users always know where to look and what to do next.",
         image: conversionImage2,
     },
     {
         id: "performance",
         eyebrow: "Performance",
         titleParts: [
-            { text: "Build for ", highlight: false },
-            { text: "speed", highlight: true },
-            { text: " and visibility.", highlight: false },
+            { text: "Build it ", highlight: false },
+            { text: "properly", highlight: true },
+            { text: " from the start.", highlight: false },
         ],
         description:
-            "Technical structure, responsive execution, and SEO-aware decisions help the site perform properly after launch.",
+            "Clean code, responsive structure, and SEO-aware decisions ensure the site performs well after launch, not just on day one.",
         image: conversionImage3,
     },
     {
         id: "experience",
         eyebrow: "Experience",
         titleParts: [
-            { text: "Create less ", highlight: false },
+            { text: "Remove ", highlight: false },
             { text: "friction", highlight: true },
-            { text: " and more flow.", highlight: false },
+            { text: ". Improve flow.", highlight: false },
         ],
         description:
-            "Clear journeys and thoughtful layouts help people understand what matters and what to do next without confusion.",
+            "Clear journeys and thoughtful layouts help users move through the site naturally without confusion or drop-off.",
         image: conversionImage4,
     },
 ];
@@ -104,7 +104,7 @@ const Conversion = () => {
             });
 
             const wordSpans = titleEl.querySelectorAll(".conversion__title-word");
-            const highlightSet = new Set(["Conversion", "Performance"]);
+            const highlightSet = new Set(["4", "Principles"]);
 
             wordSpans.forEach((wordSpan) => {
                 const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
@@ -113,7 +113,9 @@ const Conversion = () => {
                 }
             });
 
-            const charSpans = titleEl.querySelectorAll(".conversion__title-word span");
+            const charSpans = titleEl.querySelectorAll(
+                ".conversion__title-word span"
+            );
 
             gsap.set(subtitleEl, { opacity: 0, y: 8 });
             gsap.set(cards, { opacity: 0, y: 22 });
@@ -169,18 +171,14 @@ const Conversion = () => {
         <section className="conversion" ref={sectionRef}>
             <div className="conversion__inner">
                 <header className="conversion__header">
-                    <p className="eyebrow conversion__eyebrow">
-                        CONVERSION FOCUSED
-                    </p>
+                    <p className="eyebrow conversion__eyebrow">HOW I BUILD</p>
 
                     <h2 className="heading2 conversion__title">
-                        Conversion and Performance Built In From the Start.
+                        4 Principles I Apply in Every Project
                     </h2>
 
                     <p className="subheading conversion__subtitle">
-                        Strategy, UX, structure, and technical execution work
-                        together to create websites that not only look sharp,
-                        but help move people towards action.
+                        Every project is built around the same core principles - focused on clarity, usability, and performance from the very beginning.
                     </p>
                 </header>
 
@@ -192,7 +190,9 @@ const Conversion = () => {
                         return (
                             <article
                                 key={item.id}
-                                className={`conversion__card ${isDesktopReverse ? "conversion__card--reverse" : ""
+                                className={`conversion__card ${isDesktopReverse
+                                    ? "conversion__card--reverse"
+                                    : ""
                                     } ${isSingleColumnReverse
                                         ? "conversion__card--single-reverse"
                                         : ""

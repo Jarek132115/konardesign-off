@@ -148,19 +148,14 @@ const IntroSection = () => {
         <section className="intro" ref={sectionRef}>
             <div className="intro__container">
                 <div className="intro__left" ref={leftRef}>
-                    <p className="eyebrow intro__eyebrow">WHY KONARDESIGN</p>
+                    <p className="eyebrow intro__eyebrow">WHAT I DO</p>
 
                     <h2 className="intro__headline heading2">
-                        Strategy. Design. Performance. Led with clarity from
-                        start to finish.
+                        Strategy. Design. Performance. Built with clarity from start to finish.
                     </h2>
 
                     <p className="intro__subheading subheading">
-                        I lead each project across strategy, design, and
-                        development—creating websites that look sharp, feel
-                        seamless, and support real business goals. When needed,
-                        I bring in trusted collaborators without losing clarity
-                        or consistency.
+                        I take projects from early direction through to design and development, making sure everything is structured properly, easy to use, and built to perform. The goal is simple - create websites that not only look good, but actually work.
                     </p>
                 </div>
 
@@ -170,9 +165,7 @@ const IntroSection = () => {
                             Design &amp; UX
                         </h3>
                         <p className="intro__item-text body">
-                            Clear layouts, strong visual direction, and
-                            user-focused design that helps people trust, engage,
-                            and convert.
+                            Clear layouts, strong hierarchy, and user-focused design that makes content easy to understand and actions easy to take.
                         </p>
                         <div className="intro__icons-row">
                             <span className="intro__icon">
@@ -195,9 +188,7 @@ const IntroSection = () => {
                             Development &amp; Build
                         </h3>
                         <p className="intro__item-text body">
-                            Custom-built websites focused on responsiveness,
-                            clean execution, and a polished experience across
-                            every screen size.
+                            Fast, responsive websites built with clean code and a focus on long-term scalability across all devices.
                         </p>
                         <div className="intro__icons-row">
                             <span className="intro__icon">
@@ -217,9 +208,7 @@ const IntroSection = () => {
                             Performance &amp; Visibility
                         </h3>
                         <p className="intro__item-text body">
-                            Fast-loading pages, strong structure, and SEO-aware
-                            decisions that help your website perform better
-                            after launch, not just look good on day one.
+                            Strong structure, fast load times, and SEO-aware decisions that help your website perform properly after launch.
                         </p>
                         <div className="intro__icons-row">
                             <span className="intro__icon">
@@ -235,8 +224,7 @@ const IntroSection = () => {
                     </div>
 
                     <p className="intro__bottom-text">
-                        One clear lead. One consistent vision. No bloated
-                        process.
+                        One clear direction. One consistent build. No unnecessary complexity.
                     </p>
                 </div>
             </div>
