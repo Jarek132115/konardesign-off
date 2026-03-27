@@ -169,8 +169,9 @@
 .aboutapproach__card-title {
     margin: 0 0 10px;
     color: var(--black);
-    line-height: 1.15;
-    text-wrap: balance;
+    line-height: 1.12;
+    max-width: 240px;
+    text-wrap: pretty;
 }
 
 .aboutapproach__card-text {
@@ -200,7 +201,7 @@
     box-sizing: border-box;
 }
 
-.aboutapproach__image {
+.aboutapproach__video {
     width: 100%;
     height: 100%;
     display: block;
@@ -294,6 +295,10 @@
         flex: 0 0 clamp(300px, 58vw, 380px);
         width: clamp(300px, 58vw, 380px);
         min-height: 248px;
+    }
+
+    .aboutapproach__card-title {
+        max-width: 100%;
     }
 }
 

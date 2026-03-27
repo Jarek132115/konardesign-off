@@ -53,18 +53,16 @@ const AboutHero = () => {
                         <p className="eyebrow abouthero__eyebrow">ABOUT ME</p>
 
                         <h1 className="heading1 abouthero__title">
-                            I Design and Build{" "}
+                            I Don’t Just Design{" "}
                             <span className="abouthero__highlight">Websites</span>{" "}
-                            That Feel{" "}
-                            <span className="abouthero__highlight">Premium</span>{" "}
-                            and <span className="abouthero__highlight">Work</span>{" "}
-                            Properly
+                            - I Build Them{" "}
+                            <span className="abouthero__highlight">Properly</span>
                         </h1>
 
                         <p className="subheading abouthero__subtitle">
-                            I focus on clarity, performance, and structure,
-                            creating digital experiences that are not just
-                            visually strong, but actually support growth.
+                            I’m Jarek - a UI/UX focused designer and developer
+                            creating websites that are structured properly,
+                            perform well, and support real business goals.
                         </p>
 
                         <div className="abouthero__actions">

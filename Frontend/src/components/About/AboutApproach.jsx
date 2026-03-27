@@ -6,7 +6,7 @@ import uxIcon from "../../assets/icons/ux.svg";
 import figmaIcon from "../../assets/icons/Figma.svg";
 import responsiveIcon from "../../assets/icons/responsive.svg";
 
-import approachImage from "../../assets/images/ProjectStep1-Image5.jpg";
+import approachVideo from "../../assets/videos/Custom1.mp4";
 
 const DRAG_THRESHOLD = 6;
 
@@ -14,26 +14,26 @@ const approachItems = [
     {
         id: "clarity",
         icon: strategyIcon,
-        title: "Clarity Before Visual Noise",
-        text: "Remove confusion first and make sure the structure, hierarchy, and communication are doing their job before anything decorative takes over.",
+        title: "Clarity Before Decoration",
+        text: "Structure, hierarchy, and messaging need to make sense before visuals take over.",
     },
     {
         id: "useful",
         icon: uxIcon,
         title: "Useful, Not Just Attractive",
-        text: "The work should feel strong visually, but also easier to use, easier to understand, and more valuable over time.",
+        text: "The work should look strong, but also feel easier to use and understand.",
     },
     {
         id: "process",
         icon: figmaIcon,
-        title: "Process With Intention",
-        text: "I begin with direction and strategy first, then shape the design around what matters most and how attention should flow.",
+        title: "Direction Before Design",
+        text: "I get clear on the goal, audience, and flow before shaping the design.",
     },
     {
         id: "result",
         icon: responsiveIcon,
-        title: "A Premium Result That Holds Together",
-        text: "The final build should feel considered, premium, and aligned across structure, design, and responsiveness — not just one polished screen.",
+        title: "A Result That Holds Together",
+        text: "The final website should feel considered across design, structure, and responsiveness.",
     },
 ];
 
@@ -131,7 +131,7 @@ const AboutApproach = () => {
 
                         <div className="aboutapproach__intro">
                             <h2 className="heading2 aboutapproach__title">
-                                I Am Interested in the{" "}
+                                I Care About the{" "}
                                 <span className="aboutapproach__highlight">
                                     Full Build
                                 </span>
@@ -140,9 +140,9 @@ const AboutApproach = () => {
 
                             <p className="subheading aboutapproach__subtitle">
                                 Good websites do more than look polished. They
-                                need clear structure, better communication, and
-                                a considered journey that helps the brand feel
-                                stronger and the product easier to understand.
+                                need clear structure, stronger communication,
+                                and a considered journey that makes the product
+                                easier to understand and use.
                             </p>
                         </div>
 
@@ -180,11 +180,17 @@ const AboutApproach = () => {
 
                     <div className="aboutapproach__visual">
                         <div className="aboutapproach__image-card">
-                            <img
-                                src={approachImage}
-                                alt="Website planning and structure visual"
-                                className="aboutapproach__image"
-                                draggable="false"
+                            <video
+                                className="aboutapproach__video"
+                                src={approachVideo}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                preload="auto"
+                                onCanPlay={(e) => {
+                                    e.currentTarget.play().catch(() => { });
+                                }}
                             />
                         </div>
                     </div>
