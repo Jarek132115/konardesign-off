@@ -12,49 +12,49 @@ const steps = [
     {
         id: "discovery",
         number: "STEP 1",
-        title: "Starting with clarity on goals and direction.",
+        title: "Define the goals and direction.",
         subtitle:
-            "The process begins with focused discussion around what you want to build, what success looks like, and what the website needs to achieve from the start.",
+            "We start by getting clear on what the site needs to achieve, who it is for, and what a strong outcome looks like.",
         image: process1,
     },
     {
         id: "strategy",
         number: "STEP 2",
-        title: "Researching the market and planning the scope.",
+        title: "Research the market and shape the scope.",
         subtitle:
-            "Competitor research, audience thinking, and project scope are mapped out properly so the direction is clear before design and development begin.",
+            "Competitor research, audience thinking, and project scope are mapped out properly so the direction is clear before design begins.",
         image: process2,
     },
     {
         id: "ux",
         number: "STEP 3",
-        title: "Planning the full journey, structure, and SEO.",
+        title: "Plan the structure, journey, and SEO.",
         subtitle:
-            "User journeys, sitemap direction, layout planning, and SEO thinking are shaped together so the experience feels structured and purposeful.",
+            "User flow, page structure, layout planning, and SEO foundations are shaped together so the experience feels clear and purposeful.",
         image: process3,
     },
     {
         id: "design",
         number: "STEP 4",
-        title: "Designing the full responsive visual experience.",
+        title: "Design the full responsive interface.",
         subtitle:
-            "Wireframes, visual design, and responsive decisions are refined carefully so the final interface feels premium across every screen size.",
+            "Wireframes, visual design, and responsive decisions are refined carefully so the final interface works seamlessly across every screen size.",
         image: process4,
     },
     {
         id: "build",
         number: "STEP 5",
-        title: "Developing a fast, scalable, properly built website.",
+        title: "Build the site properly.",
         subtitle:
-            "The site is built cleanly with performance, structure, and long-term scalability in mind so it launches properly and is easy to improve later.",
+            "Development is handled with performance, clean structure, responsiveness, and long-term scalability in mind from the start.",
         image: process5,
     },
     {
         id: "optimisation",
         number: "STEP 6",
-        title: "Adding analytics, auditing performance, and optimisation.",
+        title: "Launch, track, and improve.",
         subtitle:
-            "Tracking, analytics, ranking checks, performance auditing, and final launch optimisation are handled properly so the site is ready to perform after release.",
+            "Analytics, audits, and final optimisation ensure the site is ready to perform properly after release.",
         image: process6,
     },
 ];
@@ -64,24 +64,23 @@ const ProcessSection = () => {
         <section className="home-process">
             <div className="home-process__inner">
                 <header className="home-process__header">
-                    <p className="eyebrow home-process__eyebrow">HOW I BUILD</p>
+                    <p className="eyebrow home-process__eyebrow">HOW I WORK</p>
 
                     <h2 className="heading2 home-process__title">
-                        My{" "}
+                        From{" "}
                         <span className="home-process__title-highlight">
-                            Process
-                        </span>
-                        .{" "}
-                        <span className="home-process__title-highlight">
-                            Built
+                            Direction
                         </span>{" "}
-                        from Start to Finish.
+                        to{" "}
+                        <span className="home-process__title-highlight">
+                            Build
+                        </span>
+                        .
                     </h2>
 
                     <p className="subheading home-process__subtitle">
-                        A clear step by step approach that takes each project
-                        from early direction and planning through to design,
-                        development, launch, and optimisation.
+                        A clear, structured process that takes each project from
+                        early direction through to design, development, and launch.
                     </p>
                 </header>
 
