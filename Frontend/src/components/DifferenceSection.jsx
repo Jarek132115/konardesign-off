@@ -7,25 +7,25 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const proChips = [
-    "Strategy-first UX design",
+    "Strategy-first UX",
     "Custom UI, no templates",
-    "Fast, SEO-ready builds",
+    "Fast, SEO-ready build",
     "Conversion-focused layout",
-    "Scalable CMS system",
+    "Scalable CMS setup",
     "Clean, modular code",
     "Analytics built in",
-    "Future-proof development",
+    "Easy to improve later",
 ];
 
 const cheapChips = [
     "Reused generic templates",
-    "No real UX strategy",
+    "No UX strategy",
     "Slow performance",
-    "No SEO structure",
+    "Weak SEO structure",
     "Brittle hard-coded layouts",
-    "No analytics tracking",
+    "No analytics setup",
     "Hard to scale or update",
-    "Requires full rebuild later",
+    "Expensive to fix later",
 ];
 
 const DifferenceSection = () => {
@@ -106,32 +106,31 @@ const DifferenceSection = () => {
                     </p>
 
                     <h2 className="heading2 difference__title">
-                        The Difference Between{" "}
-                        <span className="difference__highlight">Looks Nice</span>{" "}
-                        and Actually{" "}
+                        The Difference Between Good and{" "}
                         <span className="difference__highlight">
-                            Drives Growth
+                            Properly Built
                         </span>
                     </h2>
 
                     <p className="subheading difference__subtitle">
-                        Most websites look good at first glance. Under the surface,
-                        they are slow, hard to scale, and expensive to fix later.
+                        A lot of websites look fine at first glance, but
+                        underneath they are slow, hard to scale, and expensive
+                        to fix later.
                     </p>
                 </header>
 
                 <div className="difference__grid">
                     <article className="difference__card">
                         <div className="difference__badge difference__badge--pro">
-                            Professional build
+                            Built properly
                         </div>
 
                         <h3 className="heading4 difference__card-title">
-                            Built for Growth
+                            Built to perform and scale
                         </h3>
 
                         <p className="body difference__card-subtitle">
-                            Structured properly from the beginning
+                            Clear foundations from the start
                         </p>
 
                         <div className="difference__chips">
@@ -148,11 +147,11 @@ const DifferenceSection = () => {
 
                     <article className="difference__card">
                         <div className="difference__badge difference__badge--cheap">
-                            Cheap or random build
+                            Poorly built
                         </div>
 
                         <h3 className="heading4 difference__card-title">
-                            Looks Fine Until It Costs You
+                            Looks fine, breaks later
                         </h3>
 
                         <p className="body difference__card-subtitle">
