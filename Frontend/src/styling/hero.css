@@ -46,7 +46,7 @@
 }
 
 .hero__inner {
-    max-width: 1200px;
+    max-width: 1280px;
     margin: 0 auto 48px;
 }
 
@@ -57,7 +57,7 @@
 /* H1 */
 .hero__title {
     margin: 8px auto 16px;
-    max-width: 1000px;
+    max-width: 1120px;
     white-space: normal;
 }
 
@@ -75,7 +75,6 @@
     padding-right: 0;
     box-sizing: border-box;
 
-    /* bigger on desktop / laptop */
     font-size: clamp(17px, 0.38vw + 0.95rem, 21px);
     line-height: 1.62;
 }
@@ -131,21 +130,37 @@
 }
 
 /* --------------------------------------------------------- */
+/* LARGE DESKTOP (1201px+)                                   */
+/* --------------------------------------------------------- */
+
+@media (min-width: 1201px) {
+    .hero {
+        padding: 100px 28px 80px;
+    }
+
+    .hero__title {
+        max-width: 1160px;
+    }
+}
+
+/* --------------------------------------------------------- */
 /* BIG TABLET / LAPTOP (801–1200px)                          */
 /* --------------------------------------------------------- */
 
 @media (min-width: 801px) and (max-width: 1200px) {
     .hero {
-        padding: 110px 40px 95px;
+        padding: 110px 32px 95px;
     }
 
     .hero__inner {
+        max-width: 1240px;
         margin-bottom: 60px;
     }
 
     .hero__title {
         font-size: clamp(48px, 4.6vw, 60px);
         line-height: 1.08;
+        max-width: 1080px;
     }
 
     .hero__subheading {
@@ -156,13 +171,11 @@
         line-height: 1.62;
     }
 
-    /* pill bigger on tablet */
     .hero__pill {
         font-size: 15px;
         padding: 9px 18px;
     }
 
-    /* about 2 cards visible */
     .hero__card {
         flex: 0 0 clamp(360px, 42vw, 460px);
         width: clamp(360px, 42vw, 460px);
@@ -194,13 +207,11 @@
         line-height: 1.6;
     }
 
-    /* keep pill good on mobile */
     .hero__pill {
         font-size: 12px;
         padding: 7px 12px;
     }
 
-    /* about 1.5 visible cards */
     .hero__card {
         flex: 0 0 68vw;
         width: 68vw;
@@ -262,13 +273,10 @@
         max-width: 700px;
         padding-left: 28px;
         padding-right: 28px;
-
-        /* keep tablet exactly like you liked it */
         font-size: inherit;
         line-height: 1.6;
     }
 
-    /* pill bigger on tablet */
     .hero__pill {
         font-size: 15px;
         padding: 9px 18px;
@@ -278,7 +286,6 @@
         margin-bottom: 56px;
     }
 
-    /* about 2 cards visible */
     .hero__card {
         flex: 0 0 43vw;
         width: 43vw;

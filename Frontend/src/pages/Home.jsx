@@ -78,7 +78,7 @@ const Home = () => {
         titleEl.textContent = "";
 
         const words = originalText.split(" ");
-        const highlightWords = ["websites", "performance", "growth"];
+        const highlightWords = ["websites", "perform", "scale", "convert"];
 
         words.forEach((word, wordIndex) => {
             const wordWrapper = document.createElement("span");
@@ -378,23 +378,29 @@ const Home = () => {
                         </div>
 
                         <h1 className="heading1 hero__title">
-                            Custom Websites Built for Performance, Speed &amp; Growth
+                            I Design and Build User-Centred Websites That
+                            Perform, Scale, and Convert
                         </h1>
 
                         <p className="hero__subheading subheading">
-                            Strategy led websites designed and developed by me from start to launch to look sharp, perform fast, and drive real results.
+                            I’m Jarek, a UI/UX focused designer and developer
+                            creating fast, structured, and conversion-driven
+                            websites from strategy to launch.
                         </p>
 
                         <div className="hero__buttons">
-                            <button className="btn btn--indigo">
-                                Start a Project
+                            <button
+                                className="btn btn--indigo"
+                                onClick={() => navigate("/book-a-call")}
+                            >
+                                Contact Me
                             </button>
 
                             <button
                                 className="btn btn--white"
                                 onClick={() => navigate("/projects")}
                             >
-                                View My Work
+                                My Work
                             </button>
                         </div>
                     </section>
