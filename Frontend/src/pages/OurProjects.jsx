@@ -161,8 +161,8 @@ const ProjectCard = ({ project, navigate }) => {
                 <div
                     ref={cardRef}
                     className={`our-projects-row__card ${project.isComingSoon
-                        ? "our-projects-row__card--coming-soon"
-                        : ""
+                            ? "our-projects-row__card--coming-soon"
+                            : ""
                         } ${isPressed ? "our-projects-row__card--pressed" : ""}`}
                     role="button"
                     tabIndex={0}
@@ -210,8 +210,8 @@ const ProjectCard = ({ project, navigate }) => {
                     <div
                         ref={pillRef}
                         className={`our-projects-row__hover-pill ${project.isComingSoon
-                            ? "our-projects-row__hover-pill--soon"
-                            : ""
+                                ? "our-projects-row__hover-pill--soon"
+                                : ""
                             }`}
                         aria-hidden="true"
                     >
@@ -268,7 +268,7 @@ const OurProjects = () => {
         titleEl.textContent = "";
 
         const words = originalText.split(" ");
-        const highlightWords = ["selected", "work"];
+        const highlightWords = ["work"];
 
         words.forEach((word, wordIndex) => {
             const wordWrapper = document.createElement("span");
@@ -350,10 +350,7 @@ const OurProjects = () => {
                         </p>
 
                         <h1 className="heading1 our-projects__title">
-                            Selected{" "}
-                            <span className="our-projects__title-word--indigo">
-                                Work
-                            </span>
+                            Selected Work
                         </h1>
 
                         <p className="subheading our-projects__subtitle">
