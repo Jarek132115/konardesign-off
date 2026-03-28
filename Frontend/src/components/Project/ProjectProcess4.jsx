@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import "../../styling/projects/project1/projectprocess4.css";
 
-import projectStep1Image1 from "../../assets/images/ProjectStep1-Image1.jpg";
-import projectStep1Image2 from "../../assets/images/ProjectStep1-Image2.jpg";
-import projectStep1Image3 from "../../assets/images/ProjectStep1-Image3.jpg";
-import projectStep1Image4 from "../../assets/images/ProjectStep1-Image4.jpg";
-import projectStep1Image5 from "../../assets/images/ProjectStep1-Image5.jpg";
-import projectStep1Image6 from "../../assets/images/ProjectStep1-Image6.jpg";
+import projectStep4Image1 from "../../assets/images/Step4-Image1.jpg";
+import projectStep4Image2 from "../../assets/images/Step4-Image2.jpg";
+import projectStep4Image3 from "../../assets/images/Step4-Image3.jpg";
+import projectStep4Image4 from "../../assets/images/Step4-Image4.jpg";
+import projectStep4Image5 from "../../assets/images/Step4-Image5.jpg";
+import projectStep4Image6 from "../../assets/images/Step4-Image6.jpg";
 
 import uxIcon from "../../assets/icons/ux.svg";
 import responsiveIcon from "../../assets/icons/responsive.svg";
@@ -16,37 +16,37 @@ import dataIcon from "../../assets/icons/data.svg";
 const DRAG_THRESHOLD = 6;
 
 const columnOneImages = [
-    projectStep1Image4,
-    projectStep1Image1,
-    projectStep1Image6,
+    projectStep4Image1,
+    projectStep4Image2,
+    projectStep4Image3,
 ];
 
 const columnTwoImages = [
-    projectStep1Image2,
-    projectStep1Image5,
-    projectStep1Image3,
+    projectStep4Image4,
+    projectStep4Image5,
+    projectStep4Image6,
 ];
 
 const processCards = [
     {
         icon: uxIcon,
-        title: "Refining Key User Journeys",
-        body: "Once the overall direction was established, the next step was tightening the experience around the moments that mattered most so users could move through the page with less friction and more confidence.",
-    },
-    {
-        icon: dataIcon,
-        title: "Improving Clarity In The Details",
-        body: "Small adjustments to layout, copy emphasis, and supporting content helped make the offer easier to understand, ensuring important information felt clearer without adding unnecessary complexity.",
+        title: "From Design to Development",
+        body: "Once the final UI was approved, the full website was built into a functional coded experience, making sure the design translated properly into a responsive and polished live product.",
     },
     {
         icon: speedIcon,
-        title: "Making Every Section Work Harder",
-        body: "Each section was reviewed to make sure it had a clear purpose, whether that meant building trust, explaining value, or supporting conversion, so the page felt more intentional from top to bottom.",
+        title: "Speed and Performance Optimisation",
+        body: "Performance was then refined through optimisation work so the site loaded faster, felt smoother to use, and supported a stronger overall user experience across devices.",
+    },
+    {
+        icon: dataIcon,
+        title: "SEO, Indexing, and Analytics Setup",
+        body: "The site was prepared properly for search by setting up SEO essentials, connecting Google Search Console, handling indexing, and putting analytics in place for ongoing tracking.",
     },
     {
         icon: responsiveIcon,
-        title: "Polishing Across Every Screen",
-        body: "Refinement did not stop at desktop. Spacing, hierarchy, and component behaviour were adjusted across breakpoints so the experience stayed controlled, premium, and consistent everywhere.",
+        title: "Final Checks and Completion",
+        body: "Before launch, everything was reviewed against a final checklist to ensure the site was complete, working correctly, and ready both technically and visually across the full experience.",
     },
 ];
 
@@ -149,7 +149,7 @@ const ProjectProcess4 = () => {
                                         >
                                             <img
                                                 src={image}
-                                                alt={`Project refinement visual ${index + 1}`}
+                                                alt={`Project development visual ${index + 1}`}
                                                 className="project-process__image"
                                                 draggable="false"
                                             />
@@ -167,7 +167,7 @@ const ProjectProcess4 = () => {
                                         >
                                             <img
                                                 src={image}
-                                                alt={`Project polish reference ${index + 1}`}
+                                                alt={`Project optimisation reference ${index + 1}`}
                                                 className="project-process__image"
                                                 draggable="false"
                                             />
@@ -185,21 +185,22 @@ const ProjectProcess4 = () => {
 
                         <div className="project-process__intro">
                             <h2 className="heading2 project-process__title">
-                                Refinement and Experience Polish
+                                Development, Setup, and Final QA
                             </h2>
 
                             <p className="subheading project-process__subtitle">
-                                After the core structure and visual direction were in place,
-                                the focus shifted to refinement making the experience feel
-                                smoother, clearer, and more considered in the details that
-                                shape how polished the final product feels.
+                                Once the design work was complete, the focus shifted to
+                                building the site properly, optimising performance,
+                                setting up SEO and analytics, and reviewing everything
+                                through a final checklist so the website was fully ready
+                                to launch.
                             </p>
                         </div>
 
                         <div
                             className="project-process__cards-scroll"
                             ref={scrollerRef}
-                            aria-label="Scrollable refinement cards"
+                            aria-label="Scrollable development and optimisation cards"
                         >
                             <div className="project-process__cards-track">
                                 {processCards.map((card) => (

@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import "../../styling/projects/project1/projectprocess3.css";
 
-import projectStep1Image1 from "../../assets/images/ProjectStep1-Image1.jpg";
-import projectStep1Image2 from "../../assets/images/ProjectStep1-Image2.jpg";
-import projectStep1Image3 from "../../assets/images/ProjectStep1-Image3.jpg";
-import projectStep1Image4 from "../../assets/images/ProjectStep1-Image4.jpg";
-import projectStep1Image5 from "../../assets/images/ProjectStep1-Image5.jpg";
-import projectStep1Image6 from "../../assets/images/ProjectStep1-Image6.jpg";
+import projectStep3Image1 from "../../assets/images/Step3-Image1.jpg";
+import projectStep3Image2 from "../../assets/images/Step3-Image2.jpg";
+import projectStep3Image3 from "../../assets/images/Step3-Image3.jpg";
+import projectStep3Image4 from "../../assets/images/Step3-Image4.jpg";
+import projectStep3Image5 from "../../assets/images/Step3-Image5.jpg";
+import projectStep3Image6 from "../../assets/images/Step3-Image6.jpg";
 
 import figmaIcon from "../../assets/icons/Figma.svg";
 import uxIcon from "../../assets/icons/ux.svg";
@@ -16,37 +16,37 @@ import conversionIcon from "../../assets/icons/conversiondriven.svg";
 const DRAG_THRESHOLD = 6;
 
 const columnOneImages = [
-    projectStep1Image3,
-    projectStep1Image5,
-    projectStep1Image1,
+    projectStep3Image1,
+    projectStep3Image2,
+    projectStep3Image3,
 ];
 
 const columnTwoImages = [
-    projectStep1Image2,
-    projectStep1Image6,
-    projectStep1Image4,
+    projectStep3Image4,
+    projectStep3Image5,
+    projectStep3Image6,
 ];
 
 const processCards = [
     {
         icon: figmaIcon,
-        title: "Building A More Premium Look",
-        body: "The visual direction needed to feel sharper and more deliberate than a typical startup site, so the design leaned into stronger typography, cleaner spacing, and a more controlled presentation throughout.",
-    },
-    {
-        icon: conversionIcon,
-        title: "Using Contrast To Guide Attention",
-        body: "Colour, contrast, and emphasis were used carefully to highlight key moments on the page, helping calls to action, pricing areas, and important content feel easier to spot without overwhelming the layout.",
+        title: "Visual System and Brand Choices",
+        body: "At this stage, the focus shifted to choosing the final colour palette, font direction, and overall visual system so the site felt clearer, more premium, and more consistent.",
     },
     {
         icon: uxIcon,
-        title: "Making The Product Feel Distinct",
-        body: "The visual language was shaped to make KonarCard feel more established and more specific to its category, helping the brand stand apart from generic SaaS or template driven competitors.",
+        title: "Wireframes into Full UI Design",
+        body: "Wireframes were used to shape the structure first, then developed into full interface designs that balanced clarity, hierarchy, and a stronger presentation of the product.",
     },
     {
         icon: responsiveIcon,
-        title: "Keeping The Experience Consistent",
-        body: "Every design choice had to work across desktop, tablet, and mobile so the brand felt consistent everywhere, not just in polished mockups or isolated screen designs.",
+        title: "Designing Across Every Screen",
+        body: "The website was designed across desktop, tablet, and mobile to make sure the experience stayed consistent, usable, and visually strong at every screen size.",
+    },
+    {
+        icon: conversionIcon,
+        title: "Supporting Graphic Design",
+        body: "Additional graphic design work helped strengthen the visual identity of the site, supporting the product presentation and making the final experience feel more polished and complete.",
     },
 ];
 
@@ -145,14 +145,15 @@ const ProjectProcess3 = () => {
 
                         <div className="project-process__intro">
                             <h2 className="heading2 project-process__title">
-                                Visual Direction and Brand Feel
+                                Visual Direction and Design System
                             </h2>
 
                             <p className="subheading project-process__subtitle">
-                                Once the structure was in place, the focus shifted to how
-                                the site should feel visually bold enough to stand out,
-                                clear enough to guide users, and polished enough to make
-                                the product feel more established.
+                                With the structure in place, the next stage was
+                                developing the final visual direction through colour,
+                                typography, wireframes, and full responsive UI design
+                                so the website felt polished, consistent, and ready
+                                across every screen.
                             </p>
                         </div>
 
@@ -217,7 +218,7 @@ const ProjectProcess3 = () => {
                                         >
                                             <img
                                                 src={image}
-                                                alt={`Project brand feel reference ${index + 1}`}
+                                                alt={`Project design system reference ${index + 1}`}
                                                 className="project-process__image"
                                                 draggable="false"
                                             />

@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import "../../styling/projects/project1/projectprocess2.css";
 
-import projectStep1Image1 from "../../assets/images/ProjectStep1-Image1.jpg";
-import projectStep1Image2 from "../../assets/images/ProjectStep1-Image2.jpg";
-import projectStep1Image3 from "../../assets/images/ProjectStep1-Image3.jpg";
-import projectStep1Image4 from "../../assets/images/ProjectStep1-Image4.jpg";
-import projectStep1Image5 from "../../assets/images/ProjectStep1-Image5.jpg";
-import projectStep1Image6 from "../../assets/images/ProjectStep1-Image6.jpg";
+import projectStep2Image1 from "../../assets/images/Step2-Image1.jpg";
+import projectStep2Image2 from "../../assets/images/Step2-Image2.jpg";
+import projectStep2Image3 from "../../assets/images/Step2-Image3.jpg";
+import projectStep2Image4 from "../../assets/images/Step2-Image4.jpg";
+import projectStep2Image5 from "../../assets/images/Step2-Image5.jpg";
+import projectStep2Image6 from "../../assets/images/Step2-Image6.jpg";
+import projectStep2Image7 from "../../assets/images/Step2-Image7.jpg";
 
 import uxIcon from "../../assets/icons/ux.svg";
 import responsiveIcon from "../../assets/icons/responsive.svg";
@@ -16,37 +17,38 @@ import dataIcon from "../../assets/icons/data.svg";
 const DRAG_THRESHOLD = 6;
 
 const columnOneImages = [
-    projectStep1Image2,
-    projectStep1Image4,
-    projectStep1Image6,
+    projectStep2Image1,
+    projectStep2Image2,
+    projectStep2Image3,
+    projectStep2Image4,
 ];
 
 const columnTwoImages = [
-    projectStep1Image1,
-    projectStep1Image3,
-    projectStep1Image5,
+    projectStep2Image5,
+    projectStep2Image6,
+    projectStep2Image7,
 ];
 
 const processCards = [
     {
         icon: uxIcon,
-        title: "Prioritising What Users Need First",
-        body: "The layout had to lead with the strongest value points early, reduce friction in the first few sections, and make it immediately obvious what KonarCard offers and why it matters.",
-    },
-    {
-        icon: conversionIcon,
-        title: "Creating Clearer Content Flow",
-        body: "Each section was arranged to build naturally on the last one, moving from explanation to trust, then into product detail, comparison, and action without making the page feel crowded.",
-    },
-    {
-        icon: responsiveIcon,
-        title: "Strengthening Visual Hierarchy",
-        body: "Spacing, heading scale, section rhythm, and content grouping were all shaped to create a more premium flow, helping users focus on the right information at the right time.",
+        title: "Sitemap and Page Planning",
+        body: "After discovery, the next step was mapping the sitemap and planning the layout direction for each page so the structure felt clear before design work started.",
     },
     {
         icon: dataIcon,
-        title: "Making The Structure Feel Intentional",
-        body: "The page structure was refined so every section had a job to do, creating a clearer journey from curiosity to trust to decision instead of feeling like separate disconnected blocks.",
+        title: "SEO Research and Strategy",
+        body: "I carried out SEO research to understand search opportunities, then used that insight to shape a clearer SEO strategy for page focus, keyword direction, and visibility.",
+    },
+    {
+        icon: conversionIcon,
+        title: "Copywriting and Messaging",
+        body: "With the structure in place, I wrote the copy so the product was easier to understand, the value was clearer, and each page guided people more naturally toward action.",
+    },
+    {
+        icon: responsiveIcon,
+        title: "Ideas, Inspiration, and Direction",
+        body: "Alongside planning, I explored ideas and inspiration from other sites to help shape the right visual direction and create a stronger foundation before moving into UI design.",
     },
 ];
 
@@ -167,7 +169,7 @@ const ProjectProcess2 = () => {
                                         >
                                             <img
                                                 src={image}
-                                                alt={`Project hierarchy reference ${index + 1}`}
+                                                alt={`Project planning reference ${index + 1}`}
                                                 className="project-process__image"
                                                 draggable="false"
                                             />
@@ -189,9 +191,11 @@ const ProjectProcess2 = () => {
                             </h2>
 
                             <p className="subheading project-process__subtitle">
-                                Once the direction was clear, the next step was shaping the
-                                page structure so the content felt easier to scan, easier to
-                                understand, and much stronger in how it guided attention.
+                                Once the strategy was clear, the next step was
+                                planning the sitemap, page layouts, SEO direction,
+                                and messaging so each page had a clearer role,
+                                stronger flow, and a more intentional foundation
+                                before design exploration began.
                             </p>
                         </div>
 

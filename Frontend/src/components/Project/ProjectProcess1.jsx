@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from "react";
 import "../../styling/projects/project1/projectprocess1.css";
 
-import projectStep1Image1 from "../../assets/images/ProjectStep1-Image1.jpg";
-import projectStep1Image2 from "../../assets/images/ProjectStep1-Image2.jpg";
-import projectStep1Image3 from "../../assets/images/ProjectStep1-Image3.jpg";
-import projectStep1Image4 from "../../assets/images/ProjectStep1-Image4.jpg";
-import projectStep1Image5 from "../../assets/images/ProjectStep1-Image5.jpg";
-import projectStep1Image6 from "../../assets/images/ProjectStep1-Image6.jpg";
+import projectStep1Image1 from "../../assets/images/Step1-Image1.jpg";
+import projectStep1Image2 from "../../assets/images/Step1-Image2.jpg";
+import projectStep1Image3 from "../../assets/images/Step1-Image3.jpg";
+import projectStep1Image4 from "../../assets/images/Step1-Image4.jpg";
+import projectStep1Image5 from "../../assets/images/Step1-Image5.jpg";
+import projectStep1Image6 from "../../assets/images/Step1-Image6.jpg";
+import projectStep1Image7 from "../../assets/images/Step1-Image7.jpg";
+import projectStep1Image8 from "../../assets/images/Step1-Image8.jpg";
 
 import audienceIcon from "../../assets/icons/audience.svg";
 import dataIcon from "../../assets/icons/data.svg";
@@ -19,34 +21,36 @@ const columnOneImages = [
     projectStep1Image1,
     projectStep1Image2,
     projectStep1Image3,
+    projectStep1Image4,
 ];
 
 const columnTwoImages = [
-    projectStep1Image4,
     projectStep1Image5,
     projectStep1Image6,
+    projectStep1Image7,
+    projectStep1Image8,
 ];
 
 const processCards = [
     {
         icon: audienceIcon,
-        title: "Understanding The Product Clearly",
-        body: "KonarCard was not just another website build. The product itself needed explanation because many users were still thinking in terms of traditional business cards rather than a more dynamic digital tool.",
+        title: "Discovery & Goal Clarity",
+        body: "The first step was understanding exactly what the business needed, what it was struggling with, and what the website needed to solve clearly.",
     },
     {
         icon: dataIcon,
-        title: "Defining What The Website Had To Do",
-        body: "The site needed to educate, build trust, position the product as premium, and move users toward sign up or purchase without feeling overloaded or difficult to follow.",
+        title: "Industry & Market Research",
+        body: "I researched the NFC and digital business card market in depth to understand the landscape, user expectations, and where KonarCard could stand out properly.",
     },
     {
         icon: uxIcon,
-        title: "Establishing The Right Direction Early",
-        body: "This stage shaped the hierarchy, the messaging direction, and the overall structure of the build so later design decisions had a stronger foundation and felt intentional rather than decorative.",
+        title: "Competitor Review & Full Audits",
+        body: "The top 6 competitors were analysed across technical health, SEO visibility, content and messaging, and overall UX to spot strengths, weaknesses, and missed opportunities.",
     },
     {
         icon: speedIcon,
-        title: "Creating A Stronger Strategic Base",
-        body: "By clarifying the audience, priorities, and core page goals first, the project had a much stronger base for every design and content decision that followed.",
+        title: "User Personas & Strategic Direction",
+        body: "Those findings were then turned into clear user personas and strategic direction, giving the project a stronger foundation for structure, messaging, and design decisions.",
     },
 ];
 
@@ -149,10 +153,10 @@ const ProjectProcess1 = () => {
                             </h2>
 
                             <p className="subheading project-process__subtitle">
-                                Before moving into layouts or styling, I focused on what
-                                the site needed to communicate, who it was speaking to,
-                                and how the experience should guide people from interest
-                                to action.
+                                Before any layouts or styling, the focus was on
+                                understanding the business, the market, the
+                                competitors, and the audience so the website could
+                                be built on clear strategy rather than assumptions.
                             </p>
                         </div>
 

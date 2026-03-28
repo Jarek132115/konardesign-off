@@ -17,17 +17,17 @@ const posts = [
         category: "Web Design",
         title: (
             <>
-                Why Most <span className="kd-blogpage__highlight">Websites</span>{" "}
-                Look Good But Do Not{" "}
-                <span className="kd-blogpage__highlight">Convert</span>
+                The Biggest <span className="kd-blogpage__highlight">Website</span>{" "}
+                Mistake Is Skipping{" "}
+                <span className="kd-blogpage__highlight">Strategy</span>
             </>
         ),
         description:
-            "The design mistakes that quietly hurt conversion, and how to turn your site into something that performs properly.",
-        readTime: "1 Min Read",
+            "Why strong websites are built through discovery, structure, SEO, UX, performance, and measurement instead of jumping straight into visuals.",
+        readTime: "5 Min Read",
         image: cardImage1,
-        link: "/blog/1",
-        alt: "Website design article preview",
+        link: "/blog/growth-insights",
+        alt: "Strategic website design article preview",
     },
     {
         id: "2",
@@ -41,9 +41,9 @@ const posts = [
         ),
         description:
             "Forget vanity numbers. These are the metrics that show whether your website is genuinely helping the business.",
-        readTime: "1 Min Read",
+        readTime: "3 Min Read",
         image: cardImage2,
-        link: "/blog/2",
+        link: "/blog/conversion-playbooks",
         alt: "Performance metrics article preview",
     },
     {
@@ -58,9 +58,9 @@ const posts = [
         ),
         description:
             "A clearer way to think about where SEO impact comes from, and what to focus on first if you want stronger results.",
-        readTime: "1 Min Read",
+        readTime: "3 Min Read",
         image: cardImage3,
-        link: "/blog/3",
+        link: "/blog/technical-foundations",
         alt: "SEO article preview",
     },
 ];
@@ -178,6 +178,14 @@ const Blog = () => {
                                 key={post.id}
                                 className="kd-blogpage__card"
                                 onClick={() => navigate(post.link)}
+                                role="button"
+                                tabIndex={0}
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" || e.key === " ") {
+                                        e.preventDefault();
+                                        navigate(post.link);
+                                    }
+                                }}
                             >
                                 <div className="kd-blogpage__media">
                                     <img

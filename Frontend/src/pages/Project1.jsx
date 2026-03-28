@@ -32,7 +32,6 @@ const Project1 = () => {
                 <ProjectProcess2 />
                 <ProjectProcess3 />
                 <ProjectProcess4 />
-                <ProjectProcess5 />
 
                 <ProjectResults />
 

@@ -198,11 +198,11 @@
 }
 
 .project-process__marquee-column--up .project-process__marquee-track {
-    animation: project-process-marquee-up 18s linear infinite;
+    animation: project-process-marquee-up 20s linear infinite;
 }
 
 .project-process__marquee-column--down .project-process__marquee-track {
-    animation: project-process-marquee-down 18s linear infinite;
+    animation: project-process-marquee-down 20s linear infinite;
 }
 
 .project-process__image-card {

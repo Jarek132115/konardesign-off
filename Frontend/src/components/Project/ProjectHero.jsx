@@ -118,13 +118,14 @@ const ProjectHero = () => {
                         <div className="project-hero__copy-bg" />
 
                         <h1 className="heading1 project-hero__title">
-                            KonarCard Digital Software Website
+                            KonarCard Digital Product Website
                         </h1>
 
                         <p className="subheading project-hero__subtitle">
-                            A custom software website built for a digital business
-                            card platform focused on clearer product communication,
-                            stronger trust, and a more conversion-ready user journey.
+                            A strategic website redesign and build for a digital
+                            business card platform, created to improve clarity,
+                            strengthen trust, and support a more conversion-focused
+                            user journey.
                         </p>
 
                         <div className="project-hero__pills">
@@ -132,10 +133,10 @@ const ProjectHero = () => {
                                 Digital Business Card Platform
                             </span>
                             <span className="project-hero__pill">
-                                Conversion-Focused Website
+                                Strategic Website Redesign
                             </span>
                             <span className="project-hero__pill">
-                                Performance-Driven Build
+                                Conversion-Focused Build
                             </span>
                         </div>
                     </div>
