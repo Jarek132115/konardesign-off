@@ -22,6 +22,8 @@ const SmoothScrollProvider = ({ children }) => {
             gestureDirection: "vertical",
         });
 
+        window.__lenis = lenis;
+
         // Tell ScrollTrigger to use the document as the scroller, but proxy the scroll values via Lenis
         ScrollTrigger.scrollerProxy(document.body, {
             scrollTop(value) {
@@ -67,6 +69,7 @@ const SmoothScrollProvider = ({ children }) => {
             cancelAnimationFrame(rafId);
             lenis.off("scroll", onLenisScroll);
             lenis.destroy();
+            if (window.__lenis === lenis) delete window.__lenis;
 
             // clean proxy so it doesn't leak between hot reloads
             ScrollTrigger.scrollerProxy(document.body, null);
