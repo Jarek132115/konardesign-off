@@ -1,6 +1,42 @@
 @import "./colours.css";
 
 /* --------------------------------------------------------- */
+/* HERO FONT PREVIEW — OUTFIT                                */
+/* --------------------------------------------------------- */
+
+.hero__title,
+.hero__title *,
+.hero__pill {
+    font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif !important;
+}
+
+.hero__title,
+.hero__title * {
+    font-weight: 600 !important;
+}
+
+.hero__title {
+    font-size: clamp(40px, 4.6vw + 0.8rem, 80px) !important;
+    line-height: 1.06 !important;
+    letter-spacing: -0.03em !important;
+}
+
+@media (max-width: 800px) {
+    .hero__title {
+        font-size: clamp(36px, 6.4vw, 56px) !important;
+        line-height: 1.1 !important;
+    }
+}
+
+@media (max-width: 500px) {
+    .hero__title {
+        font-size: 36px !important;
+        line-height: 1.12 !important;
+    }
+}
+
+/* --------------------------------------------------------- */
 /* HERO WRAPPER                                              */
 /* --------------------------------------------------------- */
 
