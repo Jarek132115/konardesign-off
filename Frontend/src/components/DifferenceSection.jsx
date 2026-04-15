@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "../styling/differencesection.css";
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import AnimatedHeading from "./animations/AnimatedHeading";
+import FadeUp from "./animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "./animations/StaggerGroup";
+import AnimatedSection from "./animations/AnimatedSection";
 
 const proChips = [
     "Strategy-first UX",
@@ -29,98 +29,31 @@ const cheapChips = [
 ];
 
 const DifferenceSection = () => {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const sectionEl = sectionRef.current;
-        if (!sectionEl) return;
-
-        const eyebrowEl = sectionEl.querySelector(".difference__eyebrow");
-        const titleEl = sectionEl.querySelector(".difference__title");
-        const subtitleEl = sectionEl.querySelector(".difference__subtitle");
-        const cards = sectionEl.querySelectorAll(".difference__card");
-
-        if (!eyebrowEl || !titleEl || !subtitleEl) return;
-
-        gsap.set(titleEl, { opacity: 0, y: 8 });
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-            defaults: { ease: "power2.out" },
-        });
-
-        tl.fromTo(
-            eyebrowEl,
-            { opacity: 0, y: 8 },
-            { opacity: 1, y: 0, duration: 0.25 }
-        )
-            .fromTo(
-                titleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.32 },
-                ">-0.04"
-            )
-            .fromTo(
-                subtitleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.28 },
-                ">-0.08"
-            );
-
-        cards.forEach((card, index) => {
-            gsap.fromTo(
-                card,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.45,
-                    delay: index * 0.05,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 85%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-
-        return () => {
-            tl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
-    }, []);
-
     return (
-        <section className="difference" ref={sectionRef}>
+        <AnimatedSection className="difference">
             <div className="difference__inner">
                 <header className="difference__header">
-                    <p className="eyebrow difference__eyebrow">
+                    <FadeUp as="p" className="eyebrow difference__eyebrow">
                         WHY THE BUILD MATTERS
-                    </p>
+                    </FadeUp>
 
-                    <h2 className="heading2 difference__title">
-                        The Difference Between Good and{" "}
-                        <span className="difference__highlight">
-                            Properly Built
-                        </span>
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        className="heading2 difference__title"
+                        highlightWords={["Properly", "Built"]}
+                        highlightClassName="difference__highlight"
+                        text="The Difference Between Good and Properly Built"
+                    />
 
-                    <p className="subheading difference__subtitle">
+                    <FadeUp as="p" className="subheading difference__subtitle" afterHeading="The Difference Between Good and Properly Built">
                         A lot of websites look fine at first glance, but
                         underneath they are slow, hard to scale, and expensive
                         to fix later.
-                    </p>
+                    </FadeUp>
                 </header>
 
-                <div className="difference__grid">
-                    <article className="difference__card">
+                <StaggerGroup className="difference__grid" stagger={0.08}>
+                    <StaggerItem as="article" className="difference__card">
                         <div className="difference__badge difference__badge--pro">
                             Built properly
                         </div>
@@ -143,9 +76,9 @@ const DifferenceSection = () => {
                                 </span>
                             ))}
                         </div>
-                    </article>
+                    </StaggerItem>
 
-                    <article className="difference__card">
+                    <StaggerItem as="article" className="difference__card">
                         <div className="difference__badge difference__badge--cheap">
                             Poorly built
                         </div>
@@ -168,10 +101,10 @@ const DifferenceSection = () => {
                                 </span>
                             ))}
                         </div>
-                    </article>
-                </div>
+                    </StaggerItem>
+                </StaggerGroup>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

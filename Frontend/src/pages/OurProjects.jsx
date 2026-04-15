@@ -1,14 +1,12 @@
-import React, {
-    useEffect,
-    useRef,
-    useCallback,
-    useState,
-    useLayoutEffect,
-} from "react";
+import React, { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
+
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { gsap } from "gsap";
+import AnimatedHeading from "../components/animations/AnimatedHeading";
+import FadeUp from "../components/animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "../components/animations/StaggerGroup";
 
 import "../styling/ourprojects.css";
 import konarVideo from "../assets/videos/KonarCard1.mp4";
@@ -52,64 +50,30 @@ const projects = [
 ];
 
 const ProjectCard = ({ project, navigate }) => {
-    const cardRef = useRef(null);
-    const pillRef = useRef(null);
-    const pillXTo = useRef(null);
-    const pillYTo = useRef(null);
     const [isPressed, setIsPressed] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
-    useEffect(() => {
-        const cardEl = cardRef.current;
-        const pillEl = pillRef.current;
+    const pillX = useMotionValue(0);
+    const pillY = useMotionValue(0);
+    const smoothX = useSpring(pillX, { stiffness: 500, damping: 40, mass: 0.4 });
+    const smoothY = useSpring(pillY, { stiffness: 500, damping: 40, mass: 0.4 });
+    const translateX = useTransform(smoothX, (v) => `calc(-50% + ${v}px)`);
+    const translateY = useTransform(smoothY, (v) => `calc(-50% + ${v}px)`);
 
-        if (!cardEl || !pillEl) return;
-
-        gsap.set(pillEl, {
-            xPercent: -50,
-            yPercent: -50,
-            opacity: 0,
-            scale: 0.92,
-        });
-
-        pillXTo.current = gsap.quickTo(pillEl, "x", {
-            duration: 0.12,
-            ease: "power3.out",
-        });
-
-        pillYTo.current = gsap.quickTo(pillEl, "y", {
-            duration: 0.12,
-            ease: "power3.out",
-        });
-    }, []);
-
-    const positionPill = useCallback((clientX, clientY) => {
-        const card = cardRef.current;
-        if (!card || !pillXTo.current || !pillYTo.current) return;
-
-        const rect = card.getBoundingClientRect();
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
-
-        pillXTo.current(x);
-        pillYTo.current(y);
-    }, []);
+    const positionPill = useCallback(
+        (clientX, clientY, target) => {
+            const rect = target.getBoundingClientRect();
+            pillX.set(clientX - rect.left);
+            pillY.set(clientY - rect.top);
+        },
+        [pillX, pillY]
+    );
 
     const handlePointerEnter = useCallback(
         (e) => {
             if (window.innerWidth <= 1024) return;
-
-            const pill = pillRef.current;
-            if (!pill) return;
-
-            positionPill(e.clientX, e.clientY);
-
-            gsap.to(pill, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.16,
-                ease: "power2.out",
-                overwrite: "auto",
-            });
+            positionPill(e.clientX, e.clientY, e.currentTarget);
+            setIsHovered(true);
         },
         [positionPill]
     );
@@ -117,22 +81,13 @@ const ProjectCard = ({ project, navigate }) => {
     const handlePointerMove = useCallback(
         (e) => {
             if (window.innerWidth <= 1024) return;
-            positionPill(e.clientX, e.clientY);
+            positionPill(e.clientX, e.clientY, e.currentTarget);
         },
         [positionPill]
     );
 
     const handlePointerLeave = useCallback(() => {
-        const pill = pillRef.current;
-        if (!pill) return;
-
-        gsap.to(pill, {
-            opacity: 0,
-            scale: 0.92,
-            duration: 0.14,
-            ease: "power2.out",
-            overwrite: "auto",
-        });
+        setIsHovered(false);
     }, []);
 
     const toggleVideo = useCallback((videoEl) => {
@@ -156,10 +111,9 @@ const ProjectCard = ({ project, navigate }) => {
     }, [navigate, project]);
 
     return (
-        <article className="our-projects-row">
+        <StaggerItem as="article" className="our-projects-row">
             <div className="our-projects-row__glow-frame our-projects-row__glow-frame--indigo">
                 <div
-                    ref={cardRef}
                     className={`our-projects-row__card ${project.isComingSoon
                             ? "our-projects-row__card--coming-soon"
                             : ""
@@ -207,18 +161,26 @@ const ProjectCard = ({ project, navigate }) => {
 
                     <div className="our-projects-row__overlay" />
 
-                    <div
-                        ref={pillRef}
+                    <motion.div
                         className={`our-projects-row__hover-pill ${project.isComingSoon
                                 ? "our-projects-row__hover-pill--soon"
                                 : ""
                             }`}
                         aria-hidden="true"
+                        style={{
+                            translateX,
+                            translateY,
+                        }}
+                        animate={{
+                            opacity: isHovered ? 1 : 0,
+                            scale: isHovered ? 1 : 0.92,
+                        }}
+                        transition={{ duration: 0.15, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <span className="our-projects-row__hover-pill-text">
                             {project.hoverLabel}
                         </span>
-                    </div>
+                    </motion.div>
 
                     <div className="our-projects-row__content">
                         <span className="our-projects-row__year">
@@ -246,121 +208,59 @@ const ProjectCard = ({ project, navigate }) => {
                     </div>
                 </div>
             </div>
-        </article>
+        </StaggerItem>
     );
 };
 
 const OurProjects = () => {
-    const pageRef = useRef(null);
     const navigate = useNavigate();
-
-    useLayoutEffect(() => {
-        const pageEl = pageRef.current;
-        if (!pageEl) return;
-
-        const titleEl = pageEl.querySelector(".our-projects__title");
-        const subtitleEl = pageEl.querySelector(".our-projects__subtitle");
-        const cards = pageEl.querySelectorAll(".our-projects-row");
-
-        if (!titleEl || !subtitleEl || !cards.length) return;
-
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-        const highlightWords = ["work"];
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("our-projects__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            const cleanedWord = word.toLowerCase().replace(/[^a-z]/g, "");
-
-            if (highlightWords.includes(cleanedWord)) {
-                wordWrapper.classList.add("our-projects__title-word--indigo");
-            }
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(
-            ".our-projects__title-word span"
-        );
-
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-        gsap.set(cards, { opacity: 0, y: 26 });
-
-        const introTl = gsap.timeline({
-            defaults: { ease: "power2.out" },
-        });
-
-        introTl
-            .to(charSpans, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.018,
-                duration: 0.26,
-            })
-            .fromTo(
-                subtitleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.28 },
-                ">-0.08"
-            )
-            .fromTo(
-                cards,
-                { opacity: 0, y: 26 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.55,
-                    stagger: 0.08,
-                },
-                ">-0.04"
-            );
-
-        return () => {
-            introTl.kill();
-        };
-    }, []);
 
     return (
         <div className="our-projects-page">
             <Navbar />
 
-            <main className="our-projects" ref={pageRef}>
+            <main className="our-projects">
                 <div className="our-projects__inner">
                     <header className="our-projects__header">
-                        <p className="eyebrow our-projects__eyebrow">
+                        <FadeUp
+                            as="p"
+                            className="eyebrow our-projects__eyebrow"
+                            trigger="onLoad"
+                            delay={0}
+                        >
                             SELECTED WORK
-                        </p>
+                        </FadeUp>
 
-                        <h1 className="heading1 our-projects__title">
-                            Selected Work
-                        </h1>
+                        <AnimatedHeading
+                            as="h1"
+                            className="heading1 our-projects__title"
+                            text="Selected Work"
+                            wordClassName="our-projects__title-word"
+                            highlightWords={["Work"]}
+                            highlightClassName="our-projects__title-word--indigo"
+                            trigger="onLoad"
+                            delay={0.15}
+                        />
 
-                        <p className="subheading our-projects__subtitle">
+                        <FadeUp
+                            as="p"
+                            className="subheading our-projects__subtitle"
+                            trigger="onLoad"
+                            afterHeading="Selected Work"
+                            headingDelay={0.15}
+                        >
                             A selection of projects where strategy, design, and
                             development come together to create clear,
                             high-performing websites.
-                        </p>
+                        </FadeUp>
                     </header>
 
-                    <div className="our-projects__list">
+                    <StaggerGroup
+                        className="our-projects__list"
+                        stagger={0.08}
+                        trigger="onLoad"
+                        delay={0.55}
+                    >
                         {projects.map((project) => (
                             <ProjectCard
                                 key={project.id}
@@ -368,7 +268,7 @@ const OurProjects = () => {
                                 navigate={navigate}
                             />
                         ))}
-                    </div>
+                    </StaggerGroup>
                 </div>
             </main>
 

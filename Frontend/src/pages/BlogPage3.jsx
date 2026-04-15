@@ -1,152 +1,60 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from "react";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import AnimatedHeading from "../components/animations/AnimatedHeading";
+import FadeUp from "../components/animations/FadeUp";
+import AnimatedSection from "../components/animations/AnimatedSection";
 
 import "../styling/buttons.css";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const BlogPage3 = () => {
-    const pageRef = useRef(null);
-
-    useEffect(() => {
-        const page = pageRef.current;
-        if (!page) return;
-
-        /* -----------------------------
-           HERO ANIMATION
-        ------------------------------ */
-        const heroSection = page.querySelector(".blog-hero");
-        const heroEyebrow = heroSection?.querySelector(".blog-hero__eyebrow");
-        const heroTitle = heroSection?.querySelector(".blog-hero__title");
-        const heroSubtitle = heroSection?.querySelector(".blog-hero__subtitle");
-
-        if (heroSection && heroEyebrow && heroTitle && heroSubtitle) {
-            const originalText = heroTitle.textContent;
-            heroTitle.textContent = "";
-
-            const highlightSet = new Set(["SEO", "Revenue"]);
-
-            originalText.split(" ").forEach((word, idx, arr) => {
-                const wordWrapper = document.createElement("span");
-                wordWrapper.classList.add("blog-hero__title-word");
-                wordWrapper.style.display = "inline-block";
-
-                const cleaned = word.replace(/[^\w-]/g, "");
-                if (highlightSet.has(cleaned)) {
-                    wordWrapper.classList.add("blog-hero__title-highlight");
-                }
-
-                [...word].forEach((ch) => {
-                    const charSpan = document.createElement("span");
-                    charSpan.textContent = ch;
-                    charSpan.style.display = "inline-block";
-                    charSpan.style.opacity = "0";
-                    charSpan.style.transform = "translateY(8px)";
-                    wordWrapper.appendChild(charSpan);
-                });
-
-                heroTitle.appendChild(wordWrapper);
-                if (idx < arr.length - 1) heroTitle.append(" ");
-            });
-
-            const charSpans = heroTitle.querySelectorAll(
-                ".blog-hero__title-word span"
-            );
-            gsap.set(heroSubtitle, { opacity: 0, y: 8 });
-
-            const heroTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: heroSection,
-                    start: "top 75%",
-                    toggleActions: "play none none none",
-                },
-            });
-
-            heroTl
-                .fromTo(
-                    heroEyebrow,
-                    { opacity: 0, y: 8 },
-                    { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }
-                )
-                .to(
-                    charSpans,
-                    {
-                        opacity: 1,
-                        y: 0,
-                        stagger: 0.02,
-                        duration: 0.3,
-                        ease: "power2.out",
-                    },
-                    ">-0.05"
-                )
-                .fromTo(
-                    heroSubtitle,
-                    { opacity: 0, y: 8 },
-                    { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" },
-                    ">-0.08"
-                );
-        }
-
-        /* -----------------------------
-           ARTICLE BLOCKS FADE-UP
-        ------------------------------ */
-        const blocks = page.querySelectorAll(".blog-article__block");
-        blocks.forEach((block, index) => {
-            gsap.fromTo(
-                block,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.4,
-                    delay: index * 0.05,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: block,
-                        start: "top 85%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-
-        return () => {
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
-    }, []);
-
     return (
         <div className="blog-page">
             <Navbar />
 
-            <main className="blog-page__main" ref={pageRef}>
+            <main className="blog-page__main">
                 {/* HERO */}
                 <section className="blog-hero">
                     <div className="blog-hero__inner">
-                        <p className="eyebrow blog-hero__eyebrow">
+                        <FadeUp
+                            as="p"
+                            className="eyebrow blog-hero__eyebrow"
+                            trigger="onLoad"
+                            delay={0}
+                        >
                             SEO • 1 MIN READ
-                        </p>
+                        </FadeUp>
 
-                        <h1 className="heading1 blog-hero__title">
-                            Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?
-                        </h1>
+                        <AnimatedHeading
+                            as="h1"
+                            className="heading1 blog-hero__title"
+                            text="Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?"
+                            wordClassName="blog-hero__title-word"
+                            highlightWords={["SEO", "Revenue"]}
+                            highlightClassName="blog-hero__title-highlight"
+                            trigger="onLoad"
+                            delay={0.15}
+                        />
 
-                        <p className="subheading blog-hero__subtitle">
+                        <FadeUp
+                            as="p"
+                            className="subheading blog-hero__subtitle"
+                            trigger="onLoad"
+                            afterHeading="Technical SEO Vs On-Page SEO: Which One Actually Moves Revenue?"
+                            headingDelay={0.15}
+                        >
                             Both matter, but not equally at every stage. Here’s how to
                             decide where to invest first if you care about pipeline, not
                             just impressions.
-                        </p>
+                        </FadeUp>
                     </div>
                 </section>
 
                 {/* ARTICLE BODY */}
-                <section className="blog-article">
+                <AnimatedSection className="blog-article">
                     <div className="blog-article__inner">
-                        <div className="blog-article__block">
+                        <FadeUp className="blog-article__block">
                             <h2 className="heading2 blog-article__heading">
                                 Think In Bottlenecks, Not Checklists
                             </h2>
@@ -160,9 +68,9 @@ const BlogPage3 = () => {
                                 Instead of asking “Have we done everything?”, ask:
                                 <strong> Where is the current bottleneck to revenue?</strong>
                             </p>
-                        </div>
+                        </FadeUp>
 
-                        <div className="blog-article__block">
+                        <FadeUp className="blog-article__block">
                             <h3 className="heading3 blog-article__subheading">
                                 When Technical SEO Is The Bottleneck
                             </h3>
@@ -181,9 +89,9 @@ const BlogPage3 = () => {
                                 Fix these first. You’re clearing the pipes so any future
                                 content and optimisation actually lands.
                             </p>
-                        </div>
+                        </FadeUp>
 
-                        <div className="blog-article__block">
+                        <FadeUp className="blog-article__block">
                             <h3 className="heading3 blog-article__subheading">
                                 When On-Page SEO Is The Bottleneck
                             </h3>
@@ -201,9 +109,9 @@ const BlogPage3 = () => {
                                 <li>Weak or missing proof near key claims</li>
                                 <li>CTAs that don’t match where the visitor is mentally</li>
                             </ul>
-                        </div>
+                        </FadeUp>
 
-                        <div className="blog-article__block">
+                        <FadeUp className="blog-article__block">
                             <h3 className="heading3 blog-article__subheading">
                                 The Revenue-First Order Of Operations
                             </h3>
@@ -217,9 +125,9 @@ const BlogPage3 = () => {
                                 That way, every new blog post, feature page, or resource
                                 you publish has a better chance of ranking—and converting.
                             </p>
-                        </div>
+                        </FadeUp>
 
-                        <div className="blog-article__block">
+                        <FadeUp className="blog-article__block">
                             <h3 className="heading3 blog-article__subheading">
                                 A Simple Way To Decide What To Do Next
                             </h3>
@@ -235,9 +143,9 @@ const BlogPage3 = () => {
                                     helping them take the next step.
                                 </strong>
                             </p>
-                        </div>
+                        </FadeUp>
                     </div>
-                </section>
+                </AnimatedSection>
             </main>
 
             <Footer />

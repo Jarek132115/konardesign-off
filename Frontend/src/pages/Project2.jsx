@@ -1,15 +1,15 @@
 // src/pages/Project1.jsx
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import AnimatedHeading from "../components/animations/AnimatedHeading";
+import FadeUp from "../components/animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "../components/animations/StaggerGroup";
 
 import "../styling/buttons.css";
 import "../styling/projectpage.css";
-
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import konarVideo from "../assets/videos/KonarCard1.mp4";
 import carousel1 from "../assets/images/carousel1.jpg";
@@ -19,112 +19,16 @@ import carousel4 from "../assets/images/carousel4.jpg";
 import carousel5 from "../assets/images/carousel5.jpg";
 import carousel6 from "../assets/images/carousel6.jpg";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const finalLooks = [carousel1, carousel2, carousel3, carousel4, carousel5, carousel6];
 
 const Project1 = () => {
-    const pageRef = useRef(null);
     const navigate = useNavigate();
-
-    useEffect(() => {
-        const pageEl = pageRef.current;
-        if (!pageEl) return;
-
-        const titleEl = pageEl.querySelector(".project-hero__title");
-        const subtitleEl = pageEl.querySelector(".project-hero__subtitle");
-
-        const sections = pageEl.querySelectorAll(
-            ".project-hero__media, .project-section, .project-media-break, .project-styling, .project-performance, .project-final"
-        );
-
-        if (!titleEl || !subtitleEl) return;
-
-        // --- LETTER BY LETTER TITLE (hero-style) ---
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("project-hero__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(".project-hero__title-word span");
-
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: pageEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-            defaults: { ease: "power2.out" },
-        });
-
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.03,
-            duration: 0.4,
-        }).to(
-            subtitleEl,
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.45,
-            },
-            ">-0.05"
-        );
-
-        // Fade-in for each main block
-        sections.forEach((section) => {
-            gsap.fromTo(
-                section,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.5,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-
-        return () => {
-            tl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
-    }, []);
 
     return (
         <div className="project-page">
             <Navbar />
 
-            <main className="project-page__main" ref={pageRef}>
+            <main className="project-page__main">
                 {/* TOP HERO HEADER */}
                 <section className="project-hero">
                     <button
@@ -137,22 +41,42 @@ const Project1 = () => {
 
                     <div className="project-hero__top">
                         <div className="project-hero__info">
-                            <h1 className="heading1 project-hero__title">
-                                KonarCard E-Commerce Website
-                            </h1>
-                            <p className="subheading project-hero__subtitle">
+                            <AnimatedHeading
+                                as="h1"
+                                className="heading1 project-hero__title"
+                                text="KonarCard E-Commerce Website"
+                                wordClassName="project-hero__title-word"
+                                trigger="onLoad"
+                                delay={0.15}
+                            />
+                            <FadeUp
+                                as="p"
+                                className="subheading project-hero__subtitle"
+                                trigger="onLoad"
+                                afterHeading="KonarCard E-Commerce Website"
+                                headingDelay={0.15}
+                            >
                                 A tailored e-commerce experience for a next-gen digital business card
                                 startup — optimized for speed, clarity, and conversions.
-                            </p>
+                            </FadeUp>
 
-                            <div className="project-hero__pills">
+                            <FadeUp
+                                className="project-hero__pills"
+                                trigger="onLoad"
+                                delay={0.55}
+                            >
                                 <span className="project-hero__pill">Custom E-Commerce Website</span>
                                 <span className="project-hero__pill">Conversion-Focused Design</span>
                                 <span className="project-hero__pill">Performance-Driven Build</span>
-                            </div>
+                            </FadeUp>
                         </div>
 
-                        <aside className="project-hero__meta">
+                        <FadeUp
+                            as="aside"
+                            className="project-hero__meta"
+                            trigger="onLoad"
+                            delay={0.55}
+                        >
                             <div className="project-hero__meta-group">
                                 <span className="project-hero__meta-label">Pages Developed</span>
                                 <span className="project-hero__meta-value">24+</span>
@@ -176,10 +100,10 @@ const Project1 = () => {
                                     www.konarcard.com
                                 </a>
                             </div>
-                        </aside>
+                        </FadeUp>
                     </div>
 
-                    <div className="project-hero__media">
+                    <FadeUp className="project-hero__media" y={24}>
                         <div className="project-hero__media-inner">
                             <video
                                 src={konarVideo}
@@ -190,11 +114,15 @@ const Project1 = () => {
                                 className="project-hero__media-video"
                             />
                         </div>
-                    </div>
+                    </FadeUp>
                 </section>
 
                 {/* CHALLENGE + SOLUTION SECTION (PURPLE CARD) */}
-                <section className="project-section project-section--indigo">
+                <FadeUp
+                    as="section"
+                    className="project-section project-section--indigo"
+                    y={24}
+                >
                     <div className="project-section__inner">
                         <header className="project-section__header">
                             <h2 className="heading2 project-section__title">The Challenge</h2>
@@ -205,43 +133,43 @@ const Project1 = () => {
                             </p>
                         </header>
 
-                        <div className="project-grid project-grid--two">
-                            <article className="project-grid__item">
+                        <StaggerGroup className="project-grid project-grid--two" stagger={0.06}>
+                            <StaggerItem as="article" className="project-grid__item">
                                 <h3 className="project-grid__title">Old-School Market Perception</h3>
                                 <p className="project-grid__body">
                                     Their audience was used to traditional business cards and in-person
                                     referrals, not digital-first experiences with landing pages, funnels,
                                     and clear value propositions.
                                 </p>
-                            </article>
+                            </StaggerItem>
 
-                            <article className="project-grid__item">
+                            <StaggerItem as="article" className="project-grid__item">
                                 <h3 className="project-grid__title">Complex Custom Functionality</h3>
                                 <p className="project-grid__body">
                                     They needed a way for users to generate their own dynamic digital
                                     profiles — including login flows, CTAs, and sales-driven conversion
                                     funnels — without feeling overwhelming.
                                 </p>
-                            </article>
+                            </StaggerItem>
 
-                            <article className="project-grid__item">
+                            <StaggerItem as="article" className="project-grid__item">
                                 <h3 className="project-grid__title">Convincing Value Proposition</h3>
                                 <p className="project-grid__body">
                                     The site had to educate users not just on what a digital card is —
                                     but why it&apos;s more powerful than a traditional card when it comes
                                     to visibility, trust, and conversions.
                                 </p>
-                            </article>
+                            </StaggerItem>
 
-                            <article className="project-grid__item">
+                            <StaggerItem as="article" className="project-grid__item">
                                 <h3 className="project-grid__title">Mobile-First Expectations</h3>
                                 <p className="project-grid__body">
                                     Their audience browses and buys on-the-go — so the experience needed
                                     to feel fast, intuitive, and delightful on mobile while still feeling
                                     premium on desktop.
                                 </p>
-                            </article>
-                        </div>
+                            </StaggerItem>
+                        </StaggerGroup>
 
                         <header className="project-section__header project-section__header--spaced">
                             <h2 className="heading2 project-section__title">The Solution</h2>
@@ -252,8 +180,8 @@ const Project1 = () => {
                             </p>
                         </header>
 
-                        <div className="project-grid project-grid--two">
-                            <article className="project-grid__item">
+                        <StaggerGroup className="project-grid project-grid--two" stagger={0.06}>
+                            <StaggerItem as="article" className="project-grid__item">
                                 <h3 className="project-grid__title">
                                     Educating The Market On A New Product
                                 </h3>
@@ -262,9 +190,9 @@ const Project1 = () => {
                                     digital business card is, why it matters, and how KonarCard removes
                                     friction from day-to-day client interactions.
                                 </p>
-                            </article>
+                            </StaggerItem>
 
-                            <article className="project-grid__item">
+                            <StaggerItem as="article" className="project-grid__item">
                                 <h3 className="project-grid__title">
                                     Conversion-Optimised E-Commerce Flow
                                 </h3>
@@ -273,9 +201,9 @@ const Project1 = () => {
                                     pricing tables, plan comparisons, FAQs, and social proof sections all
                                     work together to move visitors towards purchase.
                                 </p>
-                            </article>
+                            </StaggerItem>
 
-                            <article className="project-grid__item">
+                            <StaggerItem as="article" className="project-grid__item">
                                 <h3 className="project-grid__title">
                                     Fully Responsive, Future-Proof Build
                                 </h3>
@@ -284,9 +212,9 @@ const Project1 = () => {
                                     with modular components, clean structure, and performance-first
                                     development so the brand can grow without replatforming.
                                 </p>
-                            </article>
+                            </StaggerItem>
 
-                            <article className="project-grid__item">
+                            <StaggerItem as="article" className="project-grid__item">
                                 <h3 className="project-grid__title">
                                     Brand Design That Matches The Product
                                 </h3>
@@ -295,13 +223,13 @@ const Project1 = () => {
                                     and subtle motion — helping the product feel premium, modern,
                                     and unmistakably different from standard business card tools.
                                 </p>
-                            </article>
-                        </div>
+                            </StaggerItem>
+                        </StaggerGroup>
                     </div>
-                </section>
+                </FadeUp>
 
                 {/* MID-PAGE VISUAL BREAK */}
-                <section className="project-media-break">
+                <FadeUp as="section" className="project-media-break" y={24}>
                     <div className="project-media-break__inner">
                         <video
                             src={konarVideo}
@@ -312,10 +240,10 @@ const Project1 = () => {
                             className="project-media-break__video"
                         />
                     </div>
-                </section>
+                </FadeUp>
 
                 {/* STYLING SECTION */}
-                <section className="project-styling">
+                <FadeUp as="section" className="project-styling" y={24}>
                     <header className="project-styling__header">
                         <h2 className="heading2 project-styling__title">Styling</h2>
                         <p className="project-styling__subtitle">
@@ -361,10 +289,10 @@ const Project1 = () => {
                             </div>
                         </div>
                     </div>
-                </section>
+                </FadeUp>
 
                 {/* PERFORMANCE SECTION */}
-                <section className="project-performance">
+                <FadeUp as="section" className="project-performance" y={24}>
                     <header className="project-performance__header">
                         <h2 className="heading2 project-performance__title">
                             Website Performance
@@ -376,8 +304,8 @@ const Project1 = () => {
                         </p>
                     </header>
 
-                    <div className="project-performance__grid">
-                        <div className="project-performance__item">
+                    <StaggerGroup className="project-performance__grid" stagger={0.06}>
+                        <StaggerItem className="project-performance__item">
                             <div className="project-performance__circle">
                                 <span>96</span>
                             </div>
@@ -386,9 +314,9 @@ const Project1 = () => {
                                 Lightning-fast load times with optimisation across images, fonts, and
                                 scripts.
                             </p>
-                        </div>
+                        </StaggerItem>
 
-                        <div className="project-performance__item">
+                        <StaggerItem className="project-performance__item">
                             <div className="project-performance__circle">
                                 <span>93</span>
                             </div>
@@ -397,9 +325,9 @@ const Project1 = () => {
                                 Built with semantic HTML, clear contrast, and accessible interactions
                                 across devices.
                             </p>
-                        </div>
+                        </StaggerItem>
 
-                        <div className="project-performance__item">
+                        <StaggerItem className="project-performance__item">
                             <div className="project-performance__circle">
                                 <span>100</span>
                             </div>
@@ -408,9 +336,9 @@ const Project1 = () => {
                                 Clean, maintainable code that follows modern development standards and
                                 security best practices.
                             </p>
-                        </div>
+                        </StaggerItem>
 
-                        <div className="project-performance__item">
+                        <StaggerItem className="project-performance__item">
                             <div className="project-performance__circle">
                                 <span>100</span>
                             </div>
@@ -419,12 +347,12 @@ const Project1 = () => {
                                 Strong technical foundations, structured content, and fast UX that
                                 search engines love.
                             </p>
-                        </div>
-                    </div>
-                </section>
+                        </StaggerItem>
+                    </StaggerGroup>
+                </FadeUp>
 
                 {/* FINAL LOOKS SECTION */}
-                <section className="project-final">
+                <FadeUp as="section" className="project-final" y={24}>
                     <header className="project-final__header">
                         <h2 className="heading2 project-final__title">Final Looks</h2>
                         <p className="project-final__subtitle">
@@ -433,18 +361,22 @@ const Project1 = () => {
                         </p>
                     </header>
 
-                    <div className="project-final__grid">
+                    <StaggerGroup className="project-final__grid" stagger={0.06}>
                         {finalLooks.map((src, index) => (
-                            <article key={index} className="project-final__card">
+                            <StaggerItem
+                                as="article"
+                                key={index}
+                                className="project-final__card"
+                            >
                                 <img
                                     src={src}
                                     alt={`KonarCard final screen ${index + 1}`}
                                     className="project-final__image"
                                 />
-                            </article>
+                            </StaggerItem>
                         ))}
-                    </div>
-                </section>
+                    </StaggerGroup>
+                </FadeUp>
             </main>
 
             <Footer />

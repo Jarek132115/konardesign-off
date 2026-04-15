@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
 import "../../styling/CustomService/customprocess.css";
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "../animations/StaggerGroup";
+import AnimatedSection from "../animations/AnimatedSection";
 
 const steps = [
     {
@@ -82,9 +83,6 @@ const steps = [
 const MOBILE_STACK_BREAKPOINT = 850;
 
 const CustomProcess = () => {
-    const sectionRef = useRef(null);
-    const cardRef = useRef(null);
-
     const [activeIndex, setActiveIndex] = useState(0);
     const [isMobileStack, setIsMobileStack] = useState(false);
 
@@ -100,9 +98,6 @@ const CustomProcess = () => {
         );
     };
 
-    /* ---------------------------
-       HANDLE STACKED VS SLIDER
-    ---------------------------- */
     useEffect(() => {
         const updateMode = () => {
             if (typeof window === "undefined") return;
@@ -114,124 +109,59 @@ const CustomProcess = () => {
         return () => window.removeEventListener("resize", updateMode);
     }, []);
 
-    /* ---------------------------
-       SCROLL HEADER ANIMATION
-       (simple fade/slide)
-    ---------------------------- */
-    useEffect(() => {
-        const sectionEl = sectionRef.current;
-        if (!sectionEl) return;
-
-        const eyebrowEl = sectionEl.querySelector(".process__eyebrow");
-        const titleEl = sectionEl.querySelector(".process__title");
-        const subtitleEl = sectionEl.querySelector(".process__subtitle");
-        const headerRow = sectionEl.querySelector(".process__steps");
-
-        if (!eyebrowEl || !titleEl || !subtitleEl) return;
-
-        if (headerRow) {
-            gsap.set([titleEl, subtitleEl, headerRow], { opacity: 0, y: 8 });
-        } else {
-            gsap.set([titleEl, subtitleEl], { opacity: 0, y: 8 });
-        }
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-            defaults: { ease: "power2.out" },
-        });
-
-        tl.fromTo(
-            eyebrowEl,
-            { opacity: 0, y: 8 },
-            { opacity: 1, y: 0, duration: 0.25 }
-        )
-            .fromTo(
-                titleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.3 },
-                ">-0.05"
-            )
-            .fromTo(
-                subtitleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.28 },
-                ">-0.08"
-            );
-
-        if (headerRow) {
-            tl.fromTo(
-                headerRow,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.28 },
-                ">-0.06"
-            );
-        }
-
-        return () => {
-            tl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
-    }, []);
-
-    /* ---------------------------
-       CARD ANIMATION (slider only)
-    ---------------------------- */
-    useEffect(() => {
-        if (isMobileStack) return;
-        if (!cardRef.current) return;
-
-        gsap.fromTo(
-            cardRef.current,
-            { opacity: 0, y: 16 },
-            { opacity: 1, y: 0, duration: 0.35 }
-        );
-    }, [activeIndex, isMobileStack]);
-
     return (
-        <section className="process" ref={sectionRef}>
+        <AnimatedSection className="process">
             <div className="process__inner">
                 <header className="process__header">
-                    <p className="eyebrow process__eyebrow">
+                    <FadeUp
+                        as="p"
+                        className="eyebrow process__eyebrow"
+                        duration={0.35}
+                    >
                         CUSTOM WEBSITE PROCESS
-                    </p>
+                    </FadeUp>
 
-                    <h2 className="heading2 process__title">
-                        A Clear,{" "}
-                        <span className="process__title-highlight">
-                            Stress-Free
-                        </span>{" "}
-                        Custom Website Process.
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        className="heading2 process__title"
+                        text="A Clear, Stress-Free Custom Website Process."
+                        highlightWords={["Stress-Free"]}
+                        highlightClassName="process__title-highlight"
+                        delay={0.08}
+                    />
 
-                    <p className="subheading process__subtitle">
+                    <FadeUp
+                        as="p"
+                        className="subheading process__subtitle"
+                        duration={0.4}
+                        afterHeading="A Clear, Stress-Free Custom Website Process."
+                        headingDelay={0.08}
+                    >
                         From first strategy call to launch, you’ll see every
                         step, have access to the live design file, and know
                         exactly what we’re working on each week.
-                    </p>
+                    </FadeUp>
                 </header>
 
                 {/* DESKTOP / TABLET SLIDER */}
                 {!isMobileStack && (
                     <>
-                        <div className="process__steps">
+                        <StaggerGroup className="process__steps" delay={0.28}>
                             {steps.map((step, index) => (
-                                <button
+                                <StaggerItem
+                                    as="button"
                                     key={step.id}
                                     type="button"
                                     className={`process__step-pill body ${index === activeIndex
-                                            ? "process__step-pill--active"
-                                            : ""
+                                        ? "process__step-pill--active"
+                                        : ""
                                         }`}
                                     onClick={() => setActiveIndex(index)}
                                 >
                                     {step.label}
-                                </button>
+                                </StaggerItem>
                             ))}
-                        </div>
+                        </StaggerGroup>
 
                         <div className="process__card-wrapper">
                             <button
@@ -243,43 +173,48 @@ const CustomProcess = () => {
                                 ←
                             </button>
 
-                            <article
-                                className={`process__card process__card--bg${activeIndex + 1
-                                    }`}
-                                ref={cardRef}
-                            >
-                                <div className="process__card-inner">
-                                    <div className="process__card-left">
-                                        {/* desktop step number above heading */}
-                                        <div className="process__stack-number process__stack-number--desktop">
-                                            {activeIndex + 1}
+                            <AnimatePresence mode="wait">
+                                <motion.article
+                                    key={activeIndex}
+                                    className={`process__card process__card--bg${activeIndex + 1
+                                        }`}
+                                    initial={{ opacity: 0, y: 12 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -8 }}
+                                    transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                                >
+                                    <div className="process__card-inner">
+                                        <div className="process__card-left">
+                                            <div className="process__stack-number process__stack-number--desktop">
+                                                {activeIndex + 1}
+                                            </div>
+
+                                            <h3 className="heading3 process__card-title">
+                                                {activeStep.title}
+                                            </h3>
+                                            <p className="body process__card-description">
+                                                {activeStep.description}
+                                            </p>
                                         </div>
 
-                                        <h3 className="heading3 process__card-title">
-                                            {activeStep.title}
-                                        </h3>
-                                        <p className="body process__card-description">
-                                            {activeStep.description}
-                                        </p>
+                                        <div className="process__card-right">
+                                            <ul className="process__list">
+                                                {activeStep.bullets.map((item) => (
+                                                    <li
+                                                        key={item}
+                                                        className="process__list-item body"
+                                                    >
+                                                        <span className="process__list-icon">
+                                                            ●
+                                                        </span>
+                                                        <span>{item}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
                                     </div>
-
-                                    <div className="process__card-right">
-                                        <ul className="process__list">
-                                            {activeStep.bullets.map((item) => (
-                                                <li
-                                                    key={item}
-                                                    className="process__list-item body"
-                                                >
-                                                    <span className="process__list-icon">
-                                                        ●
-                                                    </span>
-                                                    <span>{item}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </article>
+                                </motion.article>
+                            </AnimatePresence>
 
                             <button
                                 type="button"
@@ -295,9 +230,10 @@ const CustomProcess = () => {
 
                 {/* MOBILE STACKED VERSION */}
                 {isMobileStack && (
-                    <div className="process__stack">
+                    <StaggerGroup className="process__stack">
                         {steps.map((step, index) => (
-                            <article
+                            <StaggerItem
+                                as="article"
                                 key={step.id}
                                 className={`process__card process__card--stack process__card--bg${index + 1
                                     }`}
@@ -332,12 +268,12 @@ const CustomProcess = () => {
                                         </ul>
                                     </div>
                                 </div>
-                            </article>
+                            </StaggerItem>
                         ))}
-                    </div>
+                    </StaggerGroup>
                 )}
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

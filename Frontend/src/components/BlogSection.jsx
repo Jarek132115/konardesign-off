@@ -1,19 +1,18 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styling/blogsection.css";
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedHeading from "./animations/AnimatedHeading";
+import FadeUp from "./animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "./animations/StaggerGroup";
+import AnimatedSection from "./animations/AnimatedSection";
 
 import blogImg1 from "../assets/images/carousel5.jpg";
 import blogImg2 from "../assets/images/carousel6.jpg";
 import blogImg3 from "../assets/images/carousel7.jpg";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const BlogSection = () => {
     const navigate = useNavigate();
-    const sectionRef = useRef(null);
 
     const articles = [
         {
@@ -69,94 +68,32 @@ const BlogSection = () => {
         },
     ];
 
-    useEffect(() => {
-        const sectionEl = sectionRef.current;
-        if (!sectionEl) return;
-
-        const eyebrowEl = sectionEl.querySelector(".blogsection__eyebrow");
-        const titleEl = sectionEl.querySelector(".blogsection__title");
-        const subtitleEl = sectionEl.querySelector(".blogsection__subtitle");
-        const cards = sectionEl.querySelectorAll(".blogsection__card");
-
-        if (!eyebrowEl || !titleEl || !subtitleEl) return;
-
-        gsap.set(titleEl, { opacity: 0, y: 8 });
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-            defaults: { ease: "power2.out" },
-        });
-
-        tl.fromTo(
-            eyebrowEl,
-            { opacity: 0, y: 8 },
-            { opacity: 1, y: 0, duration: 0.25 }
-        )
-            .fromTo(
-                titleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.32 },
-                ">-0.04"
-            )
-            .fromTo(
-                subtitleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.28 },
-                ">-0.08"
-            );
-
-        cards.forEach((card, index) => {
-            gsap.fromTo(
-                card,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.4,
-                    ease: "power2.out",
-                    delay: index * 0.05,
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 80%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-
-        return () => {
-            tl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
-    }, []);
-
     return (
-        <section className="blogsection" ref={sectionRef}>
+        <AnimatedSection className="blogsection">
             <div className="blogsection__inner">
                 <header className="blogsection__header">
-                    <p className="eyebrow blogsection__eyebrow">BLOG</p>
+                    <FadeUp as="p" className="eyebrow blogsection__eyebrow">
+                        BLOG
+                    </FadeUp>
 
-                    <h2 className="heading2 blogsection__title">
-                        Growth-Driven{" "}
-                        <span className="blogsection__highlight">Insights</span> for
-                        Modern{" "}
-                        <span className="blogsection__highlight">Brands</span>
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        className="heading2 blogsection__title"
+                        highlightWords={["Insights", "Brands"]}
+                        highlightClassName="blogsection__highlight"
+                        text="Growth-Driven Insights for Modern Brands"
+                    />
 
-                    <p className="subheading blogsection__subtitle">
+                    <FadeUp as="p" className="subheading blogsection__subtitle" afterHeading="Growth-Driven Insights for Modern Brands">
                         Practical writing on design, UX, performance, and SEO for
                         brands that want a website built to do more.
-                    </p>
+                    </FadeUp>
                 </header>
 
-                <div className="blogsection__grid">
+                <StaggerGroup className="blogsection__grid" stagger={0.07}>
                     {articles.map((article) => (
-                        <article
+                        <StaggerItem
+                            as="article"
                             key={article.id}
                             className="blogsection__card"
                             onClick={() => navigate(article.link)}
@@ -198,18 +135,20 @@ const BlogSection = () => {
                                     </button>
                                 </div>
                             </div>
-                        </article>
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerGroup>
 
-                <button
-                    className="btn btn--white blogsection__cta"
-                    onClick={() => navigate("/blog")}
-                >
-                    Read More Articles
-                </button>
+                <FadeUp as="div" delay={0.1}>
+                    <button
+                        className="btn btn--white blogsection__cta"
+                        onClick={() => navigate("/blog")}
+                    >
+                        Read More Articles
+                    </button>
+                </FadeUp>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

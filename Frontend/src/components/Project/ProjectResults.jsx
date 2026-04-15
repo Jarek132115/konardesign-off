@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import React from "react";
 import "../../styling/projects/project1/projectresults.css";
 
-gsap.registerPlugin(ScrollTrigger);
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "../animations/StaggerGroup";
+import AnimatedSection from "../animations/AnimatedSection";
 
 const scoreCards = [
     {
@@ -52,162 +53,49 @@ const outcomeCards = [
 ];
 
 const ProjectResults = () => {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const sectionEl = sectionRef.current;
-        if (!sectionEl) return;
-
-        const titleEl = sectionEl.querySelector(".project-results__title");
-        const subtitleEl = sectionEl.querySelector(".project-results__subtitle");
-        const leadCardEl = sectionEl.querySelector(".project-results__lead");
-        const scoreItems = sectionEl.querySelectorAll(".project-results__score-card");
-        const outcomeItems = sectionEl.querySelectorAll(".project-results__outcome-card");
-
-        if (!titleEl || !subtitleEl || !leadCardEl) return;
-
-        const original = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = original.split(" ");
-        const highlightWords = new Set(["Results", "Performance", "Impact"]);
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("project-results__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            const cleaned = word.replace(/[^\w]/g, "");
-            if (highlightWords.has(cleaned)) {
-                wordWrapper.classList.add("project-results__title-highlight");
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(".project-results__title-word span");
-
-        gsap.set([subtitleEl, leadCardEl], { opacity: 0, y: 12 });
-
-        const introTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-            defaults: { ease: "power2.out" },
-        });
-
-        introTl
-            .to(charSpans, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.03,
-                duration: 0.4,
-            })
-            .to(
-                subtitleEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.45,
-                },
-                ">-0.05"
-            )
-            .to(
-                leadCardEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.5,
-                },
-                ">-0.05"
-            );
-
-        scoreItems.forEach((item, index) => {
-            gsap.fromTo(
-                item,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.45,
-                    delay: index * 0.05,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 85%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-
-        outcomeItems.forEach((item, index) => {
-            gsap.fromTo(
-                item,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.45,
-                    delay: index * 0.05,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 85%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-
-        return () => {
-            introTl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
-    }, []);
-
     return (
-        <section className="project-results" ref={sectionRef}>
+        <AnimatedSection className="project-results">
             <div className="project-results__container">
                 <header className="project-results__header">
-                    <span className="project-results__eyebrow">RESULTS</span>
+                    <FadeUp
+                        as="span"
+                        className="project-results__eyebrow"
+                        duration={0.35}
+                    >
+                        RESULTS
+                    </FadeUp>
 
                     <h2 className="heading2 project-results__title">
-                        Results,{" "}
-                        <span className="project-results__title-highlight">
-                            Performance
-                        </span>{" "}
-                        and{" "}
-                        <span className="project-results__title-highlight">
-                            Growth
-                        </span>{" "}
-                        Readiness.
+                        <AnimatedHeading
+                            as="span"
+                            text="Results, Performance and Growth Readiness."
+                            wordClassName="project-results__title-word"
+                            highlightWords={["Performance", "Growth"]}
+                            highlightClassName="project-results__title-highlight"
+                            delay={0.08}
+                        />
                     </h2>
 
-                    <p className="subheading project-results__subtitle">
+                    <FadeUp
+                        as="p"
+                        className="subheading project-results__subtitle"
+                        duration={0.45}
+                        afterHeading="Results, Performance and Growth Readiness."
+                        headingDelay={0.08}
+                    >
                         The final outcome was not just a better looking website it
                         created a stronger technical, strategic, and user-facing
                         foundation for visibility, trust, responsiveness, and future
                         growth.
-                    </p>
+                    </FadeUp>
                 </header>
 
-                <div className="project-results__lead">
+                <FadeUp
+                    className="project-results__lead"
+                    y={12}
+                    duration={0.5}
+                    delay={0.3}
+                >
                     <div className="project-results__lead-top">
                         <span className="project-results__lead-label">
                             Key Outcome
@@ -262,11 +150,12 @@ const ProjectResults = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </FadeUp>
 
-                <div className="project-results__scores">
+                <StaggerGroup className="project-results__scores">
                     {scoreCards.map((item) => (
-                        <article
+                        <StaggerItem
+                            as="article"
                             key={item.label}
                             className="project-results__score-card"
                         >
@@ -281,13 +170,14 @@ const ProjectResults = () => {
                             <p className="project-results__score-text">
                                 {item.text}
                             </p>
-                        </article>
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerGroup>
 
-                <div className="project-results__outcomes">
+                <StaggerGroup className="project-results__outcomes">
                     {outcomeCards.map((item) => (
-                        <article
+                        <StaggerItem
+                            as="article"
                             key={item.title}
                             className="project-results__outcome-card"
                         >
@@ -302,11 +192,11 @@ const ProjectResults = () => {
                             <p className="project-results__outcome-text">
                                 {item.text}
                             </p>
-                        </article>
+                        </StaggerItem>
                     ))}
-                </div>
+                </StaggerGroup>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

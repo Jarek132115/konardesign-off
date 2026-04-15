@@ -1,13 +1,13 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import Cal, { getCalApi } from "@calcom/embed-react";
 import "../styling/bookingsection.css";
 
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import AnimatedHeading from "./animations/AnimatedHeading";
+import FadeUp from "./animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "./animations/StaggerGroup";
+import AnimatedSection from "./animations/AnimatedSection";
 
 import ProfilePic from "../assets/images/ProfilePic.jpg";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const contactCards = [
     {
@@ -71,8 +71,6 @@ const socialLinks = [
 ];
 
 const BookingSection = () => {
-    const sectionRef = useRef(null);
-
     useEffect(() => {
         (async function () {
             const cal = await getCalApi({ namespace: "30min" });
@@ -95,187 +93,30 @@ const BookingSection = () => {
         })();
     }, []);
 
-    useEffect(() => {
-        const sectionEl = sectionRef.current;
-        if (!sectionEl) return;
-
-        const eyebrowEl = sectionEl.querySelector(".booking__eyebrow");
-        const titleEl = sectionEl.querySelector(".booking__title");
-        const subtitleEl = sectionEl.querySelector(".booking__subtitle");
-        const calEl = sectionEl.querySelector(".booking__calendar-wrap");
-        const lowerRowEl = sectionEl.querySelector(".booking__lower-row");
-        const cards = sectionEl.querySelectorAll(".booking__contact-card");
-        const socialEl = sectionEl.querySelector(".booking__social");
-
-        if (!eyebrowEl || !titleEl || !subtitleEl || !calEl || !lowerRowEl) {
-            return;
-        }
-
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("booking__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const wordSpans = titleEl.querySelectorAll(".booking__title-word");
-        const highlightSet = new Set(["your", "project"]);
-        
-        wordSpans.forEach((wordSpan) => {
-            const cleaned = wordSpan.textContent
-                .replace(/[^\w-]/g, "")
-                .toLowerCase();
-
-            if (highlightSet.has(cleaned)) {
-                wordSpan.classList.add("booking__title-highlight");
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(".booking__title-word span");
-
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-        gsap.set(calEl, { opacity: 0, y: 18 });
-        gsap.set(lowerRowEl, { opacity: 0, y: 18 });
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-            defaults: { ease: "power2.out" },
-        });
-
-        tl.fromTo(
-            eyebrowEl,
-            { opacity: 0, y: 8 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.25,
-            }
-        )
-            .to(
-                charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
-                },
-                ">-0.05"
-            )
-            .fromTo(
-                subtitleEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
-                ">-0.08"
-            )
-            .fromTo(
-                calEl,
-                { opacity: 0, y: 18 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.4,
-                },
-                ">-0.04"
-            )
-            .fromTo(
-                lowerRowEl,
-                { opacity: 0, y: 18 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.42,
-                },
-                ">-0.08"
-            );
-
-        cards.forEach((card, index) => {
-            gsap.fromTo(
-                card,
-                { opacity: 0, y: 18 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.35,
-                    delay: index * 0.04,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: card,
-                        start: "top 84%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-
-        if (socialEl) {
-            gsap.fromTo(
-                socialEl,
-                { opacity: 0, y: 20 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.42,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: socialEl,
-                        start: "top 84%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        }
-
-        return () => {
-            if (tl.scrollTrigger) tl.scrollTrigger.kill();
-            tl.kill();
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-        };
-    }, []);
-
     return (
-        <section className="booking" ref={sectionRef}>
+        <AnimatedSection className="booking">
             <div className="booking__inner">
                 <header className="booking__header">
-                    <p className="eyebrow booking__eyebrow">Contact</p>
+                    <FadeUp as="p" className="eyebrow booking__eyebrow">
+                        Contact
+                    </FadeUp>
 
-                    <h1 className="heading1 booking__title">
-                        Let’s Talk About Your Project
-                    </h1>
+                    <AnimatedHeading
+                        as="h1"
+                        className="heading1 booking__title"
+                        wordClassName="booking__title-word"
+                        highlightWords={["Your", "Project"]}
+                        highlightClassName="booking__title-highlight"
+                        text="Let’s Talk About Your Project"
+                    />
 
-                    <p className="subheading booking__subtitle">
+                    <FadeUp as="p" className="subheading booking__subtitle" afterHeading="Let’s Talk About Your Project">
                         Whether you are starting fresh or improving what you already
                         have, we can work out the right next step clearly.
-                    </p>
+                    </FadeUp>
                 </header>
 
-                <div className="booking__calendar-wrap">
+                <FadeUp className="booking__calendar-wrap" y={18} duration={0.5}>
                     <div className="booking__calendar-embed">
                         <Cal
                             namespace="30min"
@@ -287,9 +128,9 @@ const BookingSection = () => {
                             }}
                         />
                     </div>
-                </div>
+                </FadeUp>
 
-                <div className="booking__lower-row">
+                <FadeUp className="booking__lower-row" y={18} duration={0.55}>
                     <div className="booking__profile-column">
                         <aside className="booking__profile-card">
                             <div className="booking__profile-media">
@@ -341,9 +182,10 @@ const BookingSection = () => {
                     </div>
 
                     <div className="booking__cards-column">
-                        <div className="booking__contact-grid">
+                        <StaggerGroup className="booking__contact-grid" stagger={0.06}>
                             {contactCards.map((card) => (
-                                <article
+                                <StaggerItem
+                                    as="article"
                                     key={card.title}
                                     className="booking__contact-card"
                                 >
@@ -371,13 +213,13 @@ const BookingSection = () => {
                                             {card.actionLabel}
                                         </a>
                                     </div>
-                                </article>
+                                </StaggerItem>
                             ))}
-                        </div>
+                        </StaggerGroup>
                     </div>
-                </div>
+                </FadeUp>
 
-                <div className="booking__social">
+                <FadeUp className="booking__social" y={20} duration={0.5}>
                     <div className="booking__social-copy">
                         <h3 className="booking__social-title">Social Channels</h3>
                         <p className="booking__social-subtitle">
@@ -400,9 +242,9 @@ const BookingSection = () => {
                             </a>
                         ))}
                     </div>
-                </div>
+                </FadeUp>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

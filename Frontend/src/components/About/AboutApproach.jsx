@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import "../../styling/about/aboutapproach.css";
+import AnimatedSection from "../animations/AnimatedSection";
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
 
 import strategyIcon from "../../assets/icons/data.svg";
 import uxIcon from "../../assets/icons/ux.svg";
@@ -119,7 +122,7 @@ const AboutApproach = () => {
     }, []);
 
     return (
-        <section className="aboutapproach">
+        <AnimatedSection className="aboutapproach">
             <div className="aboutapproach__inner">
                 <div className="aboutapproach__grid">
                     <div className="aboutapproach__left">
@@ -130,20 +133,24 @@ const AboutApproach = () => {
                         </div>
 
                         <div className="aboutapproach__intro">
-                            <h2 className="heading2 aboutapproach__title">
-                                I Care About the{" "}
-                                <span className="aboutapproach__highlight">
-                                    Full Build
-                                </span>
-                                , Not Just the Surface
-                            </h2>
+                            <AnimatedHeading
+                                as="h2"
+                                text="I Care About the Full Build, Not Just the Surface"
+                                className="heading2 aboutapproach__title"
+                                highlightWords={["Full", "Build"]}
+                                highlightClassName="aboutapproach__highlight"
+                            />
 
-                            <p className="subheading aboutapproach__subtitle">
+                            <FadeUp
+                                as="p"
+                                className="subheading aboutapproach__subtitle"
+                                afterHeading="I Care About the Full Build, Not Just the Surface"
+                            >
                                 Good websites do more than look polished. They
                                 need clear structure, stronger communication,
                                 and a considered journey that makes the product
                                 easier to understand and use.
-                            </p>
+                            </FadeUp>
                         </div>
 
                         <div
@@ -196,7 +203,7 @@ const AboutApproach = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

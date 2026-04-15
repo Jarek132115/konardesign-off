@@ -1,16 +1,17 @@
 import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import "../../styling/CustomService/customherosection.css";
+
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "../animations/StaggerGroup";
+import AnimatedSection from "../animations/AnimatedSection";
 
 import carousel5 from "../../assets/images/carousel5.jpg";
 import carousel6 from "../../assets/images/carousel6.jpg";
 import carousel7 from "../../assets/images/carousel7.jpg";
 import carousel8 from "../../assets/images/carousel8.jpg";
 import carousel9 from "../../assets/images/carousel9.jpg";
-
-gsap.registerPlugin(ScrollTrigger);
 
 /* hero carousel uses only carousel5–9, duplicated for seamless loop */
 const heroCarouselBase = [carousel5, carousel6, carousel7, carousel8, carousel9];
@@ -23,81 +24,14 @@ const CustomHeroSection = () => {
         const section = sectionRef.current;
         if (!section) return;
 
-        const timelines = [];
-        let heroTickerFn = null;
-
-        /* -----------------------------
-           HERO LETTER ANIMATION
-        ------------------------------ */
-        const heroTitle = section.querySelector(".service-hero__title");
-        const heroSubtitle = section.querySelector(".service-hero__subtitle");
-
-        if (heroTitle && heroSubtitle) {
-            const original = heroTitle.textContent;
-            heroTitle.textContent = "";
-
-            const highlightWords = new Set(["Built", "To", "Convert"]);
-
-            original.split(" ").forEach((word, idx, arr) => {
-                const span = document.createElement("span");
-                span.className = "service-hero__title-word";
-                span.style.display = "inline-block";
-
-                if (highlightWords.has(word.replace(/[^\w]/g, ""))) {
-                    span.classList.add("service-hero__title-highlight");
-                }
-
-                [...word].forEach((ch) => {
-                    const char = document.createElement("span");
-                    char.textContent = ch;
-                    char.style.opacity = "0";
-                    char.style.transform = "translateY(8px)";
-                    span.appendChild(char);
-                });
-
-                heroTitle.appendChild(span);
-                if (idx < arr.length - 1) heroTitle.append(" ");
-            });
-
-            const chars = heroTitle.querySelectorAll(
-                ".service-hero__title-word span"
-            );
-            gsap.set(heroSubtitle, { opacity: 0, y: 8 });
-
-            const heroTl = gsap
-                .timeline({
-                    scrollTrigger: { trigger: heroTitle, start: "top 80%" },
-                    defaults: { ease: "power2.out" },
-                })
-                .to(chars, {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.03,
-                    duration: 0.4,
-                })
-                .to(
-                    heroSubtitle,
-                    { opacity: 1, y: 0, duration: 0.4 },
-                    "-=0.2"
-                );
-
-            timelines.push(heroTl);
-        }
-
         /* -----------------------------
            HERO VERTICAL CAROUSEL
         ------------------------------ */
-
         const carouselEl = section.querySelector(".service-hero__carousel");
         const trackUp = section.querySelector(".service-hero__track--up");
         const trackDown = section.querySelector(".service-hero__track--down");
 
-        if (!carouselEl || !trackUp || !trackDown) {
-            return () => {
-                timelines.forEach((t) => t.kill());
-                ScrollTrigger.getAll().forEach((st) => st.kill());
-            };
-        }
+        if (!carouselEl || !trackUp || !trackDown) return;
 
         const isBrowser = typeof window !== "undefined";
         const isDraggable = isBrowser && window.innerWidth > 1024;
@@ -108,12 +42,13 @@ const CustomHeroSection = () => {
         let onPointerDown = null;
         let onPointerMove = null;
         let endDrag = null;
+        let rafId = null;
 
         let distances = [0, 0];
         let offsets = [0, 0];
 
         const baseSpeed = 40; // px per second
-        let directions = [1, -1]; // column 0 down, column 1 up
+        let directions = [1, -1];
 
         let isPointerDown = false;
         let isDragging = false;
@@ -124,8 +59,8 @@ const CustomHeroSection = () => {
         let lastDragDeltaY = 0;
 
         const applyTransforms = () => {
-            gsap.set(trackUp, { y: -offsets[0] });
-            gsap.set(trackDown, { y: -offsets[1] });
+            trackUp.style.transform = `translate3d(0, ${-offsets[0]}px, 0)`;
+            trackDown.style.transform = `translate3d(0, ${-offsets[1]}px, 0)`;
         };
 
         const wrapOffsets = () => {
@@ -138,23 +73,23 @@ const CustomHeroSection = () => {
 
         const startTicker = () => {
             if (!distances[0] || !distances[1]) return;
-            let lastTime = gsap.ticker.time;
+            let lastTime = performance.now();
 
-            heroTickerFn = (time) => {
-                const dt = time - lastTime;
+            const tick = (time) => {
+                const dt = (time - lastTime) / 1000;
                 lastTime = time;
 
                 for (let i = 0; i < 2; i++) {
-                    // if dragging is enabled and this column is being dragged, skip auto
                     if (isDraggable && isDragging && draggingIndex === i) continue;
                     offsets[i] += directions[i] * baseSpeed * dt;
                 }
 
                 wrapOffsets();
                 applyTransforms();
+                rafId = requestAnimationFrame(tick);
             };
 
-            gsap.ticker.add(heroTickerFn);
+            rafId = requestAnimationFrame(tick);
         };
 
         imgEls = trackUp.querySelectorAll("img");
@@ -194,16 +129,11 @@ const CustomHeroSection = () => {
         }
 
         /* ----- DRAG LOGIC (desktop only > 1024px) ----- */
-
         if (isDraggable) {
             const getClientX = (e) =>
-                e.touches && e.touches.length
-                    ? e.touches[0].clientX
-                    : e.clientX;
+                e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
             const getClientY = (e) =>
-                e.touches && e.touches.length
-                    ? e.touches[0].clientY
-                    : e.clientY;
+                e.touches && e.touches.length ? e.touches[0].clientY : e.clientY;
 
             const H_THRESHOLD = 8;
             const MIN_DIRECTION_DELTA = 4;
@@ -215,9 +145,7 @@ const CustomHeroSection = () => {
                 if (!columnEl) return;
 
                 const colIndexAttr = columnEl.getAttribute("data-col-index");
-                const colIndex = colIndexAttr
-                    ? parseInt(colIndexAttr, 10)
-                    : 0;
+                const colIndex = colIndexAttr ? parseInt(colIndexAttr, 10) : 0;
 
                 if (!distances[colIndex]) return;
 
@@ -284,8 +212,7 @@ const CustomHeroSection = () => {
                     draggingIndex !== null &&
                     Math.abs(lastDragDeltaY) > MIN_DIRECTION_DELTA
                 ) {
-                    directions[draggingIndex] =
-                        lastDragDeltaY > 0 ? 1 : -1;
+                    directions[draggingIndex] = lastDragDeltaY > 0 ? 1 : -1;
                 }
 
                 isDragging = false;
@@ -317,16 +244,8 @@ const CustomHeroSection = () => {
             window.addEventListener("touchcancel", endDrag);
         }
 
-        /* -----------------------------
-           CLEANUP
-        ------------------------------ */
         return () => {
-            timelines.forEach((t) => t.kill());
-            ScrollTrigger.getAll().forEach((st) => st.kill());
-
-            if (heroTickerFn) {
-                gsap.ticker.remove(heroTickerFn);
-            }
+            if (rafId) cancelAnimationFrame(rafId);
 
             imgEls.forEach((img) => {
                 img.removeEventListener("load", handleImageLoaded);
@@ -359,37 +278,59 @@ const CustomHeroSection = () => {
     }, []);
 
     return (
-        <section className="service-hero" ref={sectionRef}>
+        <AnimatedSection className="service-hero" ref={sectionRef}>
             <div className="service-hero__grid">
                 <div className="service-hero__content">
-                    <p className="eyebrow service-hero__eyebrow">
+                    <FadeUp
+                        as="p"
+                        className="eyebrow service-hero__eyebrow"
+                        trigger="onLoad"
+                        delay={0}
+                    >
                         Custom Website Build
-                    </p>
+                    </FadeUp>
 
-                    <h1 className="heading1 service-hero__title">
-                        Custom Websites Built To Convert. Not Just Look Pretty.
-                    </h1>
+                    <AnimatedHeading
+                        as="h1"
+                        className="heading1 service-hero__title"
+                        text="Custom Websites Built To Convert. Not Just Look Pretty."
+                        wordClassName="service-hero__title-word"
+                        highlightWords={["Built", "To", "Convert"]}
+                        highlightClassName="service-hero__title-highlight"
+                        trigger="onLoad"
+                        delay={0.15}
+                    />
 
-                    <p className="subheading service-hero__subtitle">
+                    <FadeUp
+                        as="p"
+                        className="subheading service-hero__subtitle"
+                        trigger="onLoad"
+                        afterHeading="Custom Websites Built To Convert. Not Just Look Pretty."
+                        headingDelay={0.15}
+                    >
                         Fully custom, conversion-focused builds engineered for
                         speed, clarity, and long-term growth — on a predictable
                         weekly rate.
-                    </p>
+                    </FadeUp>
 
-                    <div className="service-hero__metrics">
-                        <div className="service-hero__metrics-item body">
+                    <StaggerGroup
+                        className="service-hero__metrics"
+                        trigger="onLoad"
+                        delay={0.55}
+                    >
+                        <StaggerItem className="service-hero__metrics-item body">
                             <span className="service-hero__metrics-dot" />
                             Conversion-led structure, not just visuals.
-                        </div>
-                        <div className="service-hero__metrics-item body">
+                        </StaggerItem>
+                        <StaggerItem className="service-hero__metrics-item body">
                             <span className="service-hero__metrics-dot" />
                             Fixed, simple pricing – no surprise extras.
-                        </div>
-                        <div className="service-hero__metrics-item body">
+                        </StaggerItem>
+                        <StaggerItem className="service-hero__metrics-item body">
                             <span className="service-hero__metrics-dot" />
                             Launch-ready builds with tracking baked in.
-                        </div>
-                    </div>
+                        </StaggerItem>
+                    </StaggerGroup>
                 </div>
 
                 {/* dual vertical carousel */}
@@ -441,7 +382,7 @@ const CustomHeroSection = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

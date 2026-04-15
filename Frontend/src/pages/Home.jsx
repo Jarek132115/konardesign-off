@@ -17,7 +17,8 @@ import DifferenceSection from "../components/DifferenceSection";
 import "../styling/hero.css";
 import "../styling/buttons.css";
 
-import { gsap } from "gsap";
+import AnimatedHeading from "../components/animations/AnimatedHeading";
+import FadeUp from "../components/animations/FadeUp";
 
 import carousel1 from "../assets/images/carousel1.jpg";
 import carousel2 from "../assets/images/carousel2.jpg";
@@ -31,148 +32,27 @@ import carousel9 from "../assets/images/carousel9.jpg";
 import carousel10 from "../assets/images/carousel10.jpg";
 
 const images = [
-    carousel1,
-    carousel2,
-    carousel3,
-    carousel4,
-    carousel5,
-    carousel6,
-    carousel7,
-    carousel8,
-    carousel9,
-    carousel10,
+    carousel1, carousel2, carousel3, carousel4, carousel5,
+    carousel6, carousel7, carousel8, carousel9, carousel10,
 ];
+
+const highlightWords = ["Websites", "Perform,", "Scale,", "Convert"];
 
 const Home = () => {
     const loopImages = [...images, ...images];
 
     const heroRef = useRef(null);
+    const carouselRef = useRef(null);
+    const trackRef = useRef(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const heroEl = heroRef.current;
-        if (!heroEl) return;
-
-        const titleEl = heroEl.querySelector(".hero__title");
-        const subheadingEl = heroEl.querySelector(".hero__subheading");
-        const pillEl = heroEl.querySelector(".hero__pill");
-        const buttonsEl = heroEl.querySelector(".hero__buttons");
-        const carouselEl = heroEl.querySelector(".hero__carousel");
-        const carouselTrackEl = heroEl.querySelector(".hero__carousel-track");
-
-        if (
-            !titleEl ||
-            !subheadingEl ||
-            !pillEl ||
-            !buttonsEl ||
-            !carouselEl ||
-            !carouselTrackEl
-        ) {
-            return;
-        }
-
-        /* -----------------------------
-           TITLE LETTER ANIMATION
-        ----------------------------- */
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-        const highlightWords = ["websites", "perform", "scale", "convert"];
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("hero__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            const cleanedWord = word.toLowerCase().replace(/[^a-z]/g, "");
-
-            if (highlightWords.includes(cleanedWord)) {
-                wordWrapper.classList.add("hero__title-word--indigo");
-            }
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(".hero__title-word span");
-
-        gsap.set(subheadingEl, { opacity: 0, y: 8 });
-        gsap.set(buttonsEl, { opacity: 0, y: 8 });
-        gsap.set(carouselEl, { opacity: 0, y: 16 });
-
-        const introTl = gsap.timeline({ defaults: { ease: "power2.out" } });
-
-        introTl
-            .fromTo(
-                pillEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.25,
-                }
-            )
-            .to(
-                charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
-                },
-                ">-0.05"
-            )
-            .fromTo(
-                subheadingEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
-                ">-0.08"
-            )
-            .fromTo(
-                buttonsEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
-                ">-0.06"
-            )
-            .fromTo(
-                carouselEl,
-                { opacity: 0, y: 16 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
-                ">-0.04"
-            );
-
-        /* -----------------------------
-           INFINITE MARQUEE + DRAG
-        ----------------------------- */
+        const carouselEl = carouselRef.current;
+        const trackEl = trackRef.current;
+        if (!carouselEl || !trackEl) return;
 
         let distance = 0;
         let offset = 0;
-
         const baseSpeed = 150;
         let direction = 1;
 
@@ -182,43 +62,39 @@ const Home = () => {
         let dragStartY = 0;
         let dragStartOffset = 0;
         let lastDragDeltaX = 0;
-        let tickerFn = null;
+        let rafId = null;
+        let lastTime = performance.now();
 
         const applyTransform = () => {
-            gsap.set(carouselTrackEl, { x: -offset });
+            trackEl.style.transform = `translate3d(${-offset}px, 0, 0)`;
+        };
+
+        const tick = (time) => {
+            const dt = (time - lastTime) / 1000;
+            lastTime = time;
+
+            if (!isDragging && distance > 0) {
+                offset += direction * baseSpeed * dt;
+                offset = ((offset % distance) + distance) % distance;
+                applyTransform();
+            }
+            rafId = requestAnimationFrame(tick);
         };
 
         const startTicker = () => {
-            if (!distance) return;
-
-            let lastTime = gsap.ticker.time;
-
-            tickerFn = (time) => {
-                const dt = time - lastTime;
-                lastTime = time;
-
-                if (!isDragging) {
-                    offset += direction * baseSpeed * dt;
-
-                    if (distance > 0) {
-                        offset = offset % distance;
-                    }
-
-                    applyTransform();
-                }
-            };
-
-            gsap.ticker.add(tickerFn);
+            if (!distance || rafId !== null) return;
+            lastTime = performance.now();
+            rafId = requestAnimationFrame(tick);
         };
 
-        const imgEls = carouselTrackEl.querySelectorAll("img");
+        const imgEls = trackEl.querySelectorAll("img");
         const totalImgs = imgEls.length;
         let loadedCount = 0;
 
         const handleImageLoaded = () => {
             loadedCount += 1;
             if (loadedCount >= totalImgs) {
-                distance = carouselTrackEl.scrollWidth / 2;
+                distance = trackEl.scrollWidth / 2;
                 if (distance > 0) {
                     offset = 0;
                     applyTransform();
@@ -228,7 +104,7 @@ const Home = () => {
         };
 
         if (totalImgs === 0) {
-            distance = carouselTrackEl.scrollWidth / 2;
+            distance = trackEl.scrollWidth / 2;
             if (distance > 0) {
                 offset = 0;
                 applyTransform();
@@ -236,22 +112,16 @@ const Home = () => {
             }
         } else {
             imgEls.forEach((img) => {
-                if (img.complete) {
-                    handleImageLoaded();
-                } else {
+                if (img.complete) handleImageLoaded();
+                else {
                     img.addEventListener("load", handleImageLoaded);
                     img.addEventListener("error", handleImageLoaded);
                 }
             });
         }
 
-        /* -----------------------------
-           DRAG (mouse + touch)
-        ----------------------------- */
-
         const getClientX = (e) =>
             e.touches && e.touches.length ? e.touches[0].clientX : e.clientX;
-
         const getClientY = (e) =>
             e.touches && e.touches.length ? e.touches[0].clientY : e.clientY;
 
@@ -260,11 +130,7 @@ const Home = () => {
 
         const onPointerDown = (e) => {
             if (!distance) return;
-
-            if (e.button !== undefined && e.button !== 0) {
-                return;
-            }
-
+            if (e.button !== undefined && e.button !== 0) return;
             isPointerDown = true;
             isDragging = false;
             dragStartX = getClientX(e);
@@ -275,25 +141,16 @@ const Home = () => {
 
         const onPointerMove = (e) => {
             if (!isPointerDown || !distance) return;
-
             const currentX = getClientX(e);
             const currentY = getClientY(e);
             const deltaX = currentX - dragStartX;
             const deltaY = currentY - dragStartY;
 
             if (!isDragging) {
-                if (
-                    Math.abs(deltaX) < HORIZONTAL_THRESHOLD &&
-                    Math.abs(deltaY) < HORIZONTAL_THRESHOLD
-                ) {
-                    return;
-                }
-
+                if (Math.abs(deltaX) < HORIZONTAL_THRESHOLD && Math.abs(deltaY) < HORIZONTAL_THRESHOLD) return;
                 if (Math.abs(deltaX) > Math.abs(deltaY)) {
                     isDragging = true;
-                    carouselTrackEl.classList.add(
-                        "hero__carousel-track--dragging"
-                    );
+                    trackEl.classList.add("hero__carousel-track--dragging");
                 } else {
                     isPointerDown = false;
                     isDragging = false;
@@ -304,61 +161,42 @@ const Home = () => {
             offset = dragStartOffset - deltaX;
             lastDragDeltaX = deltaX;
             offset = ((offset % distance) + distance) % distance;
-
             applyTransform();
-
             if (e.cancelable) e.preventDefault();
         };
 
         const endDrag = () => {
             if (!isPointerDown && !isDragging) return;
-
             isPointerDown = false;
             isDragging = false;
-            carouselTrackEl.classList.remove("hero__carousel-track--dragging");
-
+            trackEl.classList.remove("hero__carousel-track--dragging");
             if (Math.abs(lastDragDeltaX) > MIN_DIRECTION_DELTA) {
                 direction = lastDragDeltaX > 0 ? -1 : 1;
             }
-
             lastDragDeltaX = 0;
         };
 
-        const onNativeDragStart = (e) => {
-            e.preventDefault();
-        };
+        const onNativeDragStart = (e) => e.preventDefault();
 
-        carouselTrackEl.addEventListener("dragstart", onNativeDragStart);
-
+        trackEl.addEventListener("dragstart", onNativeDragStart);
         carouselEl.addEventListener("mousedown", onPointerDown);
         window.addEventListener("mousemove", onPointerMove);
         window.addEventListener("mouseup", endDrag);
-
-        carouselEl.addEventListener("touchstart", onPointerDown, {
-            passive: false,
-        });
+        carouselEl.addEventListener("touchstart", onPointerDown, { passive: false });
         window.addEventListener("touchmove", onPointerMove, { passive: false });
         window.addEventListener("touchend", endDrag);
         window.addEventListener("touchcancel", endDrag);
 
         return () => {
-            introTl.kill();
-
-            if (tickerFn) {
-                gsap.ticker.remove(tickerFn);
-            }
-
+            if (rafId !== null) cancelAnimationFrame(rafId);
             imgEls.forEach((img) => {
                 img.removeEventListener("load", handleImageLoaded);
                 img.removeEventListener("error", handleImageLoaded);
             });
-
-            carouselTrackEl.removeEventListener("dragstart", onNativeDragStart);
-
+            trackEl.removeEventListener("dragstart", onNativeDragStart);
             carouselEl.removeEventListener("mousedown", onPointerDown);
             window.removeEventListener("mousemove", onPointerMove);
             window.removeEventListener("mouseup", endDrag);
-
             carouselEl.removeEventListener("touchstart", onPointerDown);
             window.removeEventListener("touchmove", onPointerMove);
             window.removeEventListener("touchend", endDrag);
@@ -373,41 +211,65 @@ const Home = () => {
             <main className="hero" ref={heroRef}>
                 <div className="hero__inner">
                     <section className="hero__content">
-                        <div className="pill--white hero__pill">
+                        <FadeUp
+                            className="pill--white hero__pill"
+                            trigger="onLoad"
+                            duration={0.4}
+                            y={8}
+                        >
                             Strategy → Design → Development → Performance
-                        </div>
+                        </FadeUp>
 
-                        <h1 className="heading1 hero__title">
-                            I Design and Build User-Centred Websites That
-                            Perform, Scale, and Convert
-                        </h1>
+                        <AnimatedHeading
+                            as="h1"
+                            className="heading1 hero__title"
+                            text="I Design and Build User-Centred Websites That Perform, Scale, and Convert"
+                            wordClassName="hero__title-word"
+                            highlightWords={highlightWords}
+                            highlightClassName="hero__title-word--indigo"
+                            trigger="onLoad"
+                            delay={0.15}
+                        />
 
-                        <p className="hero__subheading subheading">
-                            I’m Jarek, a UI/UX focused designer and developer
-                            creating fast, structured, and conversion-driven
-                            websites from strategy to launch.
-                        </p>
+                        <FadeUp
+                            as="p"
+                            className="hero__subheading subheading"
+                            trigger="onLoad"
+                            afterHeading="I Design and Build User-Centred Websites That Perform, Scale, and Convert"
+                            headingDelay={0.15}
+                            duration={0.5}
+                            y={8}
+                        >
+                            I’m Jarek, a UI/UX focused designer and developer creating fast, structured, and conversion-driven websites from strategy to launch.
+                        </FadeUp>
 
-                        <div className="hero__buttons">
-                            <button
-                                className="btn btn--indigo"
-                                onClick={() => navigate("/book-a-call")}
-                            >
+                        <FadeUp
+                            className="hero__buttons"
+                            trigger="onLoad"
+                            delay={0.55}
+                            duration={0.5}
+                            y={8}
+                        >
+                            <button className="btn btn--indigo" onClick={() => navigate("/book-a-call")}>
                                 Contact Me
                             </button>
-
-                            <button
-                                className="btn btn--white"
-                                onClick={() => navigate("/projects")}
-                            >
+                            <button className="btn btn--white" onClick={() => navigate("/projects")}>
                                 My Work
                             </button>
-                        </div>
+                        </FadeUp>
                     </section>
                 </div>
 
-                <section className="hero__carousel">
-                    <div className="hero__carousel-track">
+                <FadeUp
+                    as="section"
+                    className="hero__carousel"
+                    trigger="onLoad"
+                    delay={0.65}
+                    duration={0.5}
+                    y={16}
+                    ref={carouselRef}
+                >
+                    <div className="hero__carousel-track" ref={trackRef}>
                         {loopImages.map((src, index) => (
                             <div className="hero__card" key={index}>
                                 <img
@@ -419,17 +281,14 @@ const Home = () => {
                             </div>
                         ))}
                     </div>
-                </section>
+                </FadeUp>
             </main>
 
             <IntroSection />
             <Conversion />
             <ProjectsSection />
-            {/* <ServicesSection />
-            <OfferSection /> */}
             <ProcessSection />
             <DifferenceSection />
-            {/* <ImagineSection /> */}
             <BookCTASection />
             <BlogSection />
             <Footer />

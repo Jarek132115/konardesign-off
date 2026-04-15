@@ -1,14 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import "../styling/services.css";
 
+import AnimatedHeading from "./animations/AnimatedHeading";
+import FadeUp from "./animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "./animations/StaggerGroup";
+import AnimatedSection from "./animations/AnimatedSection";
+
 import customVideo from "../assets/videos/Custom1.mp4";
 import ecommerceVideo from "../assets/videos/ECommerce1.mp4";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const services = [
     {
@@ -34,45 +35,31 @@ const services = [
 ];
 
 const ServicesSection = () => {
-    const sectionRef = useRef(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const cards = sectionRef.current?.querySelectorAll(".services-card");
-        cards?.forEach((card) => {
-            gsap.fromTo(
-                card,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.45,
-                    ease: "power2.out",
-                    scrollTrigger: { trigger: card, start: "top 85%" },
-                }
-            );
-        });
-
-        return () => ScrollTrigger.getAll().forEach((st) => st.kill());
-    }, []);
-
     return (
-        <section className="services" ref={sectionRef}>
+        <AnimatedSection className="services">
             <header className="services__header">
-                <p className="eyebrow services__eyebrow">OUR SERVICES</p>
+                <FadeUp as="p" className="eyebrow services__eyebrow">
+                    OUR SERVICES
+                </FadeUp>
 
-                <h2 className="heading2 services__title">
-                    Solutions <span className="services__highlight">Engineered</span> For Digital Growth
-                </h2>
+                <AnimatedHeading
+                    as="h2"
+                    className="heading2 services__title"
+                    highlightWords={["Engineered"]}
+                    highlightClassName="services__highlight"
+                    text="Solutions Engineered For Digital Growth"
+                />
 
-                <p className="subheading services__subtitle">
+                <FadeUp as="p" className="subheading services__subtitle" afterHeading="Solutions Engineered For Digital Growth">
                     End-to-end website builds designed to perform today and scale tomorrow.
-                </p>
+                </FadeUp>
             </header>
 
-            <div className="services__stack">
+            <StaggerGroup className="services__stack" stagger={0.08}>
                 {services.map((service) => (
-                    <article key={service.id} className="services-card">
+                    <StaggerItem as="article" key={service.id} className="services-card">
                         <div className="services-card__media">
                             <video src={service.video} autoPlay muted loop playsInline />
                         </div>
@@ -104,10 +91,10 @@ const ServicesSection = () => {
                                 View Service
                             </button>
                         </div>
-                    </article>
+                    </StaggerItem>
                 ))}
-            </div>
-        </section>
+            </StaggerGroup>
+        </AnimatedSection>
     );
 };
 

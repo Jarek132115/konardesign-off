@@ -1,6 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import React from "react";
 import "../../styling/projects/project1/projectstyling.css";
+
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "../animations/StaggerGroup";
+import AnimatedSection from "../animations/AnimatedSection";
 
 import konarVideoSecondary from "../../assets/videos/KonarCard2.mp4";
 
@@ -84,122 +88,37 @@ const colourTokens = [
 ];
 
 const ProjectStyling = () => {
-    const sectionRef = useRef(null);
-
-    useEffect(() => {
-        const sectionEl = sectionRef.current;
-        if (!sectionEl) return;
-
-        const titleEl = sectionEl.querySelector(".project-styling__title");
-        const subtitleEl = sectionEl.querySelector(".project-styling__subtitle");
-
-        if (!titleEl || !subtitleEl) return;
-
-        const original = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = original.split(" ");
-        const highlightWords = new Set(["Styling", "Visual", "System"]);
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("project-styling__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            const cleaned = word.replace(/[^\w]/g, "");
-            if (highlightWords.has(cleaned)) {
-                wordWrapper.classList.add("project-styling__title-highlight");
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(
-            ".project-styling__title-word span"
-        );
-        const animatedItems = sectionEl.querySelectorAll(
-            ".project-styling__panel, .project-styling__media"
-        );
-
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-            defaults: { ease: "power2.out" },
-        });
-
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.03,
-            duration: 0.4,
-        }).to(
-            subtitleEl,
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.45,
-            },
-            ">-0.05"
-        );
-
-        animatedItems.forEach((item, index) => {
-            gsap.fromTo(
-                item,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.45,
-                    ease: "power2.out",
-                    delay: index * 0.06,
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 82%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-
-        return () => {
-            tl.kill();
-        };
-    }, []);
-
     return (
-        <section className="project-styling" ref={sectionRef}>
+        <AnimatedSection className="project-styling">
             <div className="project-styling__container">
                 <header className="project-styling__header">
-                    <h2 className="heading2 project-styling__title">
-                        Styling &amp; Visual System Built To Last.
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        className="heading2 project-styling__title"
+                        text="Styling & Visual System Built To Last."
+                        wordClassName="project-styling__title-word"
+                        highlightWords={["Styling", "Visual", "System"]}
+                        highlightClassName="project-styling__title-highlight"
+                    />
 
-                    <p className="subheading project-styling__subtitle">
+                    <FadeUp
+                        as="p"
+                        className="subheading project-styling__subtitle"
+                        duration={0.45}
+                        afterHeading="Styling & Visual System Built To Last."
+                    >
                         A complete design system built to make KonarCard feel sharper,
                         clearer, and more consistent across every page.
-                    </p>
+                    </FadeUp>
                 </header>
 
                 <div className="project-styling__grid">
-                    <section className="project-styling__panel project-styling__panel--type">
+                    <FadeUp
+                        as="section"
+                        className="project-styling__panel project-styling__panel--type"
+                        y={24}
+                        duration={0.5}
+                    >
                         <div className="project-styling__panel-header">
                             <span className="project-styling__eyebrow">
                                 Typography System
@@ -240,9 +159,15 @@ const ProjectStyling = () => {
                                 </div>
                             ))}
                         </div>
-                    </section>
+                    </FadeUp>
 
-                    <section className="project-styling__panel project-styling__panel--colour">
+                    <FadeUp
+                        as="section"
+                        className="project-styling__panel project-styling__panel--colour"
+                        y={24}
+                        duration={0.5}
+                        delay={0.08}
+                    >
                         <div className="project-styling__panel-header">
                             <span className="project-styling__eyebrow">
                                 Colour Strategy
@@ -260,9 +185,10 @@ const ProjectStyling = () => {
                             </p>
                         </div>
 
-                        <div className="project-styling__token-grid">
+                        <StaggerGroup className="project-styling__token-grid">
                             {colourTokens.map((token) => (
-                                <article
+                                <StaggerItem
+                                    as="article"
                                     key={token.name}
                                     className="project-styling__token-card"
                                 >
@@ -284,13 +210,17 @@ const ProjectStyling = () => {
                                             {token.role}
                                         </p>
                                     </div>
-                                </article>
+                                </StaggerItem>
                             ))}
-                        </div>
-                    </section>
+                        </StaggerGroup>
+                    </FadeUp>
                 </div>
 
-                <div className="project-styling__media">
+                <FadeUp
+                    className="project-styling__media"
+                    y={20}
+                    duration={0.5}
+                >
                     <div className="project-styling__media-inner">
                         <video
                             src={konarVideoSecondary}
@@ -301,9 +231,9 @@ const ProjectStyling = () => {
                             className="project-styling__media-video"
                         />
                     </div>
-                </div>
+                </FadeUp>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

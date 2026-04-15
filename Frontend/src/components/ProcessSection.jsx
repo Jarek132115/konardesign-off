@@ -1,6 +1,11 @@
 import React from "react";
 import "../styling/process.css";
 
+import AnimatedSection from "./animations/AnimatedSection";
+import AnimatedHeading from "./animations/AnimatedHeading";
+import FadeUp from "./animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "./animations/StaggerGroup";
+
 import process1 from "../assets/images/Process1.jpg";
 import process2 from "../assets/images/Process2.jpg";
 import process3 from "../assets/images/Process3.jpg";
@@ -60,37 +65,41 @@ const steps = [
 ];
 
 const ProcessSection = () => {
+    const titleText = "From Direction to Build.";
     return (
-        <section className="home-process">
+        <AnimatedSection className="home-process">
             <div className="home-process__inner">
                 <header className="home-process__header">
-                    <p className="eyebrow home-process__eyebrow">HOW I WORK</p>
+                    <FadeUp as="p" className="eyebrow home-process__eyebrow" duration={0.4} y={8}>
+                        HOW I WORK
+                    </FadeUp>
 
-                    <h2 className="heading2 home-process__title">
-                        From{" "}
-                        <span className="home-process__title-highlight">
-                            Direction
-                        </span>{" "}
-                        to{" "}
-                        <span className="home-process__title-highlight">
-                            Build
-                        </span>
-                        .
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        className="heading2 home-process__title"
+                        text={titleText}
+                        highlightWords={["Direction", "Build"]}
+                        highlightClassName="home-process__title-highlight"
+                    />
 
-                    <p className="subheading home-process__subtitle">
+                    <FadeUp
+                        as="p"
+                        className="subheading home-process__subtitle"
+                        afterHeading={titleText}
+                    >
                         A clear, structured process that takes each project from
                         early direction through to design, development, and launch.
-                    </p>
+                    </FadeUp>
                 </header>
 
-                <div className="home-process__grid">
+                <StaggerGroup className="home-process__grid">
                     {steps.map((step, index) => {
                         const isDesktopReverse = index === 2 || index === 3;
                         const isSingleColumnReverse = index % 2 === 1;
 
                         return (
-                            <article
+                            <StaggerItem
+                                as="article"
                                 key={step.id}
                                 className={`home-process__card ${isDesktopReverse
                                         ? "home-process__card--reverse"
@@ -124,12 +133,12 @@ const ProcessSection = () => {
                                         />
                                     </div>
                                 </div>
-                            </article>
+                            </StaggerItem>
                         );
                     })}
-                </div>
+                </StaggerGroup>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

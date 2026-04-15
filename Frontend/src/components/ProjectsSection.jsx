@@ -1,19 +1,19 @@
 import React, {
-    useEffect,
     useRef,
     useCallback,
-    useLayoutEffect,
     useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { motion, useMotionValue, useSpring, useTransform } from "motion/react";
 import "../styling/projectssection.css";
+
+import AnimatedHeading from "./animations/AnimatedHeading";
+import FadeUp from "./animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "./animations/StaggerGroup";
+import AnimatedSection from "./animations/AnimatedSection";
 
 import konarVideo from "../assets/videos/KonarCard1.mp4";
 import ecommerceVideo from "../assets/videos/ECommerce1.mp4";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
     {
@@ -54,63 +54,32 @@ const projects = [
 
 const ProjectCard = ({ project, navigate }) => {
     const cardRef = useRef(null);
-    const pillRef = useRef(null);
-    const pillXTo = useRef(null);
-    const pillYTo = useRef(null);
     const [isPressed, setIsPressed] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
 
-    useEffect(() => {
-        const cardEl = cardRef.current;
-        const pillEl = pillRef.current;
+    const xRaw = useMotionValue(0);
+    const yRaw = useMotionValue(0);
+    const x = useSpring(xRaw, { stiffness: 600, damping: 40, mass: 0.4 });
+    const y = useSpring(yRaw, { stiffness: 600, damping: 40, mass: 0.4 });
 
-        if (!cardEl || !pillEl) return;
-
-        gsap.set(pillEl, {
-            xPercent: -50,
-            yPercent: -50,
-            opacity: 0,
-            scale: 0.92,
-        });
-
-        pillXTo.current = gsap.quickTo(pillEl, "x", {
-            duration: 0.12,
-            ease: "power3.out",
-        });
-
-        pillYTo.current = gsap.quickTo(pillEl, "y", {
-            duration: 0.12,
-            ease: "power3.out",
-        });
-    }, []);
+    // The pill is centered via xPercent/yPercent equivalent (translate -50%, -50%).
+    const translateX = useTransform(x, (v) => `calc(${v}px - 50%)`);
+    const translateY = useTransform(y, (v) => `calc(${v}px - 50%)`);
 
     const positionPill = useCallback((clientX, clientY) => {
         const card = cardRef.current;
-        if (!card || !pillXTo.current || !pillYTo.current) return;
+        if (!card) return;
 
         const rect = card.getBoundingClientRect();
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
-
-        pillXTo.current(x);
-        pillYTo.current(y);
-    }, []);
+        xRaw.set(clientX - rect.left);
+        yRaw.set(clientY - rect.top);
+    }, [xRaw, yRaw]);
 
     const handlePointerEnter = useCallback(
         (e) => {
             if (window.innerWidth <= 1024) return;
-
-            const pill = pillRef.current;
-            if (!pill) return;
-
             positionPill(e.clientX, e.clientY);
-
-            gsap.to(pill, {
-                opacity: 1,
-                scale: 1,
-                duration: 0.16,
-                ease: "power2.out",
-                overwrite: "auto",
-            });
+            setIsHovered(true);
         },
         [positionPill]
     );
@@ -124,16 +93,7 @@ const ProjectCard = ({ project, navigate }) => {
     );
 
     const handlePointerLeave = useCallback(() => {
-        const pill = pillRef.current;
-        if (!pill) return;
-
-        gsap.to(pill, {
-            opacity: 0,
-            scale: 0.92,
-            duration: 0.14,
-            ease: "power2.out",
-            overwrite: "auto",
-        });
+        setIsHovered(false);
     }, []);
 
     const toggleVideo = useCallback((videoEl) => {
@@ -157,7 +117,7 @@ const ProjectCard = ({ project, navigate }) => {
     }, [navigate, project]);
 
     return (
-        <article className="projects-row">
+        <StaggerItem as="article" className="projects-row">
             <div className="projects-row__glow-frame projects-row__glow-frame--indigo">
                 <div
                     ref={cardRef}
@@ -206,18 +166,23 @@ const ProjectCard = ({ project, navigate }) => {
 
                     <div className="projects-row__overlay" />
 
-                    <div
-                        ref={pillRef}
+                    <motion.div
                         className={`projects-row__hover-pill ${project.isComingSoon
                             ? "projects-row__hover-pill--soon"
                             : ""
                             }`}
                         aria-hidden="true"
+                        style={{ x: translateX, y: translateY }}
+                        animate={{
+                            opacity: isHovered ? 1 : 0,
+                            scale: isHovered ? 1 : 0.92,
+                        }}
+                        transition={{ duration: 0.16, ease: [0.22, 1, 0.36, 1] }}
                     >
                         <span className="projects-row__hover-pill-text">
                             {project.hoverLabel}
                         </span>
-                    </div>
+                    </motion.div>
 
                     <div className="projects-row__content">
                         <span className="projects-row__year">{project.year}</span>
@@ -240,78 +205,37 @@ const ProjectCard = ({ project, navigate }) => {
                     </div>
                 </div>
             </div>
-        </article>
+        </StaggerItem>
     );
 };
 
 const ProjectsSection = () => {
-    const sectionRef = useRef(null);
     const navigate = useNavigate();
 
-    useLayoutEffect(() => {
-        const ctx = gsap.context(() => {
-            const header = sectionRef.current?.querySelector(".projects__header");
-            const cards = sectionRef.current?.querySelectorAll(".projects-row");
-
-            if (header) {
-                gsap.fromTo(
-                    header,
-                    { opacity: 0, y: 18 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.45,
-                        ease: "power2.out",
-                        scrollTrigger: {
-                            trigger: header,
-                            start: "top 82%",
-                        },
-                    }
-                );
-            }
-
-            if (cards?.length) {
-                gsap.fromTo(
-                    cards,
-                    { opacity: 0, y: 26 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.55,
-                        ease: "power2.out",
-                        stagger: 0.08,
-                        scrollTrigger: {
-                            trigger:
-                                sectionRef.current?.querySelector(".projects__list"),
-                            start: "top 84%",
-                        },
-                    }
-                );
-            }
-        }, sectionRef);
-
-        return () => ctx.revert();
-    }, []);
-
     return (
-        <section className="projects" ref={sectionRef}>
+        <AnimatedSection className="projects">
             <div className="projects__inner">
                 <header className="projects__header">
-                    <p className="eyebrow projects__eyebrow">MY WORK</p>
+                    <FadeUp as="p" className="eyebrow projects__eyebrow">
+                        MY WORK
+                    </FadeUp>
 
-                    <h2 className="heading2 projects__title">
-                        Selected{" "}
-                        <span className="projects__highlight">Work</span>
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        className="heading2 projects__title"
+                        highlightWords={["Work"]}
+                        highlightClassName="projects__highlight"
+                        text="Selected Work"
+                    />
 
-                    <p className="subheading projects__subtitle">
+                    <FadeUp as="p" className="subheading projects__subtitle" afterHeading="Selected Work">
                         A selection of projects where strategy, design, and
                         development come together to create clear,
                         high-performing websites.
-                    </p>
+                    </FadeUp>
                 </header>
 
-                <div className="projects__list">
+                <StaggerGroup className="projects__list" stagger={0.08}>
                     {projects.map((project) => (
                         <ProjectCard
                             key={project.id}
@@ -319,9 +243,9 @@ const ProjectsSection = () => {
                             navigate={navigate}
                         />
                     ))}
-                </div>
+                </StaggerGroup>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

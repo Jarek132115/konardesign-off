@@ -1,5 +1,8 @@
 import React from "react";
 import "../../styling/about/aboutfocus.css";
+import AnimatedSection from "../animations/AnimatedSection";
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
 
 import focusImage1 from "../../assets/images/focusImage1.jpg";
 import focusImage2 from "../../assets/images/focusImage2.jpg";
@@ -43,23 +46,30 @@ const focusItems = [
 
 const AboutFocus = () => {
     return (
-        <section className="aboutfocus">
+        <AnimatedSection className="aboutfocus">
             <div className="aboutfocus__inner">
                 <header className="aboutfocus__section-header">
                     <p className="eyebrow aboutfocus__eyebrow">
                         WHAT MAKES MY WORK DIFFERENT
                     </p>
 
-                    <h2 className="heading2 aboutfocus__title">
-                        The Areas Where I Bring the Most{" "}
-                        <span className="aboutfocus__highlight">Value</span>
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        text="The Areas Where I Bring the Most Value"
+                        className="heading2 aboutfocus__title"
+                        highlightWords={["Value"]}
+                        highlightClassName="aboutfocus__highlight"
+                    />
 
-                    <p className="subheading aboutfocus__subtitle">
+                    <FadeUp
+                        as="p"
+                        className="subheading aboutfocus__subtitle"
+                        afterHeading="The Areas Where I Bring the Most Value"
+                    >
                         More than visuals, I focus on the parts of a website
                         that make it clearer, stronger, and more effective once
                         it is actually being used.
-                    </p>
+                    </FadeUp>
                 </header>
 
                 <div className="aboutfocus__grid">
@@ -107,7 +117,7 @@ const AboutFocus = () => {
                     })}
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

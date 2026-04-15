@@ -2,6 +2,11 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styling/bookctasection.css";
 
+import AnimatedSection from "./animations/AnimatedSection";
+import AnimatedHeading from "./animations/AnimatedHeading";
+import FadeUp from "./animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "./animations/StaggerGroup";
+
 import ProfilePic from "../assets/images/ProfilePic.jpg";
 
 const contactCards = [
@@ -68,23 +73,32 @@ const socialLinks = [
 const BookingCTASection = () => {
     const navigate = useNavigate();
 
+    const headingText = "Let’s Talk About What You Need and the Best Way to Build It";
     return (
-        <section className="bookcta">
+        <AnimatedSection className="bookcta">
             <div className="bookcta__inner">
                 <header className="bookcta__header">
-                    <p className="eyebrow bookcta__eyebrow">CONTACT</p>
+                    <FadeUp as="p" className="eyebrow bookcta__eyebrow" duration={0.4} y={8}>
+                        CONTACT
+                    </FadeUp>
 
-                    <h2 className="heading2 bookcta__heading">
-                        Let’s Talk About{" "}
-                        <span className="bookcta__highlight">What You Need</span>{" "}
-                        and the Best Way to Build It
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        className="heading2 bookcta__heading"
+                        text={headingText}
+                        highlightWords={["What", "You", "Need"]}
+                        highlightClassName="bookcta__highlight"
+                    />
 
-                    <p className="subheading bookcta__subtitle">
+                    <FadeUp
+                        as="p"
+                        className="subheading bookcta__subtitle"
+                        afterHeading={headingText}
+                    >
                         Whether you are starting fresh or improving what you
                         already have, we can work out the right next step
                         clearly.
-                    </p>
+                    </FadeUp>
                 </header>
 
                 <div className="bookcta__lower-row">
@@ -146,9 +160,10 @@ const BookingCTASection = () => {
                     </div>
 
                     <div className="bookcta__cards-column">
-                        <div className="bookcta__contact-grid">
+                        <StaggerGroup className="bookcta__contact-grid">
                             {contactCards.map((card) => (
-                                <article
+                                <StaggerItem
+                                    as="article"
                                     key={card.title}
                                     className="bookcta__contact-card"
                                 >
@@ -198,9 +213,9 @@ const BookingCTASection = () => {
                                             </a>
                                         )}
                                     </div>
-                                </article>
+                                </StaggerItem>
                             ))}
-                        </div>
+                        </StaggerGroup>
                     </div>
                 </div>
 
@@ -231,7 +246,7 @@ const BookingCTASection = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

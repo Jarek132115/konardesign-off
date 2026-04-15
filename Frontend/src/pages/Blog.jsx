@@ -1,9 +1,11 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import AnimatedHeading from "../components/animations/AnimatedHeading";
+import FadeUp from "../components/animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "../components/animations/StaggerGroup";
 
 import "../styling/blog.css";
 
@@ -66,115 +68,51 @@ const posts = [
 ];
 
 const Blog = () => {
-    const pageRef = useRef(null);
     const navigate = useNavigate();
-
-    useLayoutEffect(() => {
-        const pageEl = pageRef.current;
-        if (!pageEl) return;
-
-        const titleEl = pageEl.querySelector(".kd-blogpage__title");
-        const subtitleEl = pageEl.querySelector(".kd-blogpage__subtitle");
-        const cards = pageEl.querySelectorAll(".kd-blogpage__card");
-
-        if (!titleEl || !subtitleEl || !cards.length) return;
-
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-        const highlightWords = ["insights", "brands"];
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("kd-blogpage__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            const cleanedWord = word.toLowerCase().replace(/[^a-z]/g, "");
-
-            if (highlightWords.includes(cleanedWord)) {
-                wordWrapper.classList.add("kd-blogpage__title-word--indigo");
-            }
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(
-            ".kd-blogpage__title-word span"
-        );
-
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-        gsap.set(cards, { opacity: 0, y: 26 });
-
-        const introTl = gsap.timeline({
-            defaults: { ease: "power2.out" },
-        });
-
-        introTl
-            .to(charSpans, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.018,
-                duration: 0.26,
-            })
-            .fromTo(
-                subtitleEl,
-                { opacity: 0, y: 8 },
-                { opacity: 1, y: 0, duration: 0.28 },
-                ">-0.08"
-            )
-            .fromTo(
-                cards,
-                { opacity: 0, y: 26 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.55,
-                    stagger: 0.08,
-                },
-                ">-0.04"
-            );
-
-        return () => {
-            introTl.kill();
-        };
-    }, []);
 
     return (
         <div className="kd-blogpage-shell">
             <Navbar />
 
-            <main className="kd-blogpage" ref={pageRef}>
+            <main className="kd-blogpage">
                 <div className="kd-blogpage__inner">
                     <header className="kd-blogpage__header">
-                        <p className="eyebrow kd-blogpage__eyebrow">BLOG</p>
+                        <FadeUp
+                            as="p"
+                            className="eyebrow kd-blogpage__eyebrow"
+                            trigger="onLoad"
+                            delay={0}
+                        >
+                            BLOG
+                        </FadeUp>
 
-                        <h1 className="heading1 kd-blogpage__title">
-                            Growth-Driven Insights for Modern Brands
-                        </h1>
+                        <AnimatedHeading
+                            as="h1"
+                            className="heading1 kd-blogpage__title"
+                            text="Growth-Driven Insights for Modern Brands"
+                            wordClassName="kd-blogpage__title-word"
+                            highlightWords={["Insights", "Brands"]}
+                            highlightClassName="kd-blogpage__title-word--indigo"
+                            trigger="onLoad"
+                            delay={0.15}
+                        />
 
-                        <p className="subheading kd-blogpage__subtitle">
+                        <FadeUp
+                            as="p"
+                            className="subheading kd-blogpage__subtitle"
+                            trigger="onLoad"
+                            afterHeading="Growth-Driven Insights for Modern Brands"
+                            headingDelay={0.15}
+                        >
                             Practical writing on design, UX, performance, and SEO
                             for brands that want a website built to do more.
-                        </p>
+                        </FadeUp>
                     </header>
 
-                    <div className="kd-blogpage__grid">
+                    <StaggerGroup className="kd-blogpage__grid" stagger={0.08}>
                         {posts.map((post) => (
-                            <article
+                            <StaggerItem
+                                as="article"
                                 key={post.id}
                                 className="kd-blogpage__card"
                                 onClick={() => navigate(post.link)}
@@ -228,9 +166,9 @@ const Blog = () => {
                                         </button>
                                     </div>
                                 </div>
-                            </article>
+                            </StaggerItem>
                         ))}
-                    </div>
+                    </StaggerGroup>
                 </div>
             </main>
 

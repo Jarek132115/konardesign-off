@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import "../../styling/about/aboutwork.css";
+import AnimatedSection from "../animations/AnimatedSection";
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
 
 import workVideo from "../../assets/videos/Custom1.mp4";
 
@@ -110,7 +113,7 @@ const AboutWork = () => {
     }, []);
 
     return (
-        <section className="aboutwork">
+        <AnimatedSection className="aboutwork">
             <div className="aboutwork__inner">
                 <div className="aboutwork__grid">
                     <div className="aboutwork__visual">
@@ -136,19 +139,23 @@ const AboutWork = () => {
                         </div>
 
                         <div className="aboutwork__intro">
-                            <h2 className="heading2 aboutwork__title">
-                                What Working With Me Feels Like From First
-                                Direction to{" "}
-                                <span className="aboutwork__highlight">
-                                    Final Build
-                                </span>
-                            </h2>
+                            <AnimatedHeading
+                                as="h2"
+                                text="What Working With Me Feels Like From First Direction to Final Build"
+                                className="heading2 aboutwork__title"
+                                highlightWords={["Final", "Build"]}
+                                highlightClassName="aboutwork__highlight"
+                            />
 
-                            <p className="subheading aboutwork__subtitle">
+                            <FadeUp
+                                as="p"
+                                className="subheading aboutwork__subtitle"
+                                afterHeading="What Working With Me Feels Like From First Direction to Final Build"
+                            >
                                 The process is designed to feel clear, focused,
                                 and considered from the start, so each stage
                                 builds naturally toward a stronger final result.
-                            </p>
+                            </FadeUp>
                         </div>
 
                         <div
@@ -180,7 +187,7 @@ const AboutWork = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

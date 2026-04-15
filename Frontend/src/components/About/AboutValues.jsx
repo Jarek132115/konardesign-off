@@ -1,5 +1,8 @@
 import React from "react";
 import "../../styling/about/aboutvalues.css";
+import AnimatedSection from "../animations/AnimatedSection";
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
 
 const valuePoints = [
     "Clear thinking before visual decisions",
@@ -12,7 +15,7 @@ const valuePoints = [
 
 const AboutValues = () => {
     return (
-        <section className="aboutvalues">
+        <AnimatedSection className="aboutvalues">
             <div className="aboutvalues__inner">
                 <div className="aboutvalues__wrap">
                     <div className="aboutvalues__copy">
@@ -20,17 +23,22 @@ const AboutValues = () => {
                             CORE VALUES
                         </p>
 
-                        <h2 className="heading2 aboutvalues__title">
-                            What Matters Most in Every{" "}
-                            <span className="aboutvalues__highlight">
-                                Project
-                            </span>
-                        </h2>
+                        <AnimatedHeading
+                            as="h2"
+                            text="What Matters Most in Every Project"
+                            className="heading2 aboutvalues__title"
+                            highlightWords={["Project"]}
+                            highlightClassName="aboutvalues__highlight"
+                        />
 
-                        <p className="subheading aboutvalues__subtitle">
+                        <FadeUp
+                            as="p"
+                            className="subheading aboutvalues__subtitle"
+                            afterHeading="What Matters Most in Every Project"
+                        >
                             These are the principles I protect throughout the
                             entire process, from first structure to final polish.
-                        </p>
+                        </FadeUp>
                     </div>
 
                     <div className="aboutvalues__list">
@@ -45,7 +53,7 @@ const AboutValues = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

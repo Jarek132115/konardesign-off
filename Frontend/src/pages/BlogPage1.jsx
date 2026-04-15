@@ -1,9 +1,10 @@
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { gsap } from "gsap";
 
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import AnimatedHeading from "../components/animations/AnimatedHeading";
+import FadeUp from "../components/animations/FadeUp";
 
 import "../styling/blogpagedetail.css";
 
@@ -78,12 +79,11 @@ const processSteps = [
 ];
 
 const BlogPage1 = () => {
-    const pageRef = useRef(null);
     const breaksScrollerRef = useRef(null);
     const processScrollerRef = useRef(null);
     const navigate = useNavigate();
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const attachDragScroll = (scrollerEl) => {
             if (!scrollerEl) return () => { };
 
@@ -161,118 +161,10 @@ const BlogPage1 = () => {
             };
         };
 
-        const pageEl = pageRef.current;
-        if (!pageEl) return;
-
         const detachBreaks = attachDragScroll(breaksScrollerRef.current);
         const detachProcess = attachDragScroll(processScrollerRef.current);
 
-        const metaEl = pageEl.querySelector(".kd-blogdetail__meta");
-        const titleEl = pageEl.querySelector(".kd-blogdetail__title");
-        const subtitleEl = pageEl.querySelector(".kd-blogdetail__subtitle");
-        const heroMediaEl = pageEl.querySelector(".kd-blogdetail__hero-media");
-        const contentBlocks = pageEl.querySelectorAll(
-            ".kd-blogdetail__section, .kd-blogdetail__quote, .kd-blogdetail__takeaway, .kd-blogdetail__cta"
-        );
-
-        if (!titleEl || !subtitleEl || !heroMediaEl) {
-            return () => {
-                detachBreaks();
-                detachProcess();
-            };
-        }
-
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-        const highlightWords = ["Website", "Strategy"];
-
-        words.forEach((word, index) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("kd-blogdetail__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            const cleanedWord = word.replace(/[^a-zA-Z]/g, "");
-            if (highlightWords.includes(cleanedWord)) {
-                wordWrapper.classList.add("kd-blogdetail__title-word--indigo");
-            }
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (index !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(
-            ".kd-blogdetail__title-word span"
-        );
-
-        gsap.set(metaEl, { opacity: 0, y: 8 });
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-        gsap.set(heroMediaEl, { opacity: 0, y: 20 });
-        gsap.set(contentBlocks, { opacity: 0, y: 24 });
-
-        const tl = gsap.timeline({
-            defaults: { ease: "power2.out" },
-        });
-
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.018,
-            duration: 0.26,
-        })
-            .to(
-                metaEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.24,
-                },
-                "<"
-            )
-            .to(
-                subtitleEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
-                ">-0.08"
-            )
-            .to(
-                heroMediaEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.42,
-                },
-                ">-0.04"
-            )
-            .to(
-                contentBlocks,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.44,
-                    stagger: 0.08,
-                },
-                ">-0.1"
-            );
-
         return () => {
-            tl.kill();
             detachBreaks();
             detachProcess();
         };
@@ -282,7 +174,7 @@ const BlogPage1 = () => {
         <div className="kd-blogdetail-shell">
             <Navbar />
 
-            <main className="kd-blogdetail" ref={pageRef}>
+            <main className="kd-blogdetail">
                 <div className="kd-blogdetail__inner">
                     <button
                         type="button"
@@ -293,41 +185,71 @@ const BlogPage1 = () => {
                     </button>
 
                     <header className="kd-blogdetail__hero">
-                        <p className="eyebrow kd-blogdetail__eyebrow">
+                        <FadeUp
+                            as="p"
+                            className="eyebrow kd-blogdetail__eyebrow"
+                            trigger="onLoad"
+                            delay={0}
+                        >
                             Web Design · Strategy
-                        </p>
+                        </FadeUp>
 
-                        <h1 className="heading1 kd-blogdetail__title">
-                            The Biggest Website Mistake Is Skipping Strategy
-                        </h1>
+                        <AnimatedHeading
+                            as="h1"
+                            className="heading1 kd-blogdetail__title"
+                            text="The Biggest Website Mistake Is Skipping Strategy"
+                            wordClassName="kd-blogdetail__title-word"
+                            highlightWords={["Website", "Strategy"]}
+                            highlightClassName="kd-blogdetail__title-word--indigo"
+                            trigger="onLoad"
+                            delay={0.15}
+                        />
 
-                        <p className="subheading kd-blogdetail__subtitle">
+                        <FadeUp
+                            as="p"
+                            className="subheading kd-blogdetail__subtitle"
+                            trigger="onLoad"
+                            afterHeading="The Biggest Website Mistake Is Skipping Strategy"
+                            headingDelay={0.15}
+                        >
                             A strong website is not just something that looks
                             polished. It needs the right direction, structure,
                             messaging, SEO, and technical foundations to support
                             real business growth.
-                        </p>
+                        </FadeUp>
 
-                        <div className="kd-blogdetail__meta">
+                        <FadeUp
+                            className="kd-blogdetail__meta"
+                            trigger="onLoad"
+                            delay={0.55}
+                        >
                             <span className="kd-blogdetail__pill">5 Min Read</span>
                             <span className="kd-blogdetail__meta-text">
                                 Practical insight on why strategy matters before
                                 visuals
                             </span>
-                        </div>
+                        </FadeUp>
 
-                        <div className="kd-blogdetail__hero-media">
+                        <FadeUp
+                            className="kd-blogdetail__hero-media"
+                            trigger="onLoad"
+                            delay={0.65}
+                            y={20}
+                        >
                             <img
                                 src={heroImage}
                                 alt="Website strategy article cover"
                                 className="kd-blogdetail__hero-image"
                                 draggable="false"
                             />
-                        </div>
+                        </FadeUp>
                     </header>
 
                     <article className="kd-blogdetail__article">
-                        <section className="kd-blogdetail__section kd-blogdetail__section--clean">
+                        <FadeUp
+                            as="section"
+                            className="kd-blogdetail__section kd-blogdetail__section--clean"
+                        >
                             <div className="kd-blogdetail__section-intro">
                                 <p className="eyebrow kd-blogdetail__section-eyebrow">
                                     The Problem
@@ -363,16 +285,22 @@ const BlogPage1 = () => {
                                     long-term growth.
                                 </p>
                             </div>
-                        </section>
+                        </FadeUp>
 
-                        <section className="kd-blogdetail__quote">
+                        <FadeUp
+                            as="section"
+                            className="kd-blogdetail__quote"
+                        >
                             <p className="kd-blogdetail__quote-text">
                                 A website is not just something to look at. It is
                                 something that needs to perform.
                             </p>
-                        </section>
+                        </FadeUp>
 
-                        <section className="kd-blogdetail__section kd-blogdetail__section--clean">
+                        <FadeUp
+                            as="section"
+                            className="kd-blogdetail__section kd-blogdetail__section--clean"
+                        >
                             <div className="kd-blogdetail__section-intro">
                                 <p className="eyebrow kd-blogdetail__section-eyebrow">
                                     What Strategy Means
@@ -410,9 +338,12 @@ const BlogPage1 = () => {
                                     more intentional.
                                 </p>
                             </div>
-                        </section>
+                        </FadeUp>
 
-                        <section className="kd-blogdetail__section kd-blogdetail__section--clean">
+                        <FadeUp
+                            as="section"
+                            className="kd-blogdetail__section kd-blogdetail__section--clean"
+                        >
                             <div className="kd-blogdetail__section-intro">
                                 <p className="eyebrow kd-blogdetail__section-eyebrow">
                                     What Usually Breaks
@@ -447,9 +378,12 @@ const BlogPage1 = () => {
                                     ))}
                                 </div>
                             </div>
-                        </section>
+                        </FadeUp>
 
-                        <section className="kd-blogdetail__section kd-blogdetail__section--clean">
+                        <FadeUp
+                            as="section"
+                            className="kd-blogdetail__section kd-blogdetail__section--clean"
+                        >
                             <div className="kd-blogdetail__section-intro">
                                 <p className="eyebrow kd-blogdetail__section-eyebrow">
                                     A Better Process
@@ -499,9 +433,12 @@ const BlogPage1 = () => {
                                     ))}
                                 </div>
                             </div>
-                        </section>
+                        </FadeUp>
 
-                        <section className="kd-blogdetail__section kd-blogdetail__section--clean">
+                        <FadeUp
+                            as="section"
+                            className="kd-blogdetail__section kd-blogdetail__section--clean"
+                        >
                             <div className="kd-blogdetail__section-intro">
                                 <p className="eyebrow kd-blogdetail__section-eyebrow">
                                     Why It Matters
@@ -532,9 +469,12 @@ const BlogPage1 = () => {
                                     business move forward.
                                 </p>
                             </div>
-                        </section>
+                        </FadeUp>
 
-                        <section className="kd-blogdetail__takeaway">
+                        <FadeUp
+                            as="section"
+                            className="kd-blogdetail__takeaway"
+                        >
                             <p className="eyebrow kd-blogdetail__takeaway-eyebrow">
                                 Final Takeaway
                             </p>
@@ -550,9 +490,12 @@ const BlogPage1 = () => {
                                 website becomes far more capable of supporting
                                 real business goals.
                             </p>
-                        </section>
+                        </FadeUp>
 
-                        <section className="kd-blogdetail__cta">
+                        <FadeUp
+                            as="section"
+                            className="kd-blogdetail__cta"
+                        >
                             <p className="eyebrow kd-blogdetail__cta-eyebrow">
                                 Next Step
                             </p>
@@ -588,7 +531,7 @@ const BlogPage1 = () => {
                                     Back to Blog
                                 </button>
                             </div>
-                        </section>
+                        </FadeUp>
                     </article>
                 </div>
             </main>

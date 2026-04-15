@@ -1,5 +1,8 @@
 import React from "react";
 import "../../styling/about/abouttools.css";
+import AnimatedSection from "../animations/AnimatedSection";
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
 
 import figmaIcon from "../../assets/icons/Tools-Figma.svg";
 import framerIcon from "../../assets/icons/Tools-Framer.svg";
@@ -142,25 +145,30 @@ const AboutTools = () => {
     const bottomRow = tools.slice(6);
 
     return (
-        <section className="abouttools">
+        <AnimatedSection className="abouttools">
             <div className="abouttools__inner">
                 <header className="abouttools__header">
                     <p className="eyebrow abouttools__eyebrow">
                         TOOLS & STACK
                     </p>
 
-                    <h2 className="heading2 abouttools__title">
-                        The Tools I Use to{" "}
-                        <span className="abouttools__highlight">
-                            Design, Build, and Ship
-                        </span>
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        text="The Tools I Use to Design, Build, and Ship"
+                        className="heading2 abouttools__title"
+                        highlightWords={["Design", "Build", "Ship"]}
+                        highlightClassName="abouttools__highlight"
+                    />
 
-                    <p className="subheading abouttools__subtitle">
+                    <FadeUp
+                        as="p"
+                        className="subheading abouttools__subtitle"
+                        afterHeading="The Tools I Use to Design, Build, and Ship"
+                    >
                         A focused toolset across design, development, and
                         delivery that helps me take projects from early ideas to
                         polished final builds.
-                    </p>
+                    </FadeUp>
                 </header>
 
                 <div className="abouttools__grid">
@@ -211,7 +219,7 @@ const AboutTools = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

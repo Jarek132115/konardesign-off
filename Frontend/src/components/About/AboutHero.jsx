@@ -2,6 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import "../../styling/about/abouthero.css";
+import AnimatedSection from "../animations/AnimatedSection";
+import AnimatedHeading, { headingEndDelay } from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
 import ProfilePic from "../../assets/images/ProfilePic.jpg";
 
 import speedIcon from "../../assets/icons/speed.svg";
@@ -42,44 +45,59 @@ const marqueeItems = [...heroStats, ...heroStats];
 
 const AboutHero = () => {
     const navigate = useNavigate();
+    const headingText = "I Don’t Just Design Websites - I Build Them Properly";
 
     return (
-        <section className="abouthero">
+        <AnimatedSection className="abouthero">
             <div className="abouthero__inner">
                 <div className="abouthero__grid">
                     <div className="abouthero__copy">
                         <div className="abouthero__copy-bg" />
 
-                        <p className="eyebrow abouthero__eyebrow">ABOUT ME</p>
+                        <FadeUp as="p" className="eyebrow abouthero__eyebrow" trigger="onLoad" duration={0.4} y={8}>ABOUT ME</FadeUp>
 
-                        <h1 className="heading1 abouthero__title">
-                            I Don’t Just Design{" "}
-                            <span className="abouthero__highlight">Websites</span>{" "}
-                            - I Build Them{" "}
-                            <span className="abouthero__highlight">Properly</span>
-                        </h1>
+                        <AnimatedHeading
+                            as="h1"
+                            text={headingText}
+                            className="heading1 abouthero__title"
+                            highlightWords={["Websites", "Properly"]}
+                            highlightClassName="abouthero__highlight"
+                            trigger="onLoad"
+                            delay={0.15}
+                        />
 
-                        <p className="subheading abouthero__subtitle">
+                        <FadeUp
+                            as="p"
+                            className="subheading abouthero__subtitle"
+                            trigger="onLoad"
+                            afterHeading={headingText}
+                            headingDelay={0.15}
+                        >
                             I’m Jarek - a UI/UX focused designer and developer
                             creating websites that are structured properly,
                             perform well, and support real business goals.
-                        </p>
+                        </FadeUp>
 
-                        <div className="abouthero__actions">
-                            <button
-                                className="btn btn--indigo"
-                                onClick={() => navigate("/book-a-call")}
-                            >
-                                Contact Me
-                            </button>
+                        <FadeUp
+                            trigger="onLoad"
+                            delay={headingEndDelay(headingText, 0.15) + 0.2}
+                        >
+                            <div className="abouthero__actions">
+                                <button
+                                    className="btn btn--indigo"
+                                    onClick={() => navigate("/book-a-call")}
+                                >
+                                    Contact Me
+                                </button>
 
-                            <button
-                                className="btn btn--white"
-                                onClick={() => navigate("/projects")}
-                            >
-                                View My Work
-                            </button>
-                        </div>
+                                <button
+                                    className="btn btn--white"
+                                    onClick={() => navigate("/projects")}
+                                >
+                                    View My Work
+                                </button>
+                            </div>
+                        </FadeUp>
                     </div>
 
                     <div className="abouthero__image-wrap">
@@ -121,7 +139,7 @@ const AboutHero = () => {
                     </div>
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

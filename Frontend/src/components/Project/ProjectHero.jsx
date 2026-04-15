@@ -1,147 +1,71 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import React from "react";
 import "../../styling/projects/project1/projecthero.css";
+
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "../animations/StaggerGroup";
+import AnimatedSection from "../animations/AnimatedSection";
 
 import konarVideoHero from "../../assets/videos/KonarCard1.mp4";
 
 const ProjectHero = () => {
-    const heroRef = useRef(null);
-
-    useEffect(() => {
-        const heroEl = heroRef.current;
-        if (!heroEl) return;
-
-        const titleEl = heroEl.querySelector(".project-hero__title");
-        const subtitleEl = heroEl.querySelector(".project-hero__subtitle");
-        const pillsEl = heroEl.querySelector(".project-hero__pills");
-        const metaEl = heroEl.querySelector(".project-hero__meta");
-        const mediaEl = heroEl.querySelector(".project-hero__media");
-
-        if (!titleEl || !subtitleEl || !pillsEl || !metaEl || !mediaEl) return;
-
-        const originalText = titleEl.textContent;
-        titleEl.textContent = "";
-
-        const words = originalText.split(" ");
-        const highlightWords = new Set(["KonarCard"]);
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("project-hero__title-word");
-            wordWrapper.style.display = "inline-block";
-
-            const cleanedWord = word.replace(/[^\w]/g, "");
-            if (highlightWords.has(cleanedWord)) {
-                wordWrapper.classList.add("project-hero__title-word--indigo");
-            }
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            titleEl.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                titleEl.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const charSpans = titleEl.querySelectorAll(".project-hero__title-word span");
-
-        gsap.set(subtitleEl, { opacity: 0, y: 8 });
-        gsap.set(pillsEl, { opacity: 0, y: 8 });
-        gsap.set(metaEl, { opacity: 0, y: 12 });
-        gsap.set(mediaEl, { opacity: 0, y: 16 });
-
-        const tl = gsap.timeline({
-            defaults: { ease: "power2.out" },
-        });
-
-        tl.to(charSpans, {
-            opacity: 1,
-            y: 0,
-            stagger: 0.018,
-            duration: 0.26,
-        })
-            .to(
-                subtitleEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                },
-                ">-0.06"
-            )
-            .to(
-                pillsEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.26,
-                },
-                ">-0.08"
-            )
-            .to(
-                metaEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.3,
-                },
-                "<"
-            )
-            .to(
-                mediaEl,
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.32,
-                },
-                ">-0.04"
-            );
-
-        return () => {
-            tl.kill();
-        };
-    }, []);
-
     return (
-        <section className="project-hero" ref={heroRef}>
+        <AnimatedSection className="project-hero">
             <div className="project-hero__inner">
                 <div className="project-hero__top">
                     <div className="project-hero__info">
                         <div className="project-hero__copy-bg" />
 
-                        <h1 className="heading1 project-hero__title">
-                            KonarCard Digital Product Website
-                        </h1>
+                        <AnimatedHeading
+                            as="h1"
+                            className="heading1 project-hero__title"
+                            text="KonarCard Digital Product Website"
+                            wordClassName="project-hero__title-word"
+                            highlightWords={["KonarCard"]}
+                            highlightClassName="project-hero__title-word--indigo"
+                            trigger="onLoad"
+                            delay={0}
+                        />
 
-                        <p className="subheading project-hero__subtitle">
+                        <FadeUp
+                            as="p"
+                            className="subheading project-hero__subtitle"
+                            trigger="onLoad"
+                            afterHeading="KonarCard Digital Product Website"
+                            headingDelay={0}
+                            duration={0.45}
+                        >
                             A strategic website redesign and build for a digital
                             business card platform, created to improve clarity,
                             strengthen trust, and support a more conversion-focused
                             user journey.
-                        </p>
+                        </FadeUp>
 
-                        <div className="project-hero__pills">
-                            <span className="project-hero__pill">
+                        <StaggerGroup
+                            className="project-hero__pills"
+                            trigger="onLoad"
+                            delay={0.3}
+                        >
+                            <StaggerItem as="span" className="project-hero__pill">
                                 Digital Business Card Platform
-                            </span>
-                            <span className="project-hero__pill">
+                            </StaggerItem>
+                            <StaggerItem as="span" className="project-hero__pill">
                                 Strategic Website Redesign
-                            </span>
-                            <span className="project-hero__pill">
+                            </StaggerItem>
+                            <StaggerItem as="span" className="project-hero__pill">
                                 Conversion-Focused Build
-                            </span>
-                        </div>
+                            </StaggerItem>
+                        </StaggerGroup>
                     </div>
 
-                    <aside className="project-hero__meta">
+                    <FadeUp
+                        as="aside"
+                        className="project-hero__meta"
+                        trigger="onLoad"
+                        delay={0.3}
+                        duration={0.5}
+                        y={12}
+                    >
                         <div className="project-hero__meta-group">
                             <span className="project-hero__meta-label">
                                 Pages Developed
@@ -170,10 +94,16 @@ const ProjectHero = () => {
                                 www.konarcard.com
                             </a>
                         </div>
-                    </aside>
+                    </FadeUp>
                 </div>
 
-                <div className="project-hero__media">
+                <FadeUp
+                    className="project-hero__media"
+                    trigger="onLoad"
+                    delay={0.45}
+                    duration={0.55}
+                    y={16}
+                >
                     <div className="project-hero__media-inner">
                         <video
                             src={konarVideoHero}
@@ -184,9 +114,9 @@ const ProjectHero = () => {
                             className="project-hero__media-video"
                         />
                     </div>
-                </div>
+                </FadeUp>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

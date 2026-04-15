@@ -5,8 +5,10 @@
 /* --------------------------------------------------------- */
 
 .imagine {
+    position: relative;
     width: 100%;
     max-width: 100%;
+    height: 260vh;
     margin: 0 auto;
     padding: 0;
     box-sizing: border-box;
@@ -14,12 +16,13 @@
     overflow-x: hidden;
 }
 
-/* Full-screen pinned wrapper */
+/* Sticky pinned wrapper */
 .imagine__pin {
-    position: relative;
+    position: sticky;
+    top: 0;
     width: 100%;
-    min-height: 100vh;
-    min-height: 100svh;
+    height: 100vh;
+    height: 100svh;
     padding: 40px;
     box-sizing: border-box;
     display: flex;
@@ -98,7 +101,7 @@
     overflow: hidden;
     position: relative;
     opacity: 0;
-    /* gsap fades in */
+    /* faded in via motion scroll progress */
     pointer-events: auto;
 }
 

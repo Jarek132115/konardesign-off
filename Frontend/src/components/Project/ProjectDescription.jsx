@@ -1,6 +1,10 @@
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
+import React from "react";
 import "../../styling/projects/project1/projectdescription.css";
+
+import AnimatedHeading from "../animations/AnimatedHeading";
+import FadeUp from "../animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "../animations/StaggerGroup";
+import AnimatedSection from "../animations/AnimatedSection";
 
 const challengePoints = [
     {
@@ -33,150 +37,49 @@ const solutionPoints = [
 ];
 
 const ProjectDescription = () => {
-    const sectionRef = useRef(null);
-    const leftRef = useRef(null);
-
-    useEffect(() => {
-        const sectionEl = sectionRef.current;
-        const leftEl = leftRef.current;
-        if (!sectionEl || !leftEl) return;
-
-        const eyebrowEl = leftEl.querySelector(".project-description__eyebrow");
-        const headline = leftEl.querySelector(".project-description__headline");
-        const subheadingEl = leftEl.querySelector(".project-description__subheading");
-        if (!eyebrowEl || !headline || !subheadingEl) return;
-
-        const originalText = headline.textContent;
-        headline.textContent = "";
-
-        const words = originalText.split(" ");
-        const highlightSet = new Set(["Product", "Easier", "Stronger", "Trust"]);
-
-        words.forEach((word, wordIndex) => {
-            const wordWrapper = document.createElement("span");
-            wordWrapper.classList.add("project-description__headline-word");
-            wordWrapper.style.display = "inline-block";
-
-            for (const ch of word) {
-                const charSpan = document.createElement("span");
-                charSpan.textContent = ch;
-                charSpan.style.display = "inline-block";
-                charSpan.style.opacity = "0";
-                charSpan.style.transform = "translateY(8px)";
-                wordWrapper.appendChild(charSpan);
-            }
-
-            headline.appendChild(wordWrapper);
-
-            if (wordIndex !== words.length - 1) {
-                headline.appendChild(document.createTextNode(" "));
-            }
-        });
-
-        const wordSpans = headline.querySelectorAll(
-            ".project-description__headline-word"
-        );
-
-        wordSpans.forEach((wordSpan) => {
-            const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
-            if (highlightSet.has(cleaned)) {
-                wordSpan.classList.add("project-description__headline-highlight");
-            }
-        });
-
-        const charSpans = headline.querySelectorAll(
-            ".project-description__headline-word span"
-        );
-
-        const leftTl = gsap.timeline({
-            scrollTrigger: {
-                trigger: sectionEl,
-                start: "top 75%",
-                toggleActions: "play none none none",
-            },
-        });
-
-        leftTl
-            .fromTo(
-                eyebrowEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.25,
-                    ease: "power2.out",
-                }
-            )
-            .to(
-                charSpans,
-                {
-                    opacity: 1,
-                    y: 0,
-                    stagger: 0.018,
-                    duration: 0.26,
-                    ease: "power2.out",
-                },
-                ">-0.05"
-            )
-            .fromTo(
-                subheadingEl,
-                { opacity: 0, y: 8 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.28,
-                    ease: "power2.out",
-                },
-                ">-0.08"
-            );
-
-        const items = sectionEl.querySelectorAll(
-            ".project-description__block, .project-description__item"
-        );
-
-        items.forEach((item, index) => {
-            gsap.fromTo(
-                item,
-                { opacity: 0, y: 24 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.4,
-                    ease: "power2.out",
-                    delay: index * 0.05,
-                    scrollTrigger: {
-                        trigger: item,
-                        start: "top 82%",
-                        toggleActions: "play none none none",
-                    },
-                }
-            );
-        });
-    }, []);
-
     return (
-        <section className="project-description" ref={sectionRef}>
+        <AnimatedSection className="project-description">
             <div className="project-description__container">
-                <div className="project-description__left" ref={leftRef}>
-                    <p className="eyebrow project-description__eyebrow">
+                <div className="project-description__left">
+                    <FadeUp
+                        as="p"
+                        className="eyebrow project-description__eyebrow"
+                        duration={0.35}
+                    >
                         PROJECT OVERVIEW
-                    </p>
+                    </FadeUp>
 
-                    <h2 className="project-description__headline heading2">
-                        A Website Built to Make the Product Easier to Understand and
-                        Stronger to Trust
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        className="project-description__headline heading2"
+                        text="A Website Built to Make the Product Easier to Understand and Stronger to Trust"
+                        wordClassName="project-description__headline-word"
+                        highlightWords={["Product", "Easier", "Stronger", "Trust"]}
+                        highlightClassName="project-description__headline-highlight"
+                        delay={0.08}
+                    />
 
-                    <p className="project-description__subheading subheading">
+                    <FadeUp
+                        as="p"
+                        className="project-description__subheading subheading"
+                        duration={0.4}
+                        afterHeading="A Website Built to Make the Product Easier to Understand and Stronger to Trust"
+                        headingDelay={0.08}
+                    >
                         KonarCard needed more than a polished interface. The site had
                         to explain the product clearly, make the offer feel credible,
                         and guide users through a smoother, more conversion-ready
                         experience.
-                    </p>
+                    </FadeUp>
                 </div>
 
                 <div className="project-description__right">
-                    <section className="project-description__block">
+                    <FadeUp
+                        as="section"
+                        className="project-description__block"
+                        y={24}
+                        duration={0.45}
+                    >
                         <div className="project-description__block-top">
                             <span className="project-description__label">
                                 The Challenge
@@ -188,9 +91,10 @@ const ProjectDescription = () => {
                             </h3>
                         </div>
 
-                        <div className="project-description__items">
+                        <StaggerGroup className="project-description__items">
                             {challengePoints.map((item) => (
-                                <article
+                                <StaggerItem
+                                    as="article"
                                     key={item.title}
                                     className="project-description__item"
                                 >
@@ -201,12 +105,18 @@ const ProjectDescription = () => {
                                     <p className="body project-description__item-text">
                                         {item.text}
                                     </p>
-                                </article>
+                                </StaggerItem>
                             ))}
-                        </div>
-                    </section>
+                        </StaggerGroup>
+                    </FadeUp>
 
-                    <section className="project-description__block project-description__block--solution">
+                    <FadeUp
+                        as="section"
+                        className="project-description__block project-description__block--solution"
+                        y={24}
+                        duration={0.45}
+                        delay={0.08}
+                    >
                         <div className="project-description__block-top">
                             <span className="project-description__label">
                                 The Solution
@@ -218,9 +128,10 @@ const ProjectDescription = () => {
                             </h3>
                         </div>
 
-                        <div className="project-description__items">
+                        <StaggerGroup className="project-description__items">
                             {solutionPoints.map((item) => (
-                                <article
+                                <StaggerItem
+                                    as="article"
                                     key={item.title}
                                     className="project-description__item"
                                 >
@@ -231,13 +142,13 @@ const ProjectDescription = () => {
                                     <p className="body project-description__item-text">
                                         {item.text}
                                     </p>
-                                </article>
+                                </StaggerItem>
                             ))}
-                        </div>
-                    </section>
+                        </StaggerGroup>
+                    </FadeUp>
                 </div>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 

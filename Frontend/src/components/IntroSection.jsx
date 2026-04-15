@@ -1,7 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "../styling/intro.css";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+import AnimatedHeading from "./animations/AnimatedHeading";
+import FadeUp from "./animations/FadeUp";
+import { StaggerGroup, StaggerItem } from "./animations/StaggerGroup";
+import AnimatedSection from "./animations/AnimatedSection";
 
 import figmaIcon from "../assets/icons/figma-icon.svg";
 import aiIcon from "../assets/icons/ai-icon.svg";
@@ -15,152 +18,31 @@ import webflowIcon from "../assets/icons/webflow-icon.svg";
 import googleIcon from "../assets/icons/google-icon.svg";
 import googleAnalyticsIcon from "../assets/icons/google-analytics-icon.svg";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const IntroSection = () => {
-    const sectionRef = useRef(null);
-    const leftRef = useRef(null);
-
-    useEffect(() => {
-        const sectionEl = sectionRef.current;
-        const leftEl = leftRef.current;
-        if (!sectionEl || !leftEl) return;
-
-        const ctx = gsap.context(() => {
-            const eyebrowEl = leftEl.querySelector(".intro__eyebrow");
-            const headline = leftEl.querySelector(".intro__headline");
-            const subheadingEl = leftEl.querySelector(".intro__subheading");
-
-            if (!eyebrowEl || !headline || !subheadingEl) return;
-
-            const originalText = headline.textContent;
-            headline.textContent = "";
-
-            const words = originalText.split(" ");
-
-            words.forEach((word, wordIndex) => {
-                const wordWrapper = document.createElement("span");
-                wordWrapper.classList.add("intro__headline-word");
-                wordWrapper.style.display = "inline-block";
-
-                for (const ch of word) {
-                    const charSpan = document.createElement("span");
-                    charSpan.textContent = ch;
-                    charSpan.style.display = "inline-block";
-                    charSpan.style.opacity = "0";
-                    charSpan.style.transform = "translateY(8px)";
-                    wordWrapper.appendChild(charSpan);
-                }
-
-                headline.appendChild(wordWrapper);
-
-                if (wordIndex !== words.length - 1) {
-                    headline.appendChild(document.createTextNode(" "));
-                }
-            });
-
-            const wordSpans = headline.querySelectorAll(".intro__headline-word");
-            const highlightSet = new Set([
-                "Strategy",
-                "Design",
-                "Performance",
-            ]);
-
-            wordSpans.forEach((wordSpan) => {
-                const cleaned = wordSpan.textContent.replace(/[^\w-]/g, "");
-                if (highlightSet.has(cleaned)) {
-                    wordSpan.classList.add("intro__headline-highlight");
-                }
-            });
-
-            const charSpans = headline.querySelectorAll(
-                ".intro__headline-word span"
-            );
-
-            const leftTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: sectionEl,
-                    start: "top 75%",
-                    toggleActions: "play none none none",
-                },
-                defaults: { ease: "power2.out" },
-            });
-
-            leftTl
-                .fromTo(
-                    eyebrowEl,
-                    { opacity: 0, y: 8 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.25,
-                    }
-                )
-                .to(
-                    charSpans,
-                    {
-                        opacity: 1,
-                        y: 0,
-                        stagger: 0.018,
-                        duration: 0.26,
-                    },
-                    ">-0.05"
-                )
-                .fromTo(
-                    subheadingEl,
-                    { opacity: 0, y: 8 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.28,
-                    },
-                    ">-0.08"
-                );
-
-            const items = sectionEl.querySelectorAll(
-                ".intro__item, .intro__bottom-text"
-            );
-
-            items.forEach((item, index) => {
-                gsap.fromTo(
-                    item,
-                    { opacity: 0, y: 24 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 0.4,
-                        ease: "power2.out",
-                        delay: index * 0.08,
-                        scrollTrigger: {
-                            trigger: item,
-                            start: "top 84%",
-                            toggleActions: "play none none none",
-                        },
-                    }
-                );
-            });
-        }, sectionRef);
-
-        return () => ctx.revert();
-    }, []);
-
     return (
-        <section className="intro" ref={sectionRef}>
+        <AnimatedSection className="intro">
             <div className="intro__container">
-                <div className="intro__left" ref={leftRef}>
-                    <p className="eyebrow intro__eyebrow">WHAT I DO</p>
+                <div className="intro__left">
+                    <FadeUp as="p" className="eyebrow intro__eyebrow">
+                        WHAT I DO
+                    </FadeUp>
 
-                    <h2 className="intro__headline heading2">
-                        Strategy. Design. Performance. Built with clarity from start to finish.
-                    </h2>
+                    <AnimatedHeading
+                        as="h2"
+                        className="intro__headline heading2"
+                        wordClassName="intro__headline-word"
+                        highlightWords={["Strategy", "Design", "Performance"]}
+                        highlightClassName="intro__headline-highlight"
+                        text="Strategy. Design. Performance. Built with clarity from start to finish."
+                    />
 
-                    <p className="intro__subheading subheading">
+                    <FadeUp as="p" className="intro__subheading subheading" afterHeading="Strategy. Design. Performance. Built with clarity from start to finish.">
                         I take projects from early direction through to design and development, making sure everything is structured properly, easy to use, and built to perform. The goal is simple - create websites that not only look good, but actually work.
-                    </p>
+                    </FadeUp>
                 </div>
 
-                <div className="intro__right">
-                    <div className="intro__item">
+                <StaggerGroup className="intro__right" stagger={0.08}>
+                    <StaggerItem className="intro__item">
                         <h3 className="intro__item-title heading3">
                             Design &amp; UX
                         </h3>
@@ -181,9 +63,9 @@ const IntroSection = () => {
                                 <img src={aeIcon} alt="Adobe After Effects" />
                             </span>
                         </div>
-                    </div>
+                    </StaggerItem>
 
-                    <div className="intro__item">
+                    <StaggerItem className="intro__item">
                         <h3 className="intro__item-title heading3">
                             Development &amp; Build
                         </h3>
@@ -201,9 +83,9 @@ const IntroSection = () => {
                                 <img src={webflowIcon} alt="Webflow" />
                             </span>
                         </div>
-                    </div>
+                    </StaggerItem>
 
-                    <div className="intro__item">
+                    <StaggerItem className="intro__item">
                         <h3 className="intro__item-title heading3">
                             Performance &amp; Visibility
                         </h3>
@@ -221,14 +103,14 @@ const IntroSection = () => {
                                 />
                             </span>
                         </div>
-                    </div>
+                    </StaggerItem>
 
-                    <p className="intro__bottom-text">
+                    <StaggerItem as="p" className="intro__bottom-text">
                         One clear direction. One consistent build. No unnecessary complexity.
-                    </p>
-                </div>
+                    </StaggerItem>
+                </StaggerGroup>
             </div>
-        </section>
+        </AnimatedSection>
     );
 };
 
