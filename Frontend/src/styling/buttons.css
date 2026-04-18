@@ -34,13 +34,20 @@
 
 .btn--indigo {
     background: var(--deep-indigo);
-    color: var(--white);
+    color: var(--white) !important;
 
     box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
 }
 
+.btn--indigo,
+.btn--indigo:link,
+.btn--indigo:visited {
+    color: var(--white) !important;
+}
+
 .btn--indigo:hover {
     transform: translateY(-1px);
+    color: var(--white) !important;
     box-shadow: 0 6px 18px rgba(79, 70, 229, 0.35);
 }
 

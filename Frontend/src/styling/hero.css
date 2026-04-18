@@ -1,15 +1,8 @@
 @import "./colours.css";
 
 /* --------------------------------------------------------- */
-/* HERO FONT PREVIEW — OUTFIT                                */
+/* HERO TITLE OVERRIDES                                      */
 /* --------------------------------------------------------- */
-
-.hero__title,
-.hero__title *,
-.hero__pill {
-    font-family: "Outfit", system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", sans-serif !important;
-}
 
 .hero__title,
 .hero__title * {

@@ -13,8 +13,6 @@ import "../styling/buttons.css";
 import "../styling/konarcard-case-study.css";
 
 const LIVE_URL = "https://www.konarcard.com";
-const FIGMA_URL =
-    "https://www.figma.com/design/TKHqdqJrPr2RSBQOJeaHxE/KonarCard---E-Commerce-Project-NEW?node-id=1-10";
 
 const sections = [
     { id: "overview", number: "01", label: "Overview" },
@@ -56,23 +54,15 @@ function CaseSection({
     highlightWords = [],
     lead,
     children,
-    full = false,
 }) {
     return (
-        <AnimatedSection
-            as="section"
-            className={`kccs__section ${full ? "kccs__section--full" : ""}`}
-            id={id}
-        >
+        <AnimatedSection as="section" className="kccs__section" id={id}>
             <div className="kccs__section-inner">
-                <div className="kccs__section-number">{number}</div>
                 <div className="kccs__section-body">
+                    <FadeUp as="span" className="kccs__section-number" duration={0.4} y={6}>
+                        {number} · {eyebrow}
+                    </FadeUp>
                     <div className="kccs__heading-wrap">
-                        {eyebrow ? (
-                            <FadeUp as="p" className="eyebrow" duration={0.4} y={8}>
-                                {eyebrow}
-                            </FadeUp>
-                        ) : null}
                         <AnimatedHeading
                             as="h2"
                             className="heading2"
@@ -126,7 +116,7 @@ const Project1 = () => {
         const el = document.getElementById(id);
         if (!el) return;
         const w = window.innerWidth;
-        const mainNav = w <= 500 ? 84 : w <= 768 ? 90 : w <= 1024 ? 98 : 106;
+        const mainNav = w <= 500 ? 78 : w <= 768 ? 84 : w <= 1024 ? 90 : 96;
         const subNav = 54;
         const top = el.getBoundingClientRect().top + window.scrollY - (mainNav + subNav + 12);
         const lenis = window.__lenis;
@@ -258,14 +248,6 @@ const Project1 = () => {
                                     rel="noreferrer"
                                 >
                                     View Live Site →
-                                </a>
-                                <a
-                                    className="btn btn--white"
-                                    href={FIGMA_URL}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    View Figma File
                                 </a>
                             </div>
                         </FadeUp>
@@ -743,14 +725,6 @@ const Project1 = () => {
                             rel="noreferrer"
                         >
                             View Live Site →
-                        </a>
-                        <a
-                            className="btn btn--white"
-                            href={FIGMA_URL}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            View Figma File
                         </a>
                         <button
                             className="btn btn--white"

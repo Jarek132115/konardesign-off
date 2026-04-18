@@ -11,7 +11,7 @@
   width: 100%;
   box-sizing: border-box;
 
-  padding: 28px 40px 18px;
+  padding: 18px 40px;
 
   background: var(--white);
   border-bottom: 1px solid rgba(15, 23, 42, 0.06);
@@ -269,7 +269,7 @@
 
 @media (max-width: 1200px) {
   .navbar {
-    padding: 24px 32px 16px;
+    padding: 16px 32px;
   }
 
   .navbar__inner {
@@ -308,7 +308,7 @@
 
 @media (max-width: 960px) {
   .navbar {
-    padding: 20px 24px 14px;
+    padding: 14px 24px;
   }
 
   .navbar__inner {
@@ -344,7 +344,7 @@
 
 @media (max-width: 640px) {
   .navbar {
-    padding: 18px 20px 12px;
+    padding: 12px 20px;
   }
 
   .navbar__inner {
@@ -386,7 +386,7 @@
 
 @media (max-width: 380px) {
   .navbar {
-    padding: 16px 16px 10px;
+    padding: 10px 16px;
   }
 
   .navbar__logo {
